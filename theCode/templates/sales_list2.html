@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+  {% block contenido %}
+    {% block cabeza %}
+    <h2>
+        <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>&nbsp;
+        <text>Orders de {{user.email}}</text>
+    </h2><hr>
+  
+    {% endblock %}
+    {% if object_list|length > 0 %} Total: {{ object_list.count }} {% endif %}
+    <div class="table-responsive">
+    <table class="table table-striped">
+    <thead>
+      <tr>
+        <th><b>See</b></th>
+        <th><b>User</b></th>
+        <th><b>Date</b></th>
+        <th><b>Pagado</b></th> 
+        <th><b>Estado</b></th>
+      </tr> 
+    </thead>
+    <tbody>
+    <tr>
+    {% for u in object_list %}
+        <td>
+          <a href="{% url 'detail_pedido' u.id %}">
+            <span class="glyphicon glyphicon-eye-open" aria-hidden="True"></span>
+          </a>
+        </td>
+        <td>
+         <a href="{% url 'detail_usuario' u.usuario.id %}">{{ u.usuario }}</a>
+        </td> 
+        <td>{{ u.sign_date }}</td> 
+        <td>{% if u.pagado %}
+              <span class="glyphicon glyphicon-ok" aria-hidden="True"></span>
+            {% else %}
+              <span class="glyphicon glyphicon-remove" aria-hidden="True"></span>
+            {% endif %}
+        </td> 
+        <td>
+          {{ u.get_estado_display }}
+        </td>
+        
+    </tr>    
+    </tbody>
+    {% empty %}
+        <b><mark>Actually no hay pedidos.</mark></b>
+    {% endfor %}
+</table> 
+{% if is_paginated %}
+   <center>
+          <nav>
+            <ul class="pagination pagination-sm">
+                {% if page_obj.has_previous %}
+                  <li>
+                  <a href="/listarOrders/?page={{ page_obj.previous_page_number }}"<span aria-label="Anterior" aria-hidden="true">&laquo;</span></a>
+                 {% else %}
+                    <li class="disabled">
+                      <a href="#" aria-label="Anterior"><span aria-hidden="true">&laquo;</span></a>
+                {% endif %}
+                </li>
+                <li><span class="page-current">
+                    Page  {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+                </span></li>
+                {% if page_obj.has_next %}
+                   <li>
+                    <a href="/listarOrders/?page={{ page_obj.next_page_number }}">&raquo;</a>
+                {% else %}
+                    <li class="disabled">
+                      <a href="#" aria-label="Siguiente"><span aria-hidden="true">&raquo;</span></a>
+                {% endif %}
+            </li> 
+            </ul>
+          </nav>
+  </center>       
+{% endif %}
+</div>
+<br>
+{% endblock %}
+{% block footer %} 
+  <li class="active">Listado de pedidos</li>
+{% endblock %}

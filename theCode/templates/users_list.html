@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% block contenido %}
+  {% if user.is_admin %}
+    {% block cabeza %}
+      <h2>
+              <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;
+              <text>Administración -  Listado de usuarios</text>
+      </h2>
+      <hr>
+    {% endblock %}
+        {% if object_list|length > 0 %} Total: {{ object_list.count }} 
+        {% endif %}
+          <div class="table-responsive">
+          <table class="table table-striped" id="tabla">
+          <thead>
+            <tr> 
+            <th><b>ID</b></th>
+            <th><b>Nombre</b></th>
+            <th><b>Apellidos</b></th>
+            <th><b>Email</b></th>
+            <th><b>Subscrito</b></th>
+            <th><b>Activo</b></th>
+            <th><b>Alta</b></th>
+            <th><b><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></b></th>
+            </tr> 
+          </thead>
+          <tbody>
+
+          <tr>
+        {% for u in object_list %}
+            <td>{{u.id }}</td> 
+            <td>{{ u.name }}</td> 
+            <td>{{ u.apellidos }}</td> 
+            <td>{{ u.email }}</td> 
+            <td>{% if u.subscrito %} 
+                  <span class="glyphicon glyphicon-ok" aria-hidden="True"></span>
+                {% else %}
+                  <span class="glyphicon glyphicon-remove" aria-hidden="True"></span>
+                {% endif %}
+            </td> 
+            <td>{% if u.is_active %}
+                   <span class="glyphicon glyphicon-ok" aria-hidden="True"></span>
+                {% else %}
+                  <span class="glyphicon glyphicon-remove" aria-hidden="True"></span> 
+                {% endif %}
+            </td>
+            <td>{% if u.sign_date == hoy %} Hoy {% else %} {{ u.sign_date }} {% endif %}</td>
+            <td>
+              <a href="{% url 'editar_usuario' u.id %}">
+              <span class="glyphicon glyphicon-pencil" aria-hidden="True">
+              </a>
+              </span>
+              <a href="{% url 'borrar_usuario' u.id %}">
+              <span class="glyphicon glyphicon-remove-sign" aria-hidden="True"></span>
+              </a>
+              <a href="{% url 'detail_usuario' u.id %}">
+                <span class="glyphicon glyphicon-eye-open" aria-hidden="True"></span>
+              </a>
+            </td>
+          </tr>    
+          </tbody>
+
+        {% empty %}
+            <b><mark>Actually no hay usuarios.</mark></b> <a href="{% url 'crear_usuario' %}">Cree uno.</a> <br>
+        {% endfor %}
+        </table> 
+        {% if is_paginated %}
+       
+              <center>
+                <nav>
+                <ul class="pagination pagination-sm">
+
+                    {% if page_obj.has_previous %}
+                      <li>
+                      <a href="/listarUsers/?page={{ page_obj.previous_page_number }}"<span aria-label="Anterior" aria-hidden="true">&laquo;</span></a>
+                     {% else %}
+                        <li class="disabled">
+                          <a href="#" aria-label="Anterior"><span aria-hidden="true">&laquo;</span></a>
+                    {% endif %}
+                    </li>
+                    <li><span class="page-current">
+                        Page  {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+                    </span></li>
+                    {% if page_obj.has_next %}
+                       <li>
+                        <a href="/listarUsers/?page={{ page_obj.next_page_number }}">&raquo;</a>
+                    {% else %}
+                        <li class="disabled">
+                          <a href="#" aria-label="Siguiente"><span aria-hidden="true">&raquo;</span></a>
+                    {% endif %}
+                </li> 
+                </ul>
+              </nav>
+              </center>
+      {% endif %}
+        </div>
+        <br>
+  {% else %}
+      <center> <code>No tiene permisos para ver este perfil.</code> </center>
+  {% endif %}
+{% endblock %}
+{% block footer %} 
+  <li class="active">Listado de usuarios</li>
+{% endblock %}

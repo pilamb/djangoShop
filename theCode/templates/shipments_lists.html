@@ -1,0 +1,77 @@
+  {% if user.is_admin  %}
+      {% if object_list4|length > 0 %} Total: {{ object_list4.count }} {% endif %}
+      <div class="table-responsive">
+      <table class="table table-striped">
+      <thead>
+      <tr> 
+        <th><b>See</b></th>
+        <th><b>ID</b></th>
+        <th><b>Number</b></th>
+        <th><b>Date</b></th>
+        <th><b>Received</b></th> 
+        <td><b>Price</b></td>
+        <td><b>Company</b></td>
+      </tr> 
+      </thead>
+      <tbody>
+      <tr>
+      {% for u in object_list4 %}
+          <td>
+            <a href="{% url 'detail_shipment' u.id %}">
+            <span class="glyphicon glyphicon-eye-open" aria-hidden="True"></span>
+            </a>
+          </td>
+          <td>{{ u.id }}</td> 
+          <td> {{u.numero}}</td>
+          <td>{{ u.sign_date }}</td> 
+          <td>{% if u.recibido %}
+                 <span class="glyphicon glyphicon-ok" aria-hidden="True"></span>
+                 {{u.fecha_recepcion}}
+                {% else %}
+                 <span class="glyphicon glyphicon-remove" aria-hidden="True"></span>
+                {% endif %}
+          </td>
+          <td>{{u.precio_shipment}} €</td>
+          <td>{{u.comp}}</td>
+      </tr>    
+      </tbody>
+      {% empty %}
+          <b><mark>Actually no hay shipments.</mark></b><br>
+      {% endfor %}
+      </table> 
+      {% if is_paginated %}
+      <center>
+            <nav>
+              <ul class="pagination pagination-sm">
+                  {% if page_obj.has_previous %}
+                    <li>
+                    <a href="/listarEnvios/?page={{ page_obj.previous_page_number }}"<span aria-label="Anterior" aria-hidden="true">&laquo;</span></a>
+                   {% else %}
+                      <li class="disabled">
+                        <a href="#" aria-label="Anterior"><span aria-hidden="true">&laquo;</span></a>
+                  {% endif %}
+                  </li>
+                  <li><span class="page-current">
+                      Page  {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+                  </span></li>
+                  {% if page_obj.has_next %}
+                     <li>
+                      <a href="/listarEnvios/?page={{ page_obj.next_page_number }}">&raquo;</a>
+                  {% else %}
+                      <li class="disabled">
+                        <a href="#" aria-label="Siguiente"><span aria-hidden="true">&raquo;</span></a>
+                  {% endif %}
+              </li> 
+              </ul>
+            </nav>
+        </center>       
+      {% endif %}
+      </div>
+      <br>
+    {% else %}
+       <h3> 
+        <center><code>Space forbiden for your user</code>
+        <a href="{% url 'index' %}">volver</a>.</center>
+       </h3>
+       <br><br>
+{% endif %}

@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block contenido %}
+  {% if user.is_authenticated %}
+  {% if user.is_admin or object.usuario.id = user.pk %}
+      <center>
+      <div class="panel panel-info">
+        <div class="panel-heading">
+           <h2>
+                <span class="glyphicon glyphicon-shopping-envelope" aria-hidden="true"></span>&nbsp;
+                <text>Notificación </text>
+              </h2>
+        </div>
+          <ul class="list-group">
+            {% if object.pedido%}
+              <li class="list-group-item"><b>Order</b> 
+               <br> <a href="{%url 'detail_pedido' object.pedido.id %}">{{object.pedido }}</a></li>
+             {%endif%}
+              <li class="list-group-item"><b>Date </b>
+                <br>{{ object.sign_date }}</li>
+              
+              {% if object.texto %}
+                <li class="list-group-item"><b>Información </b>
+                <br> {{object.texto}}</li>
+              {% endif %}
+          </ul>
+      </div>
+      <p><a href="{% url 'panel' %}">Volver</a></p>
+      </center>
+ {% else %}
+ <h3> 
+  <center><code>Space forbiden for your user</code>
+  <a href="{% url 'index' %}">volver</a>.</center>
+ </h3>
+ <br><br>
+{% endif %}
+{%endif%}
+{% endblock %}
+{% block footer %} 
+  <li class="active">Notificación</li>
+{% endblock %}

@@ -1,0 +1,47 @@
+<script>
+  function show(id) {
+    document.getElementById(id).style.display = "block";
+  }
+  function hide(id) {
+    document.getElementById(id).style.display = "none";
+  }
+</script>
+{% extends "base.html" %}
+{% block contenido %}
+  <h2>
+    <span class="glyphicon glyphicon-cd"  aria-hidden="true"></span>&nbsp;
+    <text>Event</text>
+  </h2><hr>
+  <h4>Sección sobre diferentes actividades que pueden ser de interés. </h4><br>
+  {% if object_list|length > 0 %} 
+    Total: {{ object_list.count }} <br>
+    <ul class="list-group" id="eve">
+    {% for u in object_list %}
+      {% if forloop.counter|divisibleby:2 %}
+        <li class="list-group-item"  onMouseOver="show('descr{{forloop.counter}}')" onMouseOut="hide('descr{{forloop.counter}}')">
+      {%else%}
+        <li class="list-group-item active"  onMouseOver="show('descr{{forloop.counter}}')" onMouseOut="hide('descr{{forloop.counter}}')">
+      {%endif%}
+        <span class="badge">Creado:
+          {% if hoy == u.fecha %}
+            <h6><b>¡Hoy!</h6></b> 
+          {%else%}
+            {{ u.fecha }}
+          {%endif%}
+        </span>
+        <h3><b>{{forloop.counter}}</b></h3>
+        <b>Título:</b> {{u.name}} <br>
+      {%if u.descripcion%}
+        <div id="descr{{forloop.counter}}" style="display: none;"><b>Descripción:</b> {{u.descripcion}}
+      {%endif%}
+      </li>
+    {%endfor%}
+  </ul>
+  <small> <code>Ayuda: </code>Pasa el ratón por encima para ver la descripción.</small>
+  {%else%} 
+    Ahora mismo no hay. 
+  {% endif %}
+{% endblock %}
+{% block footer %} 
+  <li class="active">Event</li>
+{% endblock %}

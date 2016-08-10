@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block contenido %}
+  {% if user.pk == usuario.id %}
+    {% block cabeza %}
+   <h2>
+      <span class="glyphicon glyphicon-lock"  aria-hidden="true"></span>&nbsp;
+      <text>Cambio de contraseña de <a href="{{ usuario.getabsoluteurl }}">{{usuario.email}}</a></text>
+    </h2><hr> 
+    {% endblock %}
+    <div class="text-danger" role="alert">
+   
+        {% if form.errors or form.non_field_errors %}
+            {% if form.errors|length == 1 or form.non_field_errors|length == 1 %} 
+            please, corrija el siguiente error:
+            {% else %} 
+            please, check the wronong fields:
+            {% endif %} 
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            {{ form.errors}} {{ form.non_field_errors }}
+        {% endif %}
+      </div>
+      <form method="post" action="">{%csrf_token%}
+          <table>
+              <div class="form-group">
+                <label for="password_uno" class="control-label">Nueva Contraseña</label>
+                {{form.password_uno}}
+              </div> 
+              <div class="form-group">
+                <label for="password_dos" class="control-label">Repita la contraseña</label>
+               {{form.password_dos}}
+              </div>
+              <small class="helptext">Ayuda: se admite cualquier tipo de símbolo.</small>
+          </table>
+           <br>
+        <p>
+           <button type="submit" value="Guardar" class="btn btn-info btn-md" id="idBotonEnviar">
+           <i class="glyphicon glyphicon-saved"></i> Enviar</button>
+          <button type="submit" value="Cancelar" class="btn btn-warning btn-md" id="BotonCancelar" name="cancel"> <i class="glyphicon glyphicon-ban-circle"></i> Cancelar</button>
+        </p>
+      </form>
+     
+   {% else %}
+      <center> <code>No tiene permisos para ver este perfil.</code> </center> <br>
+  {% endif %}
+{% endblock %}
+{% block footer %} 
+  <li class="active">change contraseña</li>
+{% endblock %}

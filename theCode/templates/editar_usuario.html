@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block contenido %}
+  {% if user.is_admin or user.pk == usuario.id %}
+    {% block cabeza %}
+   <h2>
+      <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>&nbsp;
+      <text>Editando: <a href="{{ usuario.getabsoluteurl }}">{{usuario.email}}</a></text>
+    </h2><hr> 
+    {% endblock %}
+     <div class="text-danger" role="alert">
+        {% if form.errors or form.non_field_errors %}
+            {% if form.errors|length == 1 or form.non_field_errors|length == 1 %} 
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            please, corrija el siguiente error:
+            {% else %} 
+            please, check the wronong fields:
+            {% endif %}
+            {{ form.non_field_errors }}
+        {% endif %}
+      </div>
+       <form class="form-horizontal" method="post" action="">{% csrf_token %}
+      {% for i in form %}
+        <div class="form-group">
+          <label for="{{i.label}}" class="col-sm-2 control-label">{{i.label}}</label>
+          <div class="col-sm-9">
+             {{i}}
+              {% if form.errors %}
+                  <div id="{{ i.auto_id }}_error" class="text-danger">
+                 {{ i.errors }}
+                  </div>
+
+              {% endif %}
+             {% if i.help_text %} <div class="helptext">{{i.help_text}}</div>{%endif%}
+             
+          </div>
+        </div>  
+        {% endfor%}
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-8">
+            <button role="button" type="submit" class="btn btn-info btn-md">
+              <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Guardar</button>
+            <a class="btn btn-warning btn-md" href="{% url 'index' %}" role="button" value="Cancelar" name="cancel">
+              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancelar
+              </a>
+          </div>
+        </div>
+      </form>
+      <span class="glyphicon glyphicon-lock"></span>&nbsp;
+      <a href="{% url 'change_password'  %}">Cambiar contraseña</a> <br>
+   {% else %}
+      <center> <code>No tiene permisos para ver este perfil.</code> </center> <br>
+  {% endif %}
+{% endblock %}
+
+{% block footer %} 
+  <li class="active">Editar usuario</li>
+{% endblock %}

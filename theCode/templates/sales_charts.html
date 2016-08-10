@@ -1,0 +1,61 @@
+
+{% extends "base.html" %}
+{% block contenido %}
+{% if user.is_superuser %} 
+       <script type="text/javascript"
+          src="https://www.google.com/jsapi?autoload={
+            'modules':[{
+              'name':'visualization',
+              'version':'1',
+              'packages':['corechart']
+            }]
+          }">
+    </script>
+
+    <script type="text/javascript">
+      google.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Año', 'Ventas', 'Gastos'],
+          ['2004',  1000,      400],
+          ['2005',  1170,      460],
+          ['2006',  660,       1120],
+          ['2007',  1030,      540]
+        ]);
+
+        var options = {
+          title: 'Ventas y Gastos',
+          curveType: 'function',
+          legend: { position: 'bottom' }
+        };
+
+        var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+        chart.draw(data, options);
+      }
+    </script>
+
+    <h2>
+        <span class="glyphicon glyphicon-stats" aria-hidden="true"></span>&nbsp;
+        <text>Gráfico</text>
+    </h2>
+    <hr>
+    <div id="curve_chart" style="width:100%; height:100%"></div>
+    <br>
+    <p>Bibliografía:</p>
+    <a href="https://google-developers.appspot.com/chart/interactive/docs/gallery/linechart#Examples"> Api google charts</a> <br>
+    <a href="https://github.com/agiliq/django-graphos">Django-graphos</a>
+  {% else %}
+       <h3> 
+        <center><code>Space forbiden for your user</code>
+        <a href="{% url 'index' %}">volver</a>.</center>
+       </h3>
+       <br><br>
+{% endif %}
+{% endblock %}<!--contenido-->
+{% block footer %} 
+<li class="active"><a href="{% url 'panel' %}">Panel</a></li>
+<li>Gráfico de sales</li>
+{% endblock %}
+

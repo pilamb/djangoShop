@@ -1,0 +1,101 @@
+  {% extends "base.html" %}
+{% load staticfiles %}
+{% block contenido %}
+    {% if user.is_authenticated %}
+        {% if user.is_superuser %} 
+          <h2>
+            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+            <text>Administración</text>
+          </h2>
+          <hr>
+      <div role="tabpanel">
+      <!-- pestañas del panel -->
+      <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#usuarios" aria-controls="usuarios" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Users</a></li>
+        <li role="presentation"><a href="#pedidos" aria-controls="pedidos" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Orders</a></li>
+        <li role="presentation"><a href="#eventos" aria-controls="eventos" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-cd"  aria-hidden="true"></span> Event</a></li>
+        <li role="presentation"><a href="#shipments" aria-controls="shipments" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-plane"  aria-hidden="true"></span> Envios</a></li>
+        <li role="presentation"><a href="#sales" aria-controls="sales" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-shopping-cart"  aria-hidden="true"></span> Ventas</a></li>
+      </ul>
+      <!--contenido de paneles -->
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane fade in active" id="usuarios">
+          {% include "listado_usuarios2.html" %}
+         
+        </div>
+        <div role="tabpanel" class="tab-pane fade" id="pedidos">
+           {% include "listado_pedidos.html" %}
+           
+        </div>
+        <div role="tabpanel" class="tab-pane fade" id="eventos">
+          <a href="{% url 'eventos' %}">See lista</a>
+        </div>
+        <div role="tabpanel" class="tab-pane fade" id="shipments">
+          {% include "listado_shipments.html" %}
+        </div>
+        <div role="tabpanel" class="tab-pane fade" id="sales">
+          {% include "listado_sales.html" %}
+          <a href="{% url 'grafico_sales' %}">Gráfico de sales</a>
+        </div>
+      </div>
+      <hr>
+      <p>Hay {% if nuevos = 0 %}<code>0</code> {%else%} {{nuevos}} {%endif%} <b>mensajes</b> nuevos.</p>
+      <p>Hay {% if n_admins = 0  %}<code>0</code> {%else%} {{n_admins}} {%endif%} <b>emails</b> de administradores pendientes de mensajes entrantes.</p>
+      <p>El sistema cuenta con {% if prods = 0  %}<code>0</code> {%else%} {{prods}}{%endif%} productos. 
+         <a href="{% url 'grafico_productos' %}">See popularidad.</a>  </p>
+    </div>
+       {% else %}<!--User no admin-->
+          <h2>
+           <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+            <text>Panel de {{user.email}} </text>
+          </h2>
+          <hr>
+          <p>¡ Bienvenido, {{user.get_name|capfirst}} !</p>
+         <div class="container-fluid">
+            <div class="row">
+            <div class="col-md-4">
+             <p><center>
+              <a class="btn btn-default btn-lg" href="{% url 'detail_usuario' user.id %}" role="button">
+                <span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span>
+              Cuenta
+              </a>
+               <p class="help-block"><small>Datos personales, change de password, baja1.</small></p>
+             </center></p>
+         
+            </div>
+            <div class="col-md-4">
+              <p> <center>
+              <a class="btn btn-default btn-lg" href="{% url 'pedidosUser' %}" role="button">
+                <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+              Orders
+              </a>
+              <p class="help-block"><small>Envíos, facturas, seguimiento de estado, etc.</small></p>
+             </center> </p>
+            </div>
+            <div class="col-md-4">
+                <p><center>
+                <a class="btn btn-default btn-lg" href="{% url 'messagees' user.id %}" role="button">
+                  <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+                 Notificaciones
+                {% if user.messagees > 0 %}<span class="badge">{{user.messagees}}{%endif%}</span></a>
+                 <p class="help-block"><small>Mensajes sobre cuenta, pedidos, subscripciones...</small></p>
+              </center></p>
+            </div>
+          </div>
+         </div>
+         <br>
+        <div class="container-fluid">    <p> Último acceso: {{user.last_login}}.</p></div>
+      {% endif %}
+      <br>
+      <hr>
+          <p>
+            <a href="{% url 'logout' %}"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> Cerrar sesión</a>
+          </p>         
+  {% else %}
+    Usted no está autenticado para visualizar este contenido. Dirígase a <a href="{% url 'login' %}">Login.</a><br>
+  {% endif %}
+{% endblock %}
+{% block footer %} 
+<li class="active">Panel de {% if user.is_superuser %} administración {% else %} {{user}} {% endif %}</li>
+{% endblock %}
+<script type="text/javascript" src="{%  static 'panel.js' %}"></script>

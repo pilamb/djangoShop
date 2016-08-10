@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block contenido %}
+  {% if user.is_admin  %}
+    {% block cabeza %}
+    <h3>Editar pedido: <a href="{{ pedido.getabsoluteurl }}">{{pedido.apellidos}}</a></h3>
+    {% endblock %}
+      {% if form.errors or form.non_field_errors %}
+      <div class="text-danger" role="alert">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+        {% if form.errors|length == 1 or form.non_field_errors|length == 1 %} 
+          please, corrija el siguiente error:
+          {% else %} 
+          please, check the wronong fields:
+        {% endif %}
+        {{ form.non_field_errors }}
+      </div>
+      {% endif %}
+       <form class="form-horizontal" method="post" action="">{% csrf_token %}
+      {% for i in form %}
+        <div class="form-group">
+          <label for="{{i.label}}" class="col-sm-2 control-label">{{i.label}}</label>
+          <div class="col-sm-7">
+             {{i}}
+              {% if form.errors %}
+                  <div id="{{ i.auto_id }}_error" class="text-danger">
+                 {{ i.errors }}
+                  </div>
+
+              {% endif %}
+             {% if i.help_text %} <div class="helptext">{{i.help_text}}</div>{%endif%}
+          </div>
+        </div>  
+        {% endfor%}
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-8">
+            <button role="button" type="submit" class="btn btn-info btn-md">
+              <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Guardar</button>
+            <a class="btn btn-warning btn-md" href="{% url 'index' %}" role="button" value="Cancelar" name="cancel">
+              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancelar
+              </a>
+          </div>
+        </div>
+      </form>
+      {% else %}
+         <h3> 
+          <center><code>Space forbiden for your user</code>
+          <a href="{% url 'index' %}">volver</a>.</center>
+         </h3>
+         <br><br>
+    {% endif %}
+{% endblock %}
+{% block footer %} 
+ <li class="active">Editar pedido</li>
+{% endblock %}

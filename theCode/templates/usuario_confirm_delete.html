@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block titulo %}
+	Baja User
+{% endblock %}
+{% block contenido %}
+  {% if user.is_authenticated %}
+    {% if user.is_admin or user.email == object.email %}
+     <h2>
+     <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+     <text>Borrar cuenta</text>
+     </h2><hr>
+      <form action="" method="post">{% csrf_token %}
+        <h3>
+        <code> 
+        <p>Si decides borrar tu cuenta, los datos, por seguridad e integridad, <b>no</b> se borrarán del sistema. Se marcarán como <b>inactivos</b>. Si algún día decides volver, debes  <a href="{% url 'contact' %}">contactar</a> con algún administrador para activar tu cuenta de nuevo.</p>
+        <p>¿Estás seguro de borrar la cuenta de usuario: "{{ object }}"?</p></code> </h3>
+        <center>
+          <input type="submit"  class="btn btn-default btn-md" value="Confirmar" />
+          <input type="submit" class="btn btn-default btn-md" value="Cancelar" name="cancel">
+        </center>
+        <br>
+        <br>
+      </form>
+    {% else %}
+       <h3> 
+        <center><code>Space forbiden for your user</code>
+        <a href="{% url 'index' %}">volver</a>.</center>
+       </h3>
+       <br><br>
+    {% endif %}
+  {% endif %}
+{% endblock %}
+{% block footer %} 
+<div class="container-fluid">
+  <li class="active">Borrar usuario</li>
+{% endblock %}

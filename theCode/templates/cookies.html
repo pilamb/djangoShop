@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block contenido %}
+    <h2>
+      <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>&nbsp;
+      <text>Política de cookies</text>
+    </h2><hr>
+
+    <div class="row">
+      <h4>Qué es y para qué sirve</h4>
+      <p>
+          Una cookie es un fichero de muy pequeño tamaño que se descarga en tu ordenador al acceder a determinadas páginas web. Las cookies permiten a una página web, entre otras cosas, almacenar y recuperar información sobre los hábitos de navegación de un usuario o de su equipo y, dependiendo de la información que contengan y de la forma en que utilice su equipo, pueden utilizarse para reconocer al usuario. <p/>
+      <p>
+          Las cookies que utilizamos sirven para mejorar los servicios que ofrecemos. Algunas son estrictamente necesarias para que la página funcione bien y otras sirven para mejorar el rendimiento y tu experiencia como usuario. </p>
+    </div><!--row-->
+
+    <div class="row">
+    <h4>Las cookies estrictamente necesarias sirven para</h4>
+       <ul>
+        <li>Recordar los artículos de tu lista de la compra. </li>
+        <li>Recordar en qué punto del pedido te encuentras.</li>
+       </ul> 
+       <h4>Las cookies funcionales sirven para</h4>
+      <ul>
+        <li>Recordar tus details de inicio de sesión.</li>
+        <li>Garantizar tu seguridad cuando inicias sesión.</li>
+        <li>Garantizar que el aspecto de la página web es coherente.</li>
+      </ul>
+      <h4>Las cookies de rendimiento sirven para</h4>
+      <ul>
+        <li>Mejorar el funcionamiento del sitio web reduciendo el tiempo que tardan en cargarse las páginas que visitas.</li>
+        <li>Mejorar la experiencia del usuario.</li>
+      </ul>
+      <h4>Otros tipos posibles o de terceros para</h4>
+      <ul>
+        <li>Que puedas compartir y hacer clic en "me gusta".</li>
+        <li>Enviar información a otros sitios web para personalizar su publicidad.</li>
+      </ul>
+    </div>
+    <div class="row">
+      <h4>Acerca de..</h4>
+      <p>Este documento ha sido realizado de conformidad con la legislación de la UE en materia de comunicación electrónica (Directiva 2009/136/CE del Parlamento Europeo y del Consejo de 25 de noviembre de 2009, por la que se modifica entre otras la Directiva 2002/58/CE relativa al tratamiento de los datos personales y a la protección de la intimidad en el sector de las comunicaciones electrónicas). Según la normativa vigente las empresas y organizaciones deben ofrecer a los visitantes de sus sitios web una información clara y completa sobre el uso de las cookies, en particular sobre los fines del tratamiento de los datos, con arreglo a lo dispuesto en la Directiva 95/46/CE, y deben obtener el consentimiento del usuario para la activación de la cookie.</p>
+      <p>Si deseas obtener más información sobre las cookies y la forma de eliminarlas o gestionarlas visita <a href="http://www.aboutcookies.org">http://www.aboutcookies.org</a>. </p>
+    </div>
+{% endblock %}
+{% block footer %} 
+  <li><a href="{% url 'info' %}">Info</a></li>
+  <li class="active">Cookies</li>
+{% endblock %}

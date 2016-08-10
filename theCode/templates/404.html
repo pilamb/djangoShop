@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block contenido %}
+  {% block cabeza %}
+  <center> <h3>¡ERROR! La página solicitada no existe</h3>
+    <span class="glyphicon glyphicon-sunglasses" aria-hidden="true"></span>..deal with it..<span class="glyphicon glyphicon-sunglasses" aria-hidden="true"></span>
+  </center>
+  {% endblock %}
+{% endblock %}
+
+{% block footer %} 
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-9 col-sm-7 col-md-9 col-lg-9"> 
+      <ol class="breadcrumb redondeo menos"><i class="fa fa-dot-circle-o fa-1"></i> 
+        <li>
+           <a href="{% url 'index' %}">Home </a>
+        </li>
+        <li class="active">Error 404!</li>
+      </ol>
+     </div>
+    <div class="col-xs-3 col-sm-5 col-md-3 col-lg-3 redondeo pull-right" align="right">
+      <a href="#top"><text class="hidden-xs">Subir</text></a><i class="fa fa-caret-square-o-up"></i>
+   </div> 
+  </div>
+</div>
+{% endblock %}

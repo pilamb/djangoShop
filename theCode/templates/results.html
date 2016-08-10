@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block contenido %}
+    <h2>
+      <span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;
+     {% if cadena %} <text>Resultado de búsqueda para: <u> {{cadena}}</u></text>
+     {%else%} <text>Búsqueda</text>
+     {%endif%}
+    </h2><hr>
+   <div class="container-fluid">
+       <div class="row">
+    {%if cadena %}
+        <h2>Resultados en productos</h2>
+        {% if acierto_productos  %}
+            <ul>
+            {% for i in acierto_productos %}
+              <li> {{i}}  / <a href="{% url 'detail_producto' i.id %}">Enlace</a> </li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <small>No products by that search</small>
+        {% endif %}
+        <h2>Resultados en eventos</h2>
+        {% if acierto_eventos %}
+            <ul>
+            {% for i in acierto_productos %}
+              <li> {{i}} en <a href="{% url 'eventos' %}">Events</a> </li>
+            {% empty %}
+              <code>No results.</code>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <small>No results!</small>      
+        {% endif %}
+    {%else%}
+      <div class="row helptext">/Cadena vacía: No se ha encontrado nada. Puede probar otra vez a buscar en <code>Products</code> y en <code>Event</code> desde aquí:</div>
+      {% include "search.html" %}
+    {%endif%}
+    </div>
+   </div>
+{% endblock %}
+{% block footer %} 
+  <li class="active">Results</li>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block contenido %}
+
+Se ha deslogeado del sistema, puede volver a entrar <a href="{% url 'login' %}">login</a>
+
+{% endblock %}
+<!--ou can also specify the name of the GET field which contains the URL to redirect to after login by passing redirect_field_name to the view. By default, the field is called next.
+
+Here’s a sample registration/login.html template you can use as a starting point. It assumes you have a base.html template that defines a content block:-->

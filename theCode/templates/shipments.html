@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block contenido %}
+{% load staticfiles %}
+<div class="row">
+     <h2>
+      <span class="glyphicon glyphicon-plane" aria-hidden="true"></span>&nbsp;
+      <text>Envios</text>
+    </h2><hr>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">España</h3>
+      </div>
+      <div class="panel-body">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi rerum, enim harum ratione quae in est dolorum repellat cupiditate ex, accusamus assumenda error magnam voluptatibus dolores itaque provident animi necessitatibus.
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">European Union</h3>
+      </div>
+      <div class="panel-body">
+        We send parcels anywhere as long as package is tracked. Small package is about 14€ and large one is about 20€.
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Worldwidely</h3>
+      </div>
+      <div class="panel-body">
+        We send parcels anywhere as long as package is tracked. Small package is about 14€ and large one is about 20€.
+      </div>
+    </div>
+    <p>Más información en <a href="{% url 'terms' %}">condiciones</a>, o en <a href="{% url 'ayuda' %}">ayuda</a>. Sino encuentras lo que buscas, siempre puedes <a href="{% url 'contact' %}">contactarnos</a>.</p>
+</div>
+{% endblock %}
+{% block footer %} 
+  <li><a href="{% url 'info' %}">Info</a></li>
+  <li class="active">Envios</li>
+{% endblock %}

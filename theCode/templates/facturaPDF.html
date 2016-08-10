@@ -1,0 +1,105 @@
+{% load staticfiles %}
+{% block contenido %}
+<html>
+<head>
+<style>
+    @page {
+        size: a4 portrait;
+        @frame header_frame {           /*cabecera*/
+            -pdf-frame-content: header_content;
+            left: 50pt; width: 512pt; top: 20pt; height: 90pt;
+        }
+        @frame content_frame {          /* contenido */
+            left: 50pt; width: 512pt; top: 90pt; height: 632pt;
+        }
+        @frame footer_frame {           /*pie*/
+            -pdf-frame-content: footer_content;
+            left: 50pt; width: 512pt; top: 772pt; height: 20pt;
+        }
+    }
+</style>
+</head>
+{% block extra_style %}
+    <!--style type="text/css">
+        @font-face { font-family: Lato; src: url(fonts/Lato-Reg.ttf); }
+        body {
+            
+            color: #333333;
+        }
+    </style-->
+{% endblock %}
+<body>
+    <!-- Content for Static Frame 'header_frame' -->
+    <div id="header_content">
+    	<img src="{% static "turanga.jpg" %}"/> {{hoy}} 
+    </div>
+    <!-- Content for Static Frame 'footer_frame' -->
+    <div id="footer_content">
+    	Turanga(c) - {{hoy}} - página:  <pdf:pagenumber>
+     / <pdf:pagecount>
+    </div>
+    <!-- contenido -->
+   <div id="content">
+        <div class="main">
+            <br><br><br>
+            <center><h1>Factura</h1> </center>
+            	<h2>User</h2>
+                	<b>User </b><br> {{usuario}}
+                	<br>
+                    <b>Nombre</b><br> {{usuario.get_name}}
+                    <br>
+                    <b>Apellidos</b> <br>{{usuario.get_apellidos}}
+                    <br>
+                    <b>Dirección</b><br> {{usuario.direccion}}
+                    <br>
+                <h2>Order</h2>
+                	<b>Date de pedido</b>
+                    <br>{{pedido.sign_date}}
+                	<br>
+                	<b>Pedal</b>
+                    <br> {{pedido.modulo}} {% if pedido.pintura %} <b>con pintura</b> {% endif %}
+                	<br>
+                	<b>Información adicional de compra</b>
+                    <br> {{pedido.informacion}}
+                	<br>
+            	<h2>Venta</h2>
+                {%if sale %}
+                	<b>Date de ingreso</b>
+                    <br> {{sale.sign_date}}
+                	<br>
+                	<b>Price</b> 
+                    <br>{{sale.precio}} <b>€</b>
+                	<br>
+                	<b>Código de ingreso</b>
+                    <br> {{sale.codigo}}
+                	<br>
+                {%else %}
+                    <p>Aún no hay una sale asociada a esta factura.</p>
+                {%endif%}
+            	<h2>Envío</h2>
+                {%if shipment%}
+                	<b>Number de seguimiento</b> 
+                    <br>{{shipment.numero}}
+                	<br>
+    				<b>Date del shipment</b> 
+                    <br>{{shipment.sign_date}}
+    				<br>
+    				<b>Price del shipment</b>
+                    <br>{{shipment.precio_shipment}}
+    				<br>
+    				<b>Company de transporte</b> 
+                    <br>{{shipment.comp}} 
+                	<br>
+                {%else %}
+                    <p>Aún no hay un envío asociado a esta factura.</p>
+                {%endif%}
+                <hr>
+                <h3><b>Price total</b>
+                <br>{{total}} €</h3> <br>
+                
+        </div>
+    </div>
+
+</body>
+</html>
+{% endblock %}

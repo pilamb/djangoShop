@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block contenido %}
+    <h2>
+      <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>&nbsp;
+      <text>Ayuda</text>
+    </h2><hr>
+
+    <div class="row">
+      <h4> AYUDA 1</h4>
+      <p>
+         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione voluptatem impedit suscipit autem et asperiores, consectetur, voluptas voluptates ex quo quas repellat ab doloremque. Est officia debitis, possimus vero quas?
+      </p>
+    </div><!--row-->
+
+    <div class="row">
+      <h4>Ayuda 2</h4>
+       <ul>
+        <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eius facere, molestiae inventore quas similique, saepe voluptates totam quod, corporis, aperiam fugit minus ipsa cupiditate commodi! Libero eaque enim nisi! </li>
+        <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque sequi, sint ipsam nobis dolore unde illum repudiandae! Eius maiores placeat voluptate, ullam quia ab facilis, itaque delectus possimus beatae optio!</li>
+       </ul> 
+    </div>
+    <div class="row">
+      <h4>Acerca de..</h4>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum necessitatibus earum commodi quaerat praesentium, dolores nobis rerum perferendis suscipit temporibus quam, exercitationem dicta nisi aliquid sapiente voluptatem eaque, nulla corporis?</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Natus, assumenda velit? Quisquam perspiciatis expedita nisi quam inventore excepturi sequi, natus distinctio nam ipsam voluptatum laborum id dicta ad adipisci obcaecati. </p>
+    </div>
+{% endblock %}
+{% block footer %} 
+  <li><a href="{% url 'info' %}">Info</a></li>
+  <li class="active">Ayuda</li>
+{% endblock %}

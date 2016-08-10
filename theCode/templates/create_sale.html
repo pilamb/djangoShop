@@ -1,0 +1,111 @@
+<script>
+function cambiaPrice(seleccionado) {
+  if (seleccionado.value=="Sin") {
+      document.getElementById('precioPintura').innerHTML="0";
+      document.getElementById('extra').innerHTML="Aluminio sin pintar.";
+      document.getElementById('cuadrado').style.visibility="hidden";
+  } else if (seleccionado.value=="Blanco") {
+      document.getElementById('precioPintura').innerHTML="15";
+      document.getElementById('extra').innerHTML="Blanco, referencia: #ffffff";
+      document.getElementById('cuadrado').style.visibility="visible";
+      document.getElementById('cuadrado').style.backgroundColor="#ffffff";
+  } else if (seleccionado.value=="Negro") {
+      document.getElementById('precioPintura').innerHTML="10";
+      document.getElementById('extra').innerHTML="Negro, referencia: #000000";
+      document.getElementById('cuadrado').style.visibility="visible";
+      document.getElementById('cuadrado').style.backgroundColor="#000000";
+  } else if (seleccionado.value=="Rojo") {
+      document.getElementById('precioPintura').innerHTML="10";
+      document.getElementById('extra').innerHTML="Rojo, referencia: #c8393b";
+      document.getElementById('cuadrado').style.visibility="visible";
+      document.getElementById('cuadrado').style.backgroundColor="#c8393b";
+  } else if (seleccionado.value=="Rosa") {
+      document.getElementById('precioPintura').innerHTML="10";
+      document.getElementById('extra').innerHTML="Rosa, referencia: #e85b99";
+      document.getElementById('cuadrado').style.visibility="visible";
+      document.getElementById('cuadrado').style.backgroundColor="#e85b99";
+  } else {
+    document.getElementById('precioPintura').innerHTML="10";
+    document.getElementById('extra').innerHTML="Azul, referencia: #00B4BC";
+    document.getElementById('cuadrado').style.visibility="visible";
+    document.getElementById('cuadrado').style.backgroundColor="#00B4BC";
+  }
+}
+</script>
+{% extends "base.html" %}
+{% block titulo %}TURANGA{% endblock %}
+{% block contenido %}
+
+        <h2>
+          <span class="glyphicon glyphicon-credit-card" aria-hidden="true"></span>&nbsp;
+          <text>Nuevo pedido</text>
+        </h2><hr>
+      {% if form.errors or form.non_field_errors %}
+        <div class="text-danger" role="alert">
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>  
+        {% if form.errors|length == 1 or form.non_field_errors|length == 1 %} 
+            please, corrija el siguiente error:
+            {% else %} 
+            please, check the wronong fields:
+            {% endif %}
+            {{ form.errors}} {{ form.non_field_errors }}
+        </div>
+          {% endif %}
+            {% if not form.modulo.en_sale %}
+          <form method="post" action="{% url "crear_pedido2" pk %}" class="form-group">{% csrf_token %}
+            <div class="row">
+              <div class="col-lg-6 col-md-6">
+                {% if form.modulo %}
+                  <label for="modulo"><b>Módulo</b></label>
+                  <div class="radio">
+                  {{form.modulo}}
+                  </div>
+                {% endif %}
+                 {% if form.color %}
+                  <div class="form-group">
+                  <label for="color"><b>Pintura</b></label> <br>
+                  {{form.color}}
+                  <div class="helptext"><p>Todos los colores son MATE. Se aplica también una capa de barnizado. Este proceso lleva varios días más.</p>
+                  </div>
+                  </div>
+                {% endif %}
+                  <div class="form-group">
+              <h5>Extra:
+                <span id="precioPintura">0</span>€  
+              </h5> <span id="extra"></span>
+              <div id="cuadrado" class="redondeo"></div>
+            </div> 
+              </div>
+              <div class="col-lg-6 col-md-6">
+                <div class="form-group">
+                {{form.texto}}
+              </div>
+              </div>
+            </div>
+            <div class="form-group">
+                    {{form.captcha}}
+                  </div>
+              <br>
+              <div class="helptext">
+                <ul>
+                <li>Se creará tu pedido en la base de datos y te proporcionaremos un <code>código</code> e instrucciones 
+                  para realizar un ingreso vía Paypal en <code>72h.</code>, sino el anuncio volverá a estar a la sale.</li>
+                <li>Si todo va bien, el pedido se aceptará y comenzará el proceso. Te iremos informando de cada estado que pase el pedido.  </li>
+                <li>Al final, cuando lo recibas, podrás consultar datos sobre el envío, facturación, etc.</li>
+                <li>Cada change de estado contará con nuna notificación en tu bandeja de messagees para que puedas hacer un seguimiento puntual. </li>
+                </ul>
+             </div>
+              <hr>
+              <div class="form-group"><!--Botones-->
+                <button type="submit" value="Guardar" class="btn btn-info btn-md" id="idBotonEnviar">
+                <i class="glyphicon glyphicon-saved"></i> Enviar</button>
+                <button type="submit" value="Cancelar" class="btn btn-warning btn-md" id="BotonCancelar" name="cancel"> <i class="glyphicon glyphicon-ban-circle"></i> Cancelar</button>
+              </div>
+          </form>
+        {%else%}
+        <code>Actually there are not productos for sale</code>
+        {% endif %}
+{% endblock %}
+{% block footer %} 
+   <li class="active">Crear pedido</li>
+{% endblock %}

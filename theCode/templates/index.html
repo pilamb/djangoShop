@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block ParaHome %}
+   <section id="slide" class="carousel slide"> <!--carrusel-->
+           <ol class="carousel-indicators">
+             <li data-target="#slide" data-slide-to="0" class="active"></li>
+             <li data-target="#slide" data-slide-to="1"></li>
+             <li data-target="#slide" data-slide-to="2"></li>
+             <li data-target="#slide" data-slide-to="3"></li>
+           </ol>
+            <div class="carousel-inner">
+              <div class="item active">
+                <img src="{% static "plantilla371x950prueba.jpg" %}" class="adaptar">
+              </div>
+              <div class="item">
+                <img src="{% static "plantilla371x950prueba2rombo.jpg" %}"  class="adaptar">
+              </div>
+              <div class="item">
+                <img src="{% static "plantilla371x950prueba3.jpg" %}"  class="adaptar">
+              </div>
+               <div class="item">
+                <img src="{% static "plantilla371x950prueba4.jpg" %}"  class="adaptar">
+              </div>
+            </div>
+            <a href="#slide" class="left carousel-control" data-slide="prev"> <span class="glyphicon glyphicon-chevron-left"></span></a>
+            <a href="#slide" class="right carousel-control" data-slide="next"> <span class="glyphicon glyphicon-chevron-right"></span></a>
+   </section>
+  <br>
+    <section>
+      <div class="row">
+            <div class="col-lg-4">
+              <div class="row">
+                <div class="hidden-xs col-sm-3 col-md-5 col-lg-5">
+                    <img src="{% static "caja.jpg" %}" class="img-responsive" alt="imagen1">
+                    <img src="{% static "hex.jpg" %}" class="img-responsive" alt="imagen3">
+                </div>
+                <div class="col-xs-12 col-sm-9 col-md-7 col-lg-7">
+                  <h5><b>Aluminio Cromado</b></h5><hr>
+                    <p align="justify">
+                      <small>Utilizamos cajas de aluminio cromado como material resistente y duradero para los pedales. Taladramos según el esquema elegido, pintamos y barnizamos. </small>
+                    </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="row">
+                <div class="hidden-xs col-sm-3 col-md-5 col-lg-5"><br><br>
+                  <img src="{% static "Knobtranspa.png" %}" class="img-responsive" alt="imagen2">
+                   </div>
+                <div class="col-xs-12 col-sm-9 col-md-7 col-lg-7">
+                  <h5><b>Diferentes disposiciones</b></h5><hr>
+                    <p align="justify">
+                      <small>No sólo en la caja, sino que los controles van adaptados a las necesidades de cada situación particular, o de cada persona. También personalizamos colores y diseños.</small></p>
+                    </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="row">
+                <div class="hidden-xs col-sm-3 col-md-5 col-lg-5"><br><br>
+                     <img src="{% static "knob150.jpg" %}" class="img-responsive" alt="imagen2">
+                </div>
+                <div class="col-xs-12 col-sm-9 col-md-7 col-lg-7">
+                  <h5><b>Componentes de Calidad</b></h5><hr> 
+                    <p align="justify">
+                      <small>Contamos con proveedores de confianza donde escogemos componentes de primera. De esta manera podemos ofrecer un tiempo de garantía en nuestros productos.</small><br>
+                    </p>                
+                </div>
+              </div>
+            </div>
+      </div>
+      <br>
+    </section><!--carrusel-->
+    <section>
+          <div class="row">
+            <div class="col-xs-12 -col-sm-12 col-md-6 col-lg-6">
+                  <h3 > GUITARRA <small> Probando algunos pedales: </small></h3><hr>
+                  <iframe width="100%" height="400" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/users/4014261&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_artwork=true"></iframe>
+            </div>
+            <div class="col-xs-12 -col-sm-12 col-md-6 col-lg-6">
+                  <h3 > DUB  <small> Sirenas Dub-O-One: </small></h3><hr>
+                  <iframe width="100%" height="400" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/users/4285364&amp;color=ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_artwork=true"></iframe>
+            </div>
+          </div><!-- SOUNDCLOUD-->
+    </section><!-- SOUNDCLOUD-->
+  <hr>
+  <br>
+    <div class="container-fluid">
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 pull-left" >
+              <h2>Circuitería</h2><hr>
+              <p class="lead"> Contamos con amplia experiencia en el proceso de soldado y circuitería. Nuestros trabajos están hechos a mano y testeados, sin errores. Además ofrecemos 1 año de garantía.</p>
+           </div>
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 ">
+            <br><br> <br><img src="{% static 'IMAGE_323.jpg' %}" style="width: 280px; height: 280px;" alt="imagen_circulo" class="img-circle img-responsive center-block">
+          </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 pull-left">
+            <img src="{% static "Echo-cortado.jpg" %}" style="width: 280px; height: 280px;" alt="Echo-cortado" class="img-circle img-responsive center-block">
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">  
+            <br><br>
+            <h2>Acabados de Calidad</h2><hr>
+          <p class="lead">El diseño es una parte importante en un módulo de efectos. Personal y único.  </p>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 pull-left" >
+              <h2>Diferentes necesidades</h2><hr>
+              <p class="lead">Cada módulo está proyectado para un usuario particular.</p>
+           </div>
+          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 ">
+            <br><br> <br><img src="{% static "IMAGE_408.jpg" %}" style="width: 280px; height: 280px;" alt="imagen_circulo" class="img-circle img-responsive center-block">
+          </div>
+      </div>
+    </div>
+  <br><br>
+{% endblock %}
+{% block contenido %}
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% block contenido %}
+{% if user.is_admin or user.pk = usuario.id %}
+      <center>
+        <div class="panel panel-info">
+        <div class="panel-heading">
+          <h3><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Detalles de <a href="{{ usuario.getabsoluteurl }}">{{usuario.email}}</a></h3>
+        </div>
+        {% if not object.is_active %} <h1>CUENTA BORRADA</h1> {% endif %}
+            <ul class="list-group">
+                <li class="list-group-item"><b>Nombre:</b> {{object.name|capfirst }}</li>
+                <li class="list-group-item"><b>Apellidos:</b> {{ usuario.apellidos|capfirst }}</li>
+                
+                <li class="list-group-item"><b>E-mail:</b> {{ usuario.email }}</li>
+                <li class="list-group-item"><b>Suscrito:</b> {% if u.suscrito %} 
+                      <span class="glyphicon glyphicon-ok" aria-hidden="True"></span>
+                    {% else %}
+                      <span class="glyphicon glyphicon-remove" aria-hidden="True"></span>
+                    {% endif %}</li>
+                <li class="list-group-item"><b>Dirección:</b>{% if usuario.direccion %} {{usuario.direccion}} {%else%} No ha sido proporcionada. {%endif%}</li>
+                 <li class="list-group-item"><b>Teléfono:</b>{% if usuario.telefono %} {{usuario.telefono}} {%else%} No ha sido proporcionado. {%endif%}</li>
+                <li class="list-group-item"><b>Último acceso:</b> {{usuario.last_login}} </li>
+                <li class="list-group-item"><b>Miembro desde:</b> {{usuario.sign_date}} </li>
+                <li class="list-group-item"><b>Orders:</b> <br>
+                    {% if pedidos %} 
+                      Total: {{pedidos.count}}. <br>
+                      <ul>
+                      {% for i in pedidos %}
+                        <li> {{forloop.counter}}
+                        Date: {{ i.sign_date }}<br> 
+                        Pagado:
+                        {% if i.pagado %}
+                            <span class="glyphicon glyphicon-ok" aria-hidden="True"></span>
+                        {% else %}
+                            <span class="glyphicon glyphicon-remove" aria-hidden="True"></span>
+                        {% endif %}<br>
+                        Estado: {{i.get_estado_display }} <br>
+                         <br>
+                       </li>
+                      {% endfor %}
+                      </ul>
+                    {%else%}
+                     No ha realizado ningún pedido. 
+                    {%endif%}  
+                </li>
+          </ul>
+          <div class="panel-footer">
+            <a class="btn btn-info btn-md" href="{% url 'editar_usuario' usuario.id %}"><span class="glyphicon glyphicon-pencil" aria-hidden="True"></span> Editar 
+            
+            </a> 
+            <a class="btn btn-danger btn-md" href="{% url 'borrar_usuario' usuario.id %}" role="button"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Borrar 
+            </a>
+          </div>
+          <div class="panel-footer">
+            <span class="glyphicon glyphicon-lock"></span>&nbsp;
+            <a href="{% url 'change_password' %}">Cambiar contraseña</a> <br>
+          </div>
+        </div>
+        </center>
+    {% else %}
+   <h3> 
+    <center><code>Space forbiden for your user</code>
+    <a href="{% url 'index' %}">volver</a>.</center>
+   </h3>
+   <br><br>
+{% endif %}
+{% endblock %}
+{% block footer %} 
+  <li class="active">Detalles de {{usuario.email}}</li>
+{% endblock %}

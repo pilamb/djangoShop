@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block contenido %}
+      <center>
+        <div class="panel panel-info">
+        <div class="panel-heading">
+          <h3><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Detalles de <a href="{{ object.getabsoluteurl }}">{{object.name}}</a></h3>
+        </div>
+        <ul class="list-group">
+                <li class="list-group-item"><b>Nombre:</b> {{object.name|capfirst }}</li>
+                <li class="list-group-item"><b>Disponible desde:</b> {{ object.sign_date|date }}</li>
+                <li class="list-group-item"><b>Tipo:</b> {{ object.tipo }}</a></li>
+                <li class="list-group-item"><b>Disponible:</b> {% if u.en_sale %} 
+                      <span class="glyphicon glyphicon-ok" aria-hidden="True"></span>
+                    {% else %}
+                      <span class="glyphicon glyphicon-remove" aria-hidden="True"></span>
+                    {% endif %}</li>
+                <li class="list-group-item"><b>Información:</b>{% if object.informacion %} {{object.informacion|linebreaks}} {%else%} No ha sido proporcionada. {%endif%}</li>
+                {% if object.url_sample %}
+                  <li class="list-group-item">
+                  <b>Sample de sonido:</b>
+                  <a href="{{object.url_sample}}" target=_blank>Audio
+                    <span class="glyphicon glyphicon-headphones" aria-hidden="True"></span></a>
+                  </li>
+                {%endif%}
+                <li class="list-group-item"><b>Price:</b>{{object.precio}} € </li>
+                {% if object.foto %}
+                  <li class="list-group-item">
+                     <a href="{{object.foto.url}}" target=_blank>
+                      <div class="thumbnail"> <img src="{{object.foto.url}}">
+                      </div>
+                    </a>
+                  </li>
+                {% endif %}
+        </ul>
+          {% if object.en_sale %} 
+            <div class="panel-footer">
+              <a href="{% url 'crear_pedido2' object.id %}" class="btn btn-lg btn-success" role="button">
+              <span class="glyphicon glyphicon-copy"></span> Hacer pedido
+              </a>            
+            </div>
+          {% endif %}
+        </div>
+        </center>
+{% endblock %}
+{% block footer %} 
+       <li><a href="{% url 'productos' %}">Products</a></li>
+        <li class="active">{{object.name}}</li>
+{% endblock %}
+ 
+     

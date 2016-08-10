@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block contenido %}
+  {% if user.is_authenticated %}
+    <center>
+    <div class="panel panel-info">
+      <div class="panel-heading">
+         <h2>
+              <span class="glyphicon glyphicon-plane" aria-hidden="true"></span>&nbsp;
+              <text>Detalle de shipment<a href="{{ shipment.getabsoluteurl }}">{{shipment.id}}</a></text>
+         </h2>
+      </div>
+       <ul class="list-group">
+            <li class="list-group-item"><b>Order:</b><a href="{% url 'detail_pedido' shipment.pedido.id %}"> {{shipment.pedido }}</a></li>
+            <li class="list-group-item"><b>Date de salida: </b>{{ shipment.sign_date }}</li>
+            <li class="list-group-item"><b>Number de seguimiento:</b>{{shipment.numero}}</li>
+            {% if shipment.informacion_adicional %}
+            <li class="list-group-item"><b>Información extra: </b> {{shipment.informacion_adicional}}</li>
+            {% endif %}
+            <li class="list-group-item"><b>Price del shipment: </b>
+            {{shipment.precio_shipment}}
+            </li>
+            <li class="list-group-item"><b>Entregado: </b>
+               {% if shipment.recibido %}
+                <span class="glyphicon glyphicon-ok" aria-hidden="True"></span>
+                {{shipment.fecha_entrega}}
+              {% else %}               
+                <span class="glyphicon glyphicon-remove" aria-hidden="True"></span>
+              {% endif %}
+            </li>
+            <li class="list-group-item"><b>Company de reparto:</b>
+              {{shipment.comp}}
+            </li>
+            <li class="list-group-item"><b>Enlace para seguimiento:</b>
+              {{shipment.url_comp}}
+            </li>
+        </ul>
+  </div>
+  </center>
+  <br>
+  <br>
+  {% endif %}
+{% endblock %}
+{% block footer %} 
+  <li class="active">Detalle de shipment</li>
+{% endblock %}

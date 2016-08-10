@@ -1,0 +1,322 @@
+@CHARSET "UTF-8";
+
+html,
+button,
+input,
+select,
+textarea {
+    color: #222;
+}
+body {
+   overflow: auto;
+   padding-bottom: 5px;
+   line-height: 1.5;
+
+}
+
+html {
+    font-size: 1em;
+    line-height: 1.4;
+}
+#iconos 
+{
+height:39px;width:50px;
+}
+::-moz-selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+
+a:selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+audio,
+canvas,
+img,
+video {
+    vertical-align: middle;
+}
+
+fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+} 
+.navbar-nav{
+font-family: 'Ubuntu Condensed', sans-serif;
+}
+/*FIX PARA EL DROPDOWN INVERSE mas o menos arreglado falta el borde, mola aun asi*/
+.navbar-inverse .navbar-nav .open .dropdown-menu > .dropdown-header {
+    border-color: #101010 !important;
+}
+.navbar-inverse .navbar-nav .open .dropdown-menu .divider {
+    
+    border-color: #101010 !important;
+}
+.navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
+
+    color: #777 !important;
+    background-color: #222 !important;
+    border-color: #101010 !important;
+}
+/*.dropdown-toggle:active, .open .dropdown-toggle {background:#FFF !important; color:#000 !important;}*/
+.dropdown-menu { background-color: #ffffff}
+.dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus { background-color: #428bca  !important}
+.navbar-inverse { background-image: none; }
+.dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus { background-image: none;   !important}
+
+.dropdown-menu>li>a { color: #333333}
+.dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus { color: #ffffff  !important}
+.navbar-inverse .navbar-nav>.dropdown>a .caret { border-top-color: #999999  !important}
+.navbar-inverse .navbar-nav>.dropdown>a:hover .caret { border-top-color: #ffffff  !important}
+.navbar-inverse .navbar-nav>.dropdown>a .caret { border-bottom-color: #999999  !important}
+.navbar-inverse .navbar-nav>.dropdown>a:hover .caret { border-bottom-color: #ffffff  !important}
+
+textarea {
+    resize: vertical;
+}
+
+.browsehappy {
+    margin: 0.2em 0;
+    background: #ccc;
+    color: #000;
+    padding: 0.2em 0;
+}
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+
+header{
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: white;
+    font-family: 'Englebert', sans-serif;
+    font-size:35px;
+}
+.pie {
+    padding-top: 40px;
+    bottom:0;
+    
+}
+.escala:hover {
+  -webkit-transform: scale(1.1);
+  -moz-transform:scale(1.2);
+}
+.centrar{
+    padding-top: 23px;
+    padding-left: 200px;
+}
+
+.alinear{
+    padding-top: 10px;
+
+
+}
+#cuadrado {
+    height: 50px;
+    width: 50px;
+    visibility: hidden;
+}
+
+
+.adaptar{
+    width: 100%;
+}
+.blanco{
+    color:grey;
+    font-size: 12px;
+    
+
+}
+.redondeo{
+    border:1px solid #a1a1a1; ;
+    border-radius:10px;
+}
+.menos{
+    height: 25px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+
+.helptext{
+    color:grey;
+    font-size:11px;
+}
+label{
+    font-weight: 100 !important;
+}
+#minicono:hover { /*tamaño de los iconos del footer, cambia cuando pasa el ratón encima*/
+-webkit-transform:scale(1.1); 
+-moz-transform:scale(1.1); 
+-o-transform:scale(1.1); 
+            }
+#minicono {
+-webkit-transform:scale(0.8);
+/* para cada tipo de navegador: */
+-moz-transform:scale(0.8);
+-o-transform:scale(0.8); 
+-webkit-transition-duration: 0.5s; 
+-moz-transition-duration: 0.5s;
+-o-transition-duration: 0.5s;
+            }           
+/* ==========================================================================
+   Media Queries
+   ========================================================================== */
+
+@media (max-width: 768px){
+  /*para que no colapse el pie del footer en xs */
+  .menor {
+    font-size: 12px !important;
+    }  
+
+}
+
+@media print,
+       (-o-min-device-pixel-ratio: 5/4),
+       (-webkit-min-device-pixel-ratio: 1.25),
+       (min-resolution: 120dpi) {
+
+}
+
+/* ==========================================================================
+   Helper classes
+   ========================================================================== */
+
+.ir {
+    background-color: transparent;
+    border: 0;
+    overflow: hidden;
+    *text-indent: -9999px;
+}
+
+.ir:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 150%;
+}
+
+.hidden {
+    display: none !important;
+    visibility: hidden;
+}
+
+.visuallyhidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+.visuallyhidden.focusable:active,
+.visuallyhidden.focusable:focus {
+    clip: auto;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    position: static;
+    width: auto;
+}
+
+.invisible {
+    visibility: hidden;
+}
+
+.clearfix:before,
+.clearfix:after {
+    content: " ";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.clearfix {
+    *zoom: 1;
+}
+
+/* ==========================================================================
+   Print styles
+   ========================================================================== */
+
+@media print {
+    * {
+        background: transparent !important;
+        color: #000 !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    a,
+    a:visited {
+        text-decoration: underline;
+    }
+
+    a[href]:after {
+        content: " (" attr(href) ")";
+    }
+
+    abbr[title]:after {
+        content: " (" attr(title) ")";
+    }
+
+    .ir a:after,
+    a[href^="javascript:"]:after,
+    a[href^="#"]:after {
+        content: "";
+    }
+
+    pre,
+    blockquote {
+        border: 1px solid #999;
+        page-break-inside: avoid;
+    }
+
+    thead {
+        display: table-header-group;
+    }
+
+    tr,
+    img {
+        page-break-inside: avoid;
+    }
+
+    img {
+        max-width: 100% !important;
+    }
+
+    @page {
+        margin: 0.5cm;
+    }
+
+    p,
+    h2,
+    h3 {
+        orphans: 3;
+        widows: 3;
+    }
+
+    h2,
+    h3 {
+        page-break-after: avoid;
+    }
+}
