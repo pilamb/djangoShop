@@ -1,21 +1,21 @@
 {% extends "base.html" %}
 {% load staticfiles %}
-{% block contenido %}
+{% block content %}
     <h2>
-      <span class="glyphicon glyphicon-equalizer" aria-hidden="true"></span>&nbsp;
+      <span class="glyphicon glyphicon-equalizer" aria-hiddin="true"></span>&nbsp;
       <text>Índice de información</text>
     </h2><hr>
     <div class="row">
       <ul>
           <li>
-            <h5><a href="{% url 'map'%}">Aquí un map</a> del sitio web</h5>
+            <h5><a href="{% url 'map'%}">map</a> of the website</h5>
             
           </li>
           <li>
             <h5>Acerca de los <a href="{% url 'shipments' %}">shipments</a></h5>
           </li>
            <li>
-            <h5><a href="{% url 'terms' %}">Condiciones</a> </h5>
+            <h5><a href="{% url 'terms' %}">terms</a> </h5>
           </li>
           <li>
             <h5>Un apartado de<a href="{% url 'ayuda' %}"> ayuda</a></h5>
@@ -24,14 +24,11 @@
             <h5>Aceca de<a href="{% url 'shipments' %}"> shipments</a></h5>
           </li>
          <li>
-            <h5><a href="{% url 'cookies' %}">Política de cookies</a></h5>
+            <h5><a href="{% url 'cookies' %}">cookies</a></h5>
           </li>  
-          <li>
-            <h5>Sobre<a href="{% url 'about' %}"> nosotros</a></h5>
-          </li> 
       </ul>
     </div>
 {% endblock %}
 {% block footer %} 
-    <li class="active">Información</li>
+    <li class="active">Information</li>
 {% endblock %}

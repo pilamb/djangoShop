@@ -1,72 +1,64 @@
 {% extends "base.html" %}
 {% load staticfiles %}
-{% block contenido %}
+{% block content %}
     <h2>
-      <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>&nbsp;
-      <text>Condiciones</text>
+      <span class="glyphicon glyphicon-exclamation-sign" aria-hiddin="true"></span>&nbsp;
+      <text>terms</text>
     </h2><hr>
     <div class="row">
-      <h4> <span class="glyphicon glyphicon-user"></span>&nbsp; Cuentas de usuario</h4>
+      <h4> <span class="glyphicon glyphicon-user"></span>&nbsp; Cuintas user</h4>
       <p>
-          Si creas una cuenta, tus datos están protegidos en nuestro sistema y no tenemos acceso 
-          más que a los datos relativos al pedido, pero no tenemos acceso a la clave. 
+          Si creas una account, tus datos están protegidos in nuestro sistema y no tinemos access 
+          más que a los datos relativos al order, pero no tinemos access a la clave. 
       </p>
-      <ul>
-        <li>La clave está cifrada con algoritmo pbkdf2_sha256 y 12.000 iteraciones. </li>
-        <li>Exclusivamente el dueño de la cuenta tiene acceso a su contraseña.</li>
-        <li>Un administrador <code>no</code>puede recuperar tu contraseña, solo crear una nueva. </li>
-        <li>Es responsabilidad del usuario proporcionar datos correctos, en caso de que se produzca un shipment.</li>
-        <li>Los administradores se reservan el derecho de bloquear una cuenta creada con fines publicitarios, que esté en desuso por un periodo largo, sus datos sean falsos, o cuya actividad pudiera ser considerada ilegal. </li>
-        <li>Los administradores <b>nunca</b> te pedirán tu contraseña.</li>
-        <li>Si decides <b>borrar</b> tu cuenta, los datos, por seguridad e integridad, no se borrarán. Se marcarán como inactivos, pero no podrás volver a iniciar sesión. Si algún día decides volver, debes  <a href="{% url 'contact' %}">contactar</a> con algún administrador para activar tu cuenta de nuevo.</li>
-      </ul>
-      <ul>Puedes crear una cuenta <a href="{% url 'crear_usuario' %}">aquí</a>.</ul> 
+      <ul>You can create an account <a href="{% url 'user_create' %}">aquí</a>.</ul> 
     </div><!--row-->
 
     <div class="row">
       <h4><span class="glyphicon glyphicon-th"></span>&nbsp;Orders</h4>
       <p>
-          Si aceptamos un pedido, nos comprometemos a llevarlo a cabo o devolver el dinero.
+          Si aceptamos un order, nos comprometemos a llevarlo a cabo o deReturn el dinero.
       </p>
       <ul>
-        <li>Los pedidos tienen <b>un año de garantía</b> desde que se marquen como entregados.</li>
-        <li>Solo se aceptan con garantía aquellos desperfectos que no hayan sido provocados o no sean culpa del montaje. No se aceptarán en ningún caso desperfectos provenientes de mal uso.</li>
-        <li>La garantía incluye las piezas, y la mano de obra pero <code>no</code> los shipments necesarios.</li>
-        <li>Junto con el módulo se entregará un pequeño manual técnico.</li>
-        <li>Los pedales de efectos son enviados tras ser probados <b>exhaustivamente</b> con multímetro, osciloscopio, montaje de sonido, etc y de haber realizado una batería de pruebas para garantizar su perfecto funcionamiento.</li>
-        <li>Si hubiera algún tipo de desacuerdo, y no se ha utilizado el producto, ni se ha dañado, siempre se puede llegar a realizar una devolución del dinero.</li>
-        <li>Los administradores se reservan el derecho de borrar un pedido creado con fines publicitarios, que no esté al corriente de pago por un periodo largo, sus datos sean falsos, o cuya actividad pudiera ser considerada ilegal.</li>
-        <li>Para realizar un pedido y su pago, es obligatorio tener al menos 18 años. </li>
+        <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+        proident, sunt in culpa qui officia deserunt mollit anim id est laborum. 
+        </li>
       </ul>
     </div><!--row-->
     <div class="row">
       <h4><span class="glyphicon glyphicon-credit-card"></span>&nbsp;Pagos</h4>
       <p>
-          Si aceptamos un pedido, nos comprometemos a llevarlo a cabo, parte que también acepta la persona que realiza dicho pedido.
+          Si aceptamos un order, nos comprometemos a llevarlo a cabo, parte que también acepta la persona que realiza dicho order.
       </p>
       <ul>
-        <li>Solo se acepta de momento Paypal como método de pago. Es fundamental <b>no</b> elegir "regalo" como opción de transferencia, sino que debe ser como "producto" y con un <b>código especial</b> como concepto que se te proporcionará al aceptar el pedido. En cualquier otro caso, la transferencia será devuelta.</li>
-        <li>Los pedidos tienen un año de garantía desde que se marca como entregado.</li>
-        <li>Junto con el módulo se entregará un pequeño manual técnico.</li>
-        <li>El usuario, al realizar un pedido, ha aceptado que el módulo de efectos ha sido realizado a mano, con los consiguientes posibles errores humanos inherentes que esto conlleva. También, conoce, que algunas piezas que componen la circuitería <code>caducan</code>, tanto por el tiempo, como por exposición a condiciones adversas (calor, golpes, excesiva humedad, etc), o por un uso indebido (conectar una fuente de alimentación excesiva, o de diferente polaridad, amperaje,...) o incluso por desuso prolongado. Por lo tanto, los aparatos no son eternos, y no somos responsables más hallá de comprometernos en hacer las cosas lo mejor posible, pero contamos con tu comprensividad :).</li>
+        <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</li>
       </ul>
     </div><!--row-->
     <div class="row">
-      <h4><span class="glyphicon glyphicon-plane"></span>&nbsp;Envios </h4>
-      <p>Sólo se realizarán shipments con número de seguimiento.</p>
+      <h4><span class="glyphicon glyphicon-plane"></span>&nbsp;Shipments </h4>
+      <p>Sólo se realizarán shipments con número de tracking.</p>
        <ul>
-        <li>El <b>coste</b> shipment corre siempre por cuenta del comprador. </li>
-        <li>El coste del shipment puede variar en función del destino, la compañía y el peso del producto.</li>
-        <li>El cliente puede elegir la compañia que desee, siempre que sea envío con seguimiento.</li>
-        <li>Es responsabilidad puramente de la persona que efectua un pedido, proporcionar datos correctos. No nos hacemos responsables de costes adicionales en shipments erroneos que sean producto de información equivocada proporcionada a nuestros sistema como dirección de shipment. </li>
-        <li>Más detail en <a href="{% url 'shipments' %}">shipments</a>.</li>
+        <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</li>
        </ul> 
     </div>
     <div class="row">
-      <p>Si quiere saber más, o no encuentras lo que buscas, puedes consultar la <a href="{% url 'ayuda' %}">ayuda</a>, o volver a <a href="{% url 'info' %}">información general</a>, o <a href="{% url 'contact' %}">contactarnos</a>.</p>
     </div>
 {% endblock %}
 {% block footer %} 
   <li><a href="{% url 'info' %}">Info</a></li>
-  <li class="active">Condiciones</li>
+  <li class="active">terms</li>
 {% endblock %}

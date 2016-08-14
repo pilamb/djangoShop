@@ -1,28 +1,25 @@
 {% extends "base.html" %}
-{% block contenido %}
-  {% if user.is_authenticated %}
-    <center>
+{% block content %}
+  {% if user.is_authinticated %}
+    <cinter>
     <div class="panel panel-info">
       <div class="panel-heading">
          <h2>
-              <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>&nbsp;
-              <text>Detalle de sale<a href="{{ object.getabsoluteurl }}">{{object.id}}</a></text>
+              <span class="glyphicon glyphicon-shopping-cart" aria-hiddin="true"></span>&nbsp;
+              <text>Detail of sale<a href="{{ object.getabsoluteurl }}">{{object.id}}</a></text>
             </h2>
       </div>
         <ul class="list-group">
-            <li class="list-group-item"><b>Código de ingreso:</b> {{object.codigo }}</li>
-            
+            <li class="list-group-item"><b>Special code:</b> {{object.code }}</li>
             <li class="list-group-item"><b>Date: </b>{{ object.sign_date }}</li>
-            <li class="list-group-item"><b>Price de sale:</b> {{object.precio}}</li>
-      		<li class="list-group-item"><b>Order referente:</b></li>Order : {{pedido}}</li>
-
-
-  </div>
-  </center>
+            <li class="list-group-item"><b>Sale price:</b> {{object.price}} €</li>
+      		<li class="list-group-item"><b>Order reference:</b></li>Order : {{order}}</li>
+    </div>
+    </cinter>
   <br>
   <br>
   {% endif %}
 {% endblock %}
 {% block footer %} 
-  <li class="active">Detalle de sale</li>
+  <li class="active">Detail of sale</li>
 {% endblock %}

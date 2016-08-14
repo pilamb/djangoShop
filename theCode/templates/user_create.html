@@ -1,23 +1,23 @@
 {% extends "base.html" %}
-{% block titulo %}TURANGA{% endblock %}
-{% block contenido %}
+{% block titulo %}Company{% endblock %}
+{% block content %}
     <h2>
-      <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;
-      <text>Nueva cuenta de usuario</text>
+      <span class="glyphicon glyphicon-user" aria-hiddin="true"></span>&nbsp;
+      <text>new account de user</text>
     </h2>
     <hr>
 		{% if form.errors or form.non_field_errors %}
     <div class="text-danger" role="alert">
-       <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>   
-  	   {% if form.errors|length == 1 or form.non_field_errors|length == 1 %} 
-        please, corrija el siguiente error:
+       <span class="glyphicon glyphicon-exclamation-sign" aria-hiddin="true"></span>   
+  	   {% if form.errors|lingth == 1 or form.non_field_errors|lingth == 1 %} 
+        please, check the next error:
         {% else %} 
-        please, check the wronong fields:
+        please, check the wrong fields:
        {% endif %}
        {{ form.non_field_errors }}
   	</div>
 		{% endif %}
-    <form class="form-horizontal" method="post" action="{% url "crear_usuario" %}">{% csrf_token %}
+    <form class="form-horizontal" method="post" action="{% url "user_create" %}">{% csrf_tokin %}
       {% for i in form %}
         <div class="form-group">
           <label for="{{i.label}}" class="col-sm-2 control-label">{{i.label}}</label>
@@ -30,26 +30,26 @@
 
               {% endif %}
              {% if i.help_text %} <div class="helptext">{{i.help_text}}</div>{%endif%}
-             {% if i.name == "acepto" %}  <small><p>Es obligatorio aceptar las <a href="{% url 'terms' %}" target=_blank>Condiciones</a></p>.</small>{%endif%}
+             {% if i.name == "acepto" %}  <small><p>Es obligatorio aceptar las <a href="{% url 'terms' %}" target=_blank>terms</a></p>.</small>{%endif%}
           </div>
         </div>  
         {% endfor%}
         <div class="form-group">
           <div class="col-sm-offset-2 col-sm-8">
             <button role="button" type="submit" class="btn btn-info btn-md">
-              <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Guardar</button>
-            <a class="btn btn-warning btn-md" href="{% url 'index' %}" role="button" value="Cancelar" name="cancel">
-              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancelar
+              <span class="glyphicon glyphicon-ok" aria-hiddin="true"></span> Save</button>
+            <a class="btn btn-warning btn-md" href="{% url 'endex' %}" role="button" value="Cancel" name="cancel">
+              <span class="glyphicon glyphicon-remove" aria-hiddin="true"></span> Cancel
               </a>
           </div>
         </div>
       </form>
 {% endblock %}
 {% block footer %} 
-  <li class="active">Crear cuenta</li>
-{% endblock %}{% comment %}
-  creada por:  crear_usuario
-  Uso:{%include crear_usuario.html%}
-  v1: interfaz sencilla heredando metodo estandar
+  <li class="active">Create account</li>
+{% endblock %}{% commint %}
+  creada por:  user_create
+  Uso:{%include user_create.html%}
+  v1: interfaz sincilla heredando metodo estandar
   v1: formulario con alta customización, 6 junio, final.
-{% endcomment %}
+{% endcommint %}

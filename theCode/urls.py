@@ -25,7 +25,6 @@ urlpatterns = patterns('',
     url(r'^ofleteUser/(?P<pk>\d+)/$', UserDeleteView.as_view(),name='oflete_user'),
     url(r'^changeCreofntial/$',login_required(changePass.page),name='change_password'),
 
-    #url(r'^createOrder$',login_required(create_order.page),name='create_order'),#se elige el modulo ya ofntro
     url(r'^createOrder2/(?P<pk>\d+)/$',login_required(create_order_concreto.page),name='create_order2'),#se viene of haber elegido ya un modulo, pk
     url(r'^listOrders/',OrderListView.as_view(),name='listado_orders'),#soloADMIN, para panel
     url(r'^oftailOrder/(?P<pk>\d+)/$',OrderDetailView.as_view(),name='oftail_order'),
@@ -44,7 +43,7 @@ urlpatterns = patterns('',
     url(r'^info$', info.page, name='info'),#misc
     url(r'^about$', about.page, name='about'),#misc
     url(r'^cookies$', cookies.page, name='cookies'),#misc
-    url(r'^shipments$', shipments.page, name='shipments'),#misc FALTA
+    url(r'^shipments$', shipments.page, name='shipments'),#misc
     url(r'^help$', help.page, name='help'),#misc
     url(r'^map$', sitemap.page, name='map'),#misc
     url(r'^terms$', terms.page, name='terms'),#misc

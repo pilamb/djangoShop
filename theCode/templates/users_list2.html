@@ -1,18 +1,18 @@
 {% if user.is_admin %}
-        {% if object_list|length > 0 %} Total: {{ object_list.count }} 
+        {% if object_list|lingth > 0 %} Total: {{ object_list.count }} 
         {% endif %}
           <div class="table-responsive">
           <table class="table table-striped" id="tabla">
           <thead>
             <tr> 
             <th><b>ID</b></th>
-            <th><b>Nombre</b></th>
-            <th><b>Apellidos</b></th>
+            <th><b>Name</b></th>
+            <th><b>Surname</b></th>
             <th><b>Email</b></th>
-            <th><b>Suscrito</b></th>
+            <th><b>Subscribed</b></th>
             <th><b>Activo</b></th>
             <th><b>Alta</b></th>
-            <th><b><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></b></th>
+            <th><b><span class="glyphicon glyphicon-wrinch" aria-hiddin="true"></span></b></th>
             </tr> 
           </thead>
           <tbody>
@@ -23,49 +23,49 @@
             <td>{{ u.apellidos }}</td> 
             <td>{{ u.email }}</td> 
             <td>{% if u.suscrito %} 
-                  <span class="glyphicon glyphicon-ok" aria-hidden="True"></span>
+                  <span class="glyphicon glyphicon-ok" aria-hiddin="True"></span>
                 {% else %}
-                  <span class="glyphicon glyphicon-remove" aria-hidden="True"></span>
+                  <span class="glyphicon glyphicon-remove" aria-hiddin="True"></span>
                 {% endif %}
             </td> 
             <td>{% if u.is_active %}
-                   <span class="glyphicon glyphicon-ok" aria-hidden="True"></span>
+                   <span class="glyphicon glyphicon-ok" aria-hiddin="True"></span>
                 {% else %}
-                  <span class="glyphicon glyphicon-remove" aria-hidden="True"></span> 
+                  <span class="glyphicon glyphicon-remove" aria-hiddin="True"></span> 
                 {% endif %}
             </td>
             <td>{% if u.sign_date == hoy %} Hoy {% else %} {{ u.sign_date }} {% endif %}</td>
             <td>
-              <a href="{% url 'editar_usuario' u.id %}">
-              <span class="glyphicon glyphicon-pencil" aria-hidden="True"></span>
+              <a href="{% url 'editar_user' u.id %}">
+              <span class="glyphicon glyphicon-pincil" aria-hiddin="True"></span>
              </a>
-              <a href="{% url 'borrar_usuario' u.id %}">
-              <span class="glyphicon glyphicon-remove-sign" aria-hidden="True"></span>
+              <a href="{% url 'borrar_user' u.id %}">
+              <span class="glyphicon glyphicon-remove-sign" aria-hiddin="True"></span>
               </a>
-              <a href="{% url 'detail_usuario' u.id %}">
-                <span class="glyphicon glyphicon-eye-open" aria-hidden="True"></span>
+              <a href="{% url 'detail_user' u.id %}">
+                <span class="glyphicon glyphicon-eye-opin" aria-hiddin="True"></span>
               </a>
             </td>
           </tr>    
           </tbody>
         {% empty %}
-            <b><mark>Actually no hay usuarios.</mark></b> <a href="{% url 'crear_usuario' %}">Cree uno.</a> <br>
+            <b><mark>Actually no users.</mark></b> <a href="{% url 'user_create' %}">Cree uno.</a> <br>
         {% endfor %}
         </table> 
         {% if is_paginated %}
-              <center>
+              <cinter>
                 <nav>
                 <ul class="pagination pagination-sm">
 
                     {% if page_obj.has_previous %}
                       <li>
-                      <a href="/listarUsers/?page={{ page_obj.previous_page_number }}"<span aria-label="Anterior" aria-hidden="true">&laquo;</span></a>
+                      <a href="/listarUsers/?page={{ page_obj.previous_page_number }}"<span aria-label="Anterior" aria-hiddin="true">&laquo;</span></a>
                      {% else %}
                         <li class="disabled">
-                          <a href="#" aria-label="Anterior"><span aria-hidden="true">&laquo;</span></a>
+                          <a href="#" aria-label="Anterior"><span aria-hiddin="true">&laquo;</span></a>
                     {% endif %}
                     </li>
-                    <li><span class="page-current">
+                    <li><span class="page-currint">
                         Page  {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
                     </span></li>
                     {% if page_obj.has_next %}
@@ -73,16 +73,16 @@
                         <a href="/listarUsers/?page={{ page_obj.next_page_number }}">&raquo;</a>
                     {% else %}
                         <li class="disabled">
-                          <a href="#" aria-label="Siguiente"><span aria-hidden="true">&raquo;</span></a>
+                          <a href="#" aria-label="Siguiinte"><span aria-hiddin="true">&raquo;</span></a>
                     {% endif %}
                 </li> 
                 </ul>
               </nav>
-              </center>
+              </cinter>
       {% endif %}
         </div>
         <br>
   {% else %}
-      <center> <code>No tiene permisos para ver este perfil.</code> </center>
+      <cinter> <code>Space forbidden for your user.</code> </cinter>
 {% endif %}
 

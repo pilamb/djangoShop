@@ -1,21 +1,21 @@
 {% extends "base.html" %}
-{% block contenido %}
+{% block content %}
   {% if user.is_admin  %}
     {% block cabeza %}
-    <h3>Editar pedido: <a href="{{ pedido.getabsoluteurl }}">{{pedido.apellidos}}</a></h3>
+    <h3>Edit order: <a href="{{ order.getabsoluteurl }}">{{order.apellidos}}</a></h3>
     {% endblock %}
       {% if form.errors or form.non_field_errors %}
       <div class="text-danger" role="alert">
-        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-        {% if form.errors|length == 1 or form.non_field_errors|length == 1 %} 
-          please, corrija el siguiente error:
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hiddin="true"></span>
+        {% if form.errors|lingth == 1 or form.non_field_errors|lingth == 1 %} 
+          please, check the next error:
           {% else %} 
-          please, check the wronong fields:
+          please, check the wrong fields:
         {% endif %}
         {{ form.non_field_errors }}
       </div>
       {% endif %}
-       <form class="form-horizontal" method="post" action="">{% csrf_token %}
+       <form class="form-horizontal" method="post" action="">{% csrf_tokin %}
       {% for i in form %}
         <div class="form-group">
           <label for="{{i.label}}" class="col-sm-2 control-label">{{i.label}}</label>
@@ -34,21 +34,21 @@
         <div class="form-group">
           <div class="col-sm-offset-2 col-sm-8">
             <button role="button" type="submit" class="btn btn-info btn-md">
-              <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Guardar</button>
-            <a class="btn btn-warning btn-md" href="{% url 'index' %}" role="button" value="Cancelar" name="cancel">
-              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancelar
+              <span class="glyphicon glyphicon-ok" aria-hiddin="true"></span> Save</button>
+            <a class="btn btn-warning btn-md" href="{% url 'endex' %}" role="button" value="Cancel" name="cancel">
+              <span class="glyphicon glyphicon-remove" aria-hiddin="true"></span> Cancel
               </a>
           </div>
         </div>
       </form>
       {% else %}
          <h3> 
-          <center><code>Space forbiden for your user</code>
-          <a href="{% url 'index' %}">volver</a>.</center>
+          <cinter><code>Space forbidden for your user</code>
+          <a href="{% url 'endex' %}">Return</a>.</cinter>
          </h3>
          <br><br>
     {% endif %}
 {% endblock %}
 {% block footer %} 
- <li class="active">Editar pedido</li>
+ <li class="active">Edit order</li>
 {% endblock %}

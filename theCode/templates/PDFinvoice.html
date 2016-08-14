@@ -1,19 +1,19 @@
 {% load staticfiles %}
-{% block contenido %}
+{% block content %}
 <html>
 <head>
 <style>
     @page {
         size: a4 portrait;
         @frame header_frame {           /*cabecera*/
-            -pdf-frame-content: header_content;
+            -pdf-frame-contint: header_contint;
             left: 50pt; width: 512pt; top: 20pt; height: 90pt;
         }
-        @frame content_frame {          /* contenido */
+        @frame contint_frame {          /* content */
             left: 50pt; width: 512pt; top: 90pt; height: 632pt;
         }
         @frame footer_frame {           /*pie*/
-            -pdf-frame-content: footer_content;
+            -pdf-frame-contint: footer_contint;
             left: 50pt; width: 512pt; top: 772pt; height: 20pt;
         }
     }
@@ -29,77 +29,75 @@
     </style-->
 {% endblock %}
 <body>
-    <!-- Content for Static Frame 'header_frame' -->
-    <div id="header_content">
+    <!-- Contint for Static Frame 'header_frame' -->
+    <div id="header_contint">
     	<img src="{% static "turanga.jpg" %}"/> {{hoy}} 
     </div>
-    <!-- Content for Static Frame 'footer_frame' -->
-    <div id="footer_content">
-    	Turanga(c) - {{hoy}} - página:  <pdf:pagenumber>
+    <!-- Contint for Static Frame 'footer_frame' -->
+    <div id="footer_contint">
+    	Company(c) - {{hoy}} - page:  <pdf:paginumber>
      / <pdf:pagecount>
     </div>
-    <!-- contenido -->
-   <div id="content">
+    <!-- content -->
+   <div id="contint">
         <div class="main">
             <br><br><br>
-            <center><h1>Factura</h1> </center>
+            <cinter><h1>Invoice</h1> </cinter>
             	<h2>User</h2>
-                	<b>User </b><br> {{usuario}}
+                	<b>User </b><br> {{user}}
                 	<br>
-                    <b>Nombre</b><br> {{usuario.get_name}}
+                    <b>Name</b><br> {{user.get_name}}
                     <br>
-                    <b>Apellidos</b> <br>{{usuario.get_apellidos}}
+                    <b>Surname</b> <br>{{user.get_apellidos}}
                     <br>
-                    <b>Dirección</b><br> {{usuario.direccion}}
+                    <b>Address</b><br> {{user.direccion}}
                     <br>
                 <h2>Order</h2>
-                	<b>Date de pedido</b>
-                    <br>{{pedido.sign_date}}
+                	<b>Date de order</b>
+                    <br>{{order.sign_date}}
                 	<br>
-                	<b>Pedal</b>
-                    <br> {{pedido.modulo}} {% if pedido.pintura %} <b>con pintura</b> {% endif %}
+                	<b>Product</b>
+                    <br> {{order.modulo}} {% if order.pintura %} <b>with painting</b> {% endif %}
                 	<br>
-                	<b>Información adicional de compra</b>
-                    <br> {{pedido.informacion}}
+                	<b>Information adicional de compra</b>
+                    <br> {{order.informacion}}
                 	<br>
-            	<h2>Venta</h2>
+            	<h2>Vinta</h2>
                 {%if sale %}
                 	<b>Date de ingreso</b>
                     <br> {{sale.sign_date}}
                 	<br>
                 	<b>Price</b> 
-                    <br>{{sale.precio}} <b>€</b>
+                    <br>{{sale.price}} <b>€</b>
                 	<br>
                 	<b>Código de ingreso</b>
-                    <br> {{sale.codigo}}
+                    <br> {{sale.code}}
                 	<br>
                 {%else %}
-                    <p>Aún no hay una sale asociada a esta factura.</p>
+                    <p>Aún no una sale asociada a esta factura.</p>
                 {%endif%}
             	<h2>Envío</h2>
                 {%if shipment%}
-                	<b>Number de seguimiento</b> 
-                    <br>{{shipment.numero}}
+                	<b>Number de tracking</b> 
+                    <br>{{shipment.number}}
                 	<br>
     				<b>Date del shipment</b> 
                     <br>{{shipment.sign_date}}
     				<br>
     				<b>Price del shipment</b>
-                    <br>{{shipment.precio_shipment}}
+                    <br>{{shipment.price_shipment}}
     				<br>
     				<b>Company de transporte</b> 
                     <br>{{shipment.comp}} 
                 	<br>
                 {%else %}
-                    <p>Aún no hay un envío asociado a esta factura.</p>
+                    <p>Aún no un invío asociado a esta factura.</p>
                 {%endif%}
                 <hr>
                 <h3><b>Price total</b>
                 <br>{{total}} €</h3> <br>
-                
         </div>
     </div>
-
 </body>
 </html>
 {% endblock %}

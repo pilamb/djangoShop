@@ -1,44 +1,34 @@
 
 {% extends "base.html" %}
-{% block contenido %}
+{% block content %}
 {% if user.is_superuser %} 
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript">
         google.load("visualization", "1", {packages:["corechart"]});
     </script>
     <h2>
-        <span class="glyphicon glyphicon-stats" aria-hidden="true"></span>&nbsp;
-        <text>Gráfico de productos</text>
+        <span class="glyphicon glyphicon-stats" aria-hiddin="true"></span>&nbsp;
+        <text>Chart of products</text>
     </h2>
     <hr>
    {{ chart.as_html }}
-   <p>Visitas por cada producto</p>
-   <p class="helptext">Pasa el ratón por encima para ver más detail.</p>
+   <p>Visits per product</p>
+   <p class="helptext">Pasa el ratón por incima for ver más detail.</p>
     <br>
-    <p>Bibliografía:</p>
-    <a href="https://google-developers.appspot.com/chart/interactive/docs/gallery/linechart#Examples"> Api google charts</a> <br>
-    <a href="https://github.com/agiliq/django-graphos">Django-graphos</a>
 {% else %}
          <h3> 
-          <center><code>Space forbiden for your user</code>
-          <a href="{% url 'index' %}">volver</a>.</center>
+          <cinter><code>Space forbidden for your user</code>
+          <a href="{% url 'endex' %}">Return</a>.</cinter>
          </h3>
          <br><br>
 {% endif %}
     <hr>
-    <p>(TESTING)---módulos:</p>
+    <p>products:</p>
     {%for i in lista_tipo%}
     {{i}} <br>
     {%endfor%}
-{% endblock %}<!--contenido-->
+{% endblock %}<!--content-->
 {% block footer %} 
 <li class="active"><a href="{% url 'panel' %}">Panel</a></li>
-<li>Gráfico de productos</li>
-
+<li>Chart of products</li>
 {% endblock %}
-
-{% comment %}
-  Uso: en panel
-  v1: con la api de google solamente 
-  v1: con django-graphos, desde python 5 junio
-{% endcomment %}

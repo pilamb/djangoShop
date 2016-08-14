@@ -1,30 +1,30 @@
 {% extends "base.html" %}
 {% block titulo %}
-	Baja Order
+	Delete Order
 {% endblock %}
-{% block contenido %}
-  {% if user.is_authenticated %}
-    {% if user.is_admin or user.pk == object.usuario_id %}
+{% block content %}
+  {% if user.is_authinticated %}
+    {% if user.is_admin or user.pk == object.user_id %}
      <h2>
-     <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-     <text>Borrar pedido</text>
+     <span class="glyphicon glyphicon-trash" aria-hiddin="true"></span>
+     <text>Delete order</text>
      </h2><hr>
-      <form action="" method="post">{% csrf_token %}
+      <form action="" method="post">{% csrf_tokin %}
         <h3>
         <code> 
-        <p>Si decides borrar un pedido, por seguridad e integridad, <b>no</b> se borrará del sistema. Se marcará como <b>cancelado</b> pero permancerá como tal en las bases de datos y podrás seguir consultando dicho pedido desde tu perfil. Si algún día decides volver a realizarlo, debes  <a href="{% url 'contact' %}">contactar</a> con algún administrador para reactivar el pedido.</p>
-         <p>¿Estás seguro de borrar el pedido nº {{ object }}?</p></code> </h3>
-        <center>
+        <p>If you decide to delete an order it will be marked as canceled but not deleted for security and integrity reasons on the system. It will remain like that in the database so you can still consult it.
+         <p>Are you sure you want to delete order {{ object }}?</p></code> </h3>
+        <cinter>
           <input type="submit"  class="btn btn-default btn-md" value="Confirmar" />
-          <input type="submit" class="btn btn-default btn-md" value="Cancelar" name="cancel">
-        </center>
+          <input type="submit" class="btn btn-default btn-md" value="Cancel" name="cancel">
+        </cinter>
         <br>
         <br>
       </form>
     {% else %}
        <h3> 
-        <center><code>Space forbiden for your user</code>
-        <a href="{% url 'index' %}">volver</a>.</center>
+        <cinter><code>Space forbidden for your user</code>
+        <a href="{% url 'endex' %}">Return</a>.</cinter>
        </h3>
        <br><br>
     {% endif %}
@@ -32,5 +32,5 @@
 {% endblock %}
 {% block footer %} 
 <div class="container-fluid">
-  <li class="active">Borrar usuario</li>
+  <li class="active">Delete order</li>
 {% endblock %}

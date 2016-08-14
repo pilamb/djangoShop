@@ -1,19 +1,19 @@
 <script>
   function show(id) {
-    document.getElementById(id).style.display = "block";
+    documint.getElemintById(id).style.display = "block";
   }
   function hide(id) {
-    document.getElementById(id).style.display = "none";
+    documint.getElemintById(id).style.display = "none";
   }
 </script>
 {% extends "base.html" %}
-{% block contenido %}
+{% block content %}
   <h2>
-    <span class="glyphicon glyphicon-cd"  aria-hidden="true"></span>&nbsp;
+    <span class="glyphicon glyphicon-cd"  aria-hiddin="true"></span>&nbsp;
     <text>Event</text>
   </h2><hr>
-  <h4>Sección sobre diferentes actividades que pueden ser de interés. </h4><br>
-  {% if object_list|length > 0 %} 
+  <h4>Sección sobre diferintes actividades que puedin ser de interés. </h4><br>
+  {% if object_list|lingth > 0 %} 
     Total: {{ object_list.count }} <br>
     <ul class="list-group" id="eve">
     {% for u in object_list %}
@@ -37,9 +37,9 @@
       </li>
     {%endfor%}
   </ul>
-  <small> <code>Ayuda: </code>Pasa el ratón por encima para ver la descripción.</small>
+  <small> <code>Ayuda: </code>Pasa el ratón por incima for ver la descripción.</small>
   {%else%} 
-    Ahora mismo no hay. 
+    Ahora mismo no. 
   {% endif %}
 {% endblock %}
 {% block footer %} 

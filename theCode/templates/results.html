@@ -1,30 +1,30 @@
 {% extends "base.html" %}
 {% load staticfiles %}
-{% block contenido %}
+{% block content %}
     <h2>
-      <span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;
-     {% if cadena %} <text>Resultado de búsqueda para: <u> {{cadena}}</u></text>
+      <span class="glyphicon glyphicon-search" aria-hiddin="true"></span>&nbsp;
+     {% if cadina %} <text>Result for: <u> {{cadina}}</u></text>
      {%else%} <text>Búsqueda</text>
      {%endif%}
     </h2><hr>
    <div class="container-fluid">
        <div class="row">
-    {%if cadena %}
-        <h2>Resultados en productos</h2>
-        {% if acierto_productos  %}
+    {%if cadina %}
+        <h2>Results in products</h2>
+        {% if acierto_products  %}
             <ul>
-            {% for i in acierto_productos %}
-              <li> {{i}}  / <a href="{% url 'detail_producto' i.id %}">Enlace</a> </li>
+            {% for i in acierto_products %}
+              <li> {{i}}  / <a href="{% url 'product_detail' i.id %}">Link</a> </li>
             {% endfor %}
             </ul>
         {% else %}
             <small>No products by that search</small>
         {% endif %}
-        <h2>Resultados en eventos</h2>
-        {% if acierto_eventos %}
+        <h2>Results in events</h2>
+        {% if acierto_events %}
             <ul>
-            {% for i in acierto_productos %}
-              <li> {{i}} en <a href="{% url 'eventos' %}">Events</a> </li>
+            {% for i in acierto_products %}
+              <li> {{i}} in <a href="{% url 'events' %}">Events</a> </li>
             {% empty %}
               <code>No results.</code>
             {% endfor %}
@@ -33,7 +33,7 @@
             <small>No results!</small>      
         {% endif %}
     {%else%}
-      <div class="row helptext">/Cadena vacía: No se ha encontrado nada. Puede probar otra vez a buscar en <code>Products</code> y en <code>Event</code> desde aquí:</div>
+      <div class="row helptext">Nothing found on <code>Products</code> Or <code>Event</code></div>
       {% include "search.html" %}
     {%endif%}
     </div>

@@ -1,17 +1,17 @@
 {% extends "base.html" %}
-{% block contenido %}
+{% block content %}
 {% load staticfiles %}
 <div class="row">
      <h2>
-      <span class="glyphicon glyphicon-plane" aria-hidden="true"></span>&nbsp;
-      <text>Envios</text>
+      <span class="glyphicon glyphicon-plane" aria-hiddin="true"></span>&nbsp;
+      <text>Shipments</text>
     </h2><hr>
     <div class="panel panel-default">
       <div class="panel-heading">
         <h3 class="panel-title">España</h3>
       </div>
       <div class="panel-body">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi rerum, enim harum ratione quae in est dolorum repellat cupiditate ex, accusamus assumenda error magnam voluptatibus dolores itaque provident animi necessitatibus.
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi rerum, inim harum ratione quae in est dolorum repellat cupiditate ex, accusamus assumenda error magnam voluptatibus dolores itaque providint animi necessitatibus.
       </div>
     </div>
     <div class="panel panel-default">
@@ -30,10 +30,10 @@
         We send parcels anywhere as long as package is tracked. Small package is about 14€ and large one is about 20€.
       </div>
     </div>
-    <p>Más información en <a href="{% url 'terms' %}">condiciones</a>, o en <a href="{% url 'ayuda' %}">ayuda</a>. Sino encuentras lo que buscas, siempre puedes <a href="{% url 'contact' %}">contactarnos</a>.</p>
+    <p>Más información in <a href="{% url 'terms' %}">condiciones</a>, o in <a href="{% url 'ayuda' %}">ayuda</a>. Sino incuintras lo que buscas, siempre puedes <a href="{% url 'contact' %}">contactarnos</a>.</p>
 </div>
 {% endblock %}
 {% block footer %} 
   <li><a href="{% url 'info' %}">Info</a></li>
-  <li class="active">Envios</li>
+  <li class="active">Shipments</li>
 {% endblock %}

@@ -26,25 +26,25 @@ class LoginRequiredMixin(object):
 
 class OrderListView(LoginRequiredMixin,ListView):
 	order 		  	= Order
-	template_name 	= "listado_orders.html"
+	template_name 	= "list_orders.html"
 	paginate_by 	= 3
-	def get_connotified_data(self, **kwargs):
-    		connotified = super(OrderListView, self).get_connotified_data(**kwargs)    		
-    		return connotified
+	def get_context_data(self, **kwargs):
+    		context = super(OrderListView, self).get_context_data(**kwargs)    		
+    		return context
     		
 class OrdersUsuarioListView(LoginRequiredMixin,ListView):
-	template_name = "listado_orders2.html"
+	template_name = "list_orders2.html"
 	def get_queryset(self):
 		return Order.objects.filter(user = self.request.user)
-	def get_connotified_data(self, **kwargs):
-    		connotified = super(OrdersUsuarioListView, self).get_connotified_data(**kwargs)    		
-    		return connotified	
+	def get_context_data(self, **kwargs):
+    		context = super(OrdersUsuarioListView, self).get_context_data(**kwargs)    		
+    		return context	
 
 class OrderDetailView(LoginRequiredMixin,DetailView):
 	order 			   = Order
-	template_name	   = "oftail_order.html"
-	def get_connotified_data(self, **kwargs):
-    		connotified = super(OrderDetailView, self).get_connotified_data(**kwargs)
+	template_name	   = "order_detail.html"
+	def get_context_data(self, **kwargs):
+    		context = super(OrderDetailView, self).get_context_data(**kwargs)
     		if not self.request.user.is_super:
 				try:
 					N = Message.objects.filter(user = self.request.user)
@@ -58,10 +58,10 @@ class OrderDetailView(LoginRequiredMixin,DetailView):
 					E = Shipment.objects.get(order= self.object.id)
 				except Shipment.DoesNotExist:
 					E= ""
-				connotified['Message']  = N #paso un sum of messages
-				connotified['H'] = H
-				connotified['shipment']= E
-    		return connotified
+				context['Message']  = N #paso un sum of messages
+				context['H'] = H
+				context['shipment']= E
+    		return context
 	def get_queryset(self):
 		if not self.request.user.is_super: 
 			return Order.objects.filter(user = self.request.user)
@@ -73,8 +73,8 @@ class OrderUpdateView(LoginRequiredMixin,UpdateView):
 	def clean(self):
     	    super(Order, self).clean()
 	order 			= Order
-	fields 			= ['paid','modulo',]
-	template_name 	= "editar_order.html"
+	fields 			= ['paid','module',]
+	template_name 	= "order_edit.html"
 	success_url  	= reverse_lazy('panel')
 	def post(self, request, *args, **kwargs):		
 		if "cancel" in request.POST:
@@ -85,7 +85,7 @@ class OrderUpdateView(LoginRequiredMixin,UpdateView):
 			return super(OrderUpdateView, self).post(request, *args, **kwargs)
 
 class OrderDeleteView(LoginRequiredMixin,DeleteView):
-	"""El estado pasa a cancelado y se pone el módulo en sale
+	"""State to cancel and get on sale available again
 	"""
 	order  				= Order
 	template_name 		="order_confirm_oflete.html"
@@ -99,46 +99,46 @@ class OrderDeleteView(LoginRequiredMixin,DeleteView):
 			self.object = self.get_object()
 			self.object.estado='ca'
 			self.object.save()
-			m = Product.objects.get(pk=self.object.modulo.id)
+			m = Product.objects.get(pk=self.object.module.id)
 			m.on_sale=True
 			m.save()
-			messages.warning(request, 'Order marcado como cancelado <b>correctly</b>.')
+			messages.warning(request, 'Order marked as cancelado <b>correctly</b>.')
 			#NOtificar
 			return HttpResponseRedirect(reverse_lazy('index'))
 
 
 class SaleListView(LoginRequiredMixin,ListView):
-	"""Vista para el admin of todas las sales
+	"""View for admin for all sales
 	"""
 	order 		  	= Sale
-	template_name 	= "listado_sales.html"
+	template_name 	= "sales_list.html"
 	paginate_by 	= 5
 	# def get_queryset(self):
 	# 	return Sale.objects.all()
-	def get_connotified_data(self, **kwargs):
-    		connotified = super(SaleListView, self).get_connotified_data(**kwargs)    		
-    		return connotified
+	def get_context_data(self, **kwargs):
+    		context = super(SaleListView, self).get_context_data(**kwargs)    		
+    		return context
     		
 class SalesUsuarioListView(LoginRequiredMixin,ListView):
-	"""Vista of listado para users
+	"""Sales list for users
 	"""
-	template_name = "listado_sales2.html"
+	template_name = "sales2_list.html"
 	def get_queryset(self):
 		return Sale.objects.filter(user = self.request.user)
-	def get_connotified_data(self, **kwargs):
-    		connotified = super(SalesUsuarioListView, self).get_connotified_data(**kwargs)    		
-    		return connotified	
+	def get_context_data(self, **kwargs):
+    		context = super(SalesUsuarioListView, self).get_context_data(**kwargs)    		
+    		return context	
 
 class SaleDetailView(LoginRequiredMixin,DetailView):
-	"""Vista en oftail of cada sale
+	"""Detail of each Sale
 	"""
 	order 			   = Sale
-	template_name	   = "oftail_sale.html"
-	def get_connotified_data(self, **kwargs):
-			connotified = super(SaleDetailView, self).get_connotified_data(**kwargs)
+	template_name	   = "sale_detail.html"
+	def get_context_data(self, **kwargs):
+			context = super(SaleDetailView, self).get_context_data(**kwargs)
 			order = Order.objects.get(sale= self.object)
-			connotified['order']=order
-			return connotified
+			context['order']=order
+			return context
 	def get_queryset(self):
 		if not self.request.user.is_super: 
 			return Sale.objects.filter(pk = Order.objects.filter(user= self.request.user))
@@ -147,13 +147,10 @@ class SaleDetailView(LoginRequiredMixin,DetailView):
 
 class ShipmentDetailView(LoginRequiredMixin,DetailView):
 	order 			   = Shipment
-	template_name	   = "oftail_shipment.html"
-	def get_connotified_data(self, **kwargs):
-    		connotified = super(ShipmentDetailView, self).get_connotified_data(**kwargs)
-    		#if not self.request.user.is_super: 
-    			#connotified['order'] = Order.objects.filter(pk=self.object.order.id)
-    			#no es necesario, shipment ya tiene campo order
-    		return connotified
+	template_name	   = "shipment_detail.html"
+	def get_context_data(self, **kwargs):
+    		context = super(ShipmentDetailView, self).get_context_data(**kwargs)
+    		return context
 	def get_queryset(self):
 		if not self.request.user.is_super: 
 			return Shipment.objects.filter(order = Order.objects.filter(user=self.request.user))
@@ -162,34 +159,34 @@ class ShipmentDetailView(LoginRequiredMixin,DetailView):
     		
 
 class invoicePDF(LoginRequiredMixin,PDFTemplateView):
-	"""Generador of invoices a formato pdf con los datos pasados a connotified
+	"""Generator of invoices to PDF format
 	"""
 	template_name = "invoicePDF.html"
-	def get_connotified_data(self, **kwargs):
-		connotified = super(invoicePDF, self).get_connotified_data(**kwargs)
+	def get_context_data(self, **kwargs):
+		context = super(invoicePDF, self).get_context_data(**kwargs)
 		try:
 			u=get_object_or_404(Usuario,pk = self.request.user.id)
-			connotified['user']=u
-			ped=get_object_or_404(Order,pk =connotified['pk'])
-			connotified['order']=ped
+			context['user']=u
+			ped=get_object_or_404(Order,pk =context['pk'])
+			context['order']=ped
 			sale=Sale.objects.get(codigo = ped.codigo_ingreso)
-			connotified['sale']=sale
+			context['sale']=sale
 			shipment=Shipment.objects.get(order_id=ped.id)
-			connotified['shipment']=shipment
-			connotified['hoy']=date.today()
-			connotified['pagesize']="A4",
-			connotified['title']="Factura",
+			context['shipment']=shipment
+			context['today']=date.today()
+			context['pagesize']="A4",
+			context['title']="INVOICE",
 			pe=shipment.price_shipment
 			pp = sale.price
-			connotified['total']=pe + pp
-			return connotified
+			context['total']=pe + pp
+			return context
 		except ObjectDoesNotExist:
 			#se imprime un pequeño error por consola
 			# y los objetos relacionados a ver cual es el que ha provocado la excepción controlada
-			print "ADMIN: ¡¡Revisar error en la generación of invoices!! - ERROR"
-			return connotified
+			print "ADMIN: Review errors on PDF generation - ERROR"
+			return context
 
-        # return super(invoicePDF, self).get_connotified_data(
+        # return super(invoicePDF, self).get_context_data(
         #     pagesize="A4",
         #     title="Factura",
         #     ped=Order.objects.filter(user = self.request.user),

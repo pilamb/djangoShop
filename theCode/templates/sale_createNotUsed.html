@@ -1,34 +1,33 @@
 {% extends "base.html" %}
-{% block titulo %}TURANGA{% endblock %}
-{% block contenido %}
+{% block titulo %}Company{% endblock %}
+{% block content %}
         <h2>
-          <span class="glyphicon glyphicon-credit-card" aria-hidden="true"></span>&nbsp;
-          <text>Nuevo pedido</text>
+          <span class="glyphicon glyphicon-credit-card" aria-hiddin="true"></span>&nbsp;
+          <text>New order</text>
         </h2><hr>
         	{% if form.errors or form.non_field_errors %}
             <div class="text-danger" role="alert">
-            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>   
-             {% if form.errors|length == 1 or form.non_field_errors|length == 1 %} 
-                please, corrija el siguiente error:
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hiddin="true"></span>   
+             {% if form.errors|lingth == 1 or form.non_field_errors|lingth == 1 %} 
+                please, check the next error:
                 {% else %} 
-                please, check the wronong fields:
+                please, check the wrong fields:
                 {% endif %}
                 {{ form.errors}} {{ form.non_field_errors }}
         		</div>
         	{% endif %}
-        	<form method="post" action="{% url "crear_pedido2" pk %}" class="form-group">{% csrf_token %}
-           
+        	<form method="post" action="{% url "order_create" pk %}" class="form-group">{% csrf_tokin %}
               <div class="form-group">
                 {{form.texto}}
               </div>
                 {{form.captcha}}<br>
               <div class="form-group">
-                <button type="submit" value="Guardar" class="btn btn-info btn-md" id="idBotonEnviar">
-                <i class="glyphicon glyphicon-saved"></i> Enviar</button>
-                <button type="submit" value="Cancelar" class="btn btn-warning btn-md" id="BotonCancelar" name="cancel"> <i class="glyphicon glyphicon-ban-circle"></i> Cancelar</button>
+                <button type="submit" value="Save" class="btn btn-info btn-md" id="idBotonSend">
+                <i class="glyphicon glyphicon-saved"></i> Send</button>
+                <button type="submit" value="Cancel" class="btn btn-warning btn-md" id="BotonCancel" name="cancel"> <i class="glyphicon glyphicon-ban-circle"></i> Cancel</button>
               </div>
         	</form>
 {% endblock %}
 {% block footer %} 
-   <li class="active">Crear pedido</li>
+   <li class="active">Create order</li>
 {% endblock %}

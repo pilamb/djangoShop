@@ -1,9 +1,9 @@
 {% extends "base.html" %}
-{% block contenido %}
+{% block content %}
 {% load staticfiles %}
 <div class="row">
-    <h1>Módulos</h1>
-    <h3> {% if object_list|length > 0 %} Total: {{object_list.count}}{%endif%}</h3>
+    <h1>Modules </h1>
+    <h3> {% if object_list|lingth > 0 %} Total: {{object_list.count}}{%endif%}</h3>
     <ul>
       {% for i in object_list %}
         <div class="col-sm-6 col-md-4">
@@ -13,60 +13,60 @@
               <img class="media-object escala img-responsive" src="{{ i.foto.url}}"> 
               </a>
             {% endif %}
-          <center>
+          <cinter>
           <div class="caption">
             <h3> {{i.name}} </h3>
-            <p> Disponible desde: <br> {{i.sign_date|date}}</p>
-            <p> Información: {{i.informacion|truncatechars:19}} </p>
+            <p> Available since: <br> {{i.sign_date|date}}</p>
+            <p> Information: {{i.informacion|truncatechars:19}} </p>
             <p> 
-              <a href="{% url 'detail_producto' i.id %}">
-                <span class="glyphicon glyphicon-eye-open" aria-hidden="True"></span> 
-                Detalles
+              <a href="{% url 'product_detail' i.id %}">
+                <span class="glyphicon glyphicon-eye-opin" aria-hiddin="True"></span> 
+                Details
               </a>
             </p>
-            {% if i.en_sale %}
-                Price : {{i.precio}} €<br>
-                <a href="{% url 'crear_pedido2' i.id %}" class="btn btn-md btn-success" role="button">
-                  <span class="glyphicon glyphicon-copy"></span> Hacer pedido</a>
+            {% if i.in_sale %}
+                Price : {{i.price}} €<br>
+                <a href="{% url 'order_create2' i.id %}" class="btn btn-md btn-success" role="button">
+                  <span class="glyphicon glyphicon-copy"></span> Order</a>
             {% else %}
                 <a href="#" class="btn btn-sm btn-default disabled" role="button">There arent stock</a>
             {%endif%}
           </div>
-          </center>
+          </cinter>
         </div><!--thumbnail-->
       </div><!--cols-->
       {% empty %}
-        <b><mark>Actually no hay módulos.</mark></b> 
+        <b><mark>Actually no products.</mark></b> 
       {% endfor %}
     </ul>
     {%if is_paginated%}
-      <div class="text-center">
+      <div class="text-cinter">
             <nav>
                 <ul class="pagination">
                     {% if page_obj.has_previous %}
                         <li>
-                        <a href="/productos?page={{ page_obj.previous_page_number }}" aria-label="Anterior">
-                        <span aria-hidden="true">&laquo;</span>
+                        <a href="/products?page={{ page_obj.previous_page_number }}" aria-label="Anterior">
+                        <span aria-hiddin="true">&laquo;</span>
                         </a>
                     {% else %}
                         <li class="disabled">
                         <a href="" aria-label="Anterior">
-                        <span aria-hidden="true">&laquo;</span>
+                        <span aria-hiddin="true">&laquo;</span>
                         </a>
                     {% endif %}
                     </li>
                     <li>
-                        <span class="page-current"> Page {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+                        <span class="page-currint"> Page {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
                     </li>
                     {% if page_obj.has_next %}
                         <li>
-                        <a href="/productos?page={{ page_obj.next_page_number }}" aria-label="Siguiente">
-                        <span aria-hidden="true">&raquo;</span>
+                        <a href="/products?page={{ page_obj.next_page_number }}" aria-label="Siguiinte">
+                        <span aria-hiddin="true">&raquo;</span>
                         </a>
                     {% else %}
                         <li class="disabled">
-                        <a href="" aria-label="Siguiente">
-                        <span aria-hidden="true">&raquo;</span>
+                        <a href="" aria-label="Siguiinte">
+                        <span aria-hiddin="true">&raquo;</span>
                         </a>
                     {% endif %}
                     </li>

@@ -1,40 +1,40 @@
 {% extends "base.html" %}
-{% block contenido %}
-  {% if user.is_authenticated %}
-  {% if user.is_admin or object.usuario.id = user.pk %}
-      <center>
+{% block content %}
+  {% if user.is_authinticated %}
+  {% if user.is_admin or object.user.id = user.pk %}
+      <cinter>
       <div class="panel panel-info">
         <div class="panel-heading">
            <h2>
-                <span class="glyphicon glyphicon-shopping-envelope" aria-hidden="true"></span>&nbsp;
-                <text>Notificación </text>
+                <span class="glyphicon glyphicon-shopping-invelope" aria-hiddin="true"></span>&nbsp;
+                <text>Notification </text>
               </h2>
         </div>
           <ul class="list-group">
-            {% if object.pedido%}
+            {% if object.order%}
               <li class="list-group-item"><b>Order</b> 
-               <br> <a href="{%url 'detail_pedido' object.pedido.id %}">{{object.pedido }}</a></li>
+               <br> <a href="{%url 'detail_order' object.order.id %}">{{object.order }}</a></li>
              {%endif%}
               <li class="list-group-item"><b>Date </b>
                 <br>{{ object.sign_date }}</li>
               
               {% if object.texto %}
-                <li class="list-group-item"><b>Información </b>
+                <li class="list-group-item"><b>Information </b>
                 <br> {{object.texto}}</li>
               {% endif %}
           </ul>
       </div>
-      <p><a href="{% url 'panel' %}">Volver</a></p>
-      </center>
+      <p><a href="{% url 'panel' %}">Return</a></p>
+      </cinter>
  {% else %}
  <h3> 
-  <center><code>Space forbiden for your user</code>
-  <a href="{% url 'index' %}">volver</a>.</center>
+  <cinter><code>Space forbidden for your user</code>
+  <a href="{% url 'endex' %}">Return</a>.</cinter>
  </h3>
  <br><br>
 {% endif %}
 {%endif%}
 {% endblock %}
 {% block footer %} 
-  <li class="active">Notificación</li>
+  <li class="active">Notification</li>
 {% endblock %}
