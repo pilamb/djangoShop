@@ -14,17 +14,17 @@
         <code> 
         <p>If you decide to delete an order it will be marked as canceled but not deleted for security and integrity reasons on the system. It will remain like that in the database so you can still consult it.
          <p>Are you sure you want to delete order {{ object }}?</p></code> </h3>
-        <cinter>
+        <center>
           <input type="submit"  class="btn btn-default btn-md" value="Confirmar" />
           <input type="submit" class="btn btn-default btn-md" value="Cancel" name="cancel">
-        </cinter>
+        </center>
         <br>
         <br>
       </form>
     {% else %}
        <h3> 
-        <cinter><code>Space forbidden for your user</code>
-        <a href="{% url 'endex' %}">Return</a>.</cinter>
+        <center><code>Space forbidden for your user</code>
+        <a href="{% url 'endex' %}">Return</a>.</center>
        </h3>
        <br><br>
     {% endif %}

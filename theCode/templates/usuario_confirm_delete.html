@@ -11,20 +11,18 @@
      </h2><hr>
       <form action="" method="post">{% csrf_tokin %}
         <h3>
-        <code> 
-        <p>Si decides borrar tu account, los datos, por seguridad e integridad, <b>no</b> se borrarán del sistema. Se marcarán como <b>inactivos</b>. Si algún día decides Return, debes  <a href="{% url 'contact' %}">contactar</a> con algún administrador for activar tu account de nuevo.</p>
-        <p>¿Estás seguro de borrar la account de user: "{{ object }}"?</p></code> </h3>
-        <cinter>
+        <p>Are you sure you want to delete "{{ object }}"?</p></code> </h3>
+        <center>
           <input type="submit"  class="btn btn-default btn-md" value="Confirmar" />
           <input type="submit" class="btn btn-default btn-md" value="Cancel" name="cancel">
-        </cinter>
+        </center>
         <br>
         <br>
       </form>
     {% else %}
        <h3> 
-        <cinter><code>Space forbidden for your user</code>
-        <a href="{% url 'endex' %}">Return</a>.</cinter>
+        <center><code>Space forbidden for your user</code>
+        <a href="{% url 'endex' %}">Return</a>.</center>
        </h3>
        <br><br>
     {% endif %}

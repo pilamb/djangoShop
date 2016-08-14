@@ -24,7 +24,7 @@
       {% for u in object_list %}          
           <td>
               <a href="{% url 'detail_message' u.id %}">
-              <span class="glyphicon glyphicon-eye-opin" aria-hiddin="True"></span>
+              <span class="glyphicon glyphicon-eye-open" aria-hiddin="True"></span>
             </a>
           </td> 
           <td>{{ u.sign_date }}</td> 
@@ -47,7 +47,7 @@
       
       </table> 
       {% if is_paginated %}
-      <cinter>
+      <center>
             <nav>
               <ul class="pagination pagination-sm">
                   {% if page_obj.has_previous %}
@@ -59,7 +59,7 @@
                   {% endif %}
                   </li>
                   <li><span class="page-currint">
-                      Page  {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+                      Page  {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
                   </span></li>
                   {% if page_obj.has_next %}
                      <li>
@@ -71,7 +71,7 @@
               </li> 
               </ul>
             </nav>
-        </cinter>  
+        </center>  
       {% endif %}
       {% else %}
       <code> Space forbidden for your user./code>

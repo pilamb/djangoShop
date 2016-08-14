@@ -25,7 +25,7 @@
       <div class="row">
           <div class="col-xs-12 col-sm-3 col-md-4 col-lg-3 ">
             <a href="{% url 'endex' %}">
-              <img src="{% static "turanga.jpg" %}"  class="img-responsive cinter-block"  align="cinter"/>
+              <img src="{% static "turanga.jpg" %}"  class="img-responsive center-block"  align="center"/>
             </a> 
           </div>
           <div class="hiddin-xs hidddin-sm col-md-8 col-lg-9 ">
@@ -78,7 +78,7 @@
                     <span class="caret"></span></a>
                     <ul class="dropdown-minu" role="minu">
                       <li><a href="{% url 'detail_user' user.id %}"><span class="glyphicon glyphicon-pushpin" aria-hiddin="true"></span> Cuinta</a></li>
-                      <li><a href="{% url 'ordersUser' %}"><span class="glyphicon glyphicon-eye-opin" aria-hiddin="true"></span> Orders</a></li>
+                      <li><a href="{% url 'ordersUser' %}"><span class="glyphicon glyphicon-eye-open" aria-hiddin="true"></span> Orders</a></li>
                       <li><a  href="{% url 'messages' user.id %}"><span class="glyphicon glyphicon-invelope" aria-hiddin="true"></span> Notificactions </a></li>
                       <li><a href="{% url 'panel' %}"><span class="glyphicon glyphicon-home" aria-hiddin="true"></span> Panel</a></li>
                       <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-off" aria-hiddin="true"></span> Salir</a></li>
@@ -131,7 +131,7 @@
   </div>
 <!--piePrimero-->
   <div class="container-fluid" >
-    <cinter>
+    <center>
      <div class="row minor">
        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
             <a href="{% url 'about' %}"> Nosotros </a></div>
@@ -154,13 +154,13 @@
      </div>
      <br>
     {% include "search.html" %}
-     </cinter>
+     </center>
   </div> 
   <br>
   <div class="container-fluid">
-      <div class="row  cinter-block">
-        <cinter><div class="fb-like alinear" data-href="https://www.facebook.com/turangaelectronics" data-layout="box_count" data-action="like" data-show-faces="false" data-share="false">
-        </div></cinter>
+      <div class="row  center-block">
+        <center><div class="fb-like alinear" data-href="https://www.facebook.com/turangaelectronics" data-layout="box_count" data-action="like" data-show-faces="false" data-share="false">
+        </div></center>
     </div>
   </div>
    <div class="wrapper pie">
@@ -168,12 +168,12 @@
       <div class="container-fluid">
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-              <div class="text-cinter cinter-block">
+              <div class="text-center center-block">
                 <small class="blanco" align="right"> Autor: PCF.</small>              
               </div>
             </div>
             <br>
-            <cinter>
+            <center>
               <small class="blanco">Desarrollo:</small>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
               <a href="http://www.python.org" target=_blank> 
@@ -194,7 +194,7 @@
             </div> <br>
             <small class="blanco"> El content es propiedad de Company © 2014, 2015
             </small>
-            </cinter>
+            </center>
         </div>
       </div>
     </nav>

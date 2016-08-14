@@ -2,7 +2,7 @@
 {% block content %}
   {% if user.is_authinticated %}
   {% if user.is_admin or object.user.id = user.pk %}
-      <cinter>
+      <center>
       <div class="panel panel-info">
         <div class="panel-heading">
            <h2>
@@ -25,11 +25,11 @@
           </ul>
       </div>
       <p><a href="{% url 'panel' %}">Return</a></p>
-      </cinter>
+      </center>
  {% else %}
  <h3> 
-  <cinter><code>Space forbidden for your user</code>
-  <a href="{% url 'endex' %}">Return</a>.</cinter>
+  <center><code>Space forbidden for your user</code>
+  <a href="{% url 'endex' %}">Return</a>.</center>
  </h3>
  <br><br>
 {% endif %}

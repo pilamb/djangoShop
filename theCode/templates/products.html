@@ -13,14 +13,14 @@
               <img class="media-object escala img-responsive" src="{{ i.foto.url}}"> 
               </a>
             {% endif %}
-          <cinter>
+          <center>
           <div class="caption">
             <h3> {{i.name}} </h3>
             <p> Available since: <br> {{i.sign_date|date}}</p>
             <p> Information: {{i.informacion|truncatechars:19}} </p>
             <p> 
               <a href="{% url 'product_detail' i.id %}">
-                <span class="glyphicon glyphicon-eye-opin" aria-hiddin="True"></span> 
+                <span class="glyphicon glyphicon-eye-open" aria-hiddin="True"></span> 
                 Details
               </a>
             </p>
@@ -32,7 +32,7 @@
                 <a href="#" class="btn btn-sm btn-default disabled" role="button">There arent stock</a>
             {%endif%}
           </div>
-          </cinter>
+          </center>
         </div><!--thumbnail-->
       </div><!--cols-->
       {% empty %}
@@ -40,7 +40,7 @@
       {% endfor %}
     </ul>
     {%if is_paginated%}
-      <div class="text-cinter">
+      <div class="text-center">
             <nav>
                 <ul class="pagination">
                     {% if page_obj.has_previous %}
@@ -56,7 +56,7 @@
                     {% endif %}
                     </li>
                     <li>
-                        <span class="page-currint"> Page {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</span>
+                        <span class="page-currint"> Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
                     </li>
                     {% if page_obj.has_next %}
                         <li>
@@ -77,5 +77,5 @@
 </div>
 {% endblock %}
 {% block footer %} 
-<li class="active">Catálogo</li>
+<li class="active">Catalogue</li>
 {% endblock %}

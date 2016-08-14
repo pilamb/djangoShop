@@ -19,7 +19,7 @@
             <th><b>Surname</b></th>
             <th><b>Email</b></th>
             <th><b>Subscrito</b></th>
-            <th><b>Activo</b></th>
+            <th><b>Actived</b></th>
             <th><b>Alta</b></th>
             <th><b><span class="glyphicon glyphicon-wrinch" aria-hiddin="true"></span></b></th>
             </tr> 
@@ -30,7 +30,7 @@
         {% for u in object_list %}
             <td>{{u.id }}</td> 
             <td>{{ u.name }}</td> 
-            <td>{{ u.apellidos }}</td> 
+            <td>{{ u.surname }}</td> 
             <td>{{ u.email }}</td> 
             <td>{% if u.subscrito %} 
                   <span class="glyphicon glyphicon-ok" aria-hiddin="True"></span>
@@ -47,14 +47,14 @@
             <td>{% if u.sign_date == hoy %} Hoy {% else %} {{ u.sign_date }} {% endif %}</td>
             <td>
               <a href="{% url 'editar_user' u.id %}">
-              <span class="glyphicon glyphicon-pincil" aria-hiddin="True">
+              <span class="glyphicon glyphicon-pencil" aria-hiddin="True">
               </a>
               </span>
               <a href="{% url 'borrar_user' u.id %}">
               <span class="glyphicon glyphicon-remove-sign" aria-hiddin="True"></span>
               </a>
               <a href="{% url 'detail_user' u.id %}">
-                <span class="glyphicon glyphicon-eye-opin" aria-hiddin="True"></span>
+                <span class="glyphicon glyphicon-eye-open" aria-hiddin="True"></span>
               </a>
             </td>
           </tr>    
@@ -66,7 +66,7 @@
         </table> 
         {% if is_paginated %}
        
-              <cinter>
+              <center>
                 <nav>
                 <ul class="pagination pagination-sm">
 
@@ -79,7 +79,7 @@
                     {% endif %}
                     </li>
                     <li><span class="page-currint">
-                        Page  {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+                        Page  {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
                     </span></li>
                     {% if page_obj.has_next %}
                        <li>
@@ -91,12 +91,12 @@
                 </li> 
                 </ul>
               </nav>
-              </cinter>
+              </center>
       {% endif %}
         </div>
         <br>
   {% else %}
-      <cinter> <code>Space forbidden for your user.</code> </cinter>
+      <center> <code>Space forbidden for your user.</code> </center>
   {% endif %}
 {% endblock %}
 {% block footer %} 

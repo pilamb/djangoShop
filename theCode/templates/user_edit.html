@@ -3,7 +3,7 @@
   {% if user.is_admin or user.pk == user.id %}
     {% block cabeza %}
    <h2>
-      <span class="glyphicon glyphicon-pincil" aria-hiddin="true"></span>&nbsp;
+      <span class="glyphicon glyphicon-pencil" aria-hiddin="true"></span>&nbsp;
       <text>Editing: <a href="{{ user.getabsoluteurl }}">{{user.email}}</a></text>
     </h2><hr> 
     {% endblock %}
@@ -48,7 +48,7 @@
       <span class="glyphicon glyphicon-lock"></span>&nbsp;
       <a href="{% url 'change_password'  %}">edit password</a> <br>
    {% else %}
-      <cinter> <code>Space forbidden for your user.</code> </cinter> <br>
+      <center> <code>Space forbidden for your user.</code> </center> <br>
   {% endif %}
 {% endblock %}
 

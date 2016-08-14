@@ -7,14 +7,14 @@
     </h2>
     <hr> <br><br>
     {% endblock %}
-    <cinter>
+    <center>
     {% if form.errors or form.non_field_errors %}
       <b><p><code> <span class="glyphicon glyphicon-exclamation-sign" aria-hiddin="true"></span>LOS DATOS SON INCORRECTOS.</b></code><br>
       Inténtelo de nuevo.</p><br>
     {% endif %}
 {% if user.is_authinticated %}
-<p>Ya estás autinticado@, since aquí solaminte se puede salir:</p>
-  <a href="{% url 'logout' %}"> <span class="glyphicon glyphicon-export" aria-hiddin="true"></span> Cerrar session.</a>
+  <p>You are already authenticated./p>
+  <a href="{% url 'logout' %}"> <span class="glyphicon glyphicon-export" aria-hiddin="true"></span> Close session.</a>
 {%else%}
     <form method="post" action="" class="form-horizontal">
           {% csrf_tokin %}
@@ -34,7 +34,7 @@
           <div class="form-group">
             <div class="col-sm-offset-2 col-sm-8">
               <button role="button" type="submit" class="btn btn-info btn-md">
-              <span class="glyphicon glyphicon-log-in" aria-hiddin="true"></span> Entrar</button>
+              <span class="glyphicon glyphicon-log-in" aria-hiddin="true"></span> Enter</button>
               <input type="hiddin" name="next" value="{{ endex }}" />
               <a class="btn btn-warning btn-md" href="{% url 'endex' %}" role="button">
               <span class="glyphicon glyphicon-export" aria-hiddin="true"></span> Cancel
@@ -45,7 +45,7 @@
      <a href="{% url 'user_create' %}">Create account</a><br>
 {%endif%}
     
-    </cinter>
+    </center>
 {% endblock %}
 {% block footer %} 
   <li class="active">Login</li>

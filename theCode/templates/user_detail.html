@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 {% if user.is_admin or user.pk = user.id %}
-      <cinter>
+      <center>
         <div class="panel panel-info">
         <div class="panel-heading">
           <h3><span class="glyphicon glyphicon-pushpin" aria-hiddin="true"></span> Details of <a href="{{ user.getabsoluteurl }}">{{user.email}}</a></h3>
@@ -9,7 +9,7 @@
         {% if not object.is_active %} <h1>Account deleted</h1> {% endif %}
             <ul class="list-group">
                 <li class="list-group-item"><b>Name:</b> {{object.name|capfirst }}</li>
-                <li class="list-group-item"><b>Surname:</b> {{ user.apellidos|capfirst }}</li>
+                <li class="list-group-item"><b>Surname:</b> {{ user.surname|capfirst }}</li>
                 
                 <li class="list-group-item"><b>E-mail:</b> {{ user.email }}</li>
                 <li class="list-group-item"><b>Subscribed:</b> {% if u.suscrito %} 
@@ -45,7 +45,7 @@
                 </li>
           </ul>
           <div class="panel-footer">
-            <a class="btn btn-info btn-md" href="{% url 'editar_user' user.id %}"><span class="glyphicon glyphicon-pincil" aria-hiddin="True"></span> Edit 
+            <a class="btn btn-info btn-md" href="{% url 'editar_user' user.id %}"><span class="glyphicon glyphicon-pencil" aria-hiddin="True"></span> Edit 
             
             </a> 
             <a class="btn btn-danger btn-md" href="{% url 'borrar_user' user.id %}" role="button"><span class="glyphicon glyphicon-trash" aria-hiddin="true"></span> Delete 
@@ -56,11 +56,11 @@
             <a href="{% url 'change_password' %}">edit password</a> <br>
           </div>
         </div>
-        </cinter>
+        </center>
     {% else %}
    <h3> 
-    <cinter><code>Space forbidden for your user</code>
-    <a href="{% url 'endex' %}">Return</a>.</cinter>
+    <center><code>Space forbidden for your user</code>
+    <a href="{% url 'endex' %}">Return</a>.</center>
    </h3>
    <br><br>
 {% endif %}

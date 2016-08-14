@@ -2,7 +2,7 @@
 {% block content %}
   {% if user.is_admin  %}
     {% block cabeza %}
-    <h3>Edit order: <a href="{{ order.getabsoluteurl }}">{{order.apellidos}}</a></h3>
+    <h3>Edit order: <a href="{{ order.getabsoluteurl }}">{{order.surname}}</a></h3>
     {% endblock %}
       {% if form.errors or form.non_field_errors %}
       <div class="text-danger" role="alert">
@@ -43,8 +43,8 @@
       </form>
       {% else %}
          <h3> 
-          <cinter><code>Space forbidden for your user</code>
-          <a href="{% url 'endex' %}">Return</a>.</cinter>
+          <center><code>Space forbidden for your user</code>
+          <a href="{% url 'endex' %}">Return</a>.</center>
          </h3>
          <br><br>
     {% endif %}

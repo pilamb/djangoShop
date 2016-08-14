@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-      <cinter>
+      <center>
         <div class="panel panel-info">
         <div class="panel-heading">
           <h3><span class="glyphicon glyphicon-pushpin" aria-hiddin="true"></span> Details of <a href="{{ object.getabsoluteurl }}">{{object.name}}</a></h3>
@@ -40,7 +40,7 @@
             </div>
           {% endif %}
         </div>
-        </cinter>
+        </center>
 {% endblock %}
 {% block footer %} 
        <li><a href="{% url 'products' %}">Products</a></li>

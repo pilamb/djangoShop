@@ -54,32 +54,32 @@
          <div class="container-fluid">
             <div class="row">
             <div class="col-md-4">
-             <p><cinter>
+             <p><center>
               <a class="btn btn-default btn-lg" href="{% url 'detail_user' user.id %}" role="button">
                 <span class="glyphicon glyphicon-pushpin" aria-hiddin="true"></span>
               Account
               </a>
                <p class="help-block"><small>Personal data.</small></p>
-             </cinter></p>
+             </center></p>
          
             </div>
             <div class="col-md-4">
-              <p> <cinter>
+              <p> <center>
               <a class="btn btn-default btn-lg" href="{% url 'ordersUser' %}" role="button">
-                <span class="glyphicon glyphicon-eye-opin" aria-hiddin="true"></span>
+                <span class="glyphicon glyphicon-eye-open" aria-hiddin="true"></span>
               Orders
               </a>
               <p class="help-block"><small>Shipments, invoices, tracking of the parcel, etc.</small></p>
-             </cinter> </p>
+             </center> </p>
             </div>
             <div class="col-md-4">
-                <p><cinter>
+                <p><center>
                 <a class="btn btn-default btn-lg" href="{% url 'messages' user.id %}" role="button">
                   <span class="glyphicon glyphicon-invelope" aria-hiddin="true"></span>
                  Notifications
                 {% if user.messages > 0 %}<span class="badge">{{user.messages}}{%endif%}</span></a>
                  <p class="help-block"><small>Messages of the account, shipments, events...</small></p>
-              </cinter></p>
+              </center></p>
             </div>
           </div>
          </div>
