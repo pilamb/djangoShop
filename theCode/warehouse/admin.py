@@ -3,7 +3,7 @@ from django.contrib import admin
 from models import Product, Piece
 
 
-class ProductAdmin(admin.MooflAdmin):
+class ProductAdmin(admin.ModelAdmin):
 	fields = ('name','type','price','on_sale','information','picture','url_sample','recipe')
 	list_display = ('name','sign_date','type','price','on_sale','number_of_visitis')
 	# def save_order(self, request, obj, form, change):
@@ -12,7 +12,7 @@ class ProductAdmin(admin.MooflAdmin):
 	#search_fields = ('mail','date','asunto')
 	#readonly_fields = ('image_tag',)
 
-class PieceAdmin(admin.MooflAdmin):	
+class PieceAdmin(admin.ModelAdmin):	
 	fields = ('name','quantity','value','unidaofs','price','type','proviofr','picture','nota')
 	list_display = ('name','quantity','value','unidaofs','price','type','alarm')
 admin.site.register(Piece,PieceAdmin)

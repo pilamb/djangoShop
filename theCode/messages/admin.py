@@ -7,9 +7,9 @@ def message_partido(obj,length=10, suffix='...'):
 		return obj.message
 	else:
 		return ' '.join(obj.message[:length+1].split(' ')[0:-1]) + suffix
-message_partido.short_ofscription = 'Message'
+message_partido.short_description = 'Message'
 
-class MessageAdmin(admin.MooflAdmin):
+class MessageAdmin(admin.ModelAdmin):
 	fields = ('attendedd','message')
 	list_display = ('attendedd','name','mail','date',message_partido,'es_miembro','category')
 	search_fields = ('mail','date','category')

@@ -15,7 +15,7 @@ def page(request):
 		string = request.GET['q']
 		print "string:%s" % string
 		filtro_products = buscar_filtro(string,['name','information','type'])
-		filtro_event = buscar_filtro(string,['name','ofscripcion'])
+		filtro_event = buscar_filtro(string,['name','description'])
 		try:
 			match_products = Product.objects.filter(filtro_products)
 		except Product.DoesNotExist:

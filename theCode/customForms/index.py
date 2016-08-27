@@ -13,5 +13,5 @@ def page(request):
 			else:
 				pass 
 	else:
-		messages.info(request, 'Es obligatorio comunicar que este sitio utiliza <b>cookies</b>.')
+		messages.info(request, 'Its mandatory communicate that this site uses <b>cookies</b>.')
 		return render(request,'index.html') 

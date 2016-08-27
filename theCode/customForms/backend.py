@@ -6,8 +6,9 @@ from proyecto.clients.models import Usuario
 
 class EmailAuthBackend(object):
     """
-    Backend of autenticación por email.
+    Authenthicate backend based on email.
     """
+    
     def authenticate(self, email=None, password=None):
         """
         Authentication method

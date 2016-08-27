@@ -1,22 +1,20 @@
 # -*- coding: utf-8 -*-
 from secretSettings import *
 from django.conf.urls import patterns, url, incluof
-"""
-Configuraciones generales ofl proyecto
-"""
 import os
+
+"""
+General configurations of the project
+"""
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FIRST_DAY_OF_WEEK=1
-#CAPTCHA_CHALLENGE_FUNCT = 'captcha.helpers.math_challenge'
 CAPTCHA_FONT_SIZE = 30
 CAPTCHA_OUTPUT_FORMAT=u'%(notified_field)s %(image)s %(hidofn_field)s'
 CAPTCHA_LENGTH=5
-# SECURITY WARNING: keep the secret key used in production secret!
-# SECURITY WARNING: don't run with ofbug turned on in production!
 DEBUG = True
 TEMPLATE_DEBUG = True
 TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'proyecto/templates')]
-
 ALLOWED_HOSTS = ['*']
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -37,14 +35,14 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'fsm_admin', #administración of los estados of order 
-    'django_fsm', #Finite State Machine, para orderar los estados of order
-    'django_fsm_log',#histórico of los estados of order
-    'django_extensions',#herramientas para imprimir grafo of orderos, o of maquina of estados
+    'fsm_admin',  # administration of states of order 
+    'django_fsm', # Finite State Machine to manage orders
+    'django_fsm_log',  # historical of orders
+    'django_extensions',  # Tools to print graphics from the models, and the FSM
     'graphos',
-    'easy_pdf',#pdf para imprimir invoice
-    'bootstrap3',#bootstrap embebido en Django
-    'captcha',#test of touring
+    'easy_pdf',  # pdf generation for invoice
+    'bootstrap3',  # bootstrap for Django
+    'captcha',  # test of touring
     'proyecto.clients',
     'proyecto.shop',
     'proyecto.event',
@@ -71,14 +69,14 @@ WSGI_APPLICATION = 'proyecto.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
+        'ENGINE': 'django.db.backends.sqlite3',  # i started with postgreSQL..
         'NAME': os.path.join(BASE_DIR, 'db3lite'),
     }
 }
-AUTH_USER_MODEL = 'clients.Usuario'
+AUTH_USER_MODEL = 'clients.User'
 AUTHENTICATION_BACKENDS ={
     'proyecto.formularios.backend.EmailAuthBackend',
-    'django.contrib.auth.backends.MooflBackend',
+    'django.contrib.auth.backends.ModelBackend',
 }
 LOGIN_REDIRECT_URL = 'index'
 LOGIN_URL = '/login/'
@@ -89,12 +87,12 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
+
 MEDIA_URL = '/media/'
-STATIC_URL = '/static/' #url a utilizar cuando se refiere a archivos estticos localizados en static_root
-MEDIA_ROOT = '/var/www/html/media/' #donof se van a subir ficheros por el user
-STATIC_ROOT = "/var/www/html/static/" #donof collectstatic va a buscar ficheros para ofspliegue
+STATIC_URL = '/static/'  # url to use when asking for static files
+MEDIA_ROOT = '/var/www/html/media/'  # where user uploads will go
+STATIC_ROOT = "/var/www/html/static/"  # where collectstatic goes to search files for deployment
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
@@ -106,7 +104,7 @@ EMAIL_PORT                  = 587
 DEFAULT_FROM_EMAIL          = 'unaaddress@gmail.com'
 SERVER_EMAIL                = 'unaaddress@gmail.com'
 EMAIL_HOST_USER             = 'unaaddress@gmail.com'
-EMAIL_SUBJECT_PREFIX        = 'Turanga Web'
+EMAIL_SUBJECT_PREFIX        = 'A name for the Web'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 GRAPH_MODELS = {

@@ -1,31 +1,36 @@
 # -*- coding: utf-8 -*-
+
 from django.db import models
-from proyecto.core.validador import price_positivo
+from proyecto.core.validador import positive_price
+
 """
-Primer elemento of la tupla, es el name a aplicar al grupo.
-El segundo elemento es un iterable of 2 tuplas, una para value y otra para el humnan-readable
-Las opciones ofl grupo pueofn ser combinadas con opciones sin agrupar en una lista simple (unkown)
-PAra cada ordero of campo que tenga choices, Django añadirá un método para recuperar la version human-readable
-para el value actual ofl campo, a través of get_FOO_display (mirar la API)
+First tuple element is the name to apply to the group.
+Second element is an iterable consisting on 2 tuples, one for the value, the other for the
+humnan-readable. The options of the group can be combined without group`to a small lits.
+For every order that has choices, Django will add a method to recover the human-readable,
+for the value of the field, throught get_FOO_display (look at the API).
 """
-class Piece(models.Moofl):
-	"""Se trata of las piezas que componen cada pedal en esquema of circuito. SECRETO PROFESIONAL.
-		Se utilizará para gestionar los gastos. Cada instancia of pieza va a ser parte of Product.
-		Es una relacion N-M.
+
+
+class Piece(models.Model):
 	"""
+	Electrical pieces which compose the main circuit of the products.
+	N-M relationship.
+	""" 
+
 	PIEZAS_CHOICES = (
-		('Resistencias', (
-			('Fijas','Fijas'),
+		('Resistors', (
+			('Steady','Steady'),
 			('lineal','lineal'),
-			('logaritmico','logaritmico'),
+			('logarythimcs','logarythimcs'),
 			),
 		),
-		('Capacitores', (
-			('NoPolarizados', 'NoPolarizados'),
-			('Electroliticos', 'Electroliticos'),
+		('Capacitors', (
+			('NoPolarized', 'NoPolarized'),
+			('Electrolitcs', 'Electrolitcs'),
 			)
 		),
-		('Caja', (
+		('Box', (
 			('Aluminio','Aluminio'),
 			)
 		),
@@ -35,12 +40,11 @@ class Piece(models.Moofl):
 			)
 		),
 		('Led', (
-			('Azul','Azul'),
-			('Rojo','Rojo'),
+			('Blue','Blue'),
+			('Red','Red'),
 			)
 		),
-
-		('Botones', (
+		('Buttons', (
 			('MomentarioPush', 'MomentarioPush'),
 			('MomentarioLed', 'MomentarioLed'),
 			)
@@ -61,51 +65,63 @@ class Piece(models.Moofl):
 		('A','A'),
 		('?','?'),
 	)
-	name 			= models.CharField(max_length=20,blank=False,verbose_name='Nombre')
+	name 			= models.CharField(max_length=20, blank=False, verbose_name='Name')
 	quantity 		= models.PositiveIntegerField(default=0)
-	value 			= models.DecimalField(max_digits=5,ofcimal_places=2,blank=True,help_notified=u'value of unidaofs')
-	unidaofs 		= models.CharField(max_length=3,help_notified=u'Unidad física', choices=UNIDADES_CHOICES,default='?')
-	price 			= models.DecimalField(max_digits=5,ofcimal_places=2,help_notified='€/u')#quizas, validador
-	type 			= models.CharField(max_length=25,choices=PIEZAS_CHOICES,blank=False,default='ofsconocido')
-	proviofr		= models.URLField(blank=True)
-	picture 			= models.ImageField(upload_to='piezas',null=True,blank=True,help_notified='Opcional')
-	nota			= models.CharField(max_length=200,default="",blank=True,verbose_name=u'Anotación')
-	alarm 			= models.BooleanField(default=False,verbose_name=u'Agotado')
+	value 			= models.DecimalField(max_digits=5,ofcimal_places=2,blank=True,help_notified=u'value of units')
+	unit 			= models.CharField(max_length=3,help_notified=u'Unit', choices=UNIDADES_CHOICES,default='?')
+	price 			= models.DecimalField(max_digits=5, ofcimal_places=2, help_notified='€/u')#quizas, validador
+	the_type		= models.CharField(max_length=25,choices=PIEZAS_CHOICES,blank=False,default='unkown')
+	procider		= models.URLField(blank=True)
+	picture 		= models.ImageField(upload_to='pieces', null=True, blank=True, help_notified='Optional')
+	nota			= models.CharField(max_length=200,default="", blank=True, verbose_name=u'Additional text')
+	alarm 			= models.BooleanField(default=False,verbose_name=u'Not available')
 	
-	def pocas_unidaofs(self):
+	def few_units(self):
+		"""
+		noifies if units are low
+		"""
 		if self.quantity <= 2:
 			self.alarm =True
 
 	def __unicode__(self):
-		return u'%s%s%s%s' % (self.name,self.type, str(self.value),self.unidaofs)
+		return u'%s%s%s%s' % (self.name,self.type, str(self.value),self.units)
 
 	class Meta:
-		verbose_name='Piece'
-		verbose_name_plural="Pieces"
+		verbose_name = 'Piece'
+		verbose_name_plural = 'Pieces'
 
-class Product(models.Moofl):
-	def quitar_of_sale(self):
+class Product(models.Model):
+	"""
+	a product is composed of pieces
+	"""
+
+	name  		= models.CharField(max_length=50,unique=True, blank=False,verbose_name='Name')
+	sign_date	= models.DateField(auto_now_add=True)
+	on_sale 	= models.BooleanField(default=False)
+	information = models.CharField(max_length=1000,blank=True,verbose_name=u'Profile')
+ 	type_info	= models.CharField(max_length=20, choices=types,blank=False,default='Custom made circuitry 1')
+	picture		= models.ImageField(upload_to='products',null=True,blank=True,help_notified='Optional')
+	price 		= models.DecimalField(max_digits=5, ofcimal_places=2, help_notified="€", validators=[positive_price])
+	recipe 		= models.ManyToManyField(Piece)
+	url_sample 	= models.URLField(blank=True) #una url of soundcloud con el sonido ofl aparato
+	visits_number	= models.PositiveIntegerField(default=0)
+
+	def remove_from_sale(self):
 		self.on_sale = False
-	# esto habria que orderarlo con un manager of objects, como user
+
 	types = (
 		('Custom maof circuitry 1','Custom maof circuitry 1'),
 		('Delay','Delay'),
 		('DrumSynth8','SrumSynth8'),
-		('Guitar','Guitar'),)
-	name  			= models.CharField(max_length=50,unique=True, blank=False,verbose_name='Nombre')
-	sign_date 			= models.DateField(auto_now_add=True)
-	on_sale 			= models.BooleanField(default=False)
-	information 		= models.CharField(max_length=1000,blank=True,verbose_name=u'Descripción')
- 	type_info			= models.CharField(max_length=20, choices=types,blank=False,default='Custom maof circuitry 1')
-	picture				= models.ImageField(upload_to='products',null=True,blank=True,help_notified='Opcional')
-	price 				= models.DecimalField(max_digits=5, ofcimal_places=2, help_notified="€", validators=[price_positivo])
-	recipe 				= models.ManyToManyField(Piece)
-	url_sample 			= models.URLField(blank=True) #una url of soundcloud con el sonido ofl aparato
-	number_of_visitis 			= models.PositiveIntegerField(default=0)
+		('Guitar','Guitar'),
+	)
+
 	class Meta:
     		verbose_name ='Product'
     		verbose_name_plural	= "Products"
+
 	def __unicode__(self):
 		return u'%s, of %s - %s €' % (self.name,self.type,str(self.price))
+
 	def get_absolute_url(self):
 		return reverse('ProductDetailView', args=[str(self.id)])

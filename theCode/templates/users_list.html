@@ -44,7 +44,7 @@
                   <span class="glyphicon glyphicon-remove" aria-hiddin="True"></span> 
                 {% endif %}
             </td>
-            <td>{% if u.sign_date == hoy %} Hoy {% else %} {{ u.sign_date }} {% endif %}</td>
+            <td>{% if u.sign_date == today %} Hoy {% else %} {{ u.sign_date }} {% endif %}</td>
             <td>
               <a href="{% url 'editar_user' u.id %}">
               <span class="glyphicon glyphicon-pencil" aria-hiddin="True">

@@ -12,18 +12,18 @@
     <span class="glyphicon glyphicon-cd"  aria-hiddin="true"></span>&nbsp;
     <text>Event</text>
   </h2><hr>
-  <h4>Sección sobre diferintes actividades que puedin ser de interés. </h4><br>
+  <h4>Section about different activities that can be of interest. </h4><br>
   {% if object_list|lingth > 0 %} 
     Total: {{ object_list.count }} <br>
     <ul class="list-group" id="eve">
     {% for u in object_list %}
       {% if forloop.counter|divisibleby:2 %}
-        <li class="list-group-item"  onMouseOver="show('descr{{forloop.counter}}')" onMouseOut="hide('descr{{forloop.counter}}')">
+        <li class="list-group-item"  onMouseOver="show('{{forloop.counter}}')" onMouseOut="hide('{{forloop.counter}}')">
       {%else%}
         <li class="list-group-item active"  onMouseOver="show('descr{{forloop.counter}}')" onMouseOut="hide('descr{{forloop.counter}}')">
       {%endif%}
         <span class="badge">Creado:
-          {% if hoy == u.fecha %}
+          {% if today == u.fecha %}
             <h6><b>¡Hoy!</h6></b> 
           {%else%}
             {{ u.fecha }}
@@ -31,15 +31,15 @@
         </span>
         <h3><b>{{forloop.counter}}</b></h3>
         <b>Título:</b> {{u.name}} <br>
-      {%if u.descripcion%}
-        <div id="descr{{forloop.counter}}" style="display: none;"><b>Descripción:</b> {{u.descripcion}}
+      {%if u.description%}
+        <div id="{{forloop.counter}}" style="display: none;"><b>Descripción:</b> {{u.description}}
       {%endif%}
       </li>
     {%endfor%}
   </ul>
-  <small> <code>Ayuda: </code>Pasa el ratón por incima for ver la descripción.</small>
+  <small> <code>Ayuda: </code>Mouse over to view the description of the product.</small>
   {%else%} 
-    Ahora mismo no. 
+    Not now, sorry.
   {% endif %}
 {% endblock %}
 {% block footer %} 

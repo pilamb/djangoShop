@@ -5,7 +5,7 @@ from django.core.urlresolvers import reverse
 from proyecto.core.validador import *
 from proyecto.clients. models import Usuario
 
-class Message(models.Moofl):
+class Message(models.Model):
 	"""
 	When somebody writes at contact.py creates an instance of this type
 	with attendedd to False and alerts are sent to admins
@@ -19,7 +19,7 @@ class Message(models.Moofl):
 		('Shippings','Shippings'),
 		('Others','Others'),				
 	)
-	name 		= models.CharField(max_length=20,validators=[letras])
+	name 		= models.CharField(max_length=20,validators=[only_letters])
 	date		= models.DateField(auto_now=True,auto_now_add=True)
 	mail 		= models.EmailField()
 	message 	= models.CharField(blank=True, max_length=1000)
@@ -35,7 +35,7 @@ class Message(models.Moofl):
 	class Meta:
 		get_latest_by = "date"
 
-class Alert(models.Moofl):
+class Alert(models.Model):
 	""" 
 	Admins emails to alert abount new events related to the website
 	"""

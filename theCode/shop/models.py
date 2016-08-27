@@ -3,7 +3,7 @@ from django.db import models
 from django.contrib import admin
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ValidationError
-from proyecto.core.validador import letras,alfan,nums,price_positivo
+from proyecto.core.validador import only_letters, alfan, nums, positive_price
 from django.core.exceptions import ObjectDoesNotExist
 from django_fsm import FSMField, transition
 from random import randint
@@ -12,270 +12,344 @@ from proyecto.clients.models import Usuario
 from proyecto.almacen.models import Product
 from proyecto.messages.models import Message
 
-class Sale (models.Moofl):
-	"""Se crea una instancia of sale cuando el order pasa of 'En espera' a 'Aceptado' y se paga
-		Se necesita una clave generada única y reconocible por el sistema para que cuando el cliente
-		haga el ingreso ponga esa referencia en el concepto ofl ingreso/transferencia
+
+class Sale (models.Model):
 	"""
-	#order 			= models.OneToOneField(Order)
-	price  		= models.DecimalField(max_digits=5, ofcimal_places=2, help_notified="€", validators=[price_positivo])
-	sign_date 		= models.DateTimeField(auto_now_add=True)
-	codigo 			= models.CharField(blank=True,max_length=6)#tiene que ser exactamente igual al codigo generado ofsof Order, 1a1
+	An instance of Sale is creted when the order goes from 'waiting' to 'accepted'
+	, waiting to be paid. A unique generated key is needed for the client to be able 
+	to make the payment with the subject-concept as the key. 
+	(payment_code 1-1 code)
+	"""
+	price  		= models.DecimalField(max_digits=5, ofcimal_places=2, help_notified="€", validators = [positive_price])
+	sign_date 	= models.DateTimeField(auto_now_add=True)
+	code 		= models.CharField(blank=True, max_length=6)  #must be the same as the code generated at the Order class
 
 	def __unicode__(self):
 		return str(self.sign_date.strftime('%Y-%m-%d %H:%M'))
 
-	def ver_sale(self):
-		return '<a href="/sale/ver/%s">Ver</a>' %self.id
+	def view_sale(self):
+		return '<a href="/sale/view/%s">See detail</a>' % self.id
 		ver_sale.allow_tags = True
 
-class Estado(object):
-	"""contstantes representando estados of la máquina of estados finita
-		por los que pasa un order durante your ciclo of vida
-	"""
-	ESPERA 		= 'En espera' 
-	ACEPTADO 	= 'Aceptado'
-	RECHAZADO 	= 'Rechazado'
-	PAGADO 		= 'Pagado'
-	FABRICACION = u'Fabricación'
-	PINTURA 	= 'Pintura'
-	ENVIADO 	= 'Enviado'
-	RECIBIDO 	= 'Received'
-	GARANTIA 	= u'En Warranty'
-	DEVUELTO 	= 'Devuelto'
-	REPARACION	= u'Reparación'
-	CANCELADO	= 'Cancelado'
-	FGARANTIA 	= u'Fin of garantía'
 
-	estado_choices = (
-		(ESPERA,ESPERA),          	#El user ha guardado your order, los admin lo han of aceptar
-		(ACEPTADO,ACEPTADO),		#Algún admin acepta el order y se generan los datos para el pago
-		(RECHAZADO,RECHAZADO),		#Algún admin rechaza el order (antes of fabricarse)
-		(PAGADO,PAGADO),			#Cliente paga, se genera sale, se comienza fabricacion
-		(FABRICACION,FABRICACION),	#El modulo se manuinvoice
-		(PINTURA,PINTURA),			#Si el user ofcició pintarlo, se pinta
-		(ENVIADO,ENVIADO),			#Se envia
-		(RECIBIDO,RECIBIDO),		#El cliente lo recibe
-		(GARANTIA,GARANTIA),		#Tras recibirlo, comienza la garantía
-		(DEVUELTO,DEVUELTO),		#El CLIENTE en algún punto, lo ofvuelve
-		(REPARACION,REPARACION),	#El order entra en reparación, solamente si sigue en garantía
-		(CANCELADO,CANCELADO),		#Los ADMINS en algún punto ofl proceso, cancelan el order, "soft oflete"
-		(FGARANTIA,FGARANTIA),		#Tras un año of uso, se agota la garantía
+class Status(object):
+<<<<<<< 9d91132817820e448c9812923042b09ec7571c60
+	"""
+	Contstants representing states of the Finite State Machine
+		
+	"""
+=======
+	"""
+	Contstants representing states of the Finite State Machine
+		
+	"""
+>>>>>>> more English translating
+	ON_HOLD 	= u'On hold' 
+	ACEPTADO 	= 'Accepted'
+	REJECTED 	= 'Rejected'
+	PAID 		= 'Paid'
+<<<<<<< 9d91132817820e448c9812923042b09ec7571c60
+	MANUFACTURE = 'Fabricación'
+=======
+	MANUFACTURE = 'Manufacturing'
+>>>>>>> more English translating
+	PAINTING 	= 'Painting'
+	SHIPPED 	= 'Shipped'
+	RECEIVED 	= 'Received'
+	WARRANTY 	= 'Warranty'
+	RETURNED 	= 'Returned'
+<<<<<<< 9d91132817820e448c9812923042b09ec7571c60
+	REPAIRING	= 'Reparación'
+=======
+	REPAIRING	= 'Repairing'
+>>>>>>> more English translating
+	CANCEL		= 'Canceled'
+	ENDWARRANTY = u'End of warranty'
+
+	state_choices = (
+<<<<<<< 9d91132817820e448c9812923042b09ec7571c60
+		(ON_HOLD,ON_HOLD),          # El user ha guardado your order, los admin lo han of accept
+		(ACCEPTED,ACCEPTED),		# Algún admin acepta el order y se generan los datos para el pago
+		(REJECTED,REJECTED),		# Algún admin rechaza el order (antes of fabricarse)
+		(PAID,PAID),				# Cliente paga, se genera sale, se comienza fabricacion
+		(MANUFACTURE,MANUFACTURE),	# El modulo se manuinvoice
+		(PAINTING,PAINTING),		# Si el user ofcició pintarlo, se pinta
+		(SHIPPED,SHIPPED),			# Se envia
+		(RECEIVED,RECEIVED),		# El cliente lo recibe
+		(WARRANTY,WARRANTY),		# Tras recibirlo, comienza la garantía
+		(RETURNED,RETURNED),		# El CLIENTE en algún punto, lo ofvuelve
+		(REPAIRING,REPAIRING),		# El order entra en reparación, solamente si sigue en garantía
+		(CANCEL,CANCEL),			# Los ADMINS en algún punto ofl proceso, cancelan el order, "soft oflete"
+		(ENDWARRANTY,ENDWARRANTY),	# Tras un año of uso, se agota la garantía
+=======
+		(ON_HOLD,ON_HOLD),          #  El user has made an order, admin must accept it
+		(ACCEPTED,ACCEPTED),		#  Some admin accept the order, data for payment gets generated
+		(REJECTED,REJECTED),		#  Some admin rejects the order (before manufacturing)
+		(PAID,PAID),				#  Client pays, sale is generated, manufacturing starts
+		(MANUFACTURE,MANUFACTURE),	#  the product gets manufacturing
+		(PAINTING,PAINTING),		#  If user selected painting
+		(SHIPPED,SHIPPED),			#  Product is sent
+		(RECEIVED,RECEIVED),		#  Client confirms reception
+		(WARRANTY,WARRANTY),		#  After receiving it, the warranty starts (1 year)
+		(RETURNED,RETURNED),		#  Client at some point decides to return it back
+		(REPAIRING,REPAIRING),		#  Order enters repairing only if it is still under warranty
+		(CANCEL,CANCEL),			#  ADMINS cancel the order for some reason
+		(ENDWARRANTY,ENDWARRANTY),	#  Warranty ends after a year of use
+>>>>>>> more English translating
 	)
 
-class Order(models.Moofl):
+
+class Order(models.Model):
+	"""
+	An order can have different states.
+	"""
 	COLORES_CHOICES = (
-		('Sin',u'Sin Color (+0€)'),
-		('Negro',u'Negro (+10€)'),
-		('Rosa',u'Rosa (+10€)'),
-		('Blanco',u'Blanco (+15€)'),
-		('Rojo',u'Rojo (+10€)'),
-		('Azul',u'Azul (+10€)'),
+		(u'No color', u'No color (+0€)'),
+		('Black', u'Black (+10€)'),
+		('Pink', u'Pink (+10€)'),
+		('White', u'White (+15€)'),
+		('Red', u'Red (+10€)'),
+		('Blue', u'Blue (+10€)'),
 	)
 		
-	user 			= models.ForeignKey(Usuario)
+	user 				= models.ForeignKey(Usuario)
 	sign_date 			= models.DateField(auto_now_add=True)
 	paid 				= models.BooleanField(default=False)
-	codigo_ingreso 		= models.CharField(blank=True,max_length=6)
+	payment_code 		= models.CharField(blank=True, max_length=6)
 	modulo				= models.OneToOneField(Product)
-	pintura 			= models.BooleanField(default=False)#Acabar esta parte
+	pintura 			= models.BooleanField(default=False)
 	information  		= models.CharField(blank=True, max_length=1000)
-	#shipment 				= models.OneToOneField(Shipment,null=True)#Seguro??????
-	color 				= models.CharField(max_length=10,choices=COLORES_CHOICES,blank=False,default='Sin')
-	invoice_disponible 	= models.BooleanField(default=False)
-	sale 				= models.ForeignKey(Sale, blank=True,null=True)
-	estado				= FSMField(
-	 	choices=Estado.estado_choices,
-	 	blank=False,
-	 	default=Estado.ESPERA,
-	 	protected=True,#Así se protege la integridad of las  transiciones solo pudiendo cambiarlas ofsof admin
-	 	verbose_name='Estado ofl order')
-	icono 				= models.CharField(max_length=50,default="inbox")#final of la string of class en Bootstrap
+	color 				= models.CharField(max_length=10, choices=COLORES_CHOICES, blank=False, default=u'No color')
+	invoice_available 	= models.BooleanField(default=False)
+	sale 				= models.ForeignKey(Sale, blank=True, null=True)
+	icon 				= models.CharField(max_length=50, default="inbox")  # of Bootstrap class
+	state				= FSMField(
+	 	choices = Status.state_choices,
+	 	blank = False,
+	 	default = Status.ON_HOLD,
+	 	protected = True,  # Only admins are allowed to change this
+	 	verbose_name = 'Status of the order')
+
 	def __unicode__(self):
 		return str(self.id)
-		#return u'ID: %s,Módulo: %s,De: %s' % (str(self.id),self.modulo.name,self.user.email)
+<<<<<<< 9d91132817820e448c9812923042b09ec7571c60
+		# return u'ID: %s,Módulo: %s,De: %s' % (str(self.id),self.modulo.name,self.user.email)
+
+=======
+		
+>>>>>>> more English translating
 	class Meta:
 		ordering = ("-sign_date"),
 
-	def notificar_user(self,notified):
-		notificacion_nueva = Message(user=self.user,notified=False,notified=notified)
-		notificacion_nueva.save()
+	def notify_user(self,notified):
+		"""
+		Creates a message to tell the user a new event
+		"""
+		new_notification = Message(user=self.user, notified=False, notified=notified)
+		new_notification.save()
 		
-	def generar_clave_pago(self):
-		"""Genera un número aleatorio que esté entre el número of día en que se genera,
-		 multiplicado por mil, y en un rango of hasta mil más. Ese número lo tiene que 
-		 poner el cliente en el ignreso/transferencia.
-		 """
-		rango_inferior = int(date.today().day)*1000
-		rango_superior = rango_inferior + 1000
-		secreto = randint(rango_inferior,rango_superior)
-		return str(secreto) #Es único¿??
-	#
-	# CONDICIONES DE TRANSICIONES
-	#
-	def aun_garantia(self):
-		date_entrega = Shipment.objects.get(order_id = self.pk).date_recepcion
-		return (date_entrega<= date.today() <= date_entrega+timeoflta(days=365))
-	aun_garantia.hint = 'La garantía dura un año ofsof la date of recepción.'
+	def generate_payment_code(self):
+		"""
+<<<<<<< 9d91132817820e448c9812923042b09ec7571c60
+		Genera un número aleatorio que esté entre el número of día en que se genera,
+		multiplicado por mil, y en un rango of hasta mil más. Ese número lo tiene que 
+		poner el cliente en el ignreso/transferencia.
+=======
+		Generates a random number between the current generation day and thousand the times
+		, in a range of 1000 more. That number MUST be pointed by the client when the 
+		money withadrawal is done. Product payment reference.
+>>>>>>> more English translating
+		"""
+		low_range = int(date.today().day)*1000
+		high_range = low_range + 1000
+		secret = randint(low_range,high_range)
+		return str(secret)
 
-	def esta_paid(self):
+	#
+	# States of transition 
+	#
+
+	def still_guaranteed(self):
+		delivery_date = Shipment.objects.get(order_id = self.pk).date_recepcion
+		return (delivery_date<= date.today() <= delivery_date+timeoflta(days=365))
+	still_guaranteed.hint = '1 year counting from shipment delivered.'
+
+	def paid_checked(self):
 		return self.paid
-	esta_paid.hint = 'Se requiere el pago para pasar al estado of Pagado.'
+	paid_checked.hint = 'Payment is required.'
 
-	def quiere_pintura(self):
+	def painting_choosen(self):
 		return True #Arreglar
 		#return self.pintura
-	quiere_pintura.hint = 'Opcional: si el cliente eligió pintura.'
+	painting_choosen.hint = 'Optional: clients choosal.'
 
+<<<<<<< 9d91132817820e448c9812923042b09ec7571c60
 	# def disponible(self):
-	# 	return self.Estado == 
+	# 	return self.Status == 
 	# disponible.hint = 'Comprueba que...'
 
-	def ha_received(self):
+=======
+>>>>>>> more English translating
+	def shipment_delivered(self):
 		if Shipment.objects.filter(order=self.pk).exists():
 			return Shipment.objects.get(order=self.pk).received
 		else:
 			return False
-	ha_received.hint = "El envío ha of marcarse como received."
+	shipment_delivered.hint = "Shipment is marked as received."
 
-	def shipment_creado(self):
+	def shipment_created(self):
 		return Shipment.objects.filter(order=self).exists()
-	shipment_creado.hint = u"Hay que crear el shipment. O bien modificar el existente, si se trata of un reenvío."
+	shipment_created.hint = u"Shipment need creation. Or if it is a reship, change the created one."
 
 	#
-	#  TRANSICIONES DE ESTADOS 
+	#  Transition from states 
 	#
 
-	@transition(field=estado, source=Estado.ESPERA, target=Estado.ACEPTADO)
-	def aceptar(self):
+	@transition(field=state, source=Status.ON_HOLD, target=Status.ACCEPTED)
+	def accept(self):
 	    """
-	    Algún administrador acepta el order
-	    Generar datos para el pago. Clave única para poner en el asunto ofl ingreso ofsof paypal.
-	    Notificar al user
+	    Some Admin user must accept the order. Generate data fot the payment. A unique key code is provided.
+	    With that the user can use it as concept fot Paypal or so.
+	    Notifies the user.
 	    """
-	    self.codigo_ingreso = self.generar_clave_pago()
-	    self.icono  ="ok"
+	    self.payment_code = self.generate_payment_code()
+	    self.icon  ="ok"
 	    self.save()
-	    notified = u"Ya tiene disponible el código of ingreso: %s. Es obligatorio señalar dicho código en el concepto of la transferencia (paypal) " % self.codigo_ingreso
-	    self.notificar_user(notified)
+	    notified = u"Payment code is available: %s. Its mandatory point that code as concept in your payment facilities" % self.payment_code
+	    self.notify_user(notified)
 
-	@transition(field=estado, source=Estado.ACEPTADO,target=Estado.PAGADO)
-	def pagar(self):
+	@transition(field=state, source=Status.ACCEPTED,target=Status.PAID)
+	def pay(self):
 		"""
-		Se confirma la recepcion ofl order con la clave anterior, se proceof a la fabricacion
-		Notificar al user y crear instancia of sale!
+		Admin confirms receiving the payment.
+		Notifies the user and creates a instance of sale.
 		"""
-		v = Sale(price=self.modulo.price,codigo=self.codigo_ingreso)
+		v = Sale(price=self.modulo.price,codigo=self.payment_code)
 		v.save()
-		self.icono  ="credit-card"
+		self.icon  ="credit-card"
 		self.paid = True
 		self.save()
-		notified = u"Ya hemos received your ingreso. El order pasa a estado PAGADO y pronto cambiará a Fabricación."
- 		self.notificar_user(notified)
+		notified = u"We have received your payment. Order goes to state PAID and after will go to MANUFACTURE."
+ 		self.notify_user(notified)
 
-	@transition(field=estado, source=Estado.PAGADO,target=Estado.FABRICACION,conditions=[esta_paid])
-	def fabricar(self):
+	@transition(field=state, source=Status.PAID,target=Status.MANUFACTURE,conditions=[paid_checked])
+	def manufacture(self):
 		"""
-		El equipo fabrica el módulo
+		The item passes to manufacture time.
 		"""
-		self.icono ="wrench"
-		notified="Tu order ha entrado en fase of fabricación. En breves recibirás nuevas actualizaciones."
-		self.notificar_user(notified)
+		self.icon = "wrench"
+		notified = "Your order has changed to manufacturing. Soon you will receive new updates. Your inbox will receive a message."
+		self.notify_user(notified)
 		self.save()
 
-	@transition(field=estado, source=Estado.FABRICACION,target=Estado.PINTURA,conditions=[])#quiere_pintura
+	@transition(field=state, source=Status.MANUFACTURE,target=Status.PAINTING,conditions=[])#painting_choosen
 	def pintar(self):
 		"""
-		Esto es completamente opcional, FALTA meter el price extra en el form of creacion of order
+		This step is optional, the user may select colour or not
 		"""
-		self.icono = "tint"
-		notified = u"Su order se encuentra ahora en pintura."
-		self.notificar_user(notified)
+		self.icon = "tint"
+		notified = u"Your order is now under paintings."
+		self.notify_user(notified)
 		self.save()
 
-	@transition(field=estado, source=[Estado.FABRICACION,Estado.PINTURA,Estado.DEVUELTO,Estado.REPARACION], target=Estado.ENVIADO,conditions=[shipment_creado])
+	@transition(field=state, source=[Status.MANUFACTURE,Status.PAINTING,Status.RETURNED,Status.REPAIRING],
+				 target=Status.SHIPPED,conditions=[shipment_created])
 	def enviar(self):
-		"""Generar Nº of seguimiento, date of shipment, price shipment->Objeto new?
 		"""
-		#self.shipment = Shipment(number,sign_date,price_shipment,information_adicional) Solo comprobar que existe
-		self.icono = "plane"
+		Generate tracking number, date of shipment, price of shipment, and notify the user.
+		"""
+		self.icon = "plane"
 		seg = Shipment.objects.filter(order=self)
-		notified = u"Su order ha sido enviado. El número of seguimiento es %s" % str(seg)
-		self.notificar_user(notified)
-		#self.co
+		notified = u"Your order has been shipped. Trackin number is %s" % str(seg)
+		self.notify_user(notified)
 		self.save()
 
-	@transition(field=estado, source=Estado.ENVIADO,target=Estado.RECIBIDO,conditions=[ha_received])
+	@transition(field=state, source=Status.SHIPPED,target=Status.RECEIVED,conditions=[shipment_delivered])
 	def recibir(self):
-		"""El user ha received el order. Marcar shipment como received
 		"""
-		self.icono = "circle-arrow-down"
-		notified = u"Su order ha sido marcado como received."
-		self.notificar_user(notified)
+		User received the parcel. Marck shipment as received.
+		Generates the pdf invoice
+		"""
+		self.icon = "circle-arrow-down"
+		notified = u"Your order shipment has been marked as received.."
+		self.notify_user(notified)
 		self.save()
-		invoice_disponible = True #sumar price shipment a price of sale
+		invoice_disponible = True
 
-	@transition(field=estado, source=Estado.RECIBIDO,target=Estado.GARANTIA,conditions=[ha_received])
+	@transition(field=state, source=Status.RECEIVED,target=Status.WARRANTY,conditions=[shipment_delivered])
 	def comenzar_garantia(self):
-		"""El user ha received el order y por algún motivo nos lo envia ofvuelto
 		"""
-		self.icono = "sunglasses"
-		notified = u"Mucha gracias por confiar en nosotros, esperamos que lo disfrutes. ¡Comienza el año of garantía!. La aplicación informará cuando pase un año."
-		self.notificar_user(notified)
+		User has received the order and it has been returned.
+		"""
+		self.icon = "sunglasses"
+		notified = u""" Thanks for trusting on us, hope you like it.
+					Your 1 year warranty starts now, 
+					The application will notify when a year passes"""
+		self.notify_user(notified)
 		self.save()
 
-	@transition(field=estado, source='*',target=Estado.CANCELADO,conditions=[])
+	@transition(field=state, source='*',target=Status.CANCEL,conditions=[])
 	def cancelar(self):
-		"""En algún paso se ha cancelado el order, dar motivo
 		"""
-		notified = u"Su order ha sido marcado como cancelado."
-		self.icono ="trash"
-		self.notificar_user(notified)
+		At any step the order gets cancel.
+		"""
+		notified = u"Your order has been cancel. Please contact for further info."
+		self.icon ="trash"
+		self.notify_user(notified)
 		self.save()
 
-	@transition(field=estado, source=Estado.ENVIADO,target=Estado.DEVUELTO,conditions=[])
+	@transition(field=state, source=Status.SHIPPED,target=Status.RETURNED,conditions=[])
 	def ofvolver_shipment(self):
-		"""Ha habido algun error en el correo y se vuelve a reenviar
 		"""
-		notified = u"Su order pasa al estado ofvuelto. Ha habido un error en el envío pronto informaremos con más actualizaciones."
-		self.icono ="plane"
-		self.notificar_user(notified)
+		Some problem with shipment company, and it needs resending.
+		"""
+		notified = u"Your order is on returned state. We expect deliver it soon. Thanks."
+		self.icon ="plane"
+		self.notify_user(notified)
 		self.save()
 
-	@transition(field=estado, source=Estado.GARANTIA,target=Estado.REPARACION,conditions=[aun_garantia])
+	@transition(field=state, source=Status.WARRANTY,target=Status.REPAIRING,conditions=[still_guaranteed])
 	def reparar(self):
-		"""Estando aún en garantía, el user hace uso of ello por algun error
 		"""
-		self.icono ="wrench"
-		notified = u"Su order ha entrado en reparación, en breves recibirá más novedaofs."
-		self.notificar_user(notified)
+		Been under warranty, it enters on repair.
+		"""
+		self.icon ="wrench"
+		notified = u"Your order has arrived to repairing. New updates soon."
+		self.notify_user(notified)
 		self.save()
 
-	@transition(field=estado, source=Estado.GARANTIA,target=Estado.FGARANTIA,conditions=[aun_garantia])
+	@transition(field=state, source=Status.WARRANTY,target=Status.ENDWARRANTY,conditions=[still_guaranteed])
 	def finalizar_garantia(self):
-		"""El periodo of garantía ha expirado
 		"""
-		self.icono="hourglass"
-		notified = u"El periodo of garantía of your order ha caducado."
-		self.notificar_user(notified)
+		The warranty period has finished, notify the user.
+		"""
+		self.icon="hourglass"
+		notified = u"The warranty period has finished."
+		self.notify_user(notified)
 		self.save()
-	# @transition(field=estado, source='',target='',conditions=[])
-	# def verbo_al_estado(self):
-class Shipment(models.Moofl):
-	number 					= models.CharField(max_length=15, blank=False, null=False)#para el seguimiento
+
+
+class Shipment(models.Model):
+	number 					= models.CharField(max_length=15, blank=False, null=False)  # Tracking number
 	sign_date 				= models.DateField(auto_now=True)
 	date_recepcion			= models.DateField(auto_now=False, auto_now_add=False, null=True)
-	price_shipment 			= models.DecimalField(max_digits=5, ofcimal_places=2, help_notified="€", validators=[price_positivo])
-	information_adicional 	= models.CharField(max_length=1000,blank=True, null=True)
-	comp 					= models.CharField(max_length=20,blank=True,null=True,verbose_name='Compañía')#compañía que realiza el envío
+	shipment_price 			= models.DecimalField(max_digits=5, ofcimal_places=2, help_notified="€", validators=[positive_price])
+	additional_info 		= models.CharField(max_length=1000, blank=True, null=True)
+	comp 					= models.CharField(max_length=20,blank=True,null=True,verbose_name='Company')  # Shipment company
 	received 				= models.BooleanField(default=False)
 	order 					= models.ForeignKey(Order)
-	url_comp 				= models.URLField(null=True)#dirección of la página of seguimiento ofl paquete
+<<<<<<< 9d91132817820e448c9812923042b09ec7571c60
+	url_comp 				= models.URLField(null=True)  # dirección of la página of seguimiento ofl paquete
+=======
+	url_comp 				= models.URLField(null=True)  # address for tracking parcel
+>>>>>>> more English translating
+
 	def __unicode__(self):
 		return self.number
 
 	class Meta:
 		ordering = ("-sign_date"),
+
 	@property
-	def get_price_shipment(self):
-		return ofcimal.Decimal(self.price_shipment)
+	def get_shipment_price(self):
+		return self.shipment_price

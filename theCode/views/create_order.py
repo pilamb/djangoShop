@@ -1,4 +1,5 @@
-#NO USAR ////////////////////////////
+#DO NOT USE ////////////////////////////
+
 # -*- coding: utf-8 -*-
 from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect
@@ -12,17 +13,21 @@ from proyecto.shop.models import Order
 from proyecto.almacen.models import Product
 from proyecto.messages.models import Message
 
-class Formulario_alta_Order(forms.Form):
+
+class New_product_order_form(forms.Form):
 	def __init__(self,*args,**kwargs):
 			self.request = kwargs.pop('request', None)
-			super(Formulario_alta_Order,self).__init__(*args,**kwargs)
+			super(New_product_order_form,self).__init__(*args,**kwargs)
 	required_css_class 	 = "required"
 	error_css_class 	 = "notified-danger"
 	captcha 			 = CaptchaField()
-	modulo  = forms.MooflChoiceField(
+<<<<<<< 9d91132817820e448c9812923042b09ec7571c60:theCode/views/create_order.py
+	modulo  = forms.ModelChoiceField(
+=======
+	product  = forms.ModelChoiceField(
+>>>>>>> more English translating:theCode/views/create_order.py
 			widget=forms.RadioSelect(attrs={
 				'class':'radio',
-				
 			}),
 			queryset=Product.objects.filter(on_sale=True),
 			initial=1,
@@ -33,11 +38,11 @@ class Formulario_alta_Order(forms.Form):
 		label="Message",
 		widget= forms.Textarea(attrs={
 			'class':'form-control',
-			'placeholofr':'Write here  un message opcional',
-			'onblur':'this.placeholofr="Write here  un message opcional"',
-			'onclick':'this.placeholofr=""',
+			'placeholder':'Write here an optional message',
+			'onblur':'this.placeholder="Write here an optional message"',
+			'onclick':'this.placeholder=""',
 			'rows':'10',
-			'overflow-y':'hidofn',
+			'overflow-y':'hidden',
 			'resize':'none'
 			})
 		)
@@ -45,16 +50,17 @@ class Formulario_alta_Order(forms.Form):
 		widget=forms.Select(attrs={
 			'class':'form-control',
 			'id':'selectorcolor',
-			'onchange':'cambiaPrecio(this)',
+			'onchange':'changePrice(this)',
 
 			}),
 		choices=Order.COLORES_CHOICES
 		)
 	class Meta:
 		order = Order
-		fields = ('user','modulo','information','color')#,'pintura'
+		fields = ('user','product','information','colour')
+
 	def clean(self):
-		cleaned_data = super(Formulario_alta_Order,self).clean()
+		cleaned_data = super(New_product_order_form,self).clean()
 		return cleaned_data
 
 def page(request):
@@ -63,33 +69,32 @@ def page(request):
 		if "cancel" in request.POST:
 			return HttpResponseRedirect(reverse_lazy('index'))
 		else:
-			form = Formulario_alta_Order(request.POST)
+			form = New_product_order_form(request.POST)
 			if request.user.is_authenticated():
 				if form.is_valid():
-					modulo = request.POST['modulo']
-					mod = Product.objects.get(id = modulo)
+					product = request.POST['product']
+					mod = Product.objects.get(id = product)
 					notified = request.POST['notified']
-					pintura = request.POST['color']
-					print "Ha elegido %s" % str(pintura)
-					print pintura
+					painting = request.POST['color']
+					print "You has choosen %s" % str(painting)
+					print painting
 					p = Order(
 						user = user,
-						modulo = mod,
+						product = mod,
 						information = notified,
 						paid = False,
-						#pintura = pintura,
 						)
 					mod.quitar_of_sale()
-					#p.save()
 					mod.save()
-					notificacion_nueva = Message(user=user,notified=False,notified=u"Enhorabuena, el order se ha creado correctly y se encuentra en estado %s. Pronto recibirás confirmación of cambio of estado. Gracias" % p.estado)
-					notificacion_nueva.save()
-					messages.success(request, '¡Order creado <b>correctly</b>, gracias!')
+					new_message = Message(user=user, notified=False, notified=u"""Congratulations, the order has been created correctly and it is in the state %s.
+					 Soon you will receive confirmation of the states changes. Thanks""" % p.state)
+					new_message.save()
+					messages.success(request, '¡Order created <b>correctly</b>, thanks!')
 					return HttpResponseRedirect(reverse_lazy('panel'))
 				else:
-					return render(request, 'crear_order.html',{'form':form})
+					return render(request, 'create_order.html',{'form':form})
 	else:
-		form = Formulario_alta_Order()
-		return render(request,'crear_order.html',{'form':form})
+		form = New_product_order_form()
+		return render(request,'create_order.html',{'form':form})
 				
 

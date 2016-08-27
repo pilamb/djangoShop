@@ -27,13 +27,13 @@ class UsuarioListView(LoginRequiredMixin,ListView):
 	paginate_by = 4
 	def get_connotified_data(self, **kwargs):
 			connotified = super(UsuarioListView, self).get_connotified_data(**kwargs)
-			connotified['hoy'] = date.today()
+			connotified['today'] = date.today()
 			return connotified
 	def get_queryset(self):
 		"""
 		Return users ordered by recent sign date  and only the latter 6 ones
 		"""
-		return Usuario.objects.excluof(is_admin=True).filter(is_superuser=False).order_by('-sign_date')#[:5]
+		return Usuario.objects.exclude(is_admin=True).filter(is_superuser=False).order_by('-sign_date')#[:5]
 
 class UsuarioDetailView(LoginRequiredMixin,DetailView):
 	template_name	   = "oftail_user.html"
@@ -51,7 +51,7 @@ class UsuarioUpdateView(LoginRequiredMixin,UpdateView):
     	    super(Usuario, self).clean()
 	order 			= Usuario
 	fields 			= ['name','surname','subscribed','address','phone']
-	#excluof 		= ['password','email','messages']
+	#exclude 		= ['password','email','messages']
 	template_name 	= "edit_user.html"
 	#form_class 		= Form_Alta_Usuario
 	success_url  	= reverse_lazy('panel')

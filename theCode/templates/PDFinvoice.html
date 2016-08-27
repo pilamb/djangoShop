@@ -31,11 +31,11 @@
 <body>
     <!-- Contint for Static Frame 'header_frame' -->
     <div id="header_contint">
-    	<img src="{% static "turanga.jpg" %}"/> {{hoy}} 
+    	<img src="{% static "turanga.jpg" %}"/> {{today}} 
     </div>
     <!-- Contint for Static Frame 'footer_frame' -->
     <div id="footer_contint">
-    	Company(c) - {{hoy}} - page:  <pdf:paginumber>
+    	Company(c) - {{today}} - page:  <pdf:paginumber>
      / <pdf:pagecount>
     </div>
     <!-- content -->
@@ -85,7 +85,7 @@
                     <br>{{shipment.sign_date}}
     				<br>
     				<b>Price del shipment</b>
-                    <br>{{shipment.price_shipment}}
+                    <br>{{shipment.shipment_price}}
     				<br>
     				<b>Company de transporte</b> 
                     <br>{{shipment.comp}} 

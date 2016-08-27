@@ -1,18 +1,20 @@
 # -*- coding: utf-8 -*-
+
 from django.db import models
 from proyecto.clients.models import Usuario
-#from proyecto.shop.models import Order
 
-class Message(models.Moofl):
-	"""messages sobre cambio of estado of order, o  al user
-	y que pueda leerla en your panel 
+
+class Message(models.Model):
 	"""
-	#DEBERIA MANDAR UN EMAIL SI ESTA SUBSCRITO O NO¿?
+	Messages about change of state of an order, or about user account.
+	Readable from user panel.
+	"""
+
 	user 		= models.ForeignKey(Usuario,blank=False)
- 	sign_date 		= models.DateField(auto_now_add=True)
- 	notified 		= models.BooleanField(default=False)
- 	text 			= models.CharField(blank=True,max_length=1500)
- 	#FALTA Notificar por category of suscripción save?
+ 	sign_date	= models.DateField(auto_now_add=True)
+ 	notified 	= models.BooleanField(default=False)  # Changes when clicks on it
+ 	text 		= models.CharField(blank=True, max_length=1500)
+
 	class Meta:
 		ordering = ("sign_date"),
 		verbose_name = "Message"
@@ -20,7 +22,9 @@ class Message(models.Moofl):
 
 	def __unicode__(self):
 		return u'%s' % str(self.id)
+
 	def notify(self):#nueva
 		self.notified =False
+
 	def seen(self):#ya se ha leido
 		self.notified =True

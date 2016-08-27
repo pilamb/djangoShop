@@ -11,11 +11,13 @@ from django.contrib import messages
 from proyecto.shop.models import Order
 from proyecto.almacen.models import Product
 from proyecto.messages.models import Message
-#Reserva of un modulo ya escogido en un link
-class Formulario_alta_Order_Concreto(forms.Form):
+
+
+class New_concret_product_order_form(forms.Form):
 	def __init__(self,*args,**kwargs):
 			self.request = kwargs.pop('request', None)
-			super(Formulario_alta_Order_Concreto,self).__init__(*args,**kwargs)
+			super(New_concret_product_order_form,self).__init__(*args,**kwargs)
+
 	required_css_class 	 = "required"
 	error_css_class 	 = "notified-danger"
 	captcha = CaptchaField()
@@ -26,9 +28,9 @@ class Formulario_alta_Order_Concreto(forms.Form):
 		label="Message",
 		widget= forms.Textarea(attrs={
 			'class':'form-control',
-			'placeholofr':'Write here  un message opcional',
-			'onblur':'this.placeholofr="Write here  un message opcional"',
-			'onclick':'this.placeholofr=""',
+			'placeholder':'Write here an optional message',
+			'onblur':'this.placeholder="Write here an optional message"',
+			'onclick':'this.placeholder=""',
 			'rows':'10',
 			'overflow-y':'hidofn',
 			'resize':'none'
@@ -38,7 +40,7 @@ class Formulario_alta_Order_Concreto(forms.Form):
 		widget=forms.Select(attrs={
 			'class':'form-control',
 			'id':'selectorcolor',
-			'onchange':'cambiaPrecio(this)',
+			'onchange':'changePrice(this)',
 
 			}),
 		choices=Order.COLORES_CHOICES
@@ -46,9 +48,13 @@ class Formulario_alta_Order_Concreto(forms.Form):
 	class Meta:
 		order = Order
 		fields = ('user','information','paid','color')
-		excluof = 'modulo'
+<<<<<<< 9d91132817820e448c9812923042b09ec7571c60:theCode/views/create_concrete_order.py
+		exclude = 'modulo'
+=======
+		exclude = ''
+>>>>>>> more English translating:theCode/views/create_concrete_order.py
 	def clean(self):
-		cleaned_data = super(Formulario_alta_Order_Concreto,self).clean()
+		cleaned_data = super(New_concret_product_order_form,self).clean()
 		return cleaned_data
 
 def page(request,pk):
@@ -58,11 +64,11 @@ def page(request,pk):
 		mod = None
 	print mod
 	user = request.user
-	if request.POST: #si el form ha sido enviado, tratar los datos
+	if request.POST:
 		if "cancel" in request.POST:
 			return HttpResponseRedirect(reverse_lazy('index'))
 		else:
-			form = Formulario_alta_Order_Concreto(request.POST)
+			form = New_concret_product_order_form(request.POST)
 			if request.user.is_authenticated():
 
 				if form.is_valid():
@@ -70,7 +76,7 @@ def page(request,pk):
 					print request.POST['color']
 					p = Order(
 						user = user,
-						modulo = mod,
+						product = mod,
 						information = notified,
 						paid = False,
 						color = request.POST['color']
@@ -79,20 +85,21 @@ def page(request,pk):
 						mod.on_sale=False
 						mod.save()
 					if request.POST['color']!="Sin":
-						p.pintura=True
+						p.painting=True
 					else:
-						p.pintura=False
+						p.painting=False
 					p.save()
-					notificacion_nueva = Message(user=user,notified=False,notified=u"Enhorabuena, el order ID %s se ha creado correctly y se encuentra en estado %s. Pronto recibirás confirmación of cambio of estado. Gracias" % (str(p.id),p.estado))
-					notificacion_nueva.save()
+					new_message = Message(user=user, notified=False, notified=u"""Congratulations, the order has been created correctly and it is in the state %s.
+					 Soon you will receive confirmation of the states changes. Thanks""" % p.state)
+					new_message.save()
 					mod.quitar_of_sale()
 					mod.save()
-					messages.success(request, '¡Order creado <b>correctly</b>, gracias!')
+					messages.success(request, '¡Order created <b>correctly</b>, thanks!')
 					return HttpResponseRedirect(reverse_lazy('panel'))
 				else:
-					return render(request, 'crear_order.html',{'form':form,'pk':pk})
+					return render(request, 'create_order.html',{'form':form,'pk':pk})
 	else:
-		form = Formulario_alta_Order_Concreto()
-		return render(request,'crear_order.html',{'form':form,'pk':pk})
+		form = New_concret_product_order_form()
+		return render(request,'create_order.html',{'form':form,'pk':pk})
 				
 
