@@ -21,11 +21,7 @@ class New_product_order_form(forms.Form):
 	required_css_class 	 = "required"
 	error_css_class 	 = "notified-danger"
 	captcha 			 = CaptchaField()
-<<<<<<< 9d91132817820e448c9812923042b09ec7571c60:theCode/views/create_order.py
-	modulo  = forms.ModelChoiceField(
-=======
 	product  = forms.ModelChoiceField(
->>>>>>> more English translating:theCode/views/create_order.py
 			widget=forms.RadioSelect(attrs={
 				'class':'radio',
 			}),
@@ -97,4 +93,3 @@ def page(request):
 		form = New_product_order_form()
 		return render(request,'create_order.html',{'form':form})
 				
-

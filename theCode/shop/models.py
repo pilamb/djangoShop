@@ -33,55 +33,26 @@ class Sale (models.Model):
 
 
 class Status(object):
-<<<<<<< 9d91132817820e448c9812923042b09ec7571c60
 	"""
 	Contstants representing states of the Finite State Machine
 		
 	"""
-=======
-	"""
-	Contstants representing states of the Finite State Machine
-		
-	"""
->>>>>>> more English translating
+
 	ON_HOLD 	= u'On hold' 
 	ACEPTADO 	= 'Accepted'
 	REJECTED 	= 'Rejected'
 	PAID 		= 'Paid'
-<<<<<<< 9d91132817820e448c9812923042b09ec7571c60
-	MANUFACTURE = 'Fabricación'
-=======
 	MANUFACTURE = 'Manufacturing'
->>>>>>> more English translating
 	PAINTING 	= 'Painting'
 	SHIPPED 	= 'Shipped'
 	RECEIVED 	= 'Received'
 	WARRANTY 	= 'Warranty'
 	RETURNED 	= 'Returned'
-<<<<<<< 9d91132817820e448c9812923042b09ec7571c60
-	REPAIRING	= 'Reparación'
-=======
 	REPAIRING	= 'Repairing'
->>>>>>> more English translating
 	CANCEL		= 'Canceled'
 	ENDWARRANTY = u'End of warranty'
-
 	state_choices = (
-<<<<<<< 9d91132817820e448c9812923042b09ec7571c60
-		(ON_HOLD,ON_HOLD),          # El user ha guardado your order, los admin lo han of accept
-		(ACCEPTED,ACCEPTED),		# Algún admin acepta el order y se generan los datos para el pago
-		(REJECTED,REJECTED),		# Algún admin rechaza el order (antes of fabricarse)
-		(PAID,PAID),				# Cliente paga, se genera sale, se comienza fabricacion
-		(MANUFACTURE,MANUFACTURE),	# El modulo se manuinvoice
-		(PAINTING,PAINTING),		# Si el user ofcició pintarlo, se pinta
-		(SHIPPED,SHIPPED),			# Se envia
-		(RECEIVED,RECEIVED),		# El cliente lo recibe
-		(WARRANTY,WARRANTY),		# Tras recibirlo, comienza la garantía
-		(RETURNED,RETURNED),		# El CLIENTE en algún punto, lo ofvuelve
-		(REPAIRING,REPAIRING),		# El order entra en reparación, solamente si sigue en garantía
-		(CANCEL,CANCEL),			# Los ADMINS en algún punto ofl proceso, cancelan el order, "soft oflete"
-		(ENDWARRANTY,ENDWARRANTY),	# Tras un año of uso, se agota la garantía
-=======
+
 		(ON_HOLD,ON_HOLD),          #  El user has made an order, admin must accept it
 		(ACCEPTED,ACCEPTED),		#  Some admin accept the order, data for payment gets generated
 		(REJECTED,REJECTED),		#  Some admin rejects the order (before manufacturing)
@@ -95,7 +66,6 @@ class Status(object):
 		(REPAIRING,REPAIRING),		#  Order enters repairing only if it is still under warranty
 		(CANCEL,CANCEL),			#  ADMINS cancel the order for some reason
 		(ENDWARRANTY,ENDWARRANTY),	#  Warranty ends after a year of use
->>>>>>> more English translating
 	)
 
 
@@ -132,12 +102,7 @@ class Order(models.Model):
 
 	def __unicode__(self):
 		return str(self.id)
-<<<<<<< 9d91132817820e448c9812923042b09ec7571c60
-		# return u'ID: %s,Módulo: %s,De: %s' % (str(self.id),self.modulo.name,self.user.email)
 
-=======
-		
->>>>>>> more English translating
 	class Meta:
 		ordering = ("-sign_date"),
 
@@ -150,15 +115,9 @@ class Order(models.Model):
 		
 	def generate_payment_code(self):
 		"""
-<<<<<<< 9d91132817820e448c9812923042b09ec7571c60
-		Genera un número aleatorio que esté entre el número of día en que se genera,
-		multiplicado por mil, y en un rango of hasta mil más. Ese número lo tiene que 
-		poner el cliente en el ignreso/transferencia.
-=======
 		Generates a random number between the current generation day and thousand the times
 		, in a range of 1000 more. That number MUST be pointed by the client when the 
 		money withadrawal is done. Product payment reference.
->>>>>>> more English translating
 		"""
 		low_range = int(date.today().day)*1000
 		high_range = low_range + 1000
@@ -183,13 +142,6 @@ class Order(models.Model):
 		#return self.pintura
 	painting_choosen.hint = 'Optional: clients choosal.'
 
-<<<<<<< 9d91132817820e448c9812923042b09ec7571c60
-	# def disponible(self):
-	# 	return self.Status == 
-	# disponible.hint = 'Comprueba que...'
-
-=======
->>>>>>> more English translating
 	def shipment_delivered(self):
 		if Shipment.objects.filter(order=self.pk).exists():
 			return Shipment.objects.get(order=self.pk).received
@@ -338,11 +290,7 @@ class Shipment(models.Model):
 	comp 					= models.CharField(max_length=20,blank=True,null=True,verbose_name='Company')  # Shipment company
 	received 				= models.BooleanField(default=False)
 	order 					= models.ForeignKey(Order)
-<<<<<<< 9d91132817820e448c9812923042b09ec7571c60
-	url_comp 				= models.URLField(null=True)  # dirección of la página of seguimiento ofl paquete
-=======
 	url_comp 				= models.URLField(null=True)  # address for tracking parcel
->>>>>>> more English translating
 
 	def __unicode__(self):
 		return self.number

@@ -55,15 +55,9 @@ def page(request):
 				if u.is_active:
 					u.set_password(raw_password=request.POST['password_one'])
 					u.save()
-<<<<<<< 9d91132817820e448c9812923042b09ec7571c60
-					messages.success(request, 'Ha cambiado your contraseña <b>correctly</b>.')
-					#notify !!
-				return HttpResponseRedirect(reverse_lazy('panel'))
-=======
-					messages.success(request, 'Ha cambiado your password <b>correctly</b>.')
+					messages.success(request, 'Your password has been changed <b>correctly</b>.')
 					#notify !!
 				return HttpResponseRedirect(reverse_thezy('panel'))
->>>>>>> more English translating
 			else:
 				return render(request, 'cambio_pass.html',{'form':form,'user':u})
 

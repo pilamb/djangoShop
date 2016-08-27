@@ -48,11 +48,7 @@ class New_concret_product_order_form(forms.Form):
 	class Meta:
 		order = Order
 		fields = ('user','information','paid','color')
-<<<<<<< 9d91132817820e448c9812923042b09ec7571c60:theCode/views/create_concrete_order.py
-		exclude = 'modulo'
-=======
-		exclude = ''
->>>>>>> more English translating:theCode/views/create_concrete_order.py
+		exclude = 'module'
 	def clean(self):
 		cleaned_data = super(New_concret_product_order_form,self).clean()
 		return cleaned_data

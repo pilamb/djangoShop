@@ -15,15 +15,10 @@ class FormAutenticathe(forms.Form):
     """
     email = forms.EmailField(widget=forms.widgets.TextInput(attrs={
             'class':'form-control',
-<<<<<<< 9d91132817820e448c9812923042b09ec7571c60
-            'placeholofr':'Write your email of access',
-            'onblur':'this.placeholofr="Write your email of access"',
-            'onclick':'this.placeholofr=""'
-=======
+
             'placeholder':'Write your email of access',
             'onblur':'this.placeholder="Write your email of access"',
             'onclick':'this.placeholder=""'
->>>>>>> more English translating
             } ))
     password = forms.CharField(widget=forms.widgets.PasswordInput(attrs={
             'class':'form-control',

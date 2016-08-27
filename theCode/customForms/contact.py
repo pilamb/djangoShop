@@ -64,15 +64,9 @@ def confirmar(request):
 	"""
 	Its confirmed that it has been sent.
 	"""
-<<<<<<< 9d91132817820e448c9812923042b09ec7571c60
-	category = request.get(u'Categoria')
-	name = request.get(u'Name', '')
-	correo = request.get('Remitente', '')
-=======
 	category = request.get(u'Category')
 	name = request.get(u'Name', '')
 	email = request.get('Sender', '')
->>>>>>> more English translating
 	message = request.get(u'Mensj', '')
 	message += unicode(category)
 	if category and message and email:
@@ -116,16 +110,9 @@ def newMessage(request):
 	"""
 	new message gets saved at DDBB
 	"""
-<<<<<<< 9d91132817820e448c9812923042b09ec7571c60
-	category = request.get(u'Categoria', '')
-	name = request.get(u'Name', '')
-	correo = request.get('Remitente', '')
-=======
-
 	category = request.get(u'Category', '')
 	name = request.get(u'Name', '')
 	email = request.get('Sender', '')
->>>>>>> more English translating
 	message = request.get(u'Mensj', '')
 	print message
 	grabar = Message(message=message,name=name,category=category,mail=email,attendedd=False)
