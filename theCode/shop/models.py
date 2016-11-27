@@ -176,7 +176,7 @@ class Order(models.Model):
 		Admin confirms receiving the payment.
 		Notifies the user and creates a instance of sale.
 		"""
-		v = Sale(price=self.modulo.price,codigo=self.payment_code)
+		v = Sale(price=self.modulo.price,code=self.payment_code)
 		v.save()
 		self.icon  ="credit-card"
 		self.paid = True

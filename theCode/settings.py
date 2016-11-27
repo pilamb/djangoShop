@@ -14,7 +14,7 @@ CAPTCHA_OUTPUT_FORMAT=u'%(notified_field)s %(image)s %(hidofn_field)s'
 CAPTCHA_LENGTH=5
 DEBUG = True
 TEMPLATE_DEBUG = True
-TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'proyecto/templates')]
+TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'theCode/templates')]
 ALLOWED_HOSTS = ['*']
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -43,12 +43,12 @@ INSTALLED_APPS = (
     'easy_pdf',  # pdf generation for invoice
     'bootstrap3',  # bootstrap for Django
     'captcha',  # test of touring
-    'proyecto.clients',
-    'proyecto.shop',
-    'proyecto.event',
-    'proyecto.messages',
-    'proyecto.almacen',
-    'proyecto.messages',
+    'theCode.clients',
+    'theCode.shop',
+    'theCode.events',
+    'theCode.messages',
+    'theCode.warehouse',
+    'theCode.messages',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -63,9 +63,9 @@ MIDDLEWARE_CLASSES = (
 
 )
 
-ROOT_URLCONF = 'proyecto.urls'
+ROOT_URLCONF = 'theCode.urls'
 
-WSGI_APPLICATION = 'proyecto.wsgi.application'
+WSGI_APPLICATION = 'theCode.wsgi.application'
 
 DATABASES = {
     'default': {
@@ -75,7 +75,7 @@ DATABASES = {
 }
 AUTH_USER_MODEL = 'clients.User'
 AUTHENTICATION_BACKENDS ={
-    'proyecto.formularios.backend.EmailAuthBackend',
+    'theCode.formularios.backend.EmailAuthBackend',
     'django.contrib.auth.backends.ModelBackend',
 }
 LOGIN_REDIRECT_URL = 'index'

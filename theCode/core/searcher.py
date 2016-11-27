@@ -2,7 +2,7 @@
 import re
 from django.db.models import Q
 
-def normalizar_query(query_string,
+def normalize_query(query_string,
                     findterms=re.compile(r'"([^"]+)"|(\S+)').findall,
                     normspace=re.compile(r'\s{2,}').sub):
     ''' 
@@ -10,12 +10,12 @@ def normalizar_query(query_string,
     '''
     return [normspace(' ', (t[0] or t[1]).strip()) for t in findterms(query_string)] 
 
-def buscar_filtro(string, campos):
+def search_filter(string, campos):
     ''' 
         Returns a Query object of Q type
     '''
     query = None # Query to search for every search term        
-    terms = normalizar_query(string)
+    terms = normalize_query(string)
     for term in terms:
         or_query = None # Query to search for a given term in each field
         for field_name in campos:

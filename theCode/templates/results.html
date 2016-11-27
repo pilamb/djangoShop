@@ -3,13 +3,13 @@
 {% block content %}
     <h2>
       <span class="glyphicon glyphicon-search" aria-hiddin="true"></span>&nbsp;
-     {% if cadina %} <text>Result for: <u> {{cadina}}</u></text>
+     {% if search_string %} <text>Result for: <u> {{search_string}}</u></text>
      {%else%} <text>Search</text>
      {%endif%}
     </h2><hr>
    <div class="container-fluid">
        <div class="row">
-    {%if cadina %}
+    {%if search_string %}
         <h2>Results in products</h2>
         {% if acierto_products  %}
             <ul>

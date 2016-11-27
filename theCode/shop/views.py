@@ -114,14 +114,14 @@ class OrderDeleteView(LoginRequiredMixin, DeleteView):
 			m = Product.objects.get(pk=self.object.module.id)
 			m.on_sale=True
 			m.save()
-			messages.warning(request, 'Order marked as cancelado <b>correctly</b>.')
+			messages.warning(request, 'Order marked as cancelled <b>correctly</b>.')
 			#NOtificar
 			return HttpResponseRedirect(reverse_lazy('index'))
 
 
 class SaleListView(LoginRequiredMixin, ListView):
 	"""
-	View for admin for all sales
+	View for ADMIN for all sales
 	"""
 	order 		  	= Sale
 	template_name 	= "sales_list.html"
@@ -136,7 +136,7 @@ class SalesUser_modelListView(LoginRequiredMixin, ListView):
 	"""
 	Sales list for users
 	"""
-	template_name = "sales2_list.html"
+	template_name = "sales_list2.html"
 
 	def get_queryset(self):
 		return Sale.objects.filter(user = self.request.user)
@@ -180,9 +180,10 @@ class ShipmentDetailView(LoginRequiredMixin, DetailView):
     		
 
 class invoicePDF(LoginRequiredMixin, PDFTemplateView):
-	"""Generator of invoices to PDF format
 	"""
-	template_name = "invoicePDF.html"
+	Generator of invoices to PDF format
+	"""
+	template_name = "PDFinvoice.html"
 
 	def get_context_data(self, **kwargs):
 		context = super(invoicePDF, self).get_context_data(**kwargs)
@@ -191,7 +192,7 @@ class invoicePDF(LoginRequiredMixin, PDFTemplateView):
 			context['user']=u
 			ped = get_object_or_404(Order,pk =context['pk'])
 			context['order']=ped
-			sale = Sale.objects.get(codigo = ped.codigo_ingreso)
+			sale = Sale.objects.get(code = ped.code_ingreso)
 			context['sale']=sale
 			shipment = Shipment.objects.get(order_id=ped.id)
 			context['shipment']=shipment
@@ -203,5 +204,5 @@ class invoicePDF(LoginRequiredMixin, PDFTemplateView):
 			context['total'] = pe + pp
 			return context
 		except ObjectDoesNotExist:
-			print "ADMIN!!!!!: Review errors on PDF generation - ERROR"
+			#  TODO: logger.error("Error on shipment {0}")
 			return context

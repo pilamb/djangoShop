@@ -1,21 +1,20 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render
-from proyecto.core.buscar import buscar_filtro
+from proyecto.core.searcher import search_filter
 from proyecto.almacen.models import Product
 from proyecto.event.models import Event
 from datetime import date
 from django.core.exceptions import ObjectDoesNotExist
 
 def page(request):
-	"""Busca la string que se introduzca ofsof search.html en Products y Events
+	"""Search for string on Products y Events
 	"""
-	string = ''
+	search_string = ''
 	match = ()
 	if ('q' in request.GET) and request.GET['q'].strip():
-		string = request.GET['q']
-		print "string:%s" % string
-		filtro_products = buscar_filtro(string,['name','information','type'])
-		filtro_event = buscar_filtro(string,['name','description'])
+		search_string = request.GET['q']
+		filtro_products = search_filter(search_string,['name','information','type'])
+		filtro_event = search_filter(search_string,['name','description'])
 		try:
 			match_products = Product.objects.filter(filtro_products)
 		except Product.DoesNotExist:
@@ -24,11 +23,9 @@ def page(request):
 			match_event = Event.objects.filter(filtro_event)	
 		except Event.DoesNotExist:
 			match_event = ()
-		print match_event
-		print match_products
 		# filtro = 
 		# match = Product.objects.filter()
 	else:
 		match_products =()
 		match_event = ()
- 	return render(request,'results.html',{'string':string,'match_products':match_products,'match_event':match_event})
+ 	return render(request,'results.html',{'search_string':search_string,'match_products':match_products,'match_event':match_event})

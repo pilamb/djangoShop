@@ -1,4 +1,4 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render
 def page(request):
- 	return render(request,'shipments.html') 
+ 	return render(request,'shipments_info.html') 
