@@ -11,9 +11,9 @@
        <div class="row">
     {%if search_string %}
         <h2>Results in products</h2>
-        {% if acierto_products  %}
+        {% if match_products  %}
             <ul>
-            {% for i in acierto_products %}
+            {% for i in match_products %}
               <li> {{i}}  / <a href="{% url 'product_detail' i.id %}">Link</a> </li>
             {% endfor %}
             </ul>
@@ -21,9 +21,9 @@
             <small>No products by that search</small>
         {% endif %}
         <h2>Results in events</h2>
-        {% if acierto_events %}
+        {% if events_match %}
             <ul>
-            {% for i in acierto_products %}
+            {% for i in match_products %}
               <li> {{i}} in <a href="{% url 'events' %}">Events</a> </li>
             {% empty %}
               <code>No results.</code>

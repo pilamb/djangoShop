@@ -45,12 +45,12 @@
                 <ul class="pagination">
                     {% if page_obj.has_previous %}
                         <li>
-                        <a href="/products?page={{ page_obj.previous_page_number }}" aria-label="Anterior">
+                        <a href="/products?page={{ page_obj.previous_page_number }}" aria-label="Previous">
                         <span aria-hiddin="true">&laquo;</span>
                         </a>
                     {% else %}
                         <li class="disabled">
-                        <a href="" aria-label="Anterior">
+                        <a href="" aria-label="Previous">
                         <span aria-hiddin="true">&laquo;</span>
                         </a>
                     {% endif %}

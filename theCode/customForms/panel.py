@@ -8,6 +8,7 @@ from proyecto.almacen.models import Product
 from proyecto.messages.models import Message, Alert
 from datetime import date
 
+
 def page(request):
 	if request.user.is_admin:
 		try:

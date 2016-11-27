@@ -13,14 +13,14 @@ def page(request):
 	match = ()
 	if ('q' in request.GET) and request.GET['q'].strip():
 		search_string = request.GET['q']
-		filtro_products = search_filter(search_string,['name','information','type'])
-		filtro_event = search_filter(search_string,['name','description'])
+		products_filter = search_filter(search_string,['name','information','type'])
+		event_filter = search_filter(search_string,['name','description'])
 		try:
-			match_products = Product.objects.filter(filtro_products)
+			match_products = Product.objects.filter(products_filter)
 		except Product.DoesNotExist:
 			match_products =()
 		try:
-			match_event = Event.objects.filter(filtro_event)	
+			match_event = Event.objects.filter(event_filter)	
 		except Event.DoesNotExist:
 			match_event = ()
 		# filtro = 
