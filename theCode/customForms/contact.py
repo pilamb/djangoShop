@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
-
 from django.shortcuts import render
-from django.core.mail import send_mail, BadHeaofrError
+from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse, HttpResponseRedirect
 from django import forms
 from django.core.urlresolvers import reverse_lazy
@@ -81,7 +80,7 @@ def confirmar(request):
 			 	recipient_list=[email],
 			 	fail_silently=False
 			 	)
-		except BadHeaofrError:
+		except BadHeaderError:
 			return HttpResponse('Wrong header, please try again later.')
 	else:
 		return HttpResponse('Make sure all data are correct.')
@@ -103,7 +102,7 @@ def avisar():
 			 	recipient_list=[i.email],
 			 	fail_silently=False
 			 	)
-		except BadHeaofrError:
+		except BadHeaderError:
 			return HttpResponse('Wrong header, please try again later.')
 			
 def newMessage(request):
@@ -115,7 +114,7 @@ def newMessage(request):
 	email = request.get('Sender', '')
 	message = request.get(u'Mensj', '')
 	print message
-	grabar = Message(message=message,name=name,category=category,mail=email,attendedd=False)
+	grabar = Message(message=message,name=name,category=category,mail=email,attended=False)
 	grabar.save()
 
 def page(request):

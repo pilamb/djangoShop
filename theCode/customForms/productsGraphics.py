@@ -8,9 +8,9 @@ from proyecto.almacen.models import Product
 #uno of barras con las number_of_visitis por dia of cada product
 def page(request):
 	try:
-		lista_type = Product.objects.all()
+		list_type = Product.objects.all()
 	except Product.DoesNotExist:
-		lista_type=[]
-	chart= gchart.PieChart(ModelDataSource(lista_type, fields=["name", "number_of_visitis"]))
- 	return render(request,'grafico_products.html',{'lista_type':lista_type,'chart':chart}) 
+		list_type=[]
+	chart= gchart.PieChart(ModelDataSource(list_type, fields=["name", "number_of_visitis"]))
+ 	return render(request,'products_graphic.html',{'list_type':list_type,'chart':chart}) 
 

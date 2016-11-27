@@ -4,7 +4,7 @@ from django import forms
 from django.shortcuts import render
 from django.http 	import HttpResponse,HttpResponseRedirect
 from django.core.urlresolvers import reverse_lazy
-from proyecto.clients.models import Usuario
+from proyecto.clients.models import User_model
 from captcha.fields import CaptchaField
 from django.forms import RadioSelect
 from django.contrib import messages
@@ -13,7 +13,7 @@ from proyecto.messages.models import Message
 from proyecto.core.validador import only_letters,nums
 
 
-class Form_Alta_Usuario(forms.Form):
+class Form_Alta_User_model(forms.Form):
 
 	required_css_class 	 = "required"
 	error_css_class 	 = "notified-danger"
@@ -112,17 +112,17 @@ def page(request):
 		if "cancel" in request.POST:
 			return HttpResponseRedirect(reverse_lazy('index'))
 		else:
-			form = Form_Alta_Usuario(request.POST)
+			form = Form_Alta_User_model(request.POST)
 			if form.is_valid():#si el formulario es correcto, limpiar los campos
 				name= form.cleaned_data['name']
 				surname=form.cleaned_data['surname']
 				email=form.cleaned_data['email']
 				pas2 =form.cleaned_data['password2']
 				tel=form.cleaned_data['phone']
-				newUsuario=Usuario(email=email,is_active=True,name=name,surname=surname,phone=tel, messages=1)
-				newUsuario.set_password(pas2)
-				newUsuario.save()
-				notificacion_nueva = Message(user=newUsuario,notified=False,notified=u"Welcome to the website! You have an available account.")
+				newUser_model=User_model(email=email,is_active=True,name=name,surname=surname,phone=tel, messages=1)
+				newUser_model.set_password(pas2)
+				newUser_model.save()
+				notificacion_nueva = Message(user=newUser_model,notified=False,notified=u"Welcome to the website! You have an available account.")
 				notificacion_nueva.save()
 				messages.success(request, 'New user created correctly.')
 				if request.user.is_anonymous:
@@ -135,5 +135,5 @@ def page(request):
 			else:
 				return render(request,'create_user.html',{'form':form})
 	else:
-		form=Form_Alta_Usuario()
+		form=Form_Alta_User_model()
 		return render(request,'create_user.html',{'form':form})

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.contrib import admin
-from models import Usuario
+from models import User_model
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import ugetnotified_lazy as _
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
@@ -15,7 +15,7 @@ class CustomUserCreationForm(UserCreationForm):
         ofl self.fields['username']
 
     class Meta:
-        order = Usuario
+        order = User_model
         fields = ("email",)
 
 
@@ -28,7 +28,7 @@ class CustomUserChangeForm(UserChangeForm):
         del self.fields['username']
 
     class Meta:
-        order = Usuario
+        order = User_model
         fields = ('email', 'password', 'is_active', 'is_admin')
     def clean_password(self):
         return self.initial["password"]
@@ -55,5 +55,5 @@ class CustomUserAdmin(UserAdmin):
     ordering = ('sign_date',)
     filter_horizontal = ()
 
-admin.site.register(Usuario,CustomUserAdmin)
+admin.site.register(User_model,CustomUserAdmin)
 admin.site.unregister(Group)

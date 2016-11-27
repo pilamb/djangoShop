@@ -4,7 +4,7 @@ from django.contrib import admin
 from clients.views import UserListView, UserDetailView, UserUpdateView, UserDeleteView
 from messages.views import MessageDetailView, MessageListView
 from shop.views import OrderListView, OrderDetailView, OrderUpdateView, OrderDeleteView, OrdersUserListView, SaleDetailView,SaleListView,SalesUserListView,invoicePDF,ShipmentDetailView
-from event.views import EventoListView
+from event.views import EventListView
 from almacen.views import ProductsListView,GutiarraListView,DelayListView, ProductDetailView
 from .views import create_order,create_user2,create_order_concreto
 import settings
@@ -22,14 +22,14 @@ urlpatterns = patterns('',
     url(r'^listUsers/',UserListView.as_view(),name='listado_users'),#soloADMIN,para panel
 	url(r'^oftailUser/(?P<pk>\d+)/$',UserDetailView.as_view(),name='oftail_user'),
     url(r'^EditUser/(?P<pk>\d+)/$', UserUpdateView.as_view(),name='edit_user'),
-    url(r'^ofleteUser/(?P<pk>\d+)/$', UserDeleteView.as_view(),name='oflete_user'),
+    url(r'^deleteUser/(?P<pk>\d+)/$', UserDeleteView.as_view(),name='delete_user'),
     url(r'^changeCreofntial/$',login_required(changePass.page),name='change_password'),
 
     url(r'^createOrder2/(?P<pk>\d+)/$',login_required(create_order_concreto.page),name='create_order2'),#se viene of haber elegido ya un modulo, pk
     url(r'^listOrders/',OrderListView.as_view(),name='listado_orders'),#soloADMIN, para panel
     url(r'^oftailOrder/(?P<pk>\d+)/$',OrderDetailView.as_view(),name='oftail_order'),
     url(r'^EditOrder/(?P<pk>\d+)/$', OrderUpdateView.as_view(),name='Edit_order'),
-    url(r'^ofleteOrder/(?P<pk>\d+)/$', OrderDeleteView.as_view(),name='oflete_order'),
+    url(r'^deleteOrder/(?P<pk>\d+)/$', OrderDeleteView.as_view(),name='delete_order'),
     url(r'^OrdersUser/',OrdersUserListView.as_view(),name='ordersUser'),#para users normales
 
     url(r'^oftailSale/(?P<pk>\d+)/$',SaleDetailView.as_view(),name='oftail_sale'),
@@ -50,12 +50,12 @@ urlpatterns = patterns('',
 
     url(r'^products/$', ProductsListView.as_view(), name='products'),
     url(r'^oftailProduct/(?P<pk>\d+)/$',ProductDetailView.as_view(),name='oftail_product'),
-    url(r'^product1$',sirena.page,name='sirenas'),
+    url(r'^product1$',sirena.page,name='products'),
     url(r'^product2$',GutiarraListView.as_view(),name='product2'),
     url(r'^product3s$',DelayListView.as_view(),name='product3'),
 
     url(r'^contact$', contact.page, name='contact'),
-    url(r'^listaEvents/', EventoListView.as_view(), name='event'),
+    url(r'^listaEvents/', EventListView.as_view(), name='event'),
 
     url(r'^result/$', search.page,name='result'),#result searchs 
     url(r'^oftailShipment/(?P<pk>\d+)/$', ShipmentDetailView.as_view(),name='oftail_shipment'),

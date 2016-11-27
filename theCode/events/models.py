@@ -6,7 +6,7 @@ from django.core.urlresolvers import reverse
 from proyecto.core.validador import *
 
 
-class Evento(models.Model):
+class Event(models.Model):
 	"""
     Represents a simple event, something that the website wants to advert to users.
     """

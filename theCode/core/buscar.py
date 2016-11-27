@@ -6,7 +6,7 @@ def normalizar_query(query_string,
                     findterms=re.compile(r'"([^"]+)"|(\S+)').findall,
                     normspace=re.compile(r'\s{2,}').sub):
     ''' 
-        Chops of string in sole words, ofleting spaces and grouping words
+        Chops of string in sole words, deleting spaces and grouping words
     '''
     return [normspace(' ', (t[0] or t[1]).strip()) for t in findterms(query_string)] 
 

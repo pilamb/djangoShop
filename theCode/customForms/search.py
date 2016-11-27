@@ -2,7 +2,7 @@
 from django.shortcuts import render
 from proyecto.core.buscar import buscar_filtro
 from proyecto.almacen.models import Product
-from proyecto.event.models import Evento
+from proyecto.event.models import Event
 from datetime import date
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -21,8 +21,8 @@ def page(request):
 		except Product.DoesNotExist:
 			match_products =()
 		try:
-			match_event = Evento.objects.filter(filtro_event)	
-		except Evento.DoesNotExist:
+			match_event = Event.objects.filter(filtro_event)	
+		except Event.DoesNotExist:
 			match_event = ()
 		print match_event
 		print match_products

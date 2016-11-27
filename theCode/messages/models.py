@@ -3,7 +3,7 @@ from django.db import models
 from django.contrib import admin
 from django.core.urlresolvers import reverse
 from proyecto.core.validador import *
-from proyecto.clients. models import Usuario
+from proyecto.clients. models import User_model
 
 class Message(models.Model):
 	"""
@@ -26,7 +26,7 @@ class Message(models.Model):
 	category 	= models.CharField(max_length=10,choices=CATEGORIA_CHOICES,default='Others',blank=False)
 	attendedd 	= models.BooleanField(default=False)
 	def es_miembro(self):
-		return Usuario.objects.filter(email=self.mail).exists()
+		return User_model.objects.filter(email=self.mail).exists()
 	def __unicode__(self):
 		return u'%s%s%s' % (self.name, str(self.date), self.mail)
 	def get_absolute_url(self):
@@ -39,9 +39,9 @@ class Alert(models.Model):
 	""" 
 	Admins emails to alert abount new events related to the website
 	"""
-	correo 		= models.EmailField(unique=True,help_text='Add email addresses to send alerts.')
+	mail 		= models.EmailField(unique=True,help_text='Add email addresses to send alerts.')
 	def __unicode__(self):
-		return self.correo
+		return self.mail
 	class Meta:
 		verbose_name='Alert'
 		verbose_name_plural='Alerts'

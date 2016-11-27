@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.db import models
-from proyecto.clients.models import Usuario
+from proyecto.clients.models import User_model
 
 
 class Message(models.Model):
@@ -10,7 +10,7 @@ class Message(models.Model):
 	Readable from user panel.
 	"""
 
-	user 		= models.ForeignKey(Usuario,blank=False)
+	user 		= models.ForeignKey(User_model,blank=False)
  	sign_date	= models.DateField(auto_now_add=True)
  	notified 	= models.BooleanField(default=False)  # Changes when clicks on it
  	text 		= models.CharField(blank=True, max_length=1500)

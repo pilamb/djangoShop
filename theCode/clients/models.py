@@ -87,7 +87,8 @@ class User(AbstractBaseUser):
 	sign_date	= models.DateField(
 		auto_now_add=True
 		)
-	messages	= models.IntegerField(#un sencillo contador que se llena con las messages no leidas por el user en panel.py
+    # a siomple counter with unread messages for panel.py
+	messages	= models.IntegerField( 
 		default=0,
 		blank=False,
 		verbose_name="Messages"

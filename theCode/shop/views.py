@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from proyecto.clients.models import Usuario
+from proyecto.clients.models import User_model
 from models import Order,Sale,Shipment
 from django.views.generic.list import ListView
 from django.core.exceptions import ValidationError
@@ -35,14 +35,14 @@ class OrderListView(LoginRequiredMixin, ListView):
     		return context
 
     		
-class OrdersUsuarioListView(LoginRequiredMixin, ListView):
+class OrdersUser_modelListView(LoginRequiredMixin, ListView):
 	template_name = "list_orders2.html"
 
 	def get_queryset(self):
 		return Order.objects.filter(user = self.request.user)
 
 	def get_context_data(self, **kwargs):
-    		context = super(OrdersUsuarioListView, self).get_context_data(**kwargs)    		
+    		context = super(OrdersUser_modelListView, self).get_context_data(**kwargs)    		
     		return context	
 
 
@@ -99,7 +99,7 @@ class OrderDeleteView(LoginRequiredMixin, DeleteView):
 	State to cancel and get on sale available again
 	"""
 	order  				= Order
-	template_name 		="order_confirm_oflete.html"
+	template_name 		="order_confirm_delete.html"
 	success_url 		= reverse_lazy('panel')
 
 	def post(self, request, *args, **kwargs):
@@ -132,7 +132,7 @@ class SaleListView(LoginRequiredMixin, ListView):
     		context = super(SaleListView, self).get_context_data(**kwargs)    		
     		return context
     		
-class SalesUsuarioListView(LoginRequiredMixin, ListView):
+class SalesUser_modelListView(LoginRequiredMixin, ListView):
 	"""
 	Sales list for users
 	"""
@@ -142,7 +142,7 @@ class SalesUsuarioListView(LoginRequiredMixin, ListView):
 		return Sale.objects.filter(user = self.request.user)
 
 	def get_context_data(self, **kwargs):
-    		context = super(SalesUsuarioListView, self).get_context_data(**kwargs)    		
+    		context = super(SalesUser_modelListView, self).get_context_data(**kwargs)    		
     		return context	
 
 class SaleDetailView(LoginRequiredMixin, DetailView):
@@ -187,7 +187,7 @@ class invoicePDF(LoginRequiredMixin, PDFTemplateView):
 	def get_context_data(self, **kwargs):
 		context = super(invoicePDF, self).get_context_data(**kwargs)
 		try:
-			u = get_object_or_404(Usuario,pk = self.request.user.id)
+			u = get_object_or_404(User_model,pk = self.request.user.id)
 			context['user']=u
 			ped = get_object_or_404(Order,pk =context['pk'])
 			context['order']=ped

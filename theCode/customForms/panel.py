@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render
 from django.core.exceptions import ValidationError
-from proyecto.clients.models import Usuario
+from proyecto.clients.models import User_model
 from proyecto.shop.models import Order,Sale,Shipment
 from proyecto.messages.models import Message
 from proyecto.almacen.models import Product
@@ -11,8 +11,8 @@ from datetime import date
 def page(request):
 	if request.user.is_admin:
 		try:
-			object_list = Usuario.objects.exclude(is_admin=True).filter(is_superuser=False).order_by('-sign_date')#[:5]
-		except Usuario.DoesNotExist:
+			object_list = User_model.objects.exclude(is_admin=True).filter(is_superuser=False).order_by('-sign_date')#[:5]
+		except User_model.DoesNotExist:
 			object_list =()
 		try:
 			object_list2 = Order.objects.all()

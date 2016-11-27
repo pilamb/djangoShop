@@ -7,8 +7,8 @@ from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponse,HttpResponseRedirect
 import datetime
 from datetime import date
-from proyecto.views.crear_user2 import Form_Alta_Usuario
-from models import Usuario
+from proyecto.views.crear_user2 import Form_Alta_User_model
+from models import User_model
 from proyecto.formularios.autenticar import logout 
 from proyecto.shop.models import Order
 from django.contrib.auth.ofcorators import login_required
@@ -21,39 +21,39 @@ class LoginRequiredMixin(object):
 		view = super(LoginRequiredMixin,cls).as_view(**initkwargs)
 		return login_required(view)
 
-class UsuarioListView(LoginRequiredMixin,ListView):
-	order 		  	= Usuario
+class User_modelListView(LoginRequiredMixin,ListView):
+	order 		  	= User_model
 	template_name 	= "listado_users.html"
 	paginate_by = 4
 	def get_connotified_data(self, **kwargs):
-			connotified = super(UsuarioListView, self).get_connotified_data(**kwargs)
+			connotified = super(User_modelListView, self).get_connotified_data(**kwargs)
 			connotified['today'] = date.today()
 			return connotified
 	def get_queryset(self):
 		"""
 		Return users ordered by recent sign date  and only the latter 6 ones
 		"""
-		return Usuario.objects.exclude(is_admin=True).filter(is_superuser=False).order_by('-sign_date')#[:5]
+		return User_model.objects.exclude(is_admin=True).filter(is_superuser=False).order_by('-sign_date')#[:5]
 
-class UsuarioDetailView(LoginRequiredMixin,DetailView):
+class User_modelDetailView(LoginRequiredMixin,DetailView):
 	template_name	   = "oftail_user.html"
-	order 			   = Usuario
+	order 			   = User_model
 	def get_connotified_data(self, **kwargs):
-    		connotified = super(UsuarioDetailView, self).get_connotified_data(**kwargs)
+    		connotified = super(User_modelDetailView, self).get_connotified_data(**kwargs)
     		orders = Order.objects.filter(user = self.request.user)
     		connotified['orders'] = orders    		
     		return connotified
 	# def get_queryset(self):
-	# 		return Usuario.objects.filter(email=self.request.user)
+	# 		return User_model.objects.filter(email=self.request.user)
 
-class UsuarioUpdateView(LoginRequiredMixin,UpdateView):
+class User_modelUpdateView(LoginRequiredMixin,UpdateView):
 	def clean(self):
-    	    super(Usuario, self).clean()
-	order 			= Usuario
+    	    super(User_model, self).clean()
+	order 			= User_model
 	fields 			= ['name','surname','subscribed','address','phone']
 	#exclude 		= ['password','email','messages']
 	template_name 	= "edit_user.html"
-	#form_class 		= Form_Alta_Usuario
+	#form_class 		= Form_Alta_User_model
 	success_url  	= reverse_lazy('panel')
 	def post(self, request, *args, **kwargs):		
 		if "cancel" in request.POST:
@@ -62,13 +62,13 @@ class UsuarioUpdateView(LoginRequiredMixin,UpdateView):
 			return HttpResponseRedirect(url)
 		else:
 			messages.success(request, 'Changes <b>correctly </b> saved.')
-			return super(UsuarioUpdateView, self).post(request, *args, **kwargs)
+			return super(User_modelUpdateView, self).post(request, *args, **kwargs)
 
-class UsuarioDeleteView(LoginRequiredMixin,DeleteView):
+class User_modelDeleteView(LoginRequiredMixin,DeleteView):
 	"""USERS CANT BE DELETED JUST SAVED AS INACTIVE :)
 	"""
-	order  				= Usuario
-	template_name 		="user_confirm_oflete.html"
+	order  				= User_model
+	template_name 		="user_confirm_delete.html"
 	success_url 		= reverse_lazy('panel')
 	def post(self, request, *args, **kwargs):
 		if "cancel" in request.POST:
@@ -85,9 +85,9 @@ class UsuarioDeleteView(LoginRequiredMixin,DeleteView):
 				u.is_active=False
 				u.save()
 				logout(request)
-				messages.success(request, 'Account ofleted <b>correctly</b>.')
+				messages.success(request, 'Account deleted <b>correctly</b>.')
 			return HttpResponseRedirect(reverse_lazy('index'))
 		
 	#def get_queryset(self):
-		#qs = super(UsuarioDeleteView, self).get_queryset()
-		#return Usuario.objects.filter(email = self.request.user.email)
+		#qs = super(User_modelDeleteView, self).get_queryset()
+		#return User_model.objects.filter(email = self.request.user.email)

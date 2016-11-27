@@ -8,7 +8,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django_fsm import FSMField, transition
 from random import randint
 from datetime import date, timeoflta 
-from proyecto.clients.models import Usuario
+from proyecto.clients.models import User_model
 from proyecto.almacen.models import Product
 from proyecto.messages.models import Message
 
@@ -82,7 +82,7 @@ class Order(models.Model):
 		('Blue', u'Blue (+10€)'),
 	)
 		
-	user 				= models.ForeignKey(Usuario)
+	user 				= models.ForeignKey(User_model)
 	sign_date 			= models.DateField(auto_now_add=True)
 	paid 				= models.BooleanField(default=False)
 	payment_code 		= models.CharField(blank=True, max_length=6)

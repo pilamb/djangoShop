@@ -15,7 +15,6 @@ class FormAutenticathe(forms.Form):
     """
     email = forms.EmailField(widget=forms.widgets.TextInput(attrs={
             'class':'form-control',
-
             'placeholder':'Write your email of access',
             'onblur':'this.placeholder="Write your email of access"',
             'onclick':'this.placeholder=""'
