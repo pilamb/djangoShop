@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
   {% if user.pk == user.id %}
-    {% block cabeza %}
+    {% block header1 %}
    <h2>
       <span class="glyphicon glyphicon-lock"  aria-hiddin="true"></span>&nbsp;
       <text>change password <a href="{{ user.getabsoluteurl }}">{{user.email}}</a></text>
