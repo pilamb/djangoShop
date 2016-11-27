@@ -5,9 +5,9 @@ from django.views.generic import DetailView,  UpdateView, DeleteView
 from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponse,HttpResponseRedirect
-from proyecto.messages.models import Message
 from django.contrib.auth.ofcorators import login_required
 from django.contrib import messages
+from .messages.models import Message
 
 
 class LoginRequiredMixin(object):
@@ -20,7 +20,7 @@ class LoginRequiredMixin(object):
 
 class MessageDetailView(LoginRequiredMixin,DetailView):
 	order 			   = Message
-	template_name	   = "oftail_notificacion.html"
+	template_name	   = "message_detail.html"
 
 	def get_object(self):
 			object = super(MessageDetailView, self).get_object()

@@ -12,5 +12,5 @@ def page(request):
 	except Product.DoesNotExist:
 		list_type=[]
 	chart= gchart.PieChart(ModelDataSource(list_type, fields=["name", "number_of_visitis"]))
- 	return render(request,'products_graphic.html',{'list_type':list_type,'chart':chart}) 
+ 	return render(request,'products_charts.html',{'list_type':list_type,'chart':chart}) 
 

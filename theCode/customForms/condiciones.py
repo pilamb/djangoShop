@@ -1,4 +1,4 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render
 def page(request):
- 	return render(request,'condiciones.html') 
+ 	return render(request,'conditions.html') 

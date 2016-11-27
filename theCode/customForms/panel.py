@@ -51,4 +51,4 @@ def page(request):
 		n = Message.objects.filter(user = u,notified=False).count()
 		u.messages = n 
 		u.save()
- 	return render(request,'panel_user.html',{'object_list':object_list,'object_list2':object_list2,'object_list3':object_list3,'object_list4':object_list4, 'n_admins':n_admins,'news':news,'prods':prods})
+ 	return render(request,'user_panel.html',{'object_list':object_list,'object_list2':object_list2,'object_list3':object_list3,'object_list4':object_list4, 'n_admins':n_admins,'news':news,'prods':prods})
