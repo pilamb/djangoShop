@@ -36,7 +36,7 @@ class User_modelListView(LoginRequiredMixin,ListView):
 		return User_model.objects.exclude(is_admin=True).filter(is_superuser=False).order_by('-sign_date')#[:5]
 
 class User_modelDetailView(LoginRequiredMixin,DetailView):
-	template_name	   = "oftail_user.html"
+	template_name	   = "detail_user.html"
 	order 			   = User_model
 	def get_connotified_data(self, **kwargs):
     		connotified = super(User_modelDetailView, self).get_connotified_data(**kwargs)

@@ -33,7 +33,7 @@ class Manager(BaseUserManager):
     def create_superuser(self, email, password, **extra_fields):
         return self._create_user(email, password,is_admin= True,is_superuser= True, **extra_fields)
 
-    def delete_user(self):    	
+    def delete_user(self):
     	User.set_active(False)
     	User.save(using=self.db)
 
@@ -43,8 +43,8 @@ class User(AbstractBaseUser):
     Django User abstract heritage
     """
 
-	objects 	= Manager()
-	name 		= models.CharField(
+	objects = Manager()
+	name	= models.CharField(
 		max_length=20,
 		verbose_name="Name",
 		validators=[only_letters]
@@ -58,7 +58,7 @@ class User(AbstractBaseUser):
 	subscribed	= models.BooleanField(
 		default=False,
 		verbose_name="Subscribed"
-		)	
+        )
 	email 		= models.EmailField(
 		default="",
 		unique=True,
@@ -69,14 +69,14 @@ class User(AbstractBaseUser):
 		max_length=100,
 		blank=True,
 		null=True,
-		verbose_name="Address", 
+		verbose_name="Address",
 		help_notified="Only if you order, for delivery."
 		)
 	address_alternativa	= models.CharField(
 		max_length=100,
 		blank=True,
 		null=True,
-		verbose_name="Second address ", 
+		verbose_name="Second address ",
 		help_notified="Only if you order, for delivery."
 		)
 	phone = models.CharField(
@@ -88,7 +88,7 @@ class User(AbstractBaseUser):
 		auto_now_add=True
 		)
     # a siomple counter with unread messages for panel.py
-	messages	= models.IntegerField( 
+	messages	= models.IntegerField(
 		default=0,
 		blank=False,
 		verbose_name="Messages"
@@ -106,7 +106,7 @@ class User(AbstractBaseUser):
 
 	def get_absolute_url(self):
 		return reverse('listado_users',kwargs={'email' : self.email})
-		return reverse('oftail_user',kwargs={'email': self.email})
+		return reverse('detail_user',kwargs={'email': self.email})
 
 	@property
 	def get_name(self):

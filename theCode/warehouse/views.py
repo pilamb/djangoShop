@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render
 from django.views.generic.list import ListView
-from django.views.generic.oftail import DetailView
+from django.views.generic.detail import DetailView
 from proyecto.almacen.models import Product
 
 class ProductsListView(ListView):
@@ -32,7 +32,7 @@ class DelayListView(ListView):
 
 class ProductDetailView(DetailView):
 	order = Product
-	template_name = "oftail_product.html"
+	template_name = "detail_product.html"
 	def get_connotified_data(self, **kwargs):
 		    connotified = super(ProductDetailView, self).get_connotified_data(**kwargs)
 		    return connotified

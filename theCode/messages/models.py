@@ -31,7 +31,7 @@ class Message(models.Model):
 		return u'%s%s%s' % (self.name, str(self.date), self.mail)
 	def get_absolute_url(self):
 		return reverse('listado_user',kwargs={'pk' : self.pk})
-		return reverse('oftail_user',kwargs={'email': self.date})
+		return reverse('detail_user',kwargs={'email': self.date})
 	class Meta:
 		get_latest_by = "date"
 
