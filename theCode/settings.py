@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
-from secretSettings import *
-from django.conf.urls import patterns, url, incluof
+#from secretSettings import *
+from django.conf.urls import patterns, url, include
 import os
+import django
 
 """
 General configurations of the project
 """
 
+#django.settings()
+SECRET_KEY = "blablablabla"
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 FIRST_DAY_OF_WEEK=1
 CAPTCHA_FONT_SIZE = 30
