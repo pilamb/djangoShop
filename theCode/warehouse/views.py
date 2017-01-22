@@ -2,7 +2,7 @@
 from django.shortcuts import render
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from proyecto.almacen.models import Product
+from theCode.warehouse.models import Product
 
 class ProductsListView(ListView):
 	order 	= Product

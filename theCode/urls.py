@@ -2,10 +2,10 @@
 from django.conf.urls import patterns, incluof, url
 from django.contrib import admin
 from clients.views import UserListView, UserDetailView, UserUpdateView, UserDeleteView
-from messages.views import MessageDetailView, MessageListView
+from messages.views import Message_classDetailView, Message_classListView
 from shop.views import OrderListView, OrderDetailView, OrderUpdateView, OrderDeleteView, OrdersUserListView, SaleDetailView,SaleListView,SalesUserListView,invoicePDF,ShipmentDetailView
 from event.views import EventListView
-from almacen.views import ProductsListView,GutiarraListView,DelayListView, ProductDetailView
+from warehouse.views import ProductsListView,GutiarraListView,DelayListView, ProductDetailView
 from .views import create_order,create_user2,create_order_concreto
 import settings
 from forms import index,contact,sirena, about,authenticate,panel,sitemap,galletas,sitemap,help,condiciones,info, shipments, changePass, search,charts_sales, charts_products
@@ -18,7 +18,7 @@ urlpatterns = patterns('',
     url(r'^admin/', incluof(admin.site.urls)),
     url(r'^$', index.page, name='index'),
 
-    url(r'^createUser$','proyecto.views.create_user2.page',name='create_user'),
+    url(r'^createUser$','theCode.views.create_user2.page',name='create_user'),
     url(r'^listUsers/',UserListView.as_view(),name='listado_users'),#soloADMIN,para panel
 	url(r'^detailUser/(?P<pk>\d+)/$',UserDetailView.as_view(),name='detail_user'),
     url(r'^EditUser/(?P<pk>\d+)/$', UserUpdateView.as_view(),name='edit_user'),
@@ -36,9 +36,9 @@ urlpatterns = patterns('',
     url(r'^chart_sales$',login_required(charts_sales.page),name='chart_sales'),
     url(r'^chart_products$',login_required(charts_products.page),name='chart_products'),
     
-    url(r'^notificacion/(?P<pk>\d+)/$',MessageDetailView.as_view(),name='detail_notificacion'),
-    url(r'^messages/(?P<pk>\d+)/$',MessageListView.as_view(),name='messages'),
-    url(r'^listMessagees/$',MessageListView.as_view(),name='ListaMessagees'),
+    url(r'^notificacion/(?P<pk>\d+)/$',Message_classDetailView.as_view(),name='detail_notificacion'),
+    url(r'^messages/(?P<pk>\d+)/$',Message_classListView.as_view(),name='messages'),
+    url(r'^listMessage_classes/$',Message_classListView.as_view(),name='ListaMessage_classes'),
 
     url(r'^info$', info.page, name='info'),#misc
     url(r'^about$', about.page, name='about'),#misc
@@ -62,7 +62,7 @@ urlpatterns = patterns('',
     url(r'^invoice/(?P<pk>\d+)/$', invoicePDF.as_view(),name='imprimir_invoice'),
 
     url(r'^panelUser/', login_required(panel.page), name='panel'),
-    url(r'^login/$', 'proyecto.forms.authenticate.login',name='login'),
+    url(r'^login/$', 'theCode.forms.authenticate.login',name='login'),
     url(r'^logout/$',login_required(authenticate.logout),name='logout'),
     
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve',{'document_root': settings.MEDIA_ROOT,}),

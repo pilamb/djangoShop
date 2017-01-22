@@ -3,7 +3,7 @@
 from django.db import models
 from django.contrib import admin
 from django.core.urlresolvers import reverse
-from proyecto.core.validador import *
+from theCode.core.validador import *
 
 
 class Event(models.Model):

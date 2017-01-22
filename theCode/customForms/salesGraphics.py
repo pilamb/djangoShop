@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render
-from proyecto.shop.models import Sale
+from theCode.shop.models import Sale
 
 def page(request):
 	lista_type = Sale.objects.all()

@@ -3,51 +3,49 @@ from django.db import models
 from django.contrib import admin
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ValidationError
-from proyecto.core.validador import only_letters, alfan, nums, positive_price
+from theCode.core.validador import only_letters, alfan, nums, positive_price
 from django.core.exceptions import ObjectDoesNotExist
 from django_fsm import FSMField, transition
 from random import randint
-from datetime import date, timeoflta 
-from proyecto.clients.models import User_model
-from proyecto.almacen.models import Product
-from proyecto.messages.models import Message
+from datetime import date, timedelta 
+from theCode.clients.models import User_model
+from theCode.warehouse.models import Product
+from theCode.messages_app.models import Message_class
 
 
-class Sale (models.Model):
+class Sale(models.Model):
 	"""
 	An instance of Sale is creted when the order goes from 'waiting' to 'accepted'
-	, waiting to be paid. A unique generated key is needed for the client to be able 
-	to make the payment with the subject-concept as the key. 
+	, waiting to be paid. A unique generated key is needed for the client to be able
+	to make the payment with the subject-concept as the key.
 	(payment_code 1-1 code)
 	"""
-	price  		= models.DecimalField(max_digits=5, ofcimal_places=2, help_notified="€", validators = [positive_price])
-	sign_date 	= models.DateTimeField(auto_now_add=True)
-	code 		= models.CharField(blank=True, max_length=6)  #must be the same as the code generated at the Order class
+	price = models.DecimalField(max_digits=5, decimal_places=2, help_notified="€", validators = [positive_price])
+	sign_date = models.DateTimeField(auto_now_add=True)
+	code = models.CharField(blank=True, max_length=6)  #must be the same as the code generated at the Order class
 
 	def __unicode__(self):
 		return str(self.sign_date.strftime('%Y-%m-%d %H:%M'))
 
 	def view_sale(self):
+		view_sale.allow_tags = True
 		return '<a href="/sale/view/%s">See detail</a>' % self.id
-		ver_sale.allow_tags = True
-
 
 class Status(object):
 	"""
 	Contstants representing states of the Finite State Machine
-		
 	"""
 
-	ON_HOLD 	= u'On hold' 
-	ACEPTADO 	= 'Accepted'
-	REJECTED 	= 'Rejected'
-	PAID 		= 'Paid'
+	ON_HOLD     = u'On hold'
+	ACEPTADO    = 'Accepted'
+	REJECTED    = 'Rejected'
+	PAID        = 'Paid'
 	MANUFACTURE = 'Manufacturing'
-	PAINTING 	= 'Painting'
-	SHIPPED 	= 'Shipped'
-	RECEIVED 	= 'Received'
-	WARRANTY 	= 'Warranty'
-	RETURNED 	= 'Returned'
+	PAINTING    = 'Painting'
+	SHIPPED     = 'Shipped'
+	RECEIVED    = 'Received'
+	WARRANTY    = 'Warranty'
+	RETURNED    = 'Returned'
 	REPAIRING	= 'Repairing'
 	CANCEL		= 'Canceled'
 	ENDWARRANTY = u'End of warranty'
@@ -110,13 +108,13 @@ class Order(models.Model):
 		"""
 		Creates a message to tell the user a new event
 		"""
-		new_notification = Message(user=self.user, notified=False, notified=notified)
+		new_notification = Message_class(user=self.user, notified=False)
 		new_notification.save()
-		
+
 	def generate_payment_code(self):
 		"""
 		Generates a random number between the current generation day and thousand the times
-		, in a range of 1000 more. That number MUST be pointed by the client when the 
+		, in a range of 1000 more. That number MUST be pointed by the client when the
 		money withadrawal is done. Product payment reference.
 		"""
 		low_range = int(date.today().day)*1000
@@ -130,7 +128,7 @@ class Order(models.Model):
 
 	def still_guaranteed(self):
 		delivery_date = Shipment.objects.get(order_id = self.pk).date_recepcion
-		return (delivery_date<= date.today() <= delivery_date+timeoflta(days=365))
+		return (delivery_date<= date.today() <= delivery_date+timedelta(days=365))
 	still_guaranteed.hint = '1 year counting from shipment delivered.'
 
 	def paid_checked(self):
@@ -235,7 +233,7 @@ class Order(models.Model):
 		"""
 		self.icon = "sunglasses"
 		notified = u""" Thanks for trusting on us, hope you like it.
-					Your 1 year warranty starts now, 
+					Your 1 year warranty starts now,
 					The application will notify when a year passes"""
 		self.notify_user(notified)
 		self.save()
@@ -275,22 +273,22 @@ class Order(models.Model):
 		"""
 		The warranty period has finished, notify the user.
 		"""
-		self.icon="hourglass"
+		self.icon = "hourglass"
 		notified = u"The warranty period has finished."
 		self.notify_user(notified)
 		self.save()
 
 
 class Shipment(models.Model):
-	number 					= models.CharField(max_length=15, blank=False, null=False)  # Tracking number
-	sign_date 				= models.DateField(auto_now=True)
+	number				= models.CharField(max_length=15, blank=False, null=False)  # Tracking number
+	sign_date			= models.DateField(auto_now=True)
 	date_recepcion			= models.DateField(auto_now=False, auto_now_add=False, null=True)
-	shipment_price 			= models.DecimalField(max_digits=5, ofcimal_places=2, help_notified="€", validators=[positive_price])
-	additional_info 		= models.CharField(max_length=1000, blank=True, null=True)
-	comp 					= models.CharField(max_length=20,blank=True,null=True,verbose_name='Company')  # Shipment company
-	received 				= models.BooleanField(default=False)
-	order 					= models.ForeignKey(Order)
-	url_comp 				= models.URLField(null=True)  # address for tracking parcel
+	shipment_price			= models.DecimalField(max_digits=5, decimal_places=2, help_notified="€", validators=[positive_price])
+	additional_info		= models.CharField(max_length=1000, blank=True, null=True)
+	comp					= models.CharField(max_length=20,blank=True,null=True,verbose_name='Company')  # Shipment company
+	received				= models.BooleanField(default=False)
+	order					= models.ForeignKey(Order)
+	url_comp				= models.URLField(null=True)  # address for tracking parcel
 
 	def __unicode__(self):
 		return self.number

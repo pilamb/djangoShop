@@ -8,9 +8,9 @@ from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse_lazy
 from django.forms import Textarea, TextInput, PasswordInput, EmailInput
 from django.contrib import messages
-from proyecto.shop.models import Order
-from proyecto.almacen.models import Product
-from proyecto.messages.models import Message
+from theCode.shop.models import Order
+from theCode.warehouse.models import Product
+from theCode.messages_app.models import Message_class
 
 
 class New_concret_product_order_form(forms.Form):
@@ -25,7 +25,7 @@ class New_concret_product_order_form(forms.Form):
 	notified 	= forms.CharField ( 
 		max_length=1000,
 		required=False,
-		label="Message",
+		label="Message_class",
 		widget= forms.Textarea(attrs={
 			'class':'form-control',
 			'placeholder':'Write here an optional message',
@@ -85,7 +85,7 @@ def page(request,pk):
 					else:
 						p.painting=False
 					p.save()
-					new_message = Message(user=user, notified=False, notified=u"""Congratulations, the order has been created correctly and it is in the state %s.
+					new_message = Message_class(user=user, notified=False, notified=u"""Congratulations, the order has been created correctly and it is in the state %s.
 					 Soon you will receive confirmation of the states changes. Thanks""" % p.state)
 					new_message.save()
 					mod.quitar_of_sale()

@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
 from django.db import models
-from proyecto.clients.models import User_model
+from theCode.clients.models import User_model
 
 
-class Message(models.Model):
+class Message_class(models.Model):
 	"""
-	Messages about change of state of an order, or about user account.
+	Message_classs about change of state of an order, or about user account.
 	Readable from user panel.
 	"""
 
@@ -17,8 +17,8 @@ class Message(models.Model):
 
 	class Meta:
 		ordering = ("sign_date"),
-		verbose_name = "Message"
-        verbose_name_plural = "Messages"
+		verbose_name = "Message_class"
+        verbose_name_plural = "Message_classs"
 
 	def __unicode__(self):
 		return u'%s' % str(self.id)

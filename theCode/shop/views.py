@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
-from proyecto.clients.models import User_model
+from theCode.clients.models import User_model
 from models import Order,Sale,Shipment
 from django.views.generic.list import ListView
 from django.core.exceptions import ValidationError
 from django.views.generic import DetailView,  UpdateView, DeleteView
-from proyecto.views.crear_order import Formulario_alta_Order
+from theCode.views.crear_order import Formulario_alta_Order
 from django.core.urlresolvers import reverse,reverse_lazy
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import get_object_or_404,render
 from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib.auth.ofcorators import login_required
-from proyecto.messages.models import Message
-from proyecto.almacen.models import Product
+from theCode.messages_app.models import Message_class
+from theCode.warehouse.models import Product
 from django.contrib import messages
 from django_fsm_log.models import StateLog
 from easy_pdf.views import PDFTemplateView
@@ -54,8 +54,8 @@ class OrderDetailView(LoginRequiredMixin, DetailView):
     		context = super(OrderDetailView, self).get_context_data(**kwargs)
     		if not self.request.user.is_super:
 				try:
-					N = Message.objects.filter(user = self.request.user)
-				except Message.DoesNotExist:
+					N = Message_class.objects.filter(user = self.request.user)
+				except Message_class.DoesNotExist:
 					N = ()
 				try:
 					H = StateLog.objects.filter(object_id=self.object.id)
@@ -65,7 +65,7 @@ class OrderDetailView(LoginRequiredMixin, DetailView):
 					E = Shipment.objects.get(order= self.object.id)
 				except Shipment.DoesNotExist:
 					E= ""
-				context['Message']  = N
+				context['Message_class']  = N
 				context['H'] = H
 				context['shipment']= E
     		return context

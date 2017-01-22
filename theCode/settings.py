@@ -49,9 +49,8 @@ INSTALLED_APPS = (
     'theCode.clients',
     'theCode.shop',
     'theCode.events',
-    'theCode.messages',
+    'theCode.messages_app',
     'theCode.warehouse',
-    'theCode.messages',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -62,7 +61,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.contrib.messages.middleware.Message_classMiddleware',
 
 )
 

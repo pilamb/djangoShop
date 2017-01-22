@@ -8,7 +8,7 @@ from django.core.exceptions import ValidationError
 from django.conf import settings
 from captcha.fields import CaptchaField
 from django.contrib import messages
-from proyecto.messages.models import Alert, Message
+from theCode.messages_app.models import Alert, Message_class
 
 
 class MailerForm(forms.Form):
@@ -35,7 +35,7 @@ class MailerForm(forms.Form):
 	)) 
 	
 	Mensj 	= forms.CharField ( max_length=1000,
-		label="Message",
+		label="Message_class",
 		widget= forms.Textarea(attrs={
 			'class':'form-control',
 			'placeholder':'Write here  your message',
@@ -49,7 +49,7 @@ class MailerForm(forms.Form):
 	
 	Category = forms.ChoiceField(
 		label="Category",
-		choices=Message.CATEGORIA_CHOICES,
+		choices=Message_class.CATEGORIA_CHOICES,
 		initial='6',
 		widget= forms.Select(attrs={
 			'class':'form_control'
@@ -105,7 +105,7 @@ def avisar():
 		except BadHeaderError:
 			return HttpResponse('Wrong header, please try again later.')
 			
-def newMessage(request):
+def newMessage_class(request):
 	"""
 	new message gets saved at DDBB
 	"""
@@ -114,7 +114,7 @@ def newMessage(request):
 	email = request.get('Sender', '')
 	message = request.get(u'Mensj', '')
 	print message
-	grabar = Message(message=message,name=name,category=category,mail=email,attended=False)
+	grabar = Message_class(message=message,name=name,category=category,mail=email,attended=False)
 	grabar.save()
 
 def page(request):
@@ -125,7 +125,7 @@ def page(request):
 			form = MailerForm(request.POST)
 			if form.is_valid():
 				confirmar(request.POST)
-				newMessage(request.POST)
+				newMessage_class(request.POST)
 				avisar()  # Admins gets a message
 				messages.success(request, 'Your message has been sent with <b>success</b>. Soon you will receive an answer. Thanks.')
 				return HttpResponseRedirect(reverse_lazy('index'))

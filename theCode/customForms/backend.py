@@ -2,7 +2,7 @@
 
 from django.conf import settings
 from django.contrib.auth.models import check_password
-from proyecto.clients.models import User_model
+from theCode.clients.models import User_model
 
 class EmailAuthBackend(object):
     """

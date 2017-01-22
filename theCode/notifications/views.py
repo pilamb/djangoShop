@@ -7,7 +7,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib.auth.ofcorators import login_required
 from django.contrib import messages
-from .messages.models import Message
+from .messages.models import Message_class
 
 
 class LoginRequiredMixin(object):
@@ -18,27 +18,27 @@ class LoginRequiredMixin(object):
 		return login_required(view)
 
 
-class MessageDetailView(LoginRequiredMixin,DetailView):
-	order 			   = Message
+class Message_classDetailView(LoginRequiredMixin,DetailView):
+	order 			   = Message_class
 	template_name	   = "message_detail.html"
 
 	def get_object(self):
-			object = super(MessageDetailView, self).get_object()
+			object = super(Message_classDetailView, self).get_object()
 			object.notified()
 			object.save()
 			return object
 
 			
-class MessageListView(LoginRequiredMixin,ListView):
-	order = Message
+class Message_classListView(LoginRequiredMixin,ListView):
+	order = Message_class
 	template_name 	= "messages.html"
 
 	def get_connotified_data(self, **kwargs):
-			notified = super(MessageListView, self).get_connotified_data(**kwargs)  
+			notified = super(Message_classListView, self).get_connotified_data(**kwargs)  
 			return notified	
 
 	def get_queryset(self):
 		if not self.request.user.is_admin:
-			return Message.objects.filter(user = self.request.user)
+			return Message_class.objects.filter(user = self.request.user)
 		else:
-			return Message.objects.all()
+			return Message_class.objects.all()

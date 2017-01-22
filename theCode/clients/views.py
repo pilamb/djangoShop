@@ -7,10 +7,10 @@ from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponse,HttpResponseRedirect
 import datetime
 from datetime import date
-from proyecto.views.crear_user2 import Form_Alta_User_model
+from theCode.views.crear_user2 import Form_Alta_User_model
 from models import User_model
-from proyecto.formularios.autenticar import logout 
-from proyecto.shop.models import Order
+from theCode.formularios.autenticar import logout 
+from theCode.shop.models import Order
 from django.contrib.auth.ofcorators import login_required
 from django.contrib import messages
 

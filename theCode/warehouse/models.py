@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.db import models
-from proyecto.core.validador import positive_price
+from theCode.core.validador import positive_price
 
 """
 First tuple element is the name to apply to the group.
@@ -67,9 +67,9 @@ class Piece(models.Model):
 	)
 	name 			= models.CharField(max_length=20, blank=False, verbose_name='Name')
 	quantity 		= models.PositiveIntegerField(default=0)
-	value 			= models.DecimalField(max_digits=5,ofcimal_places=2,blank=True,help_notified=u'value of units')
+	value 			= models.DecimalField(max_digits=5,decimal_places=2,blank=True,help_notified=u'value of units')
 	unit 			= models.CharField(max_length=3,help_notified=u'Unit', choices=UNIDADES_CHOICES,default='?')
-	price 			= models.DecimalField(max_digits=5, ofcimal_places=2, help_notified='€/u')#quizas, validador
+	price 			= models.DecimalField(max_digits=5, decimal_places=2, help_notified='€/u')#quizas, validador
 	the_type		= models.CharField(max_length=25,choices=PIEZAS_CHOICES,blank=False,default='unkown')
 	procider		= models.URLField(blank=True)
 	picture 		= models.ImageField(upload_to='pieces', null=True, blank=True, help_notified='Optional')
@@ -101,7 +101,7 @@ class Product(models.Model):
 	information = models.CharField(max_length=1000,blank=True,verbose_name=u'Profile')
  	type_info	= models.CharField(max_length=20, choices=types,blank=False,default='Custom made circuitry 1')
 	picture		= models.ImageField(upload_to='products',null=True,blank=True,help_notified='Optional')
-	price 		= models.DecimalField(max_digits=5, ofcimal_places=2, help_notified="€", validators=[positive_price])
+	price 		= models.DecimalField(max_digits=5, decimal_places=2, help_notified="€", validators=[positive_price])
 	recipe 		= models.ManyToManyField(Piece)
 	url_sample 	= models.URLField(blank=True) #una url of soundcloud con el sonido ofl aparato
 	visits_number	= models.PositiveIntegerField(default=0)

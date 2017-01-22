@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render
-from proyecto.core.searcher import search_filter
-from proyecto.almacen.models import Product
-from proyecto.event.models import Event
+from theCode.core.searcher import search_filter
+from theCode.warehouse.models import Product
+from theCode.event.models import Event
 from datetime import date
 from django.core.exceptions import ObjectDoesNotExist
 
