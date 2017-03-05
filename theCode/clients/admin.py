@@ -3,7 +3,7 @@
 from django.contrib import admin
 from models import User_model
 from django.contrib.auth.admin import UserAdmin
-from django.utils.translation import ugetnotified_lazy as _
+from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.models import Group
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
@@ -12,7 +12,7 @@ from django.contrib.auth.forms import ReadOnlyPasswordHashField
 class CustomUserCreationForm(UserCreationForm):
     def __init__(self, *args, **kargs):
         super(CustomUserCreationForm, self).__init__(*args, **kargs)
-        ofl self.fields['username']
+        del self.fields['username']
 
     class Meta:
         order = User_model

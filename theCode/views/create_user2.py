@@ -19,7 +19,6 @@ class Form_Alta_User_model(forms.Form):
     error_css_class      = "notified-danger"
     email        = forms.EmailField(
         label="Email",
-        help_notified='It will be used to log in.',
         max_length=50,
         widget= forms.TextInput(attrs={
             'class':'form-control',
@@ -74,7 +73,6 @@ class Form_Alta_User_model(forms.Form):
     ))
     phone = forms.CharField(max_length=9,
         required=False,
-        help_notified='Its not mandatory, only if you are willing to order.',
         label="Phone",
         validators=[nums],
         widget= forms.TextInput(attrs={
@@ -89,7 +87,6 @@ class Form_Alta_User_model(forms.Form):
     subscribed = forms.BooleanField(
         label="subscribed",
         required=False,
-        help_notified='If you dont check this, you will NOT receive any mail from us.')
     acepto       = forms.BooleanField(label="Accept")
 
      def clean_password2(self):

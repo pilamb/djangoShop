@@ -75,7 +75,7 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db3lite'),
     }
 }
-AUTH_USER_MODEL = 'clients.User'
+AUTH_USER_MODEL = 'clients.User_model'
 AUTHENTICATION_BACKENDS ={
     'theCode.formularios.backend.EmailAuthBackend',
     'django.contrib.auth.backends.ModelBackend',

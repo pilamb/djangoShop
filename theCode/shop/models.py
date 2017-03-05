@@ -7,7 +7,7 @@ from theCode.core.validador import only_letters, alfan, nums, positive_price
 from django.core.exceptions import ObjectDoesNotExist
 from django_fsm import FSMField, transition
 from random import randint
-from datetime import date, timedelta 
+from datetime import date, timedelta
 from theCode.clients.models import User_model
 from theCode.warehouse.models import Product
 from theCode.messages_app.models import Message_class
@@ -20,7 +20,7 @@ class Sale(models.Model):
     to make the payment with the subject-concept as the key.
     (payment_code 1-1 code)
     """
-    price = models.DecimalField(max_digits=5, decimal_places=2, validators = [positive_price])
+    price = models.DecimalField(max_digits=5, decimal_places=2, validators=[positive_price])
     sign_date = models.DateTimeField(auto_now_add=True)
     code = models.CharField(blank=True, max_length=6)  #must be the same as the code generated at the Order class
 
@@ -37,7 +37,7 @@ class Status(object):
     """
 
     ON_HOLD     = u'On hold'
-    ACEPTADO    = 'Accepted'
+    ACCEPTED    = 'Accepted'
     REJECTED    = 'Rejected'
     PAID        = 'Paid'
     MANUFACTURE = 'Manufacturing'
@@ -283,7 +283,7 @@ class Shipment(models.Model):
     number                = models.CharField(max_length=15, blank=False, null=False)  # Tracking number
     sign_date            = models.DateField(auto_now=True)
     date_recepcion            = models.DateField(auto_now=False, auto_now_add=False, null=True)
-    shipment_price            = models.DecimalField(max_digits=5, decimal_places=2, help_notified="€", validators=[positive_price])
+    shipment_price            = models.DecimalField(max_digits=5, decimal_places=2, validators=[positive_price])
     additional_info        = models.CharField(max_length=1000, blank=True, null=True)
     comp                    = models.CharField(max_length=20,blank=True,null=True,verbose_name='Company')  # Shipment company
     received                = models.BooleanField(default=False)
