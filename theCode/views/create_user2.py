@@ -10,10 +10,10 @@ from django.forms import RadioSelect
 from django.contrib import messages
 from django.contrib.auth.models import User
 from theCode.messages_app.models import Message_class
-from theCode.core.validador import only_letters,nums
+from theCode.core.validador import only_letters, nums
 
 
-class Form_Alta_User_model(forms.Form):
+class Form_New_User_model(forms.Form):
 
     required_css_class = "required"
     error_css_class  = "notified-danger"
