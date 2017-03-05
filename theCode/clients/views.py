@@ -7,7 +7,7 @@ from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponse,HttpResponseRedirect
 import datetime
 from datetime import date
-from theCode.views.crear_user2 import Form_Alta_User_model
+from theCode.views.create_user2 import Form_Alta_User_model
 from models import User_model
 from theCode.formularios.autenticar import logout 
 from theCode.shop.models import Order

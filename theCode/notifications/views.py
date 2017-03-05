@@ -19,8 +19,8 @@ class LoginRequiredMixin(object):
 
 
 class Message_classDetailView(LoginRequiredMixin,DetailView):
-    order                = Message_class
-    template_name       = "message_detail.html"
+    order = Message_class
+    template_name = "message_detail.html"
 
     def get_object(self):
             object = super(Message_classDetailView, self).get_object()
@@ -31,7 +31,7 @@ class Message_classDetailView(LoginRequiredMixin,DetailView):
             
 class Message_classListView(LoginRequiredMixin,ListView):
     order = Message_class
-    template_name     = "messages.html"
+    template_name = "messages.html"
 
     def get_connotified_data(self, **kwargs):
             notified = super(Message_classListView, self).get_connotified_data(**kwargs)  
