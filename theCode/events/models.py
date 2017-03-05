@@ -12,7 +12,7 @@ class Event(models.Model):
     """
 
     name         = models.CharField(max_length=20, verbose_name="Name:", validators=[only_letters])
-    date        = models.DateField(auto_now=True, auto_now_add=True)
+    date        = models.DateField(null=True, blank=True)
     description = models.CharField(blank=True, verbose_name="Description:", max_length=1000)
 
     def __unicode__(self):

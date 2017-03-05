@@ -18,7 +18,7 @@ class Piece(models.Model):
     N-M relationship.
     """
 
-    PIEZAS_CHOICES = (
+    PIECES_CHOICES = (
         ('Resistors', (
             ('Steady','Steady'),
             ('lineal','lineal'),
@@ -54,7 +54,7 @@ class Piece(models.Model):
         ('DC','DC')
     )
 
-    UNIDADES_CHOICES = (
+    UNITS_CHOICES = (
         ('pF','pF'),
         ('Ohm','Ohm'),
         ('K','K'),
@@ -65,16 +65,16 @@ class Piece(models.Model):
         ('A','A'),
         ('?','?'),
     )
-    name             = models.CharField(max_length=20, blank=False, verbose_name='Name')
-    quantity         = models.PositiveIntegerField(default=0)
-    value             = models.DecimalField(max_digits=5,decimal_places=2,blank=True)
-    unit             = models.CharField(max_length=3, choices=UNIDADES_CHOICES,default='?')
-    price             = models.DecimalField(max_digits=5, decimal_places=2)
-    the_type        = models.CharField(max_length=25,choices=PIEZAS_CHOICES,blank=False,default='unkown')
-    procider        = models.URLField(blank=True)
-    picture         = models.ImageField(upload_to='pieces', null=True, blank=True)
-    nota            = models.CharField(max_length=200,default="", blank=True, verbose_name=u'Additional text')
-    alarm             = models.BooleanField(default=False,verbose_name=u'Not available')
+    name = models.CharField(max_length=20, blank=False, verbose_name='Name')
+    quantity = models.PositiveIntegerField(default=0)
+    value = models.DecimalField(max_digits=5,decimal_places=2,blank=True)
+    unit = models.CharField(max_length=3, choices=UNITS_CHOICES,default='?')
+    price = models.DecimalField(max_digits=5, decimal_places=2)
+    the_type = models.CharField(max_length=25,choices=PIECES_CHOICES,blank=False,default='unkown')
+    provider = models.URLField(blank=True)
+    picture = models.ImageField(upload_to='pieces', null=True, blank=True)
+    note = models.CharField(max_length=200,default="", blank=True, verbose_name=u'Additional text')
+    alarm = models.BooleanField(default=False,verbose_name=u'Not available')
 
     def few_units(self):
         """

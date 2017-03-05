@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.conf.urls import patterns, incluof, url
+from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from clients.views import UserListView, UserDetailView, UserUpdateView, UserDeleteView
 from messages.views import Message_classDetailView, Message_classListView
@@ -15,7 +15,7 @@ import settings
 
 admin.autodiscover()
 urlpatterns = patterns('',
-    url(r'^admin/', incluof(admin.site.urls)),
+    url(r'^admin/', include(admin.site.urls)),
     url(r'^$', index.page, name='index'),
 
     url(r'^createUser$','theCode.views.create_user2.page',name='create_user'),
@@ -70,7 +70,7 @@ urlpatterns = patterns('',
     }),
 )
 urlpatterns += patterns('',
-    url(r'^captcha/', incluof('captcha.urls')),
+    url(r'^captcha/', include('captcha.urls')),
 )+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 urlpatterns += patterns('',

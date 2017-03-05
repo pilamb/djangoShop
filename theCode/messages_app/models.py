@@ -20,7 +20,7 @@ class Message_class(models.Model):
         ('Others','Others'),
     )
     name        = models.CharField(max_length=20,validators=[only_letters])
-    date        = models.DateField(auto_now=True,auto_now_add=True)
+    date        = models.DateField(auto_now_add=True)
     mail        = models.EmailField()
     message         = models.CharField(blank=True, max_length=1000)
     category    = models.CharField(max_length=10,choices=CATEGORIA_CHOICES,default='Others',blank=False)

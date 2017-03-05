@@ -4,8 +4,8 @@ from models import Product, Piece
 
 
 class ProductAdmin(admin.ModelAdmin):
-    fields = ('name','type','price','on_sale','information','picture','url_sample','recipe')
-    list_display = ('name','sign_date','type','price','on_sale','number_of_visitis')
+    fields = ('name','type_info','price','on_sale','information','picture','url_sample','recipe')
+    list_display = ('name','sign_date','type_info','price','on_sale','visits_number')
     # def save_order(self, request, obj, form, change):
     #     for i in request.POST.getlist('recipe'):
     #         print i
@@ -13,7 +13,8 @@ class ProductAdmin(admin.ModelAdmin):
     #readonly_fields = ('image_tag',)
 
 class PieceAdmin(admin.ModelAdmin):    
-    fields = ('name','quantity','value','unidaofs','price','type','proviofr','picture','nota')
-    list_display = ('name','quantity','value','unidaofs','price','type','alarm')
+    fields = ('name','quantity','value','unit','price','the_type','provider','picture','note')
+    list_display = ('name','quantity','value','unit','price','the_type','alarm')
+    
 admin.site.register(Piece,PieceAdmin)
 admin.site.register(Product,ProductAdmin)

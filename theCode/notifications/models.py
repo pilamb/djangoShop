@@ -10,10 +10,10 @@ class Message_class(models.Model):
     Readable from user panel.
     """
 
-    user         = models.ForeignKey(User_model,blank=False)
-     sign_date    = models.DateField(auto_now_add=True)
-     notified     = models.BooleanField(default=False)  # Changes when clicks on it
-     text         = models.CharField(blank=True, max_length=1500)
+    user  = models.ForeignKey(User_model,blank=False)
+    sign_date = models.DateField(auto_now_add=True)
+    notified = models.BooleanField(default=False)  # Changes when clicks on it
+    text = models.CharField(blank=True, max_length=1500)
 
     class Meta:
         ordering = ("sign_date"),
@@ -23,8 +23,8 @@ class Message_class(models.Model):
     def __unicode__(self):
         return u'%s' % str(self.id)
 
-    def notify(self):#nueva
+    def notify(self): # a new message or event to say to user
         self.notified =False
 
-    def seen(self):#ya se ha leido
+    def seen(self): # already read
         self.notified =True

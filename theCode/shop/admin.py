@@ -8,11 +8,11 @@ from fsm_admin.mixins import FSMTransitionMixin # very cool FSM!!
 class OrderAdmin(FSMTransitionMixin,admin.ModelAdmin):
     fields             = ('user','paid','module','information','special_coof','painting','sale','color')
     exclude         = ('sign_date',)
-    list_display     = ('user','estado','paid','module','sign_date','sale')
+    list_display     = ('user','state','paid','module','sign_date','sale')
     search_fields     = ('name', 'sign_date')
-    readonly_fields = ('estado',)
-    list_filter     = ('estado',)
-    fsm_field         = ['estado',]
+    readonly_fields = ('state',)
+    list_filter     = ('state',)
+    fsm_field         = ['state',]
 
 
 class ShipmentAdmin(admin.ModelAdmin):

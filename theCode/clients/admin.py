@@ -30,6 +30,7 @@ class CustomUserChangeForm(UserChangeForm):
     class Meta:
         order = User_model
         fields = ('email', 'password', 'is_active', 'is_admin')
+
     def clean_password(self):
         return self.initial["password"]
 
@@ -38,7 +39,7 @@ class CustomUserAdmin(UserAdmin):
 
     form = CustomUserChangeForm
     add_form = CustomUserCreationForm
-    list_display = ('email', 'surname', 'name','is_admin','subscribed','is_active','sign_date',)#listado
+    list_display = ('email', 'surname', 'name','is_admin','subscribed','is_active','sign_date',)
     list_filter = ('is_admin','is_active',)
     fieldsets = ( 
         (None, {'fields': ('email', 'password')}),

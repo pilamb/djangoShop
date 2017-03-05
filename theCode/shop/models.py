@@ -80,18 +80,18 @@ class Order(models.Model):
         ('Blue', u'Blue (+10€)'),
     )
 
-    user                 = models.ForeignKey(User_model)
-    sign_date             = models.DateField(auto_now_add=True)
-    paid                 = models.BooleanField(default=False)
-    payment_code         = models.CharField(blank=True, max_length=6)
-    modulo                = models.OneToOneField(Product)
-    pintura             = models.BooleanField(default=False)
-    information          = models.CharField(blank=True, max_length=1000)
-    color                 = models.CharField(max_length=10, choices=COLORES_CHOICES, blank=False, default=u'No color')
-    invoice_available     = models.BooleanField(default=False)
-    sale                 = models.ForeignKey(Sale, blank=True, null=True)
-    icon                 = models.CharField(max_length=50, default="inbox")  # of Bootstrap class
-    state                = FSMField(
+    user = models.ForeignKey(User_model)
+    sign_date = models.DateField(auto_now_add=True)
+    paid = models.BooleanField(default=False)
+    payment_code = models.CharField(blank=True, max_length=6)
+    module = models.OneToOneField(Product)
+    painting= models.BooleanField(default=False)
+    information = models.CharField(blank=True, max_length=1000)
+    color = models.CharField(max_length=10, choices=COLORES_CHOICES, blank=False, default=u'No color')
+    invoice_available = models.BooleanField(default=False)
+    sale = models.ForeignKey(Sale, blank=True, null=True)
+    icon = models.CharField(max_length=50, default="inbox")  # of Bootstrap class
+    state = FSMField(
          choices = Status.state_choices,
          blank = False,
          default = Status.ON_HOLD,
@@ -280,15 +280,15 @@ class Order(models.Model):
 
 
 class Shipment(models.Model):
-    number                = models.CharField(max_length=15, blank=False, null=False)  # Tracking number
-    sign_date            = models.DateField(auto_now=True)
-    date_recepcion            = models.DateField(auto_now=False, auto_now_add=False, null=True)
-    shipment_price            = models.DecimalField(max_digits=5, decimal_places=2, validators=[positive_price])
-    additional_info        = models.CharField(max_length=1000, blank=True, null=True)
-    comp                    = models.CharField(max_length=20,blank=True,null=True,verbose_name='Company')  # Shipment company
-    received                = models.BooleanField(default=False)
-    order                    = models.ForeignKey(Order)
-    url_comp                = models.URLField(null=True)  # address for tracking parcel
+    number = models.CharField(max_length=15, blank=False, null=False)  # Tracking number
+    sign_date = models.DateField(auto_now=True)
+    date_recepcion = models.DateField(auto_now=False, auto_now_add=False, null=True)
+    shipment_price = models.DecimalField(max_digits=5, decimal_places=2, validators=[positive_price])
+    additional_info = models.CharField(max_length=1000, blank=True, null=True)
+    comp = models.CharField(max_length=20,blank=True,null=True,verbose_name='Company')  # Shipment company
+    received = models.BooleanField(default=False)
+    order = models.ForeignKey(Order)
+    url_comp = models.URLField(null=True)  # address for tracking parcel
 
     def __unicode__(self):
         return self.number
