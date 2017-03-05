@@ -20,7 +20,7 @@ urlpatterns = patterns('',
 
     url(r'^createUser$','theCode.views.create_user2.page',name='create_user'),
     url(r'^listUsers/',UserListView.as_view(),name='listado_users'),#soloADMIN,para panel
-	url(r'^detailUser/(?P<pk>\d+)/$',UserDetailView.as_view(),name='detail_user'),
+    url(r'^detailUser/(?P<pk>\d+)/$',UserDetailView.as_view(),name='detail_user'),
     url(r'^EditUser/(?P<pk>\d+)/$', UserUpdateView.as_view(),name='edit_user'),
     url(r'^deleteUser/(?P<pk>\d+)/$', UserDeleteView.as_view(),name='delete_user'),
     url(r'^changeCreofntial/$',login_required(changePass.page),name='change_password'),

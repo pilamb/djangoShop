@@ -19,190 +19,190 @@ from datetime import date
 
 
 class LoginRequiredMixin(object):
-	@classmethod
-	def as_view(cls,**initkwargs):
-		view = super(LoginRequiredMixin,cls).as_view(**initkwargs)
-		return login_required(view)
+    @classmethod
+    def as_view(cls,**initkwargs):
+        view = super(LoginRequiredMixin,cls).as_view(**initkwargs)
+        return login_required(view)
 
 
 class OrderListView(LoginRequiredMixin, ListView):
-	order 		  	= Order
-	template_name 	= "list_orders.html"
-	paginate_by 	= 3
+    order               = Order
+    template_name     = "list_orders.html"
+    paginate_by     = 3
 
-	def get_context_data(self, **kwargs):
-    		context = super(OrderListView, self).get_context_data(**kwargs)    		
-    		return context
+    def get_context_data(self, **kwargs):
+            context = super(OrderListView, self).get_context_data(**kwargs)            
+            return context
 
-    		
+            
 class OrdersUser_modelListView(LoginRequiredMixin, ListView):
-	template_name = "list_orders2.html"
+    template_name = "list_orders2.html"
 
-	def get_queryset(self):
-		return Order.objects.filter(user = self.request.user)
+    def get_queryset(self):
+        return Order.objects.filter(user = self.request.user)
 
-	def get_context_data(self, **kwargs):
-    		context = super(OrdersUser_modelListView, self).get_context_data(**kwargs)    		
-    		return context	
+    def get_context_data(self, **kwargs):
+            context = super(OrdersUser_modelListView, self).get_context_data(**kwargs)            
+            return context    
 
 
 class OrderDetailView(LoginRequiredMixin, DetailView):
-	order 			   = Order
-	template_name	   = "order_detail.html"
+    order                = Order
+    template_name       = "order_detail.html"
 
-	def get_context_data(self, **kwargs):
-    		context = super(OrderDetailView, self).get_context_data(**kwargs)
-    		if not self.request.user.is_super:
-				try:
-					N = Message_class.objects.filter(user = self.request.user)
-				except Message_class.DoesNotExist:
-					N = ()
-				try:
-					H = StateLog.objects.filter(object_id=self.object.id)
-				except StateLog.DoesNotExist:
-		  			H=""
-				try:
-					E = Shipment.objects.get(order= self.object.id)
-				except Shipment.DoesNotExist:
-					E= ""
-				context['Message_class']  = N
-				context['H'] = H
-				context['shipment']= E
-    		return context
+    def get_context_data(self, **kwargs):
+            context = super(OrderDetailView, self).get_context_data(**kwargs)
+            if not self.request.user.is_super:
+                try:
+                    N = Message_class.objects.filter(user = self.request.user)
+                except Message_class.DoesNotExist:
+                    N = ()
+                try:
+                    H = StateLog.objects.filter(object_id=self.object.id)
+                except StateLog.DoesNotExist:
+                      H=""
+                try:
+                    E = Shipment.objects.get(order= self.object.id)
+                except Shipment.DoesNotExist:
+                    E= ""
+                context['Message_class']  = N
+                context['H'] = H
+                context['shipment']= E
+            return context
 
-	def get_queryset(self):
-		if not self.request.user.is_super: 
-			return Order.objects.filter(user = self.request.user)
-		else:
-			return Order.objects.all()
-    		
+    def get_queryset(self):
+        if not self.request.user.is_super: 
+            return Order.objects.filter(user = self.request.user)
+        else:
+            return Order.objects.all()
+            
 
 class OrderUpdateView(LoginRequiredMixin, UpdateView):
-	order 			= Order
-	fields 			= ['paid','module',]
-	template_name 	= "order_edit.html"
-	success_url  	= reverse_lazy('panel')
+    order             = Order
+    fields             = ['paid','module',]
+    template_name     = "order_edit.html"
+    success_url      = reverse_lazy('panel')
 
-	def clean(self):
+    def clean(self):
         super(Order, self).clean()
 
-	def post(self, request, *args, **kwargs):		
-		if "cancel" in request.POST:
-			self.object = self.get_object()
-			url = self.get_success_url()
-			return HttpResponseRedirect(url)
-		else:
-			return super(OrderUpdateView, self).post(request, *args, **kwargs)
+    def post(self, request, *args, **kwargs):        
+        if "cancel" in request.POST:
+            self.object = self.get_object()
+            url = self.get_success_url()
+            return HttpResponseRedirect(url)
+        else:
+            return super(OrderUpdateView, self).post(request, *args, **kwargs)
 
 class OrderDeleteView(LoginRequiredMixin, DeleteView):
-	"""
-	State to cancel and get on sale available again
-	"""
-	order  				= Order
-	template_name 		="order_confirm_delete.html"
-	success_url 		= reverse_lazy('panel')
+    """
+    State to cancel and get on sale available again
+    """
+    order                  = Order
+    template_name         ="order_confirm_delete.html"
+    success_url         = reverse_lazy('panel')
 
-	def post(self, request, *args, **kwargs):
-		if "cancel" in request.POST:
-			self.object = self.get_object()
-			url = self.get_success_url()
-			return HttpResponseRedirect(url)
-		else:
-			self.object = self.get_object()
-			self.object.estado='ca'
-			self.object.save()
-			m = Product.objects.get(pk=self.object.module.id)
-			m.on_sale=True
-			m.save()
-			messages.warning(request, 'Order marked as cancelled <b>correctly</b>.')
-			#NOtificar
-			return HttpResponseRedirect(reverse_lazy('index'))
+    def post(self, request, *args, **kwargs):
+        if "cancel" in request.POST:
+            self.object = self.get_object()
+            url = self.get_success_url()
+            return HttpResponseRedirect(url)
+        else:
+            self.object = self.get_object()
+            self.object.estado='ca'
+            self.object.save()
+            m = Product.objects.get(pk=self.object.module.id)
+            m.on_sale=True
+            m.save()
+            messages.warning(request, 'Order marked as cancelled <b>correctly</b>.')
+            #NOtificar
+            return HttpResponseRedirect(reverse_lazy('index'))
 
 
 class SaleListView(LoginRequiredMixin, ListView):
-	"""
-	View for ADMIN for all sales
-	"""
-	order 		  	= Sale
-	template_name 	= "sales_list.html"
-	paginate_by 	= 5
-	# def get_queryset(self):
-	# 	return Sale.objects.all()
-	def get_context_data(self, **kwargs):
-    		context = super(SaleListView, self).get_context_data(**kwargs)    		
-    		return context
-    		
+    """
+    View for ADMIN for all sales
+    """
+    order               = Sale
+    template_name     = "sales_list.html"
+    paginate_by     = 5
+    # def get_queryset(self):
+    #     return Sale.objects.all()
+    def get_context_data(self, **kwargs):
+            context = super(SaleListView, self).get_context_data(**kwargs)            
+            return context
+            
 class SalesUser_modelListView(LoginRequiredMixin, ListView):
-	"""
-	Sales list for users
-	"""
-	template_name = "sales_list2.html"
+    """
+    Sales list for users
+    """
+    template_name = "sales_list2.html"
 
-	def get_queryset(self):
-		return Sale.objects.filter(user = self.request.user)
+    def get_queryset(self):
+        return Sale.objects.filter(user = self.request.user)
 
-	def get_context_data(self, **kwargs):
-    		context = super(SalesUser_modelListView, self).get_context_data(**kwargs)    		
-    		return context	
+    def get_context_data(self, **kwargs):
+            context = super(SalesUser_modelListView, self).get_context_data(**kwargs)            
+            return context    
 
 class SaleDetailView(LoginRequiredMixin, DetailView):
-	"""
-	Detail of each Sale
-	"""
-	order 			   = Sale
-	template_name	   = "sale_detail.html"
+    """
+    Detail of each Sale
+    """
+    order                = Sale
+    template_name       = "sale_detail.html"
 
-	def get_context_data(self, **kwargs):
-			context = super(SaleDetailView, self).get_context_data(**kwargs)
-			order = Order.objects.get(sale= self.object)
-			context['order']=order
-			return context
+    def get_context_data(self, **kwargs):
+            context = super(SaleDetailView, self).get_context_data(**kwargs)
+            order = Order.objects.get(sale= self.object)
+            context['order']=order
+            return context
 
-	def get_queryset(self):
-		if not self.request.user.is_super: 
-			return Sale.objects.filter(pk = Order.objects.filter(user= self.request.user))
-		else:
-			return Sale.objects.all()
+    def get_queryset(self):
+        if not self.request.user.is_super: 
+            return Sale.objects.filter(pk = Order.objects.filter(user= self.request.user))
+        else:
+            return Sale.objects.all()
 
 class ShipmentDetailView(LoginRequiredMixin, DetailView):
-	order 			   = Shipment
-	template_name	   = "shipment_detail.html"
+    order                = Shipment
+    template_name       = "shipment_detail.html"
 
-	def get_context_data(self, **kwargs):
-    		context = super(ShipmentDetailView, self).get_context_data(**kwargs)
-    		return context
+    def get_context_data(self, **kwargs):
+            context = super(ShipmentDetailView, self).get_context_data(**kwargs)
+            return context
 
-	def get_queryset(self):
-		if not self.request.user.is_super: 
-			return Shipment.objects.filter(order = Order.objects.filter(user=self.request.user))
-		else:
-			return Shipment.objects.all()
-    		
+    def get_queryset(self):
+        if not self.request.user.is_super: 
+            return Shipment.objects.filter(order = Order.objects.filter(user=self.request.user))
+        else:
+            return Shipment.objects.all()
+            
 
 class invoicePDF(LoginRequiredMixin, PDFTemplateView):
-	"""
-	Generator of invoices to PDF format
-	"""
-	template_name = "PDFinvoice.html"
+    """
+    Generator of invoices to PDF format
+    """
+    template_name = "PDFinvoice.html"
 
-	def get_context_data(self, **kwargs):
-		context = super(invoicePDF, self).get_context_data(**kwargs)
-		try:
-			u = get_object_or_404(User_model,pk = self.request.user.id)
-			context['user']=u
-			ped = get_object_or_404(Order,pk =context['pk'])
-			context['order']=ped
-			sale = Sale.objects.get(code = ped.code_ingreso)
-			context['sale']=sale
-			shipment = Shipment.objects.get(order_id=ped.id)
-			context['shipment']=shipment
-			context['today']=date.today()
-			context['pagesize']="A4",
-			context['title']="INVOICE",
-			pe = shipment.shipment_price
-			pp = sale.price
-			context['total'] = pe + pp
-			return context
-		except ObjectDoesNotExist:
-			#  TODO: logger.error("Error on shipment {0}")
-			return context
+    def get_context_data(self, **kwargs):
+        context = super(invoicePDF, self).get_context_data(**kwargs)
+        try:
+            u = get_object_or_404(User_model,pk = self.request.user.id)
+            context['user']=u
+            ped = get_object_or_404(Order,pk =context['pk'])
+            context['order']=ped
+            sale = Sale.objects.get(code = ped.code_ingreso)
+            context['sale']=sale
+            shipment = Shipment.objects.get(order_id=ped.id)
+            context['shipment']=shipment
+            context['today']=date.today()
+            context['pagesize']="A4",
+            context['title']="INVOICE",
+            pe = shipment.shipment_price
+            pp = sale.price
+            context['total'] = pe + pp
+            return context
+        except ObjectDoesNotExist:
+            #  TODO: logger.error("Error on shipment {0}")
+            return context
