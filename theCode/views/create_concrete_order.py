@@ -18,11 +18,10 @@ class New_concret_product_order_form(forms.Form):
             self.request = kwargs.pop('request', None)
             super(New_concret_product_order_form,self).__init__(*args,**kwargs)
 
-    required_css_class      = "required"
-    error_css_class      = "notified-danger"
+    required_css_class = "required"
+    error_css_class = "notified-danger"
     captcha = CaptchaField()
-    
-    notified     = forms.CharField ( 
+    notified = forms.CharField (
         max_length=1000,
         required=False,
         label="Message_class",
@@ -85,7 +84,7 @@ def page(request,pk):
                     else:
                         p.painting=False
                     p.save()
-                    new_message = Message_class(user=user, notified=False, notified=u"""Congratulations, the order has been created correctly and it is in the state %s.
+                    new_message = Message_class(user=user, notified=False, message=u"""Congratulations, the order has been created correctly and it is in the state %s.
                      Soon you will receive confirmation of the states changes. Thanks""" % p.state)
                     new_message.save()
                     mod.quitar_of_sale()
@@ -97,5 +96,4 @@ def page(request,pk):
     else:
         form = New_concret_product_order_form()
         return render(request,'create_order.html',{'form':form,'pk':pk})
-                
 

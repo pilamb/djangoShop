@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
+
 from django.shortcuts import render
 from django.core.exceptions import ValidationError
+from datetime import date
 from theCode.clients.models import User_model
 from theCode.shop.models import Order,Sale,Shipment
 from theCode.messages_app.models import Message_class
 from theCode.warehouse.models import Product
 from theCode.messages_app.models import Message_class, Alert
-from datetime import date
 
 
 def page(request):
@@ -32,10 +33,9 @@ def page(request):
         except Alert.DoesNotExist:
             n_admins=0
         try:
-            news = Message_class.objects.filter(date=date.today()).count()
+            news = Message.objects.filter(date=date.today()).count()
         except Message_class.DoesNotExist:
             news=0
-        
         try:
             prods = Product.objects.all().count()
         except Product.DoesNotExist:
@@ -49,7 +49,15 @@ def page(request):
         n_admins=0
         news=0
         u = request.user
-        n = Message_class.objects.filter(user = u,notified=False).count()
-        u.messages = n 
+        n = Message.objects.filter(user=u, notified=False).count()
+        u.messages = n
         u.save()
-     return render(request,'user_panel.html',{'object_list':object_list,'object_list2':object_list2,'object_list3':object_list3,'object_list4':object_list4, 'n_admins':n_admins,'news':news,'prods':prods})
+    return render(request,'user_panel.html', {
+         'object_list':object_list,
+         'object_list2':object_list2,
+         'object_list3':object_list3,
+         'object_list4':object_list4,
+         'n_admins':n_admins,
+         'news':news,
+         'prods':prods
+     })

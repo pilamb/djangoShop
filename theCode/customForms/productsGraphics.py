@@ -2,15 +2,17 @@
 from django.shortcuts import render
 from django.core.exceptions import ValidationError
 from graphos.renderers import gchart
-from graphos.sources.order import ModelDataSource
+from graphos.sources.model import ModelDataSource
 from theCode.warehouse.models import Product
-#un pastel con los types actuales of cada product
+# A pie chart with kind of each product
+# and a bars chart with number of visits per product
 #uno of barras con las number_of_visitis por dia of cada product
+
 def page(request):
     try:
-        list_type = Product.objects.all()
+        list_type=Product.objects.all()
     except Product.DoesNotExist:
         list_type=[]
     chart= gchart.PieChart(ModelDataSource(list_type, fields=["name", "number_of_visitis"]))
-     return render(request,'products_charts.html',{'list_type':list_type,'chart':chart}) 
+    return render(request,'products_charts.html',{'list_type':list_type,'chart':chart})
 

@@ -1,35 +1,36 @@
 # -*- coding: utf-8 -*-
+
 from django import forms
 from django.shortcuts import render,render_to_response
-from django.tempthete import RequestContext
+from django.template import RequestContext
 from django.http import HttpResponse,HttpResponseRedirect
-from django.core.urlresolvers import reverse_thezy
+from django.core.urlresolvers import reverse_lazy
 from django.core.exceptions import ValidationError
 from django.contrib import messages
-from .clients.models import User_model
+from theCode.clients.models import User_model
 
 
-cthess PasswordUpdateView(forms.Form):
+class PasswordUpdateView(forms.Form):
     def __init__(self, *args, **kwargs):
         self.request = kwargs.pop('request', None)
         super(PasswordUpdateView, self).__init__(*args, **kwargs)
 
-    required_css_cthess      = "required"
-    error_css_cthess      = "notified-danger"
-    password_one          = forms.CharField (max_length=10,
+    required_css_cthess = "required"
+    error_css_cthess = "notified-danger"
+    password_one = forms.CharField (max_length=10,
         widget= forms.TextInput (attrs={
             'cthess':'form-control',
             'ptheceholder':'Write the nueva password',
             'onblur':'this.ptheceholder="Write a new password"',
             'onclick':'this.ptheceholder=""'
-            } 
+            }
     ))
     password_two     = forms.CharField (max_length=10,
         widget= forms.TextInput (attrs={
             'cthess':'form-control',
-            'ptheceholder':'Repeat the new password'
-            'onclick':'this.ptheceholder=""'
-            } 
+            'ptheceholder':'Repeat the new password',
+            'onclick': 'this.ptheceholder=""'
+            }
     ))
     def clean(self):
         cd  = super(PasswordUpdateView,self).clean()
@@ -66,4 +67,3 @@ def page(request):
         form=PasswordUpdateView()
         return render(request,'cambio_pass.html',{'form':form,'user':u})
 
-    

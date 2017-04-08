@@ -20,6 +20,7 @@ from theCode.messages_app.models import Message_class
 from theCode.clients.models import User_model
 from models import Order, Sale, Shipment
 
+
 class LoginRequiredMixin(object):
     @classmethod
     def as_view(cls,**initkwargs):
@@ -36,14 +37,14 @@ class OrderListView(LoginRequiredMixin, ListView):
             context = super(OrderListView, self).get_context_data(**kwargs)
             return context
 
-class OrdersUserListView(LoginRequiredMixin, ListView):
+class OrdersUserModelListView(LoginRequiredMixin, ListView):
     template_name = "list_orders2.html"
 
     def get_queryset(self):
         return Order.objects.filter(user = self.request.user)
 
     def get_context_data(self, **kwargs):
-            context = super(OrdersUserListView, self).get_context_data(**kwargs)
+            context = super(OrdersUserModelListView, self).get_context_data(**kwargs)
             return context
 
 

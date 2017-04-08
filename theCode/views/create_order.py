@@ -1,6 +1,5 @@
-#DO NOT USE ////////////////////////////
-
 # -*- coding: utf-8 -*-
+
 from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect
 from django import forms
@@ -18,17 +17,17 @@ class NewProductOrderForm(forms.Form):
     def __init__(self,*args,**kwargs):
             self.request = kwargs.pop('request', None)
             super(New_product_order_form,self).__init__(*args,**kwargs)
-    required_css_class      = "required"
-    error_css_class      = "notified-danger"
-    captcha              = CaptchaField()
-    product  = forms.ModelChoiceField(
+    required_css_class = "required"
+    error_css_class = "notified-danger"
+    captcha = CaptchaField()
+    product = forms.ModelChoiceField(
             widget=forms.RadioSelect(attrs={
                 'class':'radio',
             }),
             queryset=Product.objects.filter(on_sale=True),
             initial=1,
             )
-    notified     = forms.CharField ( 
+    notified = forms.CharField (
         max_length=1000,
         required=False,
         label="Message_class",
@@ -82,7 +81,7 @@ def page(request):
                         )
                     mod.quitar_of_sale()
                     mod.save()
-                    new_message = Message_class(user=user, notified=False, notified=u"""Congratulations, the order has been created correctly and it is in the state %s.
+                    new_message = Message_class(user=user, notified=False, message=u"""Congratulations, the order has been created correctly and it is in the state %s.
                      Soon you will receive confirmation of the states changes. Thanks""" % p.state)
                     new_message.save()
                     messages.success(request, '¡Order created <b>correctly</b>, thanks!')
