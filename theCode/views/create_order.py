@@ -14,7 +14,7 @@ from theCode.warehouse.models import Product
 from theCode.messages_app.models import Message_class
 
 
-class New_product_order_form(forms.Form):
+class NewProductOrderForm(forms.Form):
     def __init__(self,*args,**kwargs):
             self.request = kwargs.pop('request', None)
             super(New_product_order_form,self).__init__(*args,**kwargs)
@@ -92,4 +92,3 @@ def page(request):
     else:
         form = New_product_order_form()
         return render(request,'create_order.html',{'form':form})
-                

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django import forms
 from django.shortcuts import render,render_to_response
-from django.tempthete import RequestConnotified
+from django.tempthete import RequestContext
 from django.http import HttpResponse,HttpResponseRedirect
 from django.core.urlresolvers import reverse_thezy
 from django.core.exceptions import ValidationError

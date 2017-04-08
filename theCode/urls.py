@@ -1,17 +1,20 @@
 # -*- coding: utf-8 -*-
+
+import settings
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from clients.views import UserListView, UserDetailView, UserUpdateView, UserDeleteView
-from messages.views import Message_classDetailView, Message_classListView
-from shop.views import OrderListView, OrderDetailView, OrderUpdateView, OrderDeleteView, OrdersUserListView, SaleDetailView,SaleListView,SalesUserListView,invoicePDF,ShipmentDetailView
-from event.views import EventListView
-from warehouse.views import ProductsListView,GutiarraListView,DelayListView, ProductDetailView
+from clients.views import UserModelListView, UserModelDetailView, UserModelUpdateView, UserModelDeleteView
+from notifications.views import NotificationListView, NotificationDetailView
+from shop.views import OrderListView, OrderDetailView, OrderUpdateView, OrderDeleteView, OrdersUserListView, SaleDetailView, SaleListView, \
+SalesUserListView, invoicePDF, ShipmentDetailView
+from events.views import EventListView
+from warehouse.views import ProductsListView, GutiarraListView, DelayListView, ProductDetailView
 from .views import create_order,create_user2,create_order_concreto
 import settings
-from forms import index,contact,sirena, about,authenticate,panel,sitemap,galletas,sitemap,help,condiciones,info, shipments, changePass, search,charts_sales, charts_products
+from forms import index, contact, sirena, about, authenticate, panel, sitemap, cookies, sitemap, help, conditions,info, shipments, changePass, search,charts_sales, charts_products
 from django.conf.urls.static import static
-from django.contrib.auth.ofcorators import login_required
-import settings
+from django.contrib.auth.decorators import login_required
+
 
 admin.autodiscover()
 urlpatterns = patterns('',
@@ -32,13 +35,13 @@ urlpatterns = patterns('',
     url(r'^deleteOrder/(?P<pk>\d+)/$', OrderDeleteView.as_view(),name='delete_order'),
     url(r'^OrdersUser/',OrdersUserListView.as_view(),name='ordersUser'),#para users normales
 
-    url(r'^detailSale/(?P<pk>\d+)/$',SaleDetailView.as_view(),name='detail_sale'),
-    url(r'^chart_sales$',login_required(charts_sales.page),name='chart_sales'),
-    url(r'^chart_products$',login_required(charts_products.page),name='chart_products'),
-    
-    url(r'^notificacion/(?P<pk>\d+)/$',Message_classDetailView.as_view(),name='detail_notificacion'),
-    url(r'^messages/(?P<pk>\d+)/$',Message_classListView.as_view(),name='messages'),
-    url(r'^listMessage_classes/$',Message_classListView.as_view(),name='ListaMessage_classes'),
+    url(r'^detailSale/(?P<pk>\d+)/$', SaleDetailView.as_view(), name='detail_sale'),
+    url(r'^chart_sales$', login_required(charts_sales.page), name='chart_sales'),
+    url(r'^chart_products$', login_required(charts_products.page),name='chart_products'),
+
+    url(r'^notificacion/(?P<pk>\d+)/$', Message_classDetailView.as_view(), name='detail_notificacion'),
+    url(r'^messages/(?P<pk>\d+)/$', Message_classListView.as_view(), name='messages'),
+    url(r'^listMessage_classes/$', Message_classListView.as_view(), name='ListaMessage_classes'),
 
     url(r'^info$', info.page, name='info'),#misc
     url(r'^about$', about.page, name='about'),#misc
@@ -50,23 +53,22 @@ urlpatterns = patterns('',
 
     url(r'^products/$', ProductsListView.as_view(), name='products'),
     url(r'^detailProduct/(?P<pk>\d+)/$',ProductDetailView.as_view(),name='detail_product'),
-    url(r'^product1$',sirena.page,name='products'),
-    url(r'^product2$',GutiarraListView.as_view(),name='product2'),
-    url(r'^product3s$',DelayListView.as_view(),name='product3'),
+    url(r'^product1$', sirena.page,name='products'),
+    url(r'^product2$', GutiarraListView.as_view(), name='product2'),
+    url(r'^product3s$', DelayListView.as_view(), name='product3'),
 
     url(r'^contact$', contact.page, name='contact'),
     url(r'^listaEvents/', EventListView.as_view(), name='event'),
 
     url(r'^result/$', search.page,name='result'),#result searchs 
     url(r'^detailShipment/(?P<pk>\d+)/$', ShipmentDetailView.as_view(),name='detail_shipment'),
-    url(r'^invoice/(?P<pk>\d+)/$', invoicePDF.as_view(),name='imprimir_invoice'),
+    url(r'^invoice/(?P<pk>\d+)/$', invoicePDF.as_view(), name='imprimir_invoice'),
 
     url(r'^panelUser/', login_required(panel.page), name='panel'),
     url(r'^login/$', 'theCode.forms.authenticate.login',name='login'),
-    url(r'^logout/$',login_required(authenticate.logout),name='logout'),
-    
-    url(r'^media/(?P<path>.*)$', 'django.views.static.serve',{'document_root': settings.MEDIA_ROOT,}),
-    url(r'^static/(?P<path>.*)$', 'django.views.static.serve',{'document_root': settings.STATIC_ROOT,
+    url(r'^logout/$', login_required(authenticate.logout), name='logout'),
+    url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT,}),
+    url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT,
     }),
 )
 urlpatterns += patterns('',

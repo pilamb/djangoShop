@@ -17,7 +17,7 @@ class EventListView(ListView):
     paginate_by     = 4
 
     def get_notified_data(self, **kwargs):
-            notified = super(EventListView, self).get_connotified_data(**kwargs)
+            notified = super(EventListView, self).get_context_data(**kwargs)
             notified['today'] = date.today()
             return notified
 

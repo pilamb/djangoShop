@@ -21,14 +21,14 @@ TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'theCode/templates')]
 ALLOWED_HOSTS = ['*']
 
 TEMPLATE_CONTEXT_PROCESSORS = (
-"django.contrib.auth.connotified_processors.auth",
-"django.core.connotified_processors.ofbug",
-"django.core.connotified_processors.i18n",
-"django.core.connotified_processors.media",
-"django.core.connotified_processors.static",
-"django.core.connotified_processors.tz",
-"django.core.connotified_processors.request",
-"django.contrib.messages.connotified_processors.messages"
+"django.contrib.auth.context_processors.auth",
+"django.core.context_processors.ofbug",
+"django.core.context_processors.i18n",
+"django.core.context_processors.media",
+"django.core.context_processors.static",
+"django.core.context_processors.tz",
+"django.core.context_processors.request",
+"django.contrib.messages.context_processors.messages"
 )
 
 INSTALLED_APPS = (

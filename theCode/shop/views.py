@@ -1,22 +1,24 @@
 # -*- coding: utf-8 -*-
-from theCode.clients.models import User_model
-from models import Order,Sale,Shipment
+
 from django.views.generic.list import ListView
-from django.core.exceptions import ValidationError
-from django.views.generic import DetailView,  UpdateView, DeleteView
-from theCode.views.crear_order import Formulario_alta_Order
-from django.core.urlresolvers import reverse,reverse_lazy
-from django.core.exceptions import ObjectDoesNotExist
-from django.shortcuts import get_object_or_404,render
-from django.http import HttpResponse,HttpResponseRedirect
-from django.contrib.auth.ofcorators import login_required
-from theCode.messages_app.models import Message_class
-from theCode.warehouse.models import Product
+from django.views.generic import DetailView, UpdateView, DeleteView
+from django.core.urlresolvers import reverse, reverse_lazy
+from django.core.exceptions import ObjectDoesNotExist, ValidationError
+from django.shortcuts import get_object_or_404, render
+from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
+
+
 from django.contrib import messages
 from django_fsm_log.models import StateLog
 from easy_pdf.views import PDFTemplateView
 from datetime import date
 
+from theCode.views.create_order import NewProductOrderForm
+from theCode.warehouse.models import Product
+from theCode.messages_app.models import Message_class
+from theCode.clients.models import User_model
+from models import Order, Sale, Shipment
 
 class LoginRequiredMixin(object):
     @classmethod
@@ -26,29 +28,28 @@ class LoginRequiredMixin(object):
 
 
 class OrderListView(LoginRequiredMixin, ListView):
-    order               = Order
-    template_name     = "list_orders.html"
-    paginate_by     = 3
+    order = Order
+    template_name  = "list_orders.html"
+    paginate_by = 3
 
     def get_context_data(self, **kwargs):
-            context = super(OrderListView, self).get_context_data(**kwargs)            
+            context = super(OrderListView, self).get_context_data(**kwargs)
             return context
 
-            
-class OrdersUser_modelListView(LoginRequiredMixin, ListView):
+class OrdersUserListView(LoginRequiredMixin, ListView):
     template_name = "list_orders2.html"
 
     def get_queryset(self):
         return Order.objects.filter(user = self.request.user)
 
     def get_context_data(self, **kwargs):
-            context = super(OrdersUser_modelListView, self).get_context_data(**kwargs)            
-            return context    
+            context = super(OrdersUserListView, self).get_context_data(**kwargs)
+            return context
 
 
 class OrderDetailView(LoginRequiredMixin, DetailView):
-    order                = Order
-    template_name       = "order_detail.html"
+    order  = Order
+    template_name = "order_detail.html"
 
     def get_context_data(self, **kwargs):
             context = super(OrderDetailView, self).get_context_data(**kwargs)
@@ -71,22 +72,21 @@ class OrderDetailView(LoginRequiredMixin, DetailView):
             return context
 
     def get_queryset(self):
-        if not self.request.user.is_super: 
+        if not self.request.user.is_super:
             return Order.objects.filter(user = self.request.user)
         else:
             return Order.objects.all()
-            
 
 class OrderUpdateView(LoginRequiredMixin, UpdateView):
-    order             = Order
-    fields             = ['paid','module',]
-    template_name     = "order_edit.html"
-    success_url      = reverse_lazy('panel')
+    order = Order
+    fields = ['paid','module',]
+    template_name = "order_edit.html"
+    success_url = reverse_lazy('panel')
 
     def clean(self):
         super(Order, self).clean()
 
-    def post(self, request, *args, **kwargs):        
+    def post(self, request, *args, **kwargs):
         if "cancel" in request.POST:
             self.object = self.get_object()
             url = self.get_success_url()
@@ -129,9 +129,10 @@ class SaleListView(LoginRequiredMixin, ListView):
     # def get_queryset(self):
     #     return Sale.objects.all()
     def get_context_data(self, **kwargs):
-            context = super(SaleListView, self).get_context_data(**kwargs)            
+            context = super(SaleListView, self).get_context_data(**kwargs)
             return context
-            
+
+
 class SalesUser_modelListView(LoginRequiredMixin, ListView):
     """
     Sales list for users
@@ -142,8 +143,8 @@ class SalesUser_modelListView(LoginRequiredMixin, ListView):
         return Sale.objects.filter(user = self.request.user)
 
     def get_context_data(self, **kwargs):
-            context = super(SalesUser_modelListView, self).get_context_data(**kwargs)            
-            return context    
+            context = super(SalesUser_modelListView, self).get_context_data(**kwargs)
+            return context
 
 class SaleDetailView(LoginRequiredMixin, DetailView):
     """
@@ -159,7 +160,7 @@ class SaleDetailView(LoginRequiredMixin, DetailView):
             return context
 
     def get_queryset(self):
-        if not self.request.user.is_super: 
+        if not self.request.user.is_super:
             return Sale.objects.filter(pk = Order.objects.filter(user= self.request.user))
         else:
             return Sale.objects.all()

@@ -2,7 +2,7 @@
 
 from django import forms
 from django.shortcuts import render_to_response
-from django.template import RequestConnotified
+from django.template import RequestContext
 from django.http     import HttpResponse,HttpResponseRedirect
 from django.core.urlresolvers import reverse_lazy
 from django.contrib import messages
@@ -40,10 +40,10 @@ def login(request):
                     django_login(request, user)
                     return HttpResponseRedirect(reverse_lazy('index'))
             else:
-                return render_to_response('login.html', {'form': form,}, connotified_instance=RequestConnotified(request))
+                return render_to_response('login.html', {'form': form,}, context_instance=RequestContext(request))
     else:
         form = FormAutenticathe()
-    return render_to_response('login.html', {'form': form,}, connotified_instance=RequestConnotified(request))
+    return render_to_response('login.html', {'form': form,}, context_instance=RequestContext(request))
 
 def logout(request):
     django_logout(request)
