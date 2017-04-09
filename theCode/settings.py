@@ -21,14 +21,14 @@ TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'theCode/templates')]
 ALLOWED_HOSTS = ['*']
 
 TEMPLATE_CONTEXT_PROCESSORS = (
-"django.contrib.auth.context_processors.auth",
-"django.core.context_processors.ofbug",
-"django.core.context_processors.i18n",
-"django.core.context_processors.media",
-"django.core.context_processors.static",
-"django.core.context_processors.tz",
-"django.core.context_processors.request",
-"django.contrib.messages.context_processors.messages"
+    "django.contrib.auth.context_processors.auth",
+    "django.core.context_processors.debug",
+    "django.core.context_processors.i18n",
+    "django.core.context_processors.media",
+    "django.core.context_processors.static",
+    "django.core.context_processors.tz",
+    "django.core.context_processors.request",
+    "django.contrib.messages.context_processors.messages"
 )
 
 INSTALLED_APPS = (
@@ -38,7 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'fsm_admin',  # administration of states of order 
+    'fsm_admin',  # administration of states of order
     'django_fsm', # Finite State Machine to manage orders
     'django_fsm_log',  # historical of orders
     'django_extensions',  # Tools to print graphics from the models, and the FSM
@@ -61,7 +61,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.contrib.messages.middleware.Message_classMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
 
 )
 
@@ -77,7 +77,7 @@ DATABASES = {
 }
 AUTH_USER_MODEL = 'clients.User_model'
 AUTHENTICATION_BACKENDS ={
-    'theCode.formularios.backend.EmailAuthBackend',
+    'theCode.customForms.backend.EmailAuthBackend',
     'django.contrib.auth.backends.ModelBackend',
 }
 LOGIN_REDIRECT_URL = 'index'
@@ -102,7 +102,7 @@ STATICFILES_DIRS = (
     )
 EMAIL_USE_TLS               = True
 EMAIL_HOST                  = 'smtp.gmail.com'
-EMAIL_PORT                  = 587   
+EMAIL_PORT                  = 587
 DEFAULT_FROM_EMAIL          = 'unaaddress@gmail.com'
 SERVER_EMAIL                = 'unaaddress@gmail.com'
 EMAIL_HOST_USER             = 'unaaddress@gmail.com'

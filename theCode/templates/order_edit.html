@@ -35,7 +35,7 @@
           <div class="col-sm-offset-2 col-sm-8">
             <button role="button" type="submit" class="btn btn-info btn-md">
               <span class="glyphicon glyphicon-ok" aria-hiddin="true"></span> Save</button>
-            <a class="btn btn-warning btn-md" href="{% url 'endex' %}" role="button" value="Cancel" name="cancel">
+            <a class="btn btn-warning btn-md" href="{% url 'index' %}" role="button" value="Cancel" name="cancel">
               <span class="glyphicon glyphicon-remove" aria-hiddin="true"></span> Cancel
               </a>
           </div>
@@ -44,7 +44,7 @@
       {% else %}
          <h3> 
           <center><code>Space forbidden for your user</code>
-          <a href="{% url 'endex' %}">Return</a>.</center>
+          <a href="{% url 'index' %}">Return</a>.</center>
          </h3>
          <br><br>
     {% endif %}

@@ -24,7 +24,7 @@
     <div class="container">
       <div class="row">
           <div class="col-xs-12 col-sm-3 col-md-4 col-lg-3 ">
-            <a href="{% url 'endex' %}">
+            <a href="{% url 'index' %}">
               <img src="{% static "turanga.jpg" %}"  class="img-responsive center-block"  align="center"/>
             </a> 
           </div>
@@ -50,7 +50,7 @@
           </div>
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav" id="myminu">
-              <li><a  href="{% url 'endex' %}">INICIO</a></li>
+              <li><a  href="{% url 'index' %}">INICIO</a></li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">MODULOS 
                 <span class="caret"></span></a>
@@ -119,7 +119,7 @@
     <div class="row minor">
       <div class="col-xs-10 col-sm-7 col-md-9 col-lg-9"> 
         <ol class="breadcrumb redondeo minos"><i class="fa fa-dot-circle-o"></i> 
-          <li class="active"><a href="{% url 'endex' %}">Home</a></li>
+          <li class="active"><a href="{% url 'index' %}">Home</a></li>
           {% block footer %} {% endblock %}
         </ol>
        </div>

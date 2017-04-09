@@ -52,18 +52,20 @@ urlpatterns = patterns('',
     url(r'^terms$', terms.page, name='terms'),#misc
 
     url(r'^products/$', ProductsListView.as_view(), name='products'),
+
+    url(r'^product2/$', Product2DetailView.as_view(), name='product2'),
     url(r'^detailProduct/(?P<pk>\d+)/$', ProductDetailView.as_view(),name='detail_product'),
 #    url(r'^products1$', ProductView.as_view(), name='product3'),
 
     url(r'^contact$', contact.page, name='contact'),
     url(r'^listaEvents/', EventListView.as_view(), name='event'),
 
-    url(r'^result/$', search.page, name='result'),  # result searchs 
+    url(r'^result/$', search.page, name='result'),  # result searchs
     url(r'^detailShipment/(?P<pk>\d+)/$', ShipmentDetailView.as_view(),name='detail_shipment'),
     url(r'^invoice/(?P<pk>\d+)/$', invoicePDF.as_view(), name='imprimir_invoice'),
 
     url(r'^panelUser/', login_required(panel.page), name='panel'),
-    url(r'^login/$', 'theCode.forms.authenticate.login',name='login'),
+    url(r'^login/$', 'theCode.customForms.authenticate.login',name='login'),
     url(r'^logout/$', login_required(authenticate.logout), name='logout'),
     url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT,}),
     url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT,
