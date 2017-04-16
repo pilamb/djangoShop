@@ -53,12 +53,12 @@ urlpatterns = patterns('',
 
     url(r'^products/$', ProductsListView.as_view(), name='products'),
 
-    url(r'^product2/$', Product2DetailView.as_view(), name='product2'),
+    # url(r'^product2/$', Product2DetailView.as_view(), name='product2'),
     url(r'^detailProduct/(?P<pk>\d+)/$', ProductDetailView.as_view(),name='detail_product'),
-#    url(r'^products1$', ProductView.as_view(), name='product3'),
+    # url(r'^products1$', ProductView.as_view(), name='product3'),
 
     url(r'^contact$', contact.page, name='contact'),
-    url(r'^listaEvents/', EventListView.as_view(), name='event'),
+    url(r'^events/', EventListView.as_view(), name='events'),
 
     url(r'^result/$', search.page, name='result'),  # result searchs
     url(r'^detailShipment/(?P<pk>\d+)/$', ShipmentDetailView.as_view(),name='detail_shipment'),
