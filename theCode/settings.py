@@ -42,15 +42,15 @@ INSTALLED_APPS = (
     'django_fsm', # Finite State Machine to manage orders
     'django_fsm_log',  # historical of orders
     'django_extensions',  # Tools to print graphics from the models, and the FSM
-    'graphos',
-    'easy_pdf',  # pdf generation for invoice
-    'bootstrap3',  # bootstrap for Django
-    'captcha',  # test of touring
     'theCode.clients',
     'theCode.shop',
     'theCode.events',
     'theCode.messages_app',
     'theCode.warehouse',
+    'graphos',
+    'easy_pdf',  # pdf generation for invoice
+    'bootstrap3',  # bootstrap for Django
+    'captcha',  # test of touring
 )
 
 MIDDLEWARE_CLASSES = (

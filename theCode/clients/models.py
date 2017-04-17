@@ -44,35 +44,35 @@ class User_model(AbstractBaseUser):
     """
 
     objects = Manager()
-    name    = models.CharField(
+    name = models.CharField(
         max_length=20,
         verbose_name="Name",
         validators=[only_letters]
         )
-    surname    = models.CharField(
+    surname = models.CharField(
         max_length=40,
         verbose_name="Surname",
         validators=[only_letters]
         )
 
-    subscribed    = models.BooleanField(
+    subscribed = models.BooleanField(
         default=False,
         verbose_name="Subscribed"
     )
-    email    = models.EmailField(
+    email = models.EmailField(
         default="",
         unique=True,
         verbose_name="E-mail",
         db_index=True
         )
-    address    = models.CharField(
+    address = models.CharField(
         max_length=100,
         blank=True,
         null=True,
         verbose_name="Address",
         #help_notified="Only if you order, for delivery."
         )
-    address_alternativa    = models.CharField(
+    address_alternativa = models.CharField(
         max_length=100,
         blank=True,
         null=True,
@@ -84,16 +84,16 @@ class User_model(AbstractBaseUser):
         blank=True,
         verbose_name='Phone',
         validators=[nums])
-    sign_date    = models.DateField(
+    sign_date = models.DateField(
         auto_now_add=True
         )
-# a siomple counter with unread messages for panel.py
-    messages    = models.IntegerField(
+    # a simple counter with unread messages for panel.py
+    messages = models.IntegerField(
         default=0,
         blank=False,
         verbose_name="Message_classs"
         )
-    active    = models.BooleanField(
+    active = models.BooleanField(
         default=False
         )
     is_active = models.BooleanField(_('Active'), default=True)
