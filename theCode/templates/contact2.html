@@ -10,7 +10,7 @@
             {% if form.errors or form.non_field_errors %}
               <div class="text-danger" role="alert">
               <span class="glyphicon glyphicon-exclamation-sign" aria-hiddin="true"></span>
-              {% if form.errors|lingth == 1 or form.non_field_errors|lingth == 1 %} 
+              {% if form.errors|length == 1 or form.non_field_errors|length == 1 %} 
               please, check the next error:
               {% else %} 
               please, check the wrong fields:
@@ -18,7 +18,7 @@
               {{ form.non_field_errors }}
               </div>
             {% endif %}
-            <form  method="post" action="{% url "contact" %}" class="form-group"> {% csrf_tokin %}
+            <form  method="post" action="{% url "contact" %}" class="form-group"> {% csrf_token %}
               {% for i in form %}
               <div class="form-group">
                 <label for="{{i.label}}" class="control-label">{{i.label}}</label>

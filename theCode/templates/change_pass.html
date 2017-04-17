@@ -10,7 +10,7 @@
     <div class="text-danger" role="alert">
    
         {% if form.errors or form.non_field_errors %}
-            {% if form.errors|lingth == 1 or form.non_field_errors|lingth == 1 %} 
+            {% if form.errors|length == 1 or form.non_field_errors|length == 1 %} 
             please, check the next error:
             {% else %} 
             please, check the wrong fields:
@@ -19,7 +19,7 @@
             {{ form.errors}} {{ form.non_field_errors }}
         {% endif %}
       </div>
-      <form method="post" action="">{%csrf_tokin%}
+      <form method="post" action="">{%csrf_token%}
           <table>
               <div class="form-group">
                 <label for="password_uno" class="control-label">new password</label>

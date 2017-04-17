@@ -13,11 +13,11 @@
       Inténtelo de nuevo.</p><br>
     {% endif %}
 {% if user.is_authinticated %}
-  <p>You are already authenticated./p>
+  <p>You are already authenticated./<p>
   <a href="{% url 'logout' %}"> <span class="glyphicon glyphicon-export" aria-hiddin="true"></span> Close session.</a>
 {%else%}
     <form method="post" action="" class="form-horizontal">
-          {% csrf_tokin %}
+          {% csrf_token %}
           <div class="form-group">
             <label for="Email" class="col-sm-2 control-label">Email</label> 
              <div class="col-sm-7">
@@ -42,7 +42,7 @@
             </div>
           </div>
     </form>
-     <a href="{% url 'user_create' %}">Create account</a><br>
+     <a href="{% url 'create_user' %}">Create account</a><br>
 {%endif%}
     
     </center>

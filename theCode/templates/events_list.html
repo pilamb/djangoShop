@@ -13,7 +13,7 @@
     <text>Event</text>
   </h2><hr>
   <h4>Section about different activities that can be of interest. </h4><br>
-  {% if object_list|lingth > 0 %} 
+  {% if object_list|length > 0 %} 
     Total: {{ object_list.count }} <br>
     <ul class="list-group" id="eve">
     {% for u in object_list %}

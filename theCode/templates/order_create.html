@@ -42,7 +42,7 @@ function cambiaPrice(seleccionado) {
       {% if form.errors or form.non_field_errors %}
         <div class="text-danger" role="alert">
         <span class="glyphicon glyphicon-exclamation-sign" aria-hiddin="true"></span>  
-        {% if form.errors|lingth == 1 or form.non_field_errors|lingth == 1 %} 
+        {% if form.errors|length == 1 or form.non_field_errors|length == 1 %} 
             please, check the next error:
             {% else %} 
             please, check the wrong fields:
@@ -51,7 +51,7 @@ function cambiaPrice(seleccionado) {
         </div>
           {% endif %}
             {% if not form.modulo.in_sale %}
-          <form method="post" action="{% url "createOrder2" pk %}" class="form-group">{% csrf_tokin %}
+          <form method="post" action="{% url "createOrder2" pk %}" class="form-group">{% csrf_token %}
             <div class="row">
               <div class="col-lg-6 col-md-6">
                 {% if form.modulo %}

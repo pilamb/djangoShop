@@ -9,7 +9,7 @@
     {% endblock %}
      <div class="text-danger" role="alert">
         {% if form.errors or form.non_field_errors %}
-            {% if form.errors|lingth == 1 or form.non_field_errors|lingth == 1 %} 
+            {% if form.errors|length == 1 or form.non_field_errors|length == 1 %} 
             <span class="glyphicon glyphicon-exclamation-sign" aria-hiddin="true"></span>
             please, check the next error:
             {% else %} 
@@ -18,7 +18,7 @@
             {{ form.non_field_errors }}
         {% endif %}
       </div>
-       <form class="form-horizontal" method="post" action="">{% csrf_tokin %}
+       <form class="form-horizontal" method="post" action="">{% csrf_token %}
       {% for i in form %}
         <div class="form-group">
           <label for="{{i.label}}" class="col-sm-2 control-label">{{i.label}}</label>

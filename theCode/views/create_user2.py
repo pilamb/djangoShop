@@ -109,7 +109,7 @@ def page(request):
         if "cancel" in request.POST:
             return HttpResponseRedirect(reverse_lazy('index'))
         else:
-            form = Form_Alta_User_model(request.POST)
+            form = Form_New_User_model(request.POST)
             if form.is_valid():
                 name= form.cleaned_data['name']
                 surname=form.cleaned_data['surname']
@@ -133,7 +133,7 @@ def page(request):
                     else:
                         return HttpResponseRedirect(reverse_lazy('panel'))
             else:
-                return render(request,'create_user.html',{'form':form})
+                return render(request, 'create_user.html', {'form':form})
     else:
-        form=Form_Alta_User_model()
-        return render(request,'create_user.html',{'form':form})
+        form=Form_New_User_model()
+        return render(request, 'user_create.html', {'form':form})
