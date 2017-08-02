@@ -3,8 +3,8 @@
 from django.db import models
 from django.contrib import admin
 from django.core.urlresolvers import reverse
-from theCode.core.validador import *
-from theCode.clients. models import User_model
+from theCode.core.validators import *
+from theCode.clients. models import UserModel
 
 class Message_class(models.Model):
     """
@@ -28,7 +28,7 @@ class Message_class(models.Model):
     attended = models.BooleanField(default=False)
 
     def is_member(self):
-        return User_model.objects.filter(email=self.mail).exists()
+        return UserModel.objects.filter(email=self.mail).exists()
     def __unicode__(self):
         return u'%s%s%s' % (self.name, str(self.date), self.mail)
     def get_absolute_url(self):

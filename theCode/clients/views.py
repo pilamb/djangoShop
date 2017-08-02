@@ -11,8 +11,8 @@ from datetime import date
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-from models import User_model
-from theCode.views.create_user2 import Form_New_User_model
+from models import UserModel
+from theCode.views.create_user2 import Form_New_UserModel
 from theCode.customForms.authenticate import logout
 from theCode.shop.models import Order
 
@@ -25,42 +25,42 @@ class LoginRequiredMixin(object):
 
 
 class UserModelListView(LoginRequiredMixin,ListView):
-    order = User_model
+    order = UserModel
     template_name = "listado_users.html"
     paginate_by = 4
 
     def get_context_data(self, **kwargs):
-        context = super(User_modelListView, self).get_context_data(**kwargs)
+        context = super(UserModelListView, self).get_context_data(**kwargs)
         context['today'] = date.today()
         return context
     def get_queryset(self):
         """
         Return users ordered by recent sign date  and only the latter 6 ones
         """
-        return User_model.objects.exclude(is_admin=True).filter(is_superuser=False).order_by('-sign_date')#[:5]
+        return UserModel.objects.exclude(is_admin=True).filter(is_superuser=False).order_by('-sign_date')#[:5]
 
 
 class UserModelDetailView(LoginRequiredMixin,DetailView):
     template_name = "detail_user.html"
-    order = User_model
+    order = UserModel
 
     def get_context_data(self, **kwargs):
-      context = super(User_modelDetailView, self).get_context_data(**kwargs)
+      context = super(UserModelDetailView, self).get_context_data(**kwargs)
       orders = Order.objects.filter(user = self.request.user)
       context['orders'] = orders
       return context
     # def get_queryset(self):
-    #         return User_model.objects.filter(email=self.request.user)
+    #         return UserModel.objects.filter(email=self.request.user)
 
 class UserModelUpdateView(LoginRequiredMixin,UpdateView):
 
     def clean(self):
-        super(User_model, self).clean()
-    order = User_model
+        super(UserModel, self).clean()
+    order = UserModel
     fields = ['name', 'surname', 'subscribed', 'address', 'phone']
     #exclude       = ['password','email','messages']
     template_name = "edit_user.html"
-    #form_class = Form_Alta_User_model
+    #form_class = Form_Alta_UserModel
     success_url = reverse_lazy('panel')
     def post(self, request, *args, **kwargs):
         if "cancel" in request.POST:
@@ -74,7 +74,7 @@ class UserModelUpdateView(LoginRequiredMixin,UpdateView):
 class UserModelDeleteView(LoginRequiredMixin,DeleteView):
     """USERS CANT BE DELETED JUST SAVED AS INACTIVE :)
     """
-    order = User_model
+    order = UserModel
     template_name = "user_confirm_delete.html"
     success_url = reverse_lazy('panel')
 
@@ -95,5 +95,5 @@ class UserModelDeleteView(LoginRequiredMixin,DeleteView):
                 messages.success(request, 'Account deleted <b>correctly</b>.')
             return HttpResponseRedirect(reverse_lazy('index'))
     #def get_queryset(self):
-        #qs = super(User_modelDeleteView, self).get_queryset()
-        #return User_model.objects.filter(email = self.request.user.email)
+        #qs = super(UserModelDeleteView, self).get_queryset()
+        #return UserModel.objects.filter(email = self.request.user.email)

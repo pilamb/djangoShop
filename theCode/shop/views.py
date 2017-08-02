@@ -17,7 +17,7 @@ from datetime import date
 from theCode.views.create_order import NewProductOrderForm
 from theCode.warehouse.models import Product
 from theCode.messages_app.models import Message_class
-from theCode.clients.models import User_model
+from theCode.clients.models import UserModel
 from models import Order, Sale, Shipment
 
 
@@ -67,7 +67,7 @@ class OrderDetailView(LoginRequiredMixin, DetailView):
                     E = Shipment.objects.get(order= self.object.id)
                 except Shipment.DoesNotExist:
                     E= ""
-                context['Message_class']  = N
+                context['Notification']  = N
                 context['H'] = H
                 context['shipment']= E
             return context
@@ -134,7 +134,7 @@ class SaleListView(LoginRequiredMixin, ListView):
             return context
 
 
-class SalesUser_modelListView(LoginRequiredMixin, ListView):
+class SalesUserModelListView(LoginRequiredMixin, ListView):
     """
     Sales list for users
     """
@@ -144,7 +144,7 @@ class SalesUser_modelListView(LoginRequiredMixin, ListView):
         return Sale.objects.filter(user = self.request.user)
 
     def get_context_data(self, **kwargs):
-            context = super(SalesUser_modelListView, self).get_context_data(**kwargs)
+            context = super(SalesUserModelListView, self).get_context_data(**kwargs)
             return context
 
 class SaleDetailView(LoginRequiredMixin, DetailView):
@@ -190,7 +190,7 @@ class invoicePDF(LoginRequiredMixin, PDFTemplateView):
     def get_context_data(self, **kwargs):
         context = super(invoicePDF, self).get_context_data(**kwargs)
         try:
-            u = get_object_or_404(User_model,pk = self.request.user.id)
+            u = get_object_or_404(UserModel,pk = self.request.user.id)
             context['user']=u
             ped = get_object_or_404(Order,pk =context['pk'])
             context['order']=ped

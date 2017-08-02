@@ -2,7 +2,7 @@
 
 from django.conf import settings
 from django.contrib.auth.models import check_password
-from theCode.clients.models import User_model
+from theCode.clients.models import UserModel
 
 class EmailAuthBackend(object):
     """
@@ -14,19 +14,19 @@ class EmailAuthBackend(object):
         Authentication method
         """
         try:
-            user = User_model.objects.get(email=email)
+            user = UserModel.objects.get(email=email)
             if user.check_password(password):
                 return user
             else:
                 return None
-        except User_model.DoesNotExist:
+        except UserModel.DoesNotExist:
             return None
 
     def get_user(self, user_id):
         try:
-            user = User_model.objects.get(pk=user_id)
+            user = UserModel.objects.get(pk=user_id)
             if user.is_active:
                 return user
             return None
-        except User_model.DoesNotExist:
+        except UserModel.DoesNotExist:
             return None

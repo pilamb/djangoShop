@@ -35,7 +35,7 @@ class MailerForm(forms.Form):
     )) 
     
     Mensj     = forms.CharField ( max_length=1000,
-        label="Message_class",
+        label="Notification",
         widget= forms.Textarea(attrs={
             'class':'form-control',
             'placeholder':'Write here  your message',

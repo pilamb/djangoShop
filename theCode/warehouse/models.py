@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.db import models
-from theCode.core.validador import positive_price
+from theCode.core.validators import positive_price
 
 """
 First tuple element is the name to apply to the group.

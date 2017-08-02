@@ -3,7 +3,7 @@
 from django.shortcuts import render
 from django.core.exceptions import ValidationError
 from datetime import date
-from theCode.clients.models import User_model
+from theCode.clients.models import UserModel
 from theCode.shop.models import Order,Sale,Shipment
 from theCode.messages_app.models import Message_class
 from theCode.warehouse.models import Product
@@ -13,8 +13,8 @@ from theCode.messages_app.models import Message_class, Alert
 def page(request):
     if request.user.is_admin:
         try:
-            object_list = User_model.objects.exclude(is_admin=True).filter(is_superuser=False).order_by('-sign_date')#[:5]
-        except User_model.DoesNotExist:
+            object_list = UserModel.objects.exclude(is_admin=True).filter(is_superuser=False).order_by('-sign_date')#[:5]
+        except UserModel.DoesNotExist:
             object_list =()
         try:
             object_list2 = Order.objects.all()

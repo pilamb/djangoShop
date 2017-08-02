@@ -24,7 +24,7 @@ class New_concret_product_order_form(forms.Form):
     notified = forms.CharField (
         max_length=1000,
         required=False,
-        label="Message_class",
+        label="Notification",
         widget= forms.Textarea(attrs={
             'class':'form-control',
             'placeholder':'Write here an optional message',

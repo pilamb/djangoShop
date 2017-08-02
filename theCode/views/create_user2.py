@@ -4,16 +4,16 @@ from django import forms
 from django.shortcuts import render
 from django.http     import HttpResponse,HttpResponseRedirect
 from django.core.urlresolvers import reverse_lazy
-from theCode.clients.models import User_model
+from theCode.clients.models import UserModel
 from captcha.fields import CaptchaField
 from django.forms import RadioSelect
 from django.contrib import messages
 from django.contrib.auth.models import User
 from theCode.messages_app.models import Message_class
-from theCode.core.validador import only_letters, nums
+from theCode.core.validators import only_letters, nums
 
 
-class Form_New_User_model(forms.Form):
+class Form_New_UserModel(forms.Form):
 
     required_css_class = "required"
     error_css_class  = "notified-danger"
@@ -109,18 +109,18 @@ def page(request):
         if "cancel" in request.POST:
             return HttpResponseRedirect(reverse_lazy('index'))
         else:
-            form = Form_New_User_model(request.POST)
+            form = Form_New_UserModel(request.POST)
             if form.is_valid():
                 name= form.cleaned_data['name']
                 surname=form.cleaned_data['surname']
                 email=form.cleaned_data['email']
                 pas2 =form.cleaned_data['password2']
                 tel=form.cleaned_data['phone']
-                newUser_model=User_model(email=email,is_active=True,name=name,surname=surname,phone=tel, messages=1)
-                newUser_model.set_password(pas2)
-                newUser_model.save()
+                newUserModel=UserModel(email=email,is_active=True,name=name,surname=surname,phone=tel, messages=1)
+                newUserModel.set_password(pas2)
+                newUserModel.save()
                 notificacion_nueva = Message_class(
-                    user=newUser_model,
+                    user=newUserModel,
                     notified=False,
                     message=u"Welcome to the website! You have an available account.")
                 notificacion_nueva.save()
@@ -135,5 +135,5 @@ def page(request):
             else:
                 return render(request, 'create_user.html', {'form':form})
     else:
-        form=Form_New_User_model()
+        form=Form_New_UserModel()
         return render(request, 'user_create.html', {'form':form})

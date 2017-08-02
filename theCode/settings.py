@@ -71,11 +71,11 @@ WSGI_APPLICATION = 'theCode.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',  # i started with postgreSQL..
+        'ENGINE': 'django.db.backends.sqlite3',  # TODO: postgreSQL
         'NAME': os.path.join(BASE_DIR, 'db3lite'),
     }
 }
-AUTH_USER_MODEL = 'clients.User_model'
+AUTH_USER_MODEL = 'clients.UserModel'
 AUTHENTICATION_BACKENDS ={
     'theCode.customForms.backend.EmailAuthBackend',
     'django.contrib.auth.backends.ModelBackend',

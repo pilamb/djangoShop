@@ -7,7 +7,7 @@ def message_part(obj,length=10, suffix='...'):
         return obj.message
     else:
         return ' '.join(obj.message[:length+1].split(' ')[0:-1]) + suffix
-message_part.short_description = 'Message_class'
+message_part.short_description = 'Notification'
 
 class Message_classAdmin(admin.ModelAdmin):
     fields = ('attendedd','message')

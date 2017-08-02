@@ -3,12 +3,12 @@ from django.db import models
 from django.contrib import admin
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ValidationError
-from theCode.core.validador import only_letters, alfan, nums, positive_price
+from core.validators import only_letters, alfan, nums, positive_price
 from django.core.exceptions import ObjectDoesNotExist
 from django_fsm import FSMField, transition
 from random import randint
 from datetime import date, timedelta
-from theCode.clients.models import User_model
+from theCode.clients.models import UserModel
 from theCode.warehouse.models import Product
 from theCode.messages_app.models import Message_class
 
@@ -80,7 +80,7 @@ class Order(models.Model):
         ('Blue', u'Blue (+10€)'),
     )
 
-    user = models.ForeignKey(User_model)
+    user = models.ForeignKey(UserModel)
     sign_date = models.DateField(auto_now_add=True)
     paid = models.BooleanField(default=False)
     payment_code = models.CharField(blank=True, max_length=6)

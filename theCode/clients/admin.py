@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.contrib import admin
-from models import User_model
+from models import UserModel
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
@@ -15,7 +15,7 @@ class CustomUserCreationForm(UserCreationForm):
         del self.fields['username']
 
     class Meta:
-        order = User_model
+        order = UserModel
         fields = ("email",)
 
 
@@ -28,7 +28,7 @@ class CustomUserChangeForm(UserChangeForm):
         del self.fields['username']
 
     class Meta:
-        order = User_model
+        order = UserModel
         fields = ('email', 'password', 'is_active', 'is_admin')
 
     def clean_password(self):
@@ -56,5 +56,5 @@ class CustomUserAdmin(UserAdmin):
     ordering = ('sign_date',)
     filter_horizontal = ()
 
-admin.site.register(User_model,CustomUserAdmin)
+admin.site.register(UserModel, CustomUserAdmin)
 admin.site.unregister(Group)

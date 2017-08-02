@@ -1,31 +1,30 @@
 # -*- coding: utf-8 -*-
 from django.db import models
-from django.contrib import admin
 from django.core.urlresolvers import reverse
-from theCode.core.validador import *
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.utils import timezone
-#from theCode.shop.models import Order
+from core.validators import nums, only_letters
 
 
 class Manager(BaseUserManager):
-    def _create_user(self, email, password, is_admin, is_superuser, **extra_fields):
+    def _create_user(
+            self, email, password, is_admin, is_superuser, **extra_fields):
         now = timezone.now()
         if not email:
             raise ValueError('The email is mandatory.')
         email = self.normalize_email(email)
-        User = self.order(email=email,
-                          is_admin=is_admin,
+        user = UserModel(email=email,
+                        is_admin=is_admin,
                           is_active=True,
                           is_superuser=is_superuser,
                           last_login=now,
                           sign_date=now,
                           messages=1,
                           **extra_fields)
-        User.set_password(password)
-        User.save(using=self._db)
-        return User
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
 
     def create_user(self, email, password=None, **extra_fields):
         return self._create_user(email, password, is_admin=False, is_superuser=False, **extra_fields)
@@ -34,11 +33,11 @@ class Manager(BaseUserManager):
         return self._create_user(email, password, is_admin=True, is_superuser=True, **extra_fields)
 
     def delete_user(self):
-        User.set_active(False)
-        User.save(using=self.db)
+        self.set_active(False)
+        self.save(using=self.db)
 
 
-class User_model(AbstractBaseUser):
+class UserModel(AbstractBaseUser):
     """
     Django User abstract heritage
     """
