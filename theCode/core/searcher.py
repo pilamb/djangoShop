@@ -2,19 +2,25 @@
 import re
 from django.db.models import Q
 
+
 def normalize_query(query_string,
                     findterms=re.compile(r'"([^"]+)"|(\S+)').findall,
                     normspace=re.compile(r'\s{2,}').sub):
-    ''' 
-        Chops of string in sole words, deleting spaces and grouping words
-    '''
-    return [normspace(' ', (t[0] or t[1]).strip()) for t in findterms(query_string)] 
+    """
+    Chops of string in sole words, deleting spaces and grouping words
+    """
+    return [
+        normspace(' ', (t[0] or t[1]).strip()) for t in findterms(query_string)]
+
 
 def search_filter(string, campos):
-    ''' 
-        Returns a Query object of Q type
-    '''
-    query = None # Query to search for every search term        
+    """
+    Returns a query object of Q type
+    :param string:
+    :param campos:
+    :return:
+    """
+    query = None # Query to search for every search term
     terms = normalize_query(string)
     for term in terms:
         or_query = None # Query to search for a given term in each field

@@ -26,18 +26,21 @@ class LoginRequiredMixin(object):
 
 class UserModelListView(LoginRequiredMixin,ListView):
     order = UserModel
-    template_name = "listado_users.html"
+    template_name = "users_list.html"
     paginate_by = 4
 
     def get_context_data(self, **kwargs):
         context = super(UserModelListView, self).get_context_data(**kwargs)
         context['today'] = date.today()
         return context
+
     def get_queryset(self):
         """
         Return users ordered by recent sign date  and only the latter 6 ones
         """
-        return UserModel.objects.exclude(is_admin=True).filter(is_superuser=False).order_by('-sign_date')#[:5]
+        return UserModel.objects.exclude(
+            is_admin=True).filter(
+            is_superuser=False).order_by('-sign_date')  # [:5]
 
 
 class UserModelDetailView(LoginRequiredMixin,DetailView):
@@ -62,6 +65,7 @@ class UserModelUpdateView(LoginRequiredMixin,UpdateView):
     template_name = "edit_user.html"
     #form_class = Form_Alta_UserModel
     success_url = reverse_lazy('panel')
+
     def post(self, request, *args, **kwargs):
         if "cancel" in request.POST:
             self.object = self.get_object()
@@ -69,7 +73,9 @@ class UserModelUpdateView(LoginRequiredMixin,UpdateView):
             return HttpResponseRedirect(url)
         else:
             messages.success(request, 'Changes <b>correctly </b> saved.')
-            return super(UserModelUpdateView, self).post(request, *args, **kwargs)
+            return super(UserModelUpdateView, self).\
+                post(request, *args, **kwargs)
+
 
 class UserModelDeleteView(LoginRequiredMixin,DeleteView):
     """USERS CANT BE DELETED JUST SAVED AS INACTIVE :)

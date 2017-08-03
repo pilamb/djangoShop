@@ -13,10 +13,10 @@ from theCode.warehouse.models import Product
 from theCode.messages_app.models import Message_class
 
 
-class New_concret_product_order_form(forms.Form):
+class NewConcreteOrderForm(forms.Form):
     def __init__(self,*args,**kwargs):
             self.request = kwargs.pop('request', None)
-            super(New_concret_product_order_form,self).__init__(*args,**kwargs)
+            super(NewConcreteOrderForm, self).__init__(*args, **kwargs)
 
     required_css_class = "required"
     error_css_class = "notified-danger"
@@ -49,7 +49,7 @@ class New_concret_product_order_form(forms.Form):
         fields = ('user','information','paid','color')
         exclude = 'module'
     def clean(self):
-        cleaned_data = super(New_concret_product_order_form,self).clean()
+        cleaned_data = super(NewConcreteOrderForm, self).clean()
         return cleaned_data
 
 def page(request,pk):
@@ -63,18 +63,18 @@ def page(request,pk):
         if "cancel" in request.POST:
             return HttpResponseRedirect(reverse_lazy('index'))
         else:
-            form = New_concret_product_order_form(request.POST)
+            form = NewConcreteOrderForm(request.POST)
             if request.user.is_authenticated():
 
                 if form.is_valid():
                     notified = request.POST['notified']
                     print request.POST['color']
                     p = Order(
-                        user = user,
-                        product = mod,
-                        information = notified,
-                        paid = False,
-                        color = request.POST['color']
+                        user=user,
+                        product=mod,
+                        information=notified,
+                        paid=False,
+                        color=request.POST['color']
                         )
                     if mod.on_sale:
                         mod.on_sale=False
@@ -84,16 +84,22 @@ def page(request,pk):
                     else:
                         p.painting=False
                     p.save()
-                    new_message = Message_class(user=user, notified=False, message=u"""Congratulations, the order has been created correctly and it is in the state %s.
-                     Soon you will receive confirmation of the states changes. Thanks""" % p.state)
+                    new_message = Message_class(user=user,
+                                                notified=False,
+                                                message=
+                     u"""Congratulations, the order has been created
+                     correctly and it is in the state %s.
+                     Soon you will receive confirmation of the states changes.
+                     Thanks""" % p.state)
                     new_message.save()
                     mod.quitar_of_sale()
                     mod.save()
-                    messages.success(request, '¡Order created <b>correctly</b>, thanks!')
+                    messages.success(request,
+                                     '¡Order created <b>correctly</b>, thanks!')
                     return HttpResponseRedirect(reverse_lazy('panel'))
                 else:
-                    return render(request, 'create_order.html',{'form':form,'pk':pk})
+                    return render(request, 'create_order.html', {'form': form,
+                                                                 'pk': pk})
     else:
-        form = New_concret_product_order_form()
-        return render(request,'create_order.html',{'form':form,'pk':pk})
-
+        form = NewConcreteOrderForm()
+        return render(request, 'create_order.html', {'form': form, 'pk': pk})

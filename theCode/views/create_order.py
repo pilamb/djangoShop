@@ -16,13 +16,13 @@ from theCode.messages_app.models import Message_class
 class NewProductOrderForm(forms.Form):
     def __init__(self,*args,**kwargs):
             self.request = kwargs.pop('request', None)
-            super(New_product_order_form,self).__init__(*args,**kwargs)
+            super(NewProductOrderForm, self).__init__(*args, **kwargs)
     required_css_class = "required"
     error_css_class = "notified-danger"
     captcha = CaptchaField()
     product = forms.ModelChoiceField(
             widget=forms.RadioSelect(attrs={
-                'class':'radio',
+                'class': 'radio',
             }),
             queryset=Product.objects.filter(on_sale=True),
             initial=1,
@@ -32,20 +32,20 @@ class NewProductOrderForm(forms.Form):
         required=False,
         label="Notification",
         widget= forms.Textarea(attrs={
-            'class':'form-control',
-            'placeholder':'Write here an optional message',
-            'onblur':'this.placeholder="Write here an optional message"',
-            'onclick':'this.placeholder=""',
-            'rows':'10',
-            'overflow-y':'hidden',
-            'resize':'none'
+            'class': 'form-control',
+            'placeholder': 'Write here an optional message',
+            'onblur': 'this.placeholder="Write here an optional message"',
+            'onclick': 'this.placeholder=""',
+            'rows': '10',
+            'overflow-y': 'hidden',
+            'resize': 'none'
             })
         )
     color = forms.ChoiceField(
         widget=forms.Select(attrs={
-            'class':'form-control',
-            'id':'selectorcolor',
-            'onchange':'changePrice(this)',
+            'class': 'form-control',
+            'id': 'selectorcolor',
+            'onchange': 'changePrice(this)',
 
             }),
         choices=Order.COLORES_CHOICES
@@ -55,8 +55,9 @@ class NewProductOrderForm(forms.Form):
         fields = ('user','product','information','colour')
 
     def clean(self):
-        cleaned_data = super(New_product_order_form,self).clean()
+        cleaned_data = super(NewProductOrderForm,self).clean()
         return cleaned_data
+
 
 def page(request):
     user = request.user
@@ -64,7 +65,7 @@ def page(request):
         if "cancel" in request.POST:
             return HttpResponseRedirect(reverse_lazy('index'))
         else:
-            form = New_product_order_form(request.POST)
+            form = NewProductOrderForm(request.POST)
             if request.user.is_authenticated():
                 if form.is_valid():
                     product = request.POST['product']
@@ -74,20 +75,21 @@ def page(request):
                     print "You has choosen %s" % str(painting)
                     print painting
                     p = Order(
-                        user = user,
-                        product = mod,
-                        information = notified,
-                        paid = False,
+                        user=user,
+                        product=mod,
+                        information=notified,
+                        paid=False,
                         )
                     mod.quitar_of_sale()
                     mod.save()
                     new_message = Message_class(user=user, notified=False, message=u"""Congratulations, the order has been created correctly and it is in the state %s.
                      Soon you will receive confirmation of the states changes. Thanks""" % p.state)
                     new_message.save()
-                    messages.success(request, '¡Order created <b>correctly</b>, thanks!')
+                    messages.success(request,
+                                     '¡Order created <b>correctly</b>, thanks!')
                     return HttpResponseRedirect(reverse_lazy('panel'))
                 else:
                     return render(request, 'create_order.html',{'form':form})
     else:
-        form = New_product_order_form()
-        return render(request,'create_order.html',{'form':form})
+        form = NewProductOrderForm()
+        return render(request, 'create_order.html', {'form': form})
