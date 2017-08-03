@@ -10,7 +10,7 @@ from django.forms import Textarea, TextInput, PasswordInput, EmailInput,RadioSel
 from django.contrib import messages
 from theCode.shop.models import Order
 from theCode.warehouse.models import Product
-from theCode.messages_app.models import Message_class
+from theCode.messages_app.models import MessageModel
 
 
 class NewProductOrderForm(forms.Form):
@@ -48,7 +48,7 @@ class NewProductOrderForm(forms.Form):
             'onchange': 'changePrice(this)',
 
             }),
-        choices=Order.COLORES_CHOICES
+        choices=Order.COLORS_CHOICES
         )
     class Meta:
         order = Order
@@ -82,7 +82,7 @@ def page(request):
                         )
                     mod.quitar_of_sale()
                     mod.save()
-                    new_message = Message_class(user=user, notified=False, message=u"""Congratulations, the order has been created correctly and it is in the state %s.
+                    new_message = MessageModel(user=user, notified=False, message=u"""Congratulations, the order has been created correctly and it is in the state %s.
                      Soon you will receive confirmation of the states changes. Thanks""" % p.state)
                     new_message.save()
                     messages.success(request,

@@ -5,9 +5,9 @@ from django.core.exceptions import ValidationError
 from datetime import date
 from theCode.clients.models import UserModel
 from theCode.shop.models import Order,Sale,Shipment
-from theCode.messages_app.models import Message_class
+from theCode.messages_app.models import MessageModel
 from theCode.warehouse.models import Product
-from theCode.messages_app.models import Message_class, Alert
+from theCode.messages_app.models import MessageModel, Alert
 
 
 def page(request):
@@ -34,7 +34,7 @@ def page(request):
             n_admins=0
         try:
             news = Message.objects.filter(date=date.today()).count()
-        except Message_class.DoesNotExist:
+        except MessageModel.DoesNotExist:
             news=0
         try:
             prods = Product.objects.all().count()

@@ -16,7 +16,7 @@ from datetime import date
 
 from theCode.views.create_order import NewProductOrderForm
 from theCode.warehouse.models import Product
-from theCode.messages_app.models import Message_class
+from theCode.messages_app.models import MessageModel
 from theCode.clients.models import UserModel
 from models import Order, Sale, Shipment
 
@@ -56,8 +56,8 @@ class OrderDetailView(LoginRequiredMixin, DetailView):
             context = super(OrderDetailView, self).get_context_data(**kwargs)
             if not self.request.user.is_super:
                 try:
-                    N = Message_class.objects.filter(user = self.request.user)
-                except Message_class.DoesNotExist:
+                    N = MessageModel.objects.filter(user = self.request.user)
+                except MessageModel.DoesNotExist:
                     N = ()
                 try:
                     H = StateLog.objects.filter(object_id=self.object.id)

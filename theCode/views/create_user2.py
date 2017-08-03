@@ -9,7 +9,7 @@ from captcha.fields import CaptchaField
 from django.forms import RadioSelect
 from django.contrib import messages
 from django.contrib.auth.models import User
-from theCode.messages_app.models import Message_class
+from theCode.messages_app.models import MessageModel
 from theCode.core.validators import only_letters, nums
 
 
@@ -119,7 +119,7 @@ def page(request):
                 newUserModel=UserModel(email=email,is_active=True,name=name,surname=surname,phone=tel, messages=1)
                 newUserModel.set_password(pas2)
                 newUserModel.save()
-                notificacion_nueva = Message_class(
+                notificacion_nueva = MessageModel(
                     user=newUserModel,
                     notified=False,
                     message=u"Welcome to the website! You have an available account.")

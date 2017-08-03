@@ -8,7 +8,7 @@ from django.core.exceptions import ValidationError
 from django.conf import settings
 from captcha.fields import CaptchaField
 from django.contrib import messages
-from theCode.messages_app.models import Alert, Message_class
+from theCode.messages_app.models import Alert, MessageModel
 
 
 class MailerForm(forms.Form):
@@ -49,7 +49,7 @@ class MailerForm(forms.Form):
     
     Category = forms.ChoiceField(
         label="Category",
-        choices=Message_class.CATEGORIA_CHOICES,
+        choices=MessageModel.CATEGORY,
         initial='6',
         widget= forms.Select(attrs={
             'class':'form_control'
@@ -114,7 +114,7 @@ def newMessage_class(request):
     email = request.get('Sender', '')
     message = request.get(u'Mensj', '')
     print message
-    grabar = Message_class(message=message,name=name,category=category,mail=email,attended=False)
+    grabar = MessageModel(message=message, name=name, category=category, mail=email, attended=False)
     grabar.save()
 
 def page(request):

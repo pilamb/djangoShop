@@ -10,7 +10,7 @@ from random import randint
 from datetime import date, timedelta
 from theCode.clients.models import UserModel
 from theCode.warehouse.models import Product
-from theCode.messages_app.models import Message_class
+from theCode.messages_app.models import MessageModel
 
 
 class Sale(models.Model):
@@ -31,23 +31,24 @@ class Sale(models.Model):
         view_sale.allow_tags = True
         return '<a href="/sale/view/%s">See detail</a>' % self.id
 
+
 class Status(object):
     """
     Contstants representing states of the Finite State Machine
     """
 
-    ON_HOLD     = u'On hold'
-    ACCEPTED    = 'Accepted'
-    REJECTED    = 'Rejected'
-    PAID        = 'Paid'
+    ON_HOLD = u'On hold'
+    ACCEPTED = 'Accepted'
+    REJECTED = 'Rejected'
+    PAID = 'Paid'
     MANUFACTURE = 'Manufacturing'
-    PAINTING    = 'Painting'
-    SHIPPED     = 'Shipped'
-    RECEIVED    = 'Received'
-    WARRANTY    = 'Warranty'
-    RETURNED    = 'Returned'
-    REPAIRING    = 'Repairing'
-    CANCEL        = 'Canceled'
+    PAINTING = 'Painting'
+    SHIPPED = 'Shipped'
+    RECEIVED = 'Received'
+    WARRANTY = 'Warranty'
+    RETURNED = 'Returned'
+    REPAIRING = 'Repairing'
+    CANCEL = 'Canceled'
     ENDWARRANTY = u'End of warranty'
     state_choices = (
 
@@ -71,7 +72,7 @@ class Order(models.Model):
     """
     An order can have different states.
     """
-    COLORES_CHOICES = (
+    COLORS_CHOICES = (
         (u'No color', u'No color (+0€)'),
         ('Black', u'Black (+10€)'),
         ('Pink', u'Pink (+10€)'),
@@ -87,16 +88,19 @@ class Order(models.Model):
     module = models.OneToOneField(Product)
     painting= models.BooleanField(default=False)
     information = models.CharField(blank=True, max_length=1000)
-    color = models.CharField(max_length=10, choices=COLORES_CHOICES, blank=False, default=u'No color')
+    color = models.CharField(max_length=10,
+                             choices=COLORS_CHOICES,
+                             blank=False,
+                             default=u'No color')
     invoice_available = models.BooleanField(default=False)
     sale = models.ForeignKey(Sale, blank=True, null=True)
     icon = models.CharField(max_length=50, default="inbox")  # of Bootstrap class
     state = FSMField(
-         choices = Status.state_choices,
-         blank = False,
-         default = Status.ON_HOLD,
-         protected = True,  # Only admins are allowed to change this
-         verbose_name = 'Status of the order')
+         choices=Status.state_choices,
+         blank=False,
+         default=Status.ON_HOLD,
+         protected=True,  # Only admins are allowed to change this
+         verbose_name='Status of the order')
 
     def __unicode__(self):
         return str(self.id)
@@ -108,7 +112,7 @@ class Order(models.Model):
         """
         Creates a message to tell the user a new event
         """
-        new_notification = Message_class(user=self.user, notified=False)
+        new_notification = MessageModel(user=self.user, notified=False)
         new_notification.save()
 
     def generate_payment_code(self):
