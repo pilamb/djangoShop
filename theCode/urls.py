@@ -7,7 +7,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import admin
 from clients.views import UserModelListView, UserModelDetailView, UserModelUpdateView, UserModelDeleteView
 from notifications.views import NotificationListView, NotificationDetailView
-from shop.views import OrderListView, OrderDetailView, OrderUpdateView, OrderDeleteView, OrdersUserModelListView, SaleDetailView, SaleListView, \
+from shop.views import OrderListView,\
+    OrderDetailView,\
+    OrderUpdateView,\
+    OrderDeleteView, OrdersUserModelListView, SaleDetailView, SaleListView, \
 OrdersUserModelListView, invoicePDF, ShipmentDetailView
 from events.views import EventListView
 from warehouse.views import ProductsListView, ProductDetailView
