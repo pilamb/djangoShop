@@ -5,10 +5,12 @@ from theCode.core.validators import positive_price
 
 """
 First tuple element is the name to apply to the group.
-Second element is an iterable consisting on 2 tuples, one for the value, the other for the
-humnan-readable. The options of the group can be combined without group`to a small lits.
-For every order that has choices, Django will add a method to recover the human-readable,
-for the value of the field, throught get_FOO_display (look at the API).
+Second element is an iterable consisting on 2 tuples, one for the value,
+the other for the humnan-readable. The options of the group can be combined
+without group`to a small lits.
+For every order that has choices, Django will add a method to recover
+the human-readable, for the value of the field,
+through get_FOO_display (look at the API).
 """
 
 
@@ -67,18 +69,20 @@ class Piece(models.Model):
     )
     name = models.CharField(max_length=20, blank=False, verbose_name='Name')
     quantity = models.PositiveIntegerField(default=0)
-    value = models.DecimalField(max_digits=5,decimal_places=2,blank=True)
-    unit = models.CharField(max_length=3, choices=UNITS_CHOICES,default='?')
+    value = models.DecimalField(max_digits=5, decimal_places=2, blank=True)
+    unit = models.CharField(max_length=3, choices=UNITS_CHOICES, default='?')
     price = models.DecimalField(max_digits=5, decimal_places=2)
-    the_type = models.CharField(max_length=25,choices=PIECES_CHOICES,blank=False,default='unkown')
+    the_type = models.CharField(max_length=25, choices=PIECES_CHOICES,
+                                blank=False, default='unknown')
     provider = models.URLField(blank=True)
     picture = models.ImageField(upload_to='pieces', null=True, blank=True)
-    note = models.CharField(max_length=200,default="", blank=True, verbose_name=u'Additional text')
-    alarm = models.BooleanField(default=False,verbose_name=u'Not available')
+    note = models.CharField(max_length=200,  default="",
+                            blank=True, verbose_name=u'Additional text')
+    alarm = models.BooleanField(default=False, verbose_name=u'Not available')
 
     def few_units(self):
         """
-        noifies if units are low
+        notifies if units are low.
         """
         if self.quantity <= 2:
             self.alarm =True
@@ -87,8 +91,8 @@ class Piece(models.Model):
         return u'%s%s%s%s' % (self.name,self.type, str(self.value),self.units)
 
     class Meta:
-        verbose_name = 'Piece'
         verbose_name_plural = 'Pieces'
+
 
 class Product(models.Model):
     """
@@ -101,26 +105,32 @@ class Product(models.Model):
         ('DrumSynth8','SrumSynth8'),
         ('Guitar','Guitar'),
     )
-    name          = models.CharField(max_length=50,unique=True, blank=False,verbose_name='Name')
-    sign_date    = models.DateField(auto_now_add=True)
-    on_sale     = models.BooleanField(default=False)
-    information = models.CharField(max_length=1000,blank=True,verbose_name=u'Profile')
-    type_info    = models.CharField(max_length=20, choices=types,blank=False,default='Custom made circuitry 1')
-    picture        = models.ImageField(upload_to='products',null=True,blank=True)
-    price         = models.DecimalField(max_digits=5, decimal_places=2, validators=[positive_price])
-    recipe         = models.ManyToManyField(Piece)
-    url_sample     = models.URLField(blank=True) #una url of soundcloud con el sonido ofl aparato
-    visits_number    = models.PositiveIntegerField(default=0)
+    name = models.CharField(max_length=50,
+                            unique=True, blank=False,
+                            verbose_name='Name')
+    sign_date = models.DateField(auto_now_add=True)
+    on_sale = models.BooleanField(default=False)
+    information = models.CharField(max_length=1000,blank=True,
+                                   verbose_name=u'Profile')
+    type_info = models.CharField(max_length=20, choices=types,
+                                 blank=False,default='Custom made circuitry 1')
+    picture = models.ImageField(upload_to='products',
+                                null=True, blank=True)
+    price = models.DecimalField(max_digits=5,
+                                decimal_places=2, validators=[positive_price])
+    recipe = models.ManyToManyField(Piece)
+    url_sample = models.URLField(blank=True)
+    #  a url showing the product or alike
+    visits_number = models.PositiveIntegerField(default=0)
 
     def remove_from_sale(self):
         self.on_sale = False
 
     class Meta:
-            verbose_name ='Product'
-            verbose_name_plural    = "Products"
+        verbose_name_plural = "Products"
 
     def __unicode__(self):
         return u'%s, of %s - %s €' % (self.name,self.type,str(self.price))
 
     def get_absolute_url(self):
-        return reverse('ProductDetailView', args=[str(self.id)])
+        return reverse('detail_product', args=[str(self.id)])

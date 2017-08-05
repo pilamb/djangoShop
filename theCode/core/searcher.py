@@ -23,7 +23,7 @@ def search_filter(string, campos):
     query = None # Query to search for every search term
     terms = normalize_query(string)
     for term in terms:
-        or_query = None # Query to search for a given term in each field
+        or_query = None  # Query to search for a given term in each field
         for field_name in campos:
             q = Q(**{"%s__icontains" % field_name: term})
             if or_query is None:

@@ -7,7 +7,7 @@ from django.contrib.auth.models import AbstractBaseUser,\
     PermissionsMixin,\
     BaseUserManager
 from django.utils import timezone
-from core.validators import nums, only_letters
+from theCode.core.validators import nums, only_letters
 
 
 class Manager(BaseUserManager):

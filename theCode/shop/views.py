@@ -24,7 +24,7 @@ from models import Order, Sale, Shipment
 class LoginRequiredMixin(object):
     @classmethod
     def as_view(cls,**initkwargs):
-        view = super(LoginRequiredMixin,cls).as_view(**initkwargs)
+        view = super(LoginRequiredMixin, cls).as_view(**initkwargs)
         return login_required(view)
 
 
@@ -37,19 +37,21 @@ class OrderListView(LoginRequiredMixin, ListView):
             context = super(OrderListView, self).get_context_data(**kwargs)
             return context
 
+
 class OrdersUserModelListView(LoginRequiredMixin, ListView):
     template_name = "list_orders2.html"
 
     def get_queryset(self):
-        return Order.objects.filter(user = self.request.user)
+        return Order.objects.filter(user=self.request.user)
 
     def get_context_data(self, **kwargs):
-            context = super(OrdersUserModelListView, self).get_context_data(**kwargs)
+            context = super(OrdersUserModelListView, self).get_context_data(
+                **kwargs)
             return context
 
 
 class OrderDetailView(LoginRequiredMixin, DetailView):
-    order  = Order
+    order = Order
     template_name = "order_detail.html"
 
     def get_context_data(self, **kwargs):
@@ -78,6 +80,7 @@ class OrderDetailView(LoginRequiredMixin, DetailView):
         else:
             return Order.objects.all()
 
+
 class OrderUpdateView(LoginRequiredMixin, UpdateView):
     order = Order
     fields = ['paid','module',]
@@ -95,13 +98,14 @@ class OrderUpdateView(LoginRequiredMixin, UpdateView):
         else:
             return super(OrderUpdateView, self).post(request, *args, **kwargs)
 
+
 class OrderDeleteView(LoginRequiredMixin, DeleteView):
     """
     State to cancel and get on sale available again
     """
-    order                  = Order
-    template_name         ="order_confirm_delete.html"
-    success_url         = reverse_lazy('panel')
+    order = Order
+    template_name ="order_confirm_delete.html"
+    success_url = reverse_lazy('panel')
 
     def post(self, request, *args, **kwargs):
         if "cancel" in request.POST:
@@ -124,9 +128,9 @@ class SaleListView(LoginRequiredMixin, ListView):
     """
     View for ADMIN for all sales
     """
-    order               = Sale
-    template_name     = "sales_list.html"
-    paginate_by     = 5
+    order = Sale
+    template_name = "sales_list.html"
+    paginate_by = 5
     # def get_queryset(self):
     #     return Sale.objects.all()
     def get_context_data(self, **kwargs):
@@ -141,18 +145,20 @@ class SalesUserModelListView(LoginRequiredMixin, ListView):
     template_name = "sales_list2.html"
 
     def get_queryset(self):
-        return Sale.objects.filter(user = self.request.user)
+        return Sale.objects.filter(user=self.request.user)
 
     def get_context_data(self, **kwargs):
-            context = super(SalesUserModelListView, self).get_context_data(**kwargs)
+            context = super(SalesUserModelListView, self).\
+                get_context_data(**kwargs)
             return context
+
 
 class SaleDetailView(LoginRequiredMixin, DetailView):
     """
     Detail of each Sale
     """
-    order                = Sale
-    template_name       = "sale_detail.html"
+    order = Sale
+    template_name = "sale_detail.html"
 
     def get_context_data(self, **kwargs):
             context = super(SaleDetailView, self).get_context_data(**kwargs)
@@ -162,33 +168,37 @@ class SaleDetailView(LoginRequiredMixin, DetailView):
 
     def get_queryset(self):
         if not self.request.user.is_super:
-            return Sale.objects.filter(pk = Order.objects.filter(user= self.request.user))
+            return Sale.objects.filter(pk=
+                                       Order.objects.filter(
+                                           user= self.request.user))
         else:
             return Sale.objects.all()
 
 class ShipmentDetailView(LoginRequiredMixin, DetailView):
-    order                = Shipment
-    template_name       = "shipment_detail.html"
+    order = Shipment
+    template_name = "shipment_detail.html"
 
     def get_context_data(self, **kwargs):
-            context = super(ShipmentDetailView, self).get_context_data(**kwargs)
+            context = super(ShipmentDetailView, self).\
+                get_context_data(**kwargs)
             return context
 
     def get_queryset(self):
         if not self.request.user.is_super: 
-            return Shipment.objects.filter(order = Order.objects.filter(user=self.request.user))
+            return Shipment.objects.filter(order=Order.objects.filter(
+                user=self.request.user))
         else:
             return Shipment.objects.all()
             
 
-class invoicePDF(LoginRequiredMixin, PDFTemplateView):
+class InvoicePDFModel(LoginRequiredMixin, PDFTemplateView):
     """
     Generator of invoices to PDF format
     """
     template_name = "PDFinvoice.html"
 
     def get_context_data(self, **kwargs):
-        context = super(invoicePDF, self).get_context_data(**kwargs)
+        context = super(InvoicePDFModel, self).get_context_data(**kwargs)
         try:
             u = get_object_or_404(UserModel,pk = self.request.user.id)
             context['user']=u
