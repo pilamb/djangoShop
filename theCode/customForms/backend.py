@@ -4,6 +4,7 @@ from django.conf import settings
 from django.contrib.auth.models import check_password
 from theCode.clients.models import UserModel
 
+
 class EmailAuthBackend(object):
     """
     Authenthicate backend based on email.

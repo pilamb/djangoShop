@@ -2,6 +2,9 @@
 from captcha.fields import CaptchaField
 from django.contrib import messages
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse_lazy
+
 
 def page(request):
     if request.POST:
@@ -9,9 +12,11 @@ def page(request):
             return HttpResponseRedirect(reverse_lazy('index'))
         else:
             if request.user.is_authenticated():
-                return render(request,'index.html',{'user':request.user,})
+                return render(request, 'index.html', {'user': request.user, })
             else:
                 pass 
     else:
-        messages.info(request, 'Its mandatory communicate that this site uses <b>cookies</b>.')
-        return render(request,'index.html') 
+        messages.info(request,
+                      'Its mandatory communicate that this site uses '
+                      '<b>cookies</b>.')
+        return render(request, 'index.html')
