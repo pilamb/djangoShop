@@ -12,14 +12,17 @@ from datetime import date
 
 
 class EventListView(ListView):
-    order               = Event
-    template_name     = "events_list.html"
-    paginate_by     = 4
+    """
+    This view is enough since only admins can post events.
+    """
+    order = Event
+    template_name = "events_list.html"
+    paginate_by = 4
 
     def get_notified_data(self, **kwargs):
-            notified = super(EventListView, self).get_context_data(**kwargs)
-            notified['today'] = date.today()
-            return notified
+        notified = super(EventListView, self).get_context_data(**kwargs)
+        notified['today'] = date.today()
+        return notified
 
     def get_queryset(self):
         return Event.objects.order_by('-date')

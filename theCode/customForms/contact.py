@@ -14,72 +14,77 @@ from theCode.messages_app.models import Alert, MessageModel
 class MailerForm(forms.Form):
     required_css_class = "required"
     error_css_class = "notified-danger"
-    Name = forms.CharField(
+    name = forms.CharField(
         max_length=20,
         label="Name",
         widget=forms.TextInput(
             attrs={
-            'class': 'form-control',
-            'placeholder': 'Write a name of contact',
-            'onblur': 'this.placeholder="Write a name of contact"',
-            'onclick': 'this.placeholder=""'
+                'class': 'form-control',
+                'placeholder': 'Write a name of contact',
+                'onblur': 'this.placeholder="Write a name of contact"',
+                'onclick': 'this.placeholder=""'
             } 
-    ))
-
-    Sender = forms.EmailField(
-        label="Sender",
-        widget= forms.TextInput(attrs={
-            'class': 'form-control',
-            'placeholder': 'Write your mail',
-            'onblur': 'this.placeholder="Write your mail"',
-            'onclick': 'this.placeholder=""',
-            'type': 'email'
-            })
+        )
     )
 
-    
+    sender = forms.EmailField(
+        label="Sender",
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Write your mail',
+                'onblur': 'this.placeholder="Write your mail"',
+                'onclick': 'this.placeholder=""',
+                'type': 'email'
+            }
+        )
+    )
+
     message_text = forms.CharField(
         max_length=1000,
         label="Notification",
         widget=forms.Textarea(attrs={
-            'class':'form-control',
-            'placeholder':'Write here  your message',
-            'onblur':'this.placeholder="Write here  your message"',
-            'onclick':'this.placeholder=""',
-            'rows':'10',
-            'overflow-y':'hidofn',
+            'class': 'form-control',
+            'placeholder': 'Write here your message',
+            'onblur': 'this.placeholder="Write here your message"',
+            'onclick': 'this.placeholder=""',
+            'rows': '10',
+            'overflow-y': 'hidofn',
             'resize': 'none'
             } 
-    ))
+        )
+    )
     
-    Category = forms.ChoiceField(
+    category = forms.ChoiceField(
         label="Category",
         choices=MessageModel.CATEGORY,
         initial='6',
         widget=forms.Select(attrs={
-            'class':'form_control'
+            'class': 'form_control'
             }
-    ))
+        )
+    )
     captcha = CaptchaField()
 
 
 def confirm(request):
     """
-    Its confirmed that it has been sent.
+    Sends email confirming the contact to the sender
     """
-    category = request.get(u'Category')
-    name = request.get(u'Name', '')
-    email = request.get('Sender', '')
-    message = request.get(u'Mensj', '')
+    category = request.get(u'category')
+    name = request.get(u'name', '')
+    email = request.get(u'sender', '')
+    message = request.get(u'message_text', '')
     message += unicode(category)
     if category and message and email:
         try:
             send_mail(
                 subject=settings.EMAIL_SUBJECT_PREFIX,
-                message=u"""Hello,
-                 You have sent a question regarding "%s". 
+                message=u"""Hello, {0}
+                 You have sent a question regarding {1}.
                  we will answer the fastest we can, thanks. 
-                 Please do not answer to this automatic email.""" % category,
+                 Please do not answer to this automatic email.""" %
+                        name % category,
                 from_email=settings.EMAIL_HOST_USER,
                 recipient_list=[email],
                 fail_silently=False
@@ -136,7 +141,7 @@ def page(request):
         else:
             form = MailerForm(request.POST)
             if form.is_valid():
-                confirm(request.POST)
+                # confirm(request.POST)
                 new_message(request.POST)
                 notify_admins()  # Admins gets a message
                 messages.success(request,
@@ -145,5 +150,5 @@ def page(request):
             else:
                 return render(request, 'contact2.html',{'form':form})
     else:
-        form=MailerForm()
+        form = MailerForm()
         return render(request, 'contact2.html', {'form': form})

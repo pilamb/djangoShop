@@ -23,14 +23,14 @@ from models import Order, Sale, Shipment
 
 class LoginRequiredMixin(object):
     @classmethod
-    def as_view(cls,**initkwargs):
+    def as_view(cls, **initkwargs):
         view = super(LoginRequiredMixin, cls).as_view(**initkwargs)
         return login_required(view)
 
 
 class OrderListView(LoginRequiredMixin, ListView):
     order = Order
-    template_name  = "list_orders.html"
+    template_name = "list_orders.html"
     paginate_by = 3
 
     def get_context_data(self, **kwargs):
@@ -58,20 +58,20 @@ class OrderDetailView(LoginRequiredMixin, DetailView):
             context = super(OrderDetailView, self).get_context_data(**kwargs)
             if not self.request.user.is_super:
                 try:
-                    N = MessageModel.objects.filter(user = self.request.user)
+                    N = MessageModel.objects.filter(user=self.request.user)
                 except MessageModel.DoesNotExist:
                     N = ()
                 try:
                     H = StateLog.objects.filter(object_id=self.object.id)
                 except StateLog.DoesNotExist:
-                      H=""
+                      H = ""
                 try:
                     E = Shipment.objects.get(order= self.object.id)
                 except Shipment.DoesNotExist:
-                    E= ""
-                context['Notification']  = N
+                    E = ""
+                context['Notification'] = N
                 context['H'] = H
-                context['shipment']= E
+                context['shipment'] = E
             return context
 
     def get_queryset(self):
@@ -83,7 +83,7 @@ class OrderDetailView(LoginRequiredMixin, DetailView):
 
 class OrderUpdateView(LoginRequiredMixin, UpdateView):
     order = Order
-    fields = ['paid','module',]
+    fields = ['paid', 'module', ]
     template_name = "order_edit.html"
     success_url = reverse_lazy('panel')
 
@@ -104,7 +104,7 @@ class OrderDeleteView(LoginRequiredMixin, DeleteView):
     State to cancel and get on sale available again
     """
     order = Order
-    template_name ="order_confirm_delete.html"
+    template_name = "order_confirm_delete.html"
     success_url = reverse_lazy('panel')
 
     def post(self, request, *args, **kwargs):
@@ -119,8 +119,9 @@ class OrderDeleteView(LoginRequiredMixin, DeleteView):
             m = Product.objects.get(pk=self.object.module.id)
             m.on_sale=True
             m.save()
-            messages.warning(request, 'Order marked as cancelled <b>correctly</b>.')
-            #NOtificar
+            messages.warning(request,
+                             'Order marked as cancelled <b>correctly</b>.')
+            # Notify
             return HttpResponseRedirect(reverse_lazy('index'))
 
 
@@ -133,6 +134,7 @@ class SaleListView(LoginRequiredMixin, ListView):
     paginate_by = 5
     # def get_queryset(self):
     #     return Sale.objects.all()
+
     def get_context_data(self, **kwargs):
             context = super(SaleListView, self).get_context_data(**kwargs)
             return context
@@ -174,6 +176,7 @@ class SaleDetailView(LoginRequiredMixin, DetailView):
         else:
             return Sale.objects.all()
 
+
 class ShipmentDetailView(LoginRequiredMixin, DetailView):
     order = Shipment
     template_name = "shipment_detail.html"
@@ -200,17 +203,17 @@ class InvoicePDFModel(LoginRequiredMixin, PDFTemplateView):
     def get_context_data(self, **kwargs):
         context = super(InvoicePDFModel, self).get_context_data(**kwargs)
         try:
-            u = get_object_or_404(UserModel,pk = self.request.user.id)
-            context['user']=u
-            ped = get_object_or_404(Order,pk =context['pk'])
-            context['order']=ped
-            sale = Sale.objects.get(code = ped.code_ingreso)
-            context['sale']=sale
+            u = get_object_or_404(UserModel, pk=self.request.user.id)
+            context['user'] = u
+            ped = get_object_or_404(Order, pk=context['pk'])
+            context['order'] = ped
+            sale = Sale.objects.get(code=ped.code_ingreso)
+            context['sale'] = sale
             shipment = Shipment.objects.get(order_id=ped.id)
-            context['shipment']=shipment
-            context['today']=date.today()
-            context['pagesize']="A4",
-            context['title']="INVOICE",
+            context['shipment'] = shipment
+            context['today'] = date.today()
+            context['pagesize'] = "A4",
+            context['title'] = "INVOICE",
             pe = shipment.shipment_price
             pp = sale.price
             context['total'] = pe + pp

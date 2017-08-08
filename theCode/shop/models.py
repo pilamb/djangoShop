@@ -20,9 +20,11 @@ class Sale(models.Model):
     to make the payment with the subject-concept as the key.
     (payment_code 1-1 code)
     """
-    price = models.DecimalField(max_digits=5, decimal_places=2, validators=[positive_price])
+    price = models.DecimalField(max_digits=5, decimal_places=2,
+                                validators=[positive_price])
     sign_date = models.DateTimeField(auto_now_add=True)
-    code = models.CharField(blank=True, max_length=6)  #must be the same as the code generated at the Order class
+    code = models.CharField(blank=True, max_length=6)
+    #  must be the same as the code generated at the Order class
 
     def __unicode__(self):
         return str(self.sign_date.strftime('%Y-%m-%d %H:%M'))
@@ -94,7 +96,8 @@ class Order(models.Model):
                              default=u'No color')
     invoice_available = models.BooleanField(default=False)
     sale = models.ForeignKey(Sale, blank=True, null=True)
-    icon = models.CharField(max_length=50, default="inbox")  # of Bootstrap class
+    icon = models.CharField(max_length=50, default="inbox")
+    #  of Bootstrap class
     state = FSMField(
          choices=Status.state_choices,
          blank=False,
@@ -106,7 +109,7 @@ class Order(models.Model):
         return str(self.id)
 
     class Meta:
-        ordering = ("-sign_date"),
+        ordering = "-sign_date",
 
     def notify_user(self,notified):
         """
@@ -132,7 +135,8 @@ class Order(models.Model):
 
     def still_guaranteed(self):
         delivery_date = Shipment.objects.get(order_id = self.pk).date_recepcion
-        return (delivery_date<= date.today() <= delivery_date+timedelta(days=365))
+        return (delivery_date <= date.today() <= delivery_date+timedelta(
+            days=365))
     still_guaranteed.hint = '1 year counting from shipment delivered.'
 
     def paid_checked(self):
@@ -153,7 +157,8 @@ class Order(models.Model):
 
     def shipment_created(self):
         return Shipment.objects.filter(order=self).exists()
-    shipment_created.hint = u"Shipment need creation. Or if it is a reship, change the created one."
+    shipment_created.hint = u"Shipment need creation. " \
+                            u"Or if it is a reship, change the created one."
 
     #
     #  Transition from states 
@@ -169,10 +174,12 @@ class Order(models.Model):
         self.payment_code = self.generate_payment_code()
         self.icon  ="ok"
         self.save()
-        notified = u"Payment code is available: %s. Its mandatory point that code as concept in your payment facilities" % self.payment_code
+        notified = u"Payment code is available: %s. " \
+                   u"Its mandatory point that code as " \
+                   u"concept in your payment facilities" % self.payment_code
         self.notify_user(notified)
 
-    @transition(field=state, source=Status.ACCEPTED,target=Status.PAID)
+    @transition(field=state, source=Status.ACCEPTED, target=Status.PAID)
     def pay(self):
         """
         Admin confirms receiving the payment.
@@ -183,21 +190,26 @@ class Order(models.Model):
         self.icon  ="credit-card"
         self.paid = True
         self.save()
-        notified = u"We have received your payment. Order goes to state PAID and after will go to MANUFACTURE."
+        notified = u"We have received your payment. " \
+                   u"Order goes to state PAID and after will go to MANUFACTURE."
         self.notify_user(notified)
 
-    @transition(field=state, source=Status.PAID,target=Status.MANUFACTURE,conditions=[paid_checked])
+    @transition(field=state, source=Status.PAID, target=Status.MANUFACTURE,
+                conditions=[paid_checked])
     def manufacture(self):
         """
         The item passes to manufacture time.
         """
         self.icon = "wrench"
-        notified = "Your order has changed to manufacturing. Soon you will receive new updates. Your inbox will receive a message."
+        notified = "Your order has changed to manufacturing. " \
+                   "Soon you will receive new updates. " \
+                   "Your inbox will receive a message."
         self.notify_user(notified)
         self.save()
 
-    @transition(field=state, source=Status.MANUFACTURE,target=Status.PAINTING,conditions=[])#painting_choosen
-    def pintar(self):
+    @transition(field=state, source=Status.MANUFACTURE,
+                target=Status.PAINTING, conditions=[])  # painting_choosen
+    def paint(self):
         """
         This step is optional, the user may select colour or not
         """
@@ -206,11 +218,17 @@ class Order(models.Model):
         self.notify_user(notified)
         self.save()
 
-    @transition(field=state, source=[Status.MANUFACTURE,Status.PAINTING,Status.RETURNED,Status.REPAIRING],
-                 target=Status.SHIPPED,conditions=[shipment_created])
+    @transition(field=state,
+                source=[Status.MANUFACTURE,
+                        Status.PAINTING,
+                        Status.RETURNED,
+                        Status.REPAIRING],
+                target=Status.SHIPPED,
+                conditions=[shipment_created])
     def enviar(self):
         """
-        Generate tracking number, date of shipment, price of shipment, and notify the user.
+        Generate tracking number, date of shipment, price of shipment,
+        and notify the user.
         """
         self.icon = "plane"
         seg = Shipment.objects.filter(order=self)
@@ -228,7 +246,7 @@ class Order(models.Model):
         notified = u"Your order shipment has been marked as received.."
         self.notify_user(notified)
         self.save()
-        invoice_disponible = True
+        invoice_available = True
 
     @transition(field=state, source=Status.RECEIVED,target=Status.WARRANTY,conditions=[shipment_delivered])
     def comenzar_garantia(self):
@@ -248,31 +266,35 @@ class Order(models.Model):
         At any step the order gets cancel.
         """
         notified = u"Your order has been cancel. Please contact for further info."
-        self.icon ="trash"
+        self.icon = "trash"
         self.notify_user(notified)
         self.save()
 
-    @transition(field=state, source=Status.SHIPPED,target=Status.RETURNED,conditions=[])
-    def ofvolver_shipment(self):
+    @transition(field=state, source=Status.SHIPPED,
+                target=Status.RETURNED,conditions=[])
+    def return_shipment(self):
         """
         Some problem with shipment company, and it needs resending.
         """
-        notified = u"Your order is on returned state. We expect deliver it soon. Thanks."
-        self.icon ="plane"
+        notified = u"Your order is on returned state. " \
+                   u"We expect deliver it soon. Thanks."
+        self.icon = "plane"
         self.notify_user(notified)
         self.save()
 
-    @transition(field=state, source=Status.WARRANTY,target=Status.REPAIRING,conditions=[still_guaranteed])
-    def reparar(self):
+    @transition(field=state, source=Status.WARRANTY,target=Status.REPAIRING,
+                conditions=[still_guaranteed])
+    def repair(self):
         """
         Been under warranty, it enters on repair.
         """
-        self.icon ="wrench"
+        self.icon = "wrench"
         notified = u"Your order has arrived to repairing. New updates soon."
         self.notify_user(notified)
         self.save()
 
-    @transition(field=state, source=Status.WARRANTY,target=Status.ENDWARRANTY,conditions=[still_guaranteed])
+    @transition(field=state, source=Status.WARRANTY,
+                target=Status.ENDWARRANTY, conditions=[still_guaranteed])
     def finalizar_garantia(self):
         """
         The warranty period has finished, notify the user.
@@ -286,10 +308,15 @@ class Order(models.Model):
 class Shipment(models.Model):
     number = models.CharField(max_length=15, blank=False, null=False)  # Tracking number
     sign_date = models.DateField(auto_now=True)
-    date_recepcion = models.DateField(auto_now=False, auto_now_add=False, null=True)
-    shipment_price = models.DecimalField(max_digits=5, decimal_places=2, validators=[positive_price])
+    date_reception = models.DateField(auto_now=False,
+                                      auto_now_add=False, null=True)
+    shipment_price = models.DecimalField(max_digits=5, decimal_places=2,
+                                         validators=[positive_price])
     additional_info = models.CharField(max_length=1000, blank=True, null=True)
-    comp = models.CharField(max_length=20,blank=True,null=True,verbose_name='Company')  # Shipment company
+    comp = models.CharField(max_length=20,
+                            blank=True,
+                            null=True,
+                            verbose_name='Company')  # Shipment company
     received = models.BooleanField(default=False)
     order = models.ForeignKey(Order)
     url_comp = models.URLField(null=True)  # address for tracking parcel
@@ -298,7 +325,7 @@ class Shipment(models.Model):
         return self.number
 
     class Meta:
-        ordering = ("-sign_date"),
+        ordering = "-sign_date",
 
     @property
     def get_shipment_price(self):
