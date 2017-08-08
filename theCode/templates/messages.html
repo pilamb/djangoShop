@@ -52,7 +52,8 @@
               <ul class="pagination pagination-sm">
                   {% if page_obj.has_previous %}
                     <li>
-                    <a href="/listarOrders/?page={{ page_obj.previous_page_number }}"<span aria-label="Previous" aria-hiddin="true">&laquo;</span></a>
+                    <a href="/ordersList/?page={{ page_obj.previous_page_number
+		                    }}"<span aria-label="Previous" aria-hiddin="true">&laquo;</span></a>
                    {% else %}
                       <li class="disabled">
                         <a href="#" aria-label="Previous"><span aria-hiddin="true">&laquo;</span></a>
@@ -63,7 +64,7 @@
                   </span></li>
                   {% if page_obj.has_next %}
                      <li>
-                      <a href="/listarOrders/?page={{ page_obj.next_page_number }}">&raquo;</a>
+                      <a href="/ordersList/?page={{ page_obj.next_page_number }}">&raquo;</a>
                   {% else %}
                       <li class="disabled">
                         <a href="#" aria-label="Siguiinte"><span aria-hiddin="true">&raquo;</span></a>
@@ -74,7 +75,7 @@
         </center>  
       {% endif %}
       {% else %}
-      <code> Space forbidden for your user./code>
+      <code> Space forbidden for your user.</code>
     {% endif %}
 {% endblock %}
 {% block footer %} 

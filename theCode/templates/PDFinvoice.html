@@ -53,48 +53,48 @@
                     <b>Address</b><br> {{user.direccion}}
                     <br>
                 <h2>Order</h2>
-                	<b>Date de order</b>
+                	<b>Date of the order</b>
                     <br>{{order.sign_date}}
                 	<br>
                 	<b>Product</b>
                     <br> {{order.modulo}} {% if order.pintura %} <b>with painting</b> {% endif %}
                 	<br>
-                	<b>Information adicional de compra</b>
+                	<b>Aditional buying information </b>
                     <br> {{order.informacion}}
                 	<br>
             	<h2>Vinta</h2>
                 {%if sale %}
-                	<b>Date de ingreso</b>
+                	<b>Date of payment</b>
                     <br> {{sale.sign_date}}
                 	<br>
                 	<b>Price</b> 
                     <br>{{sale.price}} <b>€</b>
                 	<br>
-                	<b>Código de ingreso</b>
+                	<b>Code</b>
                     <br> {{sale.code}}
                 	<br>
                 {%else %}
-                    <p>Aún no una sale asociada a esta factura.</p>
+                    <p>There is no sale associated to this invoice yet.</p>
                 {%endif%}
             	<h2>Envío</h2>
                 {%if shipment%}
                 	<b>Number de tracking</b> 
                     <br>{{shipment.number}}
                 	<br>
-    				<b>Date del shipment</b> 
+    				<b>Date of shipment</b>
                     <br>{{shipment.sign_date}}
     				<br>
-    				<b>Price del shipment</b>
+    				<b>Price of shipment</b>
                     <br>{{shipment.shipment_price}}
     				<br>
-    				<b>Company de transporte</b> 
+    				<b>Company of shipment</b>
                     <br>{{shipment.comp}} 
                 	<br>
                 {%else %}
-                    <p>Aún no un invío asociado a esta factura.</p>
+                    <p>There is no invoice for this order yet.</p>
                 {%endif%}
                 <hr>
-                <h3><b>Price total</b>
+                <h3><b>Total price</b>
                 <br>{{total}} €</h3> <br>
         </div>
     </div>
