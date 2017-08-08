@@ -4,6 +4,7 @@ from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from theCode.warehouse.models import Product
 
+
 class ProductsListView(ListView):
     order = Product
     template_name = "products.html"
@@ -13,16 +14,21 @@ class ProductsListView(ListView):
             context = super(ProductsListView, self).get_context_data(**kwargs)
             return context
 
-class GutiarListView(ListView):
+    def get_queryset(self):
+        return Product.objects.all()
+
+
+class GuitarListView(ListView):
     order = Product
     template_name = "product2.html"
     
     def get_context_data(self, **kwargs):
-            context = super(GutiarraListView, self).get_context_data(**kwargs)
+            context = super(GuitarListView, self).get_context_data(**kwargs)
             return context
             
     def get_queryset(self):
         return Product.objects.filter(type='Guitar')
+
 
 class DelayListView(ListView):
     order = Product
@@ -34,6 +40,7 @@ class DelayListView(ListView):
             
     def get_queryset(self):
         return Product.objects.filter(type='Delay')
+
 
 class ProductDetailView(DetailView):
     order = Product
