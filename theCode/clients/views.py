@@ -12,7 +12,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 from models import UserModel
-from theCode.views.create_user2 import Form_New_UserModel
+from theCode.views.create_user2 import NewUserModel
 from theCode.customForms.authenticate import logout
 from theCode.shop.models import Order
 

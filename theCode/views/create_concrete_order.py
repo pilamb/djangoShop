@@ -4,7 +4,6 @@ from django.http import HttpResponse,HttpResponseRedirect
 from django import forms
 from django.core.exceptions import ValidationError
 from captcha.fields import CaptchaField
-from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse_lazy
 from django.forms import Textarea, TextInput, PasswordInput, EmailInput
 from django.contrib import messages
@@ -14,48 +13,54 @@ from theCode.messages_app.models import MessageModel
 
 
 class NewConcreteOrderForm(forms.Form):
-    def __init__(self,*args,**kwargs):
+    def __init__(self, *args, **kwargs):
             self.request = kwargs.pop('request', None)
             super(NewConcreteOrderForm, self).__init__(*args, **kwargs)
 
     required_css_class = "required"
     error_css_class = "notified-danger"
     captcha = CaptchaField()
-    notified = forms.CharField (
+    notified = forms.CharField(
         max_length=1000,
         required=False,
         label="Notification",
-        widget= forms.Textarea(attrs={
-            'class':'form-control',
-            'placeholder':'Write here an optional message',
-            'onblur':'this.placeholder="Write here an optional message"',
-            'onclick':'this.placeholder=""',
-            'rows':'10',
-            'overflow-y':'hidofn',
-            'resize':'none'
-            })
+        widget=forms.Textarea(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Write here an optional message',
+                'onblur': 'this.placeholder="Write here an optional message"',
+                'onclick': 'this.placeholder=""',
+                'rows': '10',
+                'overflow-y': 'hidden',
+                'resize': 'none'
+            }
         )
+    )
     color = forms.ChoiceField(
-        widget=forms.Select(attrs={
-            'class':'form-control',
-            'id':'selectorcolor',
-            'onchange':'changePrice(this)',
-
-            }),
+        widget=forms.Select(
+            attrs={
+                'class': 'form-control',
+                'id': 'selectorcolor',
+                'onchange': 'changePrice(this)',
+            }
+        ),
         choices=Order.COLORS_CHOICES
-        )
+    )
+
     class Meta:
         order = Order
-        fields = ('user','information','paid','color')
+        fields = ('user', 'information', 'paid', 'color')
         exclude = 'module'
+
     def clean(self):
         cleaned_data = super(NewConcreteOrderForm, self).clean()
         return cleaned_data
 
-def page(request,pk):
+
+def page(request, pk):
     try:
-        mod = Product.objects.get(id = pk)
-    except Panel.DoesNotExist:
+        mod = Product.objects.get(id=pk)
+    except Product.DoesNotExist:
         mod = None
     print mod
     user = request.user
@@ -77,12 +82,12 @@ def page(request,pk):
                         color=request.POST['color']
                         )
                     if mod.on_sale:
-                        mod.on_sale=False
+                        mod.on_sale = False
                         mod.save()
                     if request.POST['color']!="Sin":
-                        p.painting=True
+                        p.painting = True
                     else:
-                        p.painting=False
+                        p.painting = False
                     p.save()
                     new_message = MessageModel(user=user,
                                                notified=False,
