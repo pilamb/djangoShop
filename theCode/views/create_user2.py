@@ -141,6 +141,8 @@ def page(request):
                     phone=tel,
                     messages=1)
                 new_user.set_password(pas2)
+                # TODO: play with commit False. If captcha fails creates user
+                # anyways.
                 new_user.save()
                 new_notification = Notification(
                     user=new_user,
@@ -149,6 +151,7 @@ def page(request):
                          You have an available account.""")
                 new_notification.save()
                 messages.success(request, 'New user created correctly.')
+                # TODO: authenticate user otherwise next will always go to index
                 if request.user.is_anonymous:
                     return HttpResponseRedirect(reverse_lazy('index'))
                 else:
