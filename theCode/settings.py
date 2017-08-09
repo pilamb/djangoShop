@@ -47,6 +47,7 @@ INSTALLED_APPS = (
     'theCode.events',
     'theCode.messages_app',
     'theCode.warehouse',
+    'theCode.notifications',
     'graphos',
     'easy_pdf',  # pdf generation for invoice
     'bootstrap3',  # bootstrap for Django

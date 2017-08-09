@@ -9,7 +9,7 @@ from captcha.fields import CaptchaField
 from django.forms import RadioSelect
 from django.contrib import messages
 from django.contrib.auth.models import User
-from theCode.messages_app.models import MessageModel
+from theCode.notifications.models import Notification
 from theCode.core.validators import only_letters, nums
 
 
@@ -105,20 +105,20 @@ class NewUserModel(forms.Form):
     i_accept = forms.BooleanField(label="Accept")
 
     def clean_password2(self):
-            pas = self.cleaned_data.get('password','')
-            pas2 = self.cleaned_data.get('password2','')
+            pas = self.cleaned_data.get('password', '')
+            pas2 = self.cleaned_data.get('password2', '')
             if not pas2 or not pas:
                 raise forms.ValidationError("You must enter a password.")
             elif pas != pas2:
                 raise forms.ValidationError("Passwords must match.")
             return pas
 
-    def clean_acepto(self):
-            a = self.cleaned_data.get('accept')
-            if not a:
+    def clean_i_accept(self):
+            terms_check = self.cleaned_data.get('i_accept')
+            if not terms_check:
                 raise forms.ValidationError(
                     "It is mandatory to accept the conditions.")
-            return a
+            return terms_check
 
 
 def page(request):
@@ -142,11 +142,11 @@ def page(request):
                     messages=1)
                 new_user.set_password(pas2)
                 new_user.save()
-                new_notification = MessageModel(
+                new_notification = Notification(
                     user=new_user,
                     notified=False,
-                    message=u"Welcome to the website! "
-                            u"You have an available account.")
+                    text=u"""Welcome to the website!
+                         You have an available account.""")
                 new_notification.save()
                 messages.success(request, 'New user created correctly.')
                 if request.user.is_anonymous:
@@ -157,7 +157,7 @@ def page(request):
                     else:
                         return HttpResponseRedirect(reverse_lazy('panel'))
             else:
-                return render(request, 'create_user.html', {'form': form})
+                return render(request, 'user_create.html', {'form': form})
     else:
         form = NewUserModel()
         return render(request, 'user_create.html', {'form': form})

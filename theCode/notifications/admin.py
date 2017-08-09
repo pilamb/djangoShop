@@ -4,8 +4,8 @@ from .models import Notification
 
 
 class NotificationAdminClass(admin.ModelAdmin):
-    fields  = ('user', 'notified', 'notified')
+    fields = ('user', 'notified', 'text')
     exclude = ('sign_date',)
     list_display = ('notified', 'user', 'sign_date', 'text')
 
-admin.site.register(Notification, MessageClassAdmin)
+admin.site.register(Notification, NotificationAdminClass)
