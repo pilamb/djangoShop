@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django.db import models
-from theCode.clients.models import UserModel
+from clients.models import UserModel
 
 
 class Notification(models.Model):

@@ -25,5 +25,5 @@ class Event(models.Model):
 
     def get_absolute_url(self):
         return reverse('event_list', kwargs={'pk': self.pk})
-        # ? return reverse('detail_user', kwargs={'email': self.date})
+        # ? return reverse('user_detail', kwargs={'email': self.date})
 

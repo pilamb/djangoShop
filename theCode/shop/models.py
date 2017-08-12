@@ -7,9 +7,9 @@ from django.core.exceptions import ObjectDoesNotExist
 from django_fsm import FSMField, transition
 from random import randint
 from datetime import date, timedelta
-from theCode.clients.models import UserModel
-from theCode.warehouse.models import Product
-from theCode.messages_app.models import MessageModel
+from clients.models import UserModel
+from warehouse.models import Product
+from messages_app.models import MessageModel
 from theCode.core.validators import only_letters, alfan, nums, positive_price
 
 

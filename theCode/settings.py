@@ -42,12 +42,12 @@ INSTALLED_APPS = (
     'django_fsm', # Finite State Machine to manage orders
     'django_fsm_log',  # historical of orders
     'django_extensions',  # Tools to print graphics from the models, and the FSM
-    'theCode.clients',
-    'theCode.shop',
-    'theCode.events',
-    'theCode.messages_app',
-    'theCode.warehouse',
-    'theCode.notifications',
+    'clients',
+    'shop',
+    'events',
+    'messages_app',
+    'warehouse',
+    'notifications',
     'graphos',
     'easy_pdf',  # pdf generation for invoice
     'bootstrap3',  # bootstrap for Django

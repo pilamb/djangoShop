@@ -4,7 +4,7 @@ from django.db import models
 from django.contrib import admin
 from django.core.urlresolvers import reverse
 from theCode.core.validators import *
-from theCode.clients. models import UserModel
+from clients. models import UserModel
 
 
 class MessageModel(models.Model):
@@ -38,7 +38,7 @@ class MessageModel(models.Model):
         return u'%s%s%s' % (self.name, str(self.date), self.mail)
 
     def get_absolute_url(self):
-        return reverse('detail_user',kwargs={'email': self.date})
+        return reverse('user_detail',kwargs={'email': self.date})
 
     class Meta:
         get_latest_by = "date"

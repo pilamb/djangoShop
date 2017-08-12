@@ -98,7 +98,7 @@ class UserModel(AbstractBaseUser):
     messages = models.IntegerField(
         default=0,
         blank=False,
-        verbose_name="Message_classs"
+        verbose_name="Message_class"
         )
     active = models.BooleanField(
         default=False
@@ -108,12 +108,15 @@ class UserModel(AbstractBaseUser):
     is_admin = models.BooleanField(_('Administrator'), default=False)
     USERNAME_FIELD = 'email'
 
+    class Meta:
+        app_label = 'clients'
+
     def __unicode__(self):
         return self.email
 
     def get_absolute_url(self):
         return reverse('list_users', kwargs={'email': self.email})
-        #return reverse('detail_user', kwargs={'email': self.email})
+        #return reverse('user_detail', kwargs={'email': self.email})
 
     @property
     def get_name(self):

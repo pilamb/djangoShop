@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 from django.shortcuts import render
 from django.views.generic.list import ListView
 from django.views.generic import DetailView,  UpdateView, DeleteView
@@ -19,12 +20,12 @@ from theCode.shop.models import Order
 
 class LoginRequiredMixin(object):
     @classmethod
-    def as_view(cls,**initkwargs):
+    def as_view(cls, **initkwargs):
         view = super(LoginRequiredMixin,cls).as_view(**initkwargs)
         return login_required(view)
 
 
-class UserModelListView(LoginRequiredMixin,ListView):
+class UserModelListView(LoginRequiredMixin, ListView):
     order = UserModel
     template_name = "users_list.html"
     paginate_by = 4
@@ -43,27 +44,28 @@ class UserModelListView(LoginRequiredMixin,ListView):
             is_superuser=False).order_by('-sign_date')  # [:5]
 
 
-class UserModelDetailView(LoginRequiredMixin,DetailView):
-    template_name = "detail_user.html"
+class UserModelDetailView(LoginRequiredMixin, DetailView):
+    template_name = "user_detail.html"
     order = UserModel
 
     def get_context_data(self, **kwargs):
-      context = super(UserModelDetailView, self).get_context_data(**kwargs)
-      orders = Order.objects.filter(user = self.request.user)
-      context['orders'] = orders
-      return context
-    # def get_queryset(self):
-    #         return UserModel.objects.filter(email=self.request.user)
+        context = super(UserModelDetailView, self).get_context_data(**kwargs)
+        orders = Order.objects.filter(user = self.request.user)
+        context['orders'] = orders
+        return context
+        # def get_queryset(self):
+        #    return UserModel.objects.filter(email=self.request.user)
 
-class UserModelUpdateView(LoginRequiredMixin,UpdateView):
+
+class UserModelUpdateView(LoginRequiredMixin, UpdateView):
 
     def clean(self):
         super(UserModel, self).clean()
     order = UserModel
     fields = ['name', 'surname', 'subscribed', 'address', 'phone']
-    #exclude       = ['password','email','messages']
-    template_name = "edit_user.html"
-    #form_class = Form_Alta_UserModel
+    # exclude       = ['password','email','messages']
+    template_name = "user_edit.html"
+    # form_class = Form_Alta_UserModel
     success_url = reverse_lazy('panel')
 
     def post(self, request, *args, **kwargs):
@@ -77,8 +79,9 @@ class UserModelUpdateView(LoginRequiredMixin,UpdateView):
                 post(request, *args, **kwargs)
 
 
-class UserModelDeleteView(LoginRequiredMixin,DeleteView):
-    """USERS CANT BE DELETED JUST SAVED AS INACTIVE :)
+class UserModelDeleteView(LoginRequiredMixin, DeleteView):
+    """
+    Users cant be deleted just marked as inactive
     """
     order = UserModel
     template_name = "user_confirm_delete.html"
@@ -93,7 +96,6 @@ class UserModelDeleteView(LoginRequiredMixin,DeleteView):
             u = request.user
             if u.is_superuser:
                 messages.warning(request, '¡Operation not allowd over ROOT!')
-                #los admins ni se borran ni se marcan como borrados, solo ofsof el panel
             else:
                 u.is_active = False
                 u.save()

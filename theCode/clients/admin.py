@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
 from django.contrib import admin
-from models import UserModel
 from django.contrib.auth.admin import UserAdmin
-from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.models import Group
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
+
+from models import UserModel
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -39,17 +39,20 @@ class CustomUserAdmin(UserAdmin):
 
     form = CustomUserChangeForm
     add_form = CustomUserCreationForm
-    list_display = ('email', 'surname', 'name','is_admin','subscribed','is_active','sign_date',)
-    list_filter = ('is_admin','is_active',)
+    list_display = ('email', 'surname', 'name', 'is_admin', 'subscribed',
+                    'is_active','sign_date',)
+    list_filter = ('is_admin', 'is_active',)
     fieldsets = ( 
         (None, {'fields': ('email', 'password')}),
-        ('personal information', {'fields': ('name','surname','second_address')}),
+        ('personal information', {'fields': ('name', 'surname',
+                                             'second_address')}),
         ('Permissions', {'fields': ('is_admin',)}),
     )
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'password1', 'password2','name','surname','subscribed')}
+            'fields': ('email', 'password1', 'password2', 'name', 'surname',
+                       'subscribed')}
         ),
     )
     search_fields = ('email',)

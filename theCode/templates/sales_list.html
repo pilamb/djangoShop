@@ -17,7 +17,7 @@
       <tr>
       {% for u in object_list2 %}
           <td>{{ u.id }}</td> 
-          <td> <a href="{% url 'detail_user' u.user.id %}">{{ u.user }}</a>  </td> 
+          <td> <a href="{% url 'user_detail' u.user.id %}">{{ u.user }}</a>  </td> 
           <td>{{u.modulo}}</td>
           <td>{{ u.sign_date }}</td> 
           <td>{% if u.pagado %}
