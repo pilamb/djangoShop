@@ -27,3 +27,5 @@ class Event(models.Model):
         return reverse('event_list', kwargs={'pk': self.pk})
         # ? return reverse('user_detail', kwargs={'email': self.date})
 
+    class Meta:
+        app_label = "events"

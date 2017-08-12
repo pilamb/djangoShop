@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 
+from datetime import date
 from django.shortcuts import render
 from django.core.exceptions import ValidationError
-from datetime import date
-from theCode.clients.models import UserModel
-from theCode.shop.models import Order, Sale, Shipment
-from theCode.messages_app.models import MessageModel
-from theCode.warehouse.models import Product
-from theCode.messages_app.models import MessageModel, Alert
+from clients.models import UserModel
+
+from shop.models import Order, Sale, Shipment
+from messages_app.models import MessageModel
+from warehouse.models import Product
+from messages_app.models import MessageModel, Alert
 
 
 def page(request):

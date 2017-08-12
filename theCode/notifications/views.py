@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
+
 from django.shortcuts import render
 from django.views.generic.list import ListView
-from django.views.generic import DetailView,  UpdateView, DeleteView
-from django.core.urlresolvers import reverse
+from django.views.generic import DetailView
 from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+
 from .models import Notification
 
 

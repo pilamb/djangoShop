@@ -1,14 +1,16 @@
 # -*- coding: utf-8 -*-
+
+from django import forms
 from django.shortcuts import render
 from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse, HttpResponseRedirect
-from django import forms
 from django.core.urlresolvers import reverse_lazy
 from django.core.exceptions import ValidationError
 from django.conf import settings
-from captcha.fields import CaptchaField
 from django.contrib import messages
-from theCode.messages_app.models import Alert, MessageModel
+from captcha.fields import CaptchaField
+
+from messages_app.models import Alert, MessageModel
 
 
 class MailerForm(forms.Form):
@@ -145,7 +147,9 @@ def page(request):
                 new_message(request.POST)
                 notify_admins()  # Admins gets a message
                 messages.success(request,
-                                 'Your message has been sent with <b>success</b>. Soon you will receive an answer. Thanks.')
+                                 'Your message has been sent with '
+                                 '<b>success</b>. '
+                                 'Soon you will receive an answer. Thanks.')
                 return HttpResponseRedirect(reverse_lazy('index'))
             else:
                 return render(request, 'contact2.html',{'form':form})

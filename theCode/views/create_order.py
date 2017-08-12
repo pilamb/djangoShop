@@ -8,9 +8,10 @@ from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse_lazy
 from django.forms import Textarea, TextInput, PasswordInput, EmailInput,RadioSelect
 from django.contrib import messages
-from theCode.shop.models import Order
-from theCode.warehouse.models import Product
-from theCode.messages_app.models import MessageModel
+
+from shop.models import Order
+from warehouse.models import Product
+from messages_app.models import MessageModel
 
 
 class NewProductOrderForm(forms.Form):

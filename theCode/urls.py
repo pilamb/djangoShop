@@ -4,23 +4,21 @@ from django.conf.urls import url, include
 from django.contrib.auth.decorators import login_required
 from django.contrib import admin
 
-from notifications.views import NotificationListView, NotificationDetailView
-from events.views import EventListView
 from warehouse.views import ProductsListView, ProductDetailView
 from .views import create_order, create_user2, create_concrete_order
 from customForms import index, contact, about, authenticate, panel,\
     sitemap, cookies, sitemap, help, terms,info, shipments, \
     passwordChange, search, salesGraphics, productsGraphics
 
-
 admin.autodiscover()
-
+urlpatterns = []
 urlpatterns += [
+        url(r'^admin/', include(admin.site.urls)),
         url(r'account/', include('clients.urls', namespace='account')),
         url(r'shop/', include('shop.urls', namespace='shop')),
-        url(r'^admin/', include(admin.site.urls)),
-
+        url(r'^events/', include('events.urls', namespace='events')),
         url(r'^$', index.page, name='index'),
+
         url(r'^createUser$', 'theCode.views.create_user2.page',
             name='create_user'),
         # only ADMIN, for panel
@@ -36,12 +34,6 @@ urlpatterns += [
         url(r'^chart_products$',
             login_required(productsGraphics.page), name='chart_products'),
 
-        url(r'^notification/(?P<pk>\d+)/$',
-            NotificationDetailView.as_view(), name='detail_notification'),
-        url(r'^messages/(?P<pk>\d+)/$',
-            NotificationListView.as_view(), name='messages'),
-        url(r'^listMessage_classes/$',
-            NotificationListView.as_view(), name='ListMessages'),
         url(r'^info$', info.page, name='info'),  #misc
         url(r'^about$', about.page, name='about'),  #misc
         url(r'^cookies$', cookies.page, name='cookies'),  #misc
@@ -55,13 +47,13 @@ urlpatterns += [
             name='detail_product'),
         # url(r'^products1$', ProductView.as_view(), name='product3'),
         url(r'^contact$', contact.page, name='contact'),
-        url(r'^events/', EventListView.as_view(), name='events'),
         url(r'^result/$', search.page, name='result'),  # search results
 
         url(r'^panelUser/', login_required(panel.page), name='panel'),
         url(r'^login/$', 'theCode.customForms.authenticate.login',
             name='login'),
         url(r'^logout/$', login_required(authenticate.logout), name='logout'),
+
 ]
 
 

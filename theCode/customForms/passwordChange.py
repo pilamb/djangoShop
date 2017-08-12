@@ -7,7 +7,8 @@ from django.http import HttpResponse,HttpResponseRedirect
 from django.core.urlresolvers import reverse_lazy
 from django.core.exceptions import ValidationError
 from django.contrib import messages
-from theCode.clients.models import UserModel
+
+from clients.models import UserModel
 
 
 class PasswordUpdateView(forms.Form):

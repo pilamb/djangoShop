@@ -15,7 +15,7 @@ from django.contrib import messages
 from models import UserModel
 from theCode.views.create_user2 import NewUserModel
 from theCode.customForms.authenticate import logout
-from theCode.shop.models import Order
+from shop.models import Order
 
 
 class LoginRequiredMixin(object):

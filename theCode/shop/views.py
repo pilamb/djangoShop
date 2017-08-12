@@ -15,9 +15,9 @@ from easy_pdf.views import PDFTemplateView
 from datetime import date
 
 from theCode.views.create_order import NewProductOrderForm
-from theCode.warehouse.models import Product
-from theCode.messages_app.models import MessageModel
-from theCode.clients.models import UserModel
+from warehouse.models import Product
+from messages_app.models import MessageModel
+from clients.models import UserModel
 from models import Order, Sale, Shipment
 
 

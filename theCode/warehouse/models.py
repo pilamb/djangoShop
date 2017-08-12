@@ -127,6 +127,7 @@ class Product(models.Model):
         self.on_sale = False
 
     class Meta:
+        app_label = "warehouse"
         verbose_name_plural = "Products"
 
     def __unicode__(self):

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render
-from theCode.shop.models import Sale
+from shop.models import Sale
 
 
 def page(request):

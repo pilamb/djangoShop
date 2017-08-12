@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
+
 from django.shortcuts import render
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from theCode.warehouse.models import Product
+
+from warehouse.models import Product
 
 
 class ProductsListView(ListView):
@@ -53,6 +55,6 @@ class ProductDetailView(DetailView):
     def get_object(self):
             object = super(ProductDetailView, self).get_object()
             #sumar visita
-            object.number_of_visitis+=1
+            object.number_of_visitis += 1
             object.save()
             return object

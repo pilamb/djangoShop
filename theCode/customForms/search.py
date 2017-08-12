@@ -3,9 +3,10 @@
 from django.shortcuts import render
 from datetime import date
 from django.core.exceptions import ObjectDoesNotExist
+
 from theCode.core.searcher import search_filter
-from theCode.warehouse.models import Product
-from theCode.events.models import Event
+from warehouse.models import Product
+from events.models import Event
 
 
 def page(request):

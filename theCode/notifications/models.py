@@ -17,6 +17,7 @@ class Notification(models.Model):
     text = models.CharField(blank=True, max_length=1500)
 
     class Meta:
+        app_label = "notification"
         ordering = "sign_date",
         verbose_name = "Notification"
         verbose_name_plural = "Message_classs"
