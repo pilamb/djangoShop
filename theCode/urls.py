@@ -56,4 +56,6 @@ urlpatterns += [
 
 ]
 
-
+urlpatterns += (
+    url(r'^captcha/', include('captcha.urls')),
+)

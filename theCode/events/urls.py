@@ -6,6 +6,6 @@ urlpatterns = [
     url(
         regex=r'^list/',
         view=EventListView.as_view(),
-        name='events'
+        name='events_list'
     )
 ]

@@ -41,6 +41,7 @@ class MessageModel(models.Model):
         return reverse('user_detail',kwargs={'email': self.date})
 
     class Meta:
+        app_label = "messages_app"
         get_latest_by = "date"
 
 

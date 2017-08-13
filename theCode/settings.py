@@ -9,12 +9,13 @@ General configurations of the project
 """
 
 #django.settings()
+
 SECRET_KEY = "blablablabla"
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-FIRST_DAY_OF_WEEK=1
+FIRST_DAY_OF_WEEK = 1
 CAPTCHA_FONT_SIZE = 30
-CAPTCHA_OUTPUT_FORMAT=u'%(text_field)s %(image)s %(hidden_field)s'
-CAPTCHA_LENGTH=5
+CAPTCHA_OUTPUT_FORMAT = u'%(text_field)s %(image)s %(hidden_field)s'
+CAPTCHA_LENGTH = 5
 DEBUG = True
 TEMPLATE_DEBUG = True
 TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'theCode/templates')]
@@ -77,9 +78,10 @@ DATABASES = {
     }
 }
 AUTH_USER_MODEL = 'clients.UserModel'
+
 AUTHENTICATION_BACKENDS ={
     'theCode.customForms.backend.EmailAuthBackend',
-    'django.contrib.auth.backends.ModelBackend',
+    'django.contrib.auth.backend.ModelBackend',
 }
 LOGIN_REDIRECT_URL = 'index'
 LOGIN_URL = '/login/'
@@ -101,15 +103,17 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
     '/var/www/static/',
     )
-EMAIL_USE_TLS               = True
-EMAIL_HOST                  = 'smtp.gmail.com'
-EMAIL_PORT                  = 587
-DEFAULT_FROM_EMAIL          = 'unaaddress@gmail.com'
-SERVER_EMAIL                = 'unaaddress@gmail.com'
-EMAIL_HOST_USER             = 'unaaddress@gmail.com'
-EMAIL_SUBJECT_PREFIX        = 'A name for the Web'
+# email settings
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+DEFAULT_FROM_EMAIL = 'unaaddress@gmail.com'
+SERVER_EMAIL = 'unaaddress@gmail.com'
+EMAIL_HOST_USER = 'unaaddress@gmail.com'
+EMAIL_SUBJECT_PREFIX  = 'A name for the Web'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
+# graph models to print out Models relations
 GRAPH_MODELS = {
    'all_applications': True,
    'group_models': True,

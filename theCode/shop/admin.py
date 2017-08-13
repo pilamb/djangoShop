@@ -6,7 +6,7 @@ from fsm_admin.mixins import FSMTransitionMixin # very cool FSM!!
 
 
 class OrderAdmin(FSMTransitionMixin,admin.ModelAdmin):
-    fields = ('user', 'paid', 'module', 'information', 'special_coof', ' \
+    fields = ('user', 'paid', 'module', 'information', 'special_code', ' \
               ''painting',
               'sale', 'color')
     exclude = ('sign_date',)
@@ -18,12 +18,12 @@ class OrderAdmin(FSMTransitionMixin,admin.ModelAdmin):
 
 
 class ShipmentAdmin(admin.ModelAdmin):
-    fields = ('number',
+    fields = ('tracking_number',
               'shipment_price',
               'order', 'date_received', 'additional_info', 'received', 'comp')
     exclude = ('sign_date',)
-    list_display = ('number', 'sign_date', 'received', 'order', 'comp')
-    search_fields = ('number', 'sign_date')
+    list_display = ('tracking_number', 'sign_date', 'received', 'order', 'comp')
+    search_fields = ('tracking_number', 'sign_date')
 
 
 admin.site.register(Order, OrderAdmin)

@@ -1,21 +1,20 @@
 # -*- coding: utf-8 -*-
 
+import datetime
+from datetime import date
 from django.shortcuts import render
 from django.views.generic.list import ListView
 from django.views.generic import DetailView,  UpdateView, DeleteView
 from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
 from django.http import HttpResponse,HttpResponseRedirect
-import datetime
-from datetime import date
 
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-
-from models import UserModel
 from theCode.views.create_user2 import NewUserModel
 from theCode.customForms.authenticate import logout
 from shop.models import Order
+from models import UserModel
 
 
 class LoginRequiredMixin(object):
@@ -50,7 +49,7 @@ class UserModelDetailView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(UserModelDetailView, self).get_context_data(**kwargs)
-        orders = Order.objects.filter(user = self.request.user)
+        orders = Order.objects.filter(user=self.request.user)
         context['orders'] = orders
         return context
         # def get_queryset(self):

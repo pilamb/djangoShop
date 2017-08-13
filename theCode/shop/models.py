@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
+
+from random import randint
+from datetime import date, timedelta
 from django.db import models
 from django.contrib import admin
 from django.core.urlresolvers import reverse
-from django.core.exceptions import ValidationError
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ValidationError, ObjectDoesNotExist
 from django_fsm import FSMField, transition
-from random import randint
-from datetime import date, timedelta
 from clients.models import UserModel
 from warehouse.models import Product
 from messages_app.models import MessageModel
@@ -30,13 +30,13 @@ class Sale(models.Model):
         return str(self.sign_date.strftime('%Y-%m-%d %H:%M'))
 
     def view_sale(self):
-        view_sale.allow_tags = True
+        # view_sale.allow_tags = True
         return '<a href="/sale/view/%s">See detail</a>' % self.id
 
 
 class Status(object):
     """
-    Contstants representing states of the Finite State Machine
+    Constants representing states of the Finite State Machine
     """
 
     ON_HOLD = u'On hold'
@@ -54,19 +54,23 @@ class Status(object):
     ENDWARRANTY = u'End of warranty'
     state_choices = (
 
-        (ON_HOLD,ON_HOLD),          #  El user has made an order, admin must accept it
-        (ACCEPTED,ACCEPTED),        #  Some admin accept the order, data for payment gets generated
-        (REJECTED,REJECTED),        #  Some admin rejects the order (before manufacturing)
-        (PAID,PAID),                #  Client pays, sale is generated, manufacturing starts
-        (MANUFACTURE,MANUFACTURE),    #  the product gets manufacturing
-        (PAINTING,PAINTING),        #  If user selected painting
-        (SHIPPED,SHIPPED),            #  Product is sent
-        (RECEIVED,RECEIVED),        #  Client confirms reception
-        (WARRANTY,WARRANTY),        #  After receiving it, the warranty starts (1 year)
-        (RETURNED,RETURNED),        #  Client at some point decides to return it back
-        (REPAIRING,REPAIRING),        #  Order enters repairing only if it is still under warranty
-        (CANCEL,CANCEL),            #  ADMINS cancel the order for some reason
-        (ENDWARRANTY,ENDWARRANTY),    #  Warranty ends after a year of use
+        (ON_HOLD, ON_HOLD),  # El user has made an order, admin must accept it
+        (ACCEPTED, ACCEPTED),  # Some admin accept the order, data for
+        # payment gets generated
+        (REJECTED, REJECTED),  # Some admin rejects the order (before
+        # manufacturing)
+        (PAID, PAID),   # Client pays, sale is generated,
+        # manufacturing starts
+        (MANUFACTURE, MANUFACTURE),  # the product gets manufacturing
+        (PAINTING, PAINTING),  # If user selected painting
+        (SHIPPED, SHIPPED),  # Product is sent
+        (RECEIVED, RECEIVED),  # Client confirms reception
+        (WARRANTY, WARRANTY),  # After receiving it the warranty starts (1 year)
+        (RETURNED, RETURNED),  # Client at some point decides to return it back
+        (REPAIRING, REPAIRING),  # Order enters repairing only if it
+        # is still under warranty
+        (CANCEL, CANCEL),  # ADMINS cancel the order for some reason
+        (ENDWARRANTY, ENDWARRANTY),  # Warranty ends after a year of use
     )
 
 
@@ -134,7 +138,7 @@ class Order(models.Model):
     #
 
     def still_guaranteed(self):
-        delivery_date = Shipment.objects.get(order_id = self.pk).date_recepcion
+        delivery_date = Shipment.objects.get(order_id=self.pk).date_recepcion
         return (delivery_date <= date.today() <= delivery_date+timedelta(
             days=365))
     still_guaranteed.hint = '1 year counting from shipment delivered.'
@@ -144,8 +148,8 @@ class Order(models.Model):
     paid_checked.hint = 'Payment is required.'
 
     def painting_choosen(self):
-        return True #Arreglar
-        #return self.pintura
+        return True  # TODO: fix this
+        # return self.pintura
     painting_choosen.hint = 'Optional: clients choosal.'
 
     def shipment_delivered(self):
@@ -236,7 +240,8 @@ class Order(models.Model):
         self.notify_user(notified)
         self.save()
 
-    @transition(field=state, source=Status.SHIPPED,target=Status.RECEIVED,conditions=[shipment_delivered])
+    @transition(field=state, source=Status.SHIPPED, target=Status.RECEIVED,
+                conditions=[shipment_delivered])
     def recibir(self):
         """
         User received the parcel. Marck shipment as received.
@@ -248,8 +253,9 @@ class Order(models.Model):
         self.save()
         invoice_available = True
 
-    @transition(field=state, source=Status.RECEIVED,target=Status.WARRANTY,conditions=[shipment_delivered])
-    def comenzar_garantia(self):
+    @transition(field=state, source=Status.RECEIVED, target=Status.WARRANTY,
+                conditions=[shipment_delivered])
+    def start_warranty(self):
         """
         User has received the order and it has been returned.
         """
@@ -260,18 +266,19 @@ class Order(models.Model):
         self.notify_user(notified)
         self.save()
 
-    @transition(field=state, source='*',target=Status.CANCEL,conditions=[])
-    def cancelar(self):
+    @transition(field=state, source='*', target=Status.CANCEL, conditions=[])
+    def cancel(self):
         """
         At any step the order gets cancel.
         """
-        notified = u"Your order has been cancel. Please contact for further info."
+        notified = u"Your order has been cancel." \
+                   u" Please contact for further info."
         self.icon = "trash"
         self.notify_user(notified)
         self.save()
 
     @transition(field=state, source=Status.SHIPPED,
-                target=Status.RETURNED,conditions=[])
+                target=Status.RETURNED, conditions=[])
     def return_shipment(self):
         """
         Some problem with shipment company, and it needs resending.
@@ -282,7 +289,7 @@ class Order(models.Model):
         self.notify_user(notified)
         self.save()
 
-    @transition(field=state, source=Status.WARRANTY,target=Status.REPAIRING,
+    @transition(field=state, source=Status.WARRANTY, target=Status.REPAIRING,
                 conditions=[still_guaranteed])
     def repair(self):
         """
@@ -295,7 +302,7 @@ class Order(models.Model):
 
     @transition(field=state, source=Status.WARRANTY,
                 target=Status.ENDWARRANTY, conditions=[still_guaranteed])
-    def finalizar_garantia(self):
+    def end_warranty(self):
         """
         The warranty period has finished, notify the user.
         """
@@ -306,7 +313,7 @@ class Order(models.Model):
 
 
 class Shipment(models.Model):
-    number = models.CharField(max_length=15, blank=False, null=False)  # Tracking number
+    tracking_number = models.CharField(max_length=15, blank=False, null=False)
     sign_date = models.DateField(auto_now=True)
     date_reception = models.DateField(auto_now=False,
                                       auto_now_add=False, null=True)
@@ -322,7 +329,7 @@ class Shipment(models.Model):
     url_comp = models.URLField(null=True)  # address for tracking parcel
 
     def __unicode__(self):
-        return self.number
+        return self.tracking_number
 
     class Meta:
         ordering = "-sign_date",
