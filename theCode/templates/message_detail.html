@@ -26,11 +26,11 @@
       </div>
       <p><a href="{% url 'panel' %}">Return</a></p>
       </center>
- {% else %}
- <h3> 
-  <center><code>Space forbidden for your user</code>
-  <a href="{% url 'index' %}">Return</a>.</center>
- </h3>
+   {% else %}
+   <h3> 
+    <center><code>Space forbidden for your user</code>
+    <a href="{% url 'index' %}">Return</a>.</center>
+   </h3>
  <br><br>
 {% endif %}
 {%endif%}

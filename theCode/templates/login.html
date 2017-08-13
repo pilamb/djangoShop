@@ -9,8 +9,8 @@
     {% endblock %}
     <center>
     {% if form.errors or form.non_field_errors %}
-      <b><p><code> <span class="glyphicon glyphicon-exclamation-sign" aria-hiddin="true"></span>LOS DATOS SON INCORRECTOS.</b></code><br>
-      Inténtelo de nuevo.</p><br>
+      <b><p><code> <span class="glyphicon glyphicon-exclamation-sign" aria-hiddin="true"></span>Data is wrong, please correct.</b></code><br>
+      Try again, please.</p><br>
     {% endif %}
 {% if user.is_authinticated %}
   <p>You are already authenticated./<p>

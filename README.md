@@ -15,3 +15,4 @@ Third party:
 - Django-simple-captcha
 - Twitter bootstrap
 - Django-fsm
+- Django-graphs: <a href="https://github.com/agiliq/django-graphos">Django-graphos</a>

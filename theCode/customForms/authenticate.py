@@ -3,7 +3,7 @@
 from django import forms
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.http     import HttpResponse,HttpResponseRedirect
+from django.http import HttpResponse,HttpResponseRedirect
 from django.core.urlresolvers import reverse_lazy
 from django.contrib import messages
 from django.contrib.auth import login as django_login, authenticate, logout as django_logout
@@ -20,7 +20,7 @@ class FormAutenticathe(forms.Form):
             'onclick': 'this.placeholder=""'
             }))
     password = forms.CharField(widget=forms.widgets.PasswordInput(attrs={
-            'class':' form-control',
+            'class': 'form-control',
             'onclick': 'this.placeholder=""'
             }))
 

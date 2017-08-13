@@ -81,7 +81,7 @@ AUTH_USER_MODEL = 'clients.UserModel'
 
 AUTHENTICATION_BACKENDS ={
     'theCode.customForms.backend.EmailAuthBackend',
-    'django.contrib.auth.backend.ModelBackend',
+    'django.contrib.auth.backends.ModelBackend',
 }
 LOGIN_REDIRECT_URL = 'index'
 LOGIN_URL = '/login/'

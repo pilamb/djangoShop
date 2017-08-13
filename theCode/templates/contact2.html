@@ -32,13 +32,12 @@
                  {% if i.help_text %} <div class="helptext">{{i.help_text}}</div>{%endif%}
               </div>
               {% endfor%}
-              <p class="helptext">Los administradores recibirán una notificación de minsaje nuevo.</p>  
+              <p class="helptext">Admins will receive a copy too.</p>  
                 <button type="submit" value="Send" class="btn btn-info btn-md" id="idBotonSend">
                 <i class="glyphicon glyphicon-invelope"></i> Send</button>
                 <button type="submit" value="Cancel" class="btn btn-warning btn-md" id="BotonCancel" name="cancel"> <i class="glyphicon glyphicon-ban-circle"></i> Cancel</button>
               </div>
             </form>
-         
          <br>
          <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
             <br> <br><br><img src="{% static "IMAGE_408.jpg" %}" style="width: 280px; height: 280px;" alt="imagin_circulo" class="img-circle img-responsive center-block">
@@ -46,5 +45,5 @@
 <br>
 {% endblock %}
 {% block footer %} 
-  <li  class="active"> Contacto</li>
+  <li  class="active">Contact</li>
 {% endblock %}
