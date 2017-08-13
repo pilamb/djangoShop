@@ -20,7 +20,7 @@ from models import UserModel
 class LoginRequiredMixin(object):
     @classmethod
     def as_view(cls, **initkwargs):
-        view = super(LoginRequiredMixin,cls).as_view(**initkwargs)
+        view = super(LoginRequiredMixin, cls).as_view(**initkwargs)
         return login_required(view)
 
 
@@ -94,7 +94,7 @@ class UserModelDeleteView(LoginRequiredMixin, DeleteView):
         else:
             u = request.user
             if u.is_superuser:
-                messages.warning(request, '¡Operation not allowd over ROOT!')
+                messages.warning(request, '¡Operation not allowed over ROOT!')
             else:
                 u.is_active = False
                 u.save()

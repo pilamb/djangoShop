@@ -12,7 +12,7 @@ message_part.short_description = 'Notification'
 
 
 class MessageClassAdmin(admin.ModelAdmin):
-    fields = ('attendedd', 'message')
+    fields = ('attended', 'message')
     list_display = ('attended', 'name', 'mail', 'date', message_part,
                     'is_member', 'category')
     search_fields = ('mail', 'date', 'category')

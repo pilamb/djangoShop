@@ -2,11 +2,9 @@
 
 from datetime import date
 from django.shortcuts import render
-from django.core.exceptions import ValidationError
 from clients.models import UserModel
 
 from shop.models import Order, Sale, Shipment
-from messages_app.models import MessageModel
 from warehouse.models import Product
 from messages_app.models import MessageModel, Alert
 
@@ -56,12 +54,12 @@ def page(request):
         u.messages = n
         u.save()
     return render(request, 'user_panel.html', {
-         'object_list': object_list,
-         'object_list2': object_list2,
-         'object_list3': object_list3,
-         'object_list4': object_list4,
-         'n_admins': n_admins,
-         'news': news,
-         'prods': prods
-    }
+        'object_list': object_list,
+        'object_list2': object_list2,
+        'object_list3': object_list3,
+        'object_list4': object_list4,
+        'n_admins': n_admins,
+        'news': news,
+        'prods': prods
+        }
     )

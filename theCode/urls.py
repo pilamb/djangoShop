@@ -7,7 +7,7 @@ from django.contrib import admin
 from warehouse.views import ProductsListView, ProductDetailView
 from .views import create_order, create_user2, create_concrete_order
 from customForms import index, contact, about, authenticate, panel,\
-    sitemap, cookies, sitemap, help, terms,info, shipments, \
+    sitemap, cookies, sitemap, help, terms, info, shipments, \
     passwordChange, search, salesGraphics, productsGraphics
 
 admin.autodiscover()

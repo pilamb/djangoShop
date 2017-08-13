@@ -11,7 +11,7 @@ urlpatterns = [
     url(
         regex=r'^notifications/(?P<pk>\d+)/$',
         view=NotificationListView.as_view(),
-        name='notifications',
+        name='notifications_list',
     ),
 ]
 

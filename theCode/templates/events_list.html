@@ -1,9 +1,9 @@
 <script>
   function show(id) {
-    documint.getElemintById(id).style.display = "block";
+    document.getElementById(id).style.display = "block";
   }
   function hide(id) {
-    documint.getElemintById(id).style.display = "none";
+    document.getElementById(id).style.display = "none";
   }
 </script>
 {% extends "base.html" %}
@@ -22,7 +22,7 @@
       {%else%}
         <li class="list-group-item active"  onMouseOver="show('descr{{forloop.counter}}')" onMouseOut="hide('descr{{forloop.counter}}')">
       {%endif%}
-        <span class="badge">Creado:
+        <span class="badge">Created:
           {% if today == u.fecha %}
             <h6><b>¡Hoy!</h6></b> 
           {%else%}
@@ -32,7 +32,7 @@
         <h3><b>{{forloop.counter}}</b></h3>
         <b>Título:</b> {{u.name}} <br>
       {%if u.description%}
-        <div id="{{forloop.counter}}" style="display: none;"><b>Descripción:</b> {{u.description}}
+        <div id="{{forloop.counter}}" style="display: none;"><b>Description:</b> {{u.description}}
       {%endif%}
       </li>
     {%endfor%}
@@ -43,5 +43,5 @@
   {% endif %}
 {% endblock %}
 {% block footer %} 
-  <li class="active">Event</li>
+  <li class="active">Events</li>
 {% endblock %}

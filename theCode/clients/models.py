@@ -17,7 +17,7 @@ class Manager(BaseUserManager):
         if not email:
             raise ValueError('The email is mandatory.')
         email = self.normalize_email(email)
-        user = UserModel(email=email,
+        user = UserModel(email=email.upper(),
                          is_admin=is_admin,
                          is_active=True,
                          is_superuser=is_superuser,
@@ -61,7 +61,11 @@ class UserModel(AbstractBaseUser):
         verbose_name="Surname",
         validators=[only_letters]
         )
-
+    age = models.PositiveSmallIntegerField(
+        blank=False,
+        default=18,
+        validators=nums,
+    )
     subscribed = models.BooleanField(
         default=False,
         verbose_name="Subscribed"
@@ -75,16 +79,16 @@ class UserModel(AbstractBaseUser):
     address = models.CharField(
         max_length=100,
         blank=True,
-        null=True,
+        null=False,
         verbose_name="Address",
-        #help_notified="Only if you order, for delivery."
+        # help_notified="Only if you order, for delivery."
         )
-    address_alternativa = models.CharField(
+    address_second = models.CharField(
         max_length=100,
         blank=True,
         null=True,
         verbose_name="Second address ",
-        #help_notified="Only if you order, for delivery."
+        # help_notified="Only if you order, for delivery."
         )
     phone = models.CharField(
         max_length=9,
@@ -116,7 +120,7 @@ class UserModel(AbstractBaseUser):
 
     def get_absolute_url(self):
         return reverse('list_users', kwargs={'email': self.email})
-        #return reverse('user_detail', kwargs={'email': self.email})
+        # return reverse('user_detail', kwargs={'email': self.email})
 
     @property
     def get_name(self):

@@ -1,34 +1,34 @@
 <script>
 function cambiaPrice(seleccionado) {
   if (seleccionado.value=="Sin") {
-      documint.getElemintById('paintingPrice').innerHTML="0";
-      documint.getElemintById('extra').innerHTML="Aluminio sin pintar.";
-      documint.getElemintById('square').style.visibility="hiddin";
+      document.getElementById('paintingPrice').innerHTML="0";
+      document.getElementById('extra').innerHTML="Aluminio sin pintar.";
+      document.getElementById('square').style.visibility="hiddin";
   } else if (seleccionado.value=="Blanco") {
-      documint.getElemintById('paintingPrice').innerHTML="15";
-      documint.getElemintById('extra').innerHTML="Blanco, referincia: #ffffff";
-      documint.getElemintById('square').style.visibility="visible";
-      documint.getElemintById('square').style.backgroundColor="#ffffff";
+      document.getElementById('paintingPrice').innerHTML="15";
+      document.getElementById('extra').innerHTML="Blanco, referincia: #ffffff";
+      document.getElementById('square').style.visibility="visible";
+      document.getElementById('square').style.backgroundColor="#ffffff";
   } else if (seleccionado.value=="Negro") {
-      documint.getElemintById('paintingPrice').innerHTML="10";
-      documint.getElemintById('extra').innerHTML="Negro, referincia: #000000";
-      documint.getElemintById('square').style.visibility="visible";
-      documint.getElemintById('square').style.backgroundColor="#000000";
+      document.getElementById('paintingPrice').innerHTML="10";
+      document.getElementById('extra').innerHTML="Negro, referincia: #000000";
+      document.getElementById('square').style.visibility="visible";
+      document.getElementById('square').style.backgroundColor="#000000";
   } else if (seleccionado.value=="Rojo") {
-      documint.getElemintById('paintingPrice').innerHTML="10";
-      documint.getElemintById('extra').innerHTML="Rojo, referincia: #c8393b";
-      documint.getElemintById('square').style.visibility="visible";
-      documint.getElemintById('square').style.backgroundColor="#c8393b";
+      document.getElementById('paintingPrice').innerHTML="10";
+      document.getElementById('extra').innerHTML="Rojo, referincia: #c8393b";
+      document.getElementById('square').style.visibility="visible";
+      document.getElementById('square').style.backgroundColor="#c8393b";
   } else if (seleccionado.value=="Rosa") {
-      documint.getElemintById('paintingPrice').innerHTML="10";
-      documint.getElemintById('extra').innerHTML="Rosa, referincia: #e85b99";
-      documint.getElemintById('square').style.visibility="visible";
-      documint.getElemintById('square').style.backgroundColor="#e85b99";
+      document.getElementById('paintingPrice').innerHTML="10";
+      document.getElementById('extra').innerHTML="Rosa, referincia: #e85b99";
+      document.getElementById('square').style.visibility="visible";
+      document.getElementById('square').style.backgroundColor="#e85b99";
   } else {
-    documint.getElemintById('paintingPrice').innerHTML="10";
-    documint.getElemintById('extra').innerHTML="Azul, referincia: #00B4BC";
-    documint.getElemintById('square').style.visibility="visible";
-    documint.getElemintById('square').style.backgroundColor="#00B4BC";
+    document.getElementById('paintingPrice').innerHTML="10";
+    document.getElementById('extra').innerHTML="Azul, referincia: #00B4BC";
+    document.getElementById('square').style.visibility="visible";
+    document.getElementById('square').style.backgroundColor="#00B4BC";
   }
 }
 </script>
@@ -72,7 +72,7 @@ function cambiaPrice(seleccionado) {
               <h5>Extra:
                 <span id="paintingPrice">0</span>€  
               </h5> <span id="extra"></span>
-              <div id="square" class="redondeo"></div>
+              <div id="square" class="border_line"></div>
             </div> 
               </div>
               <div class="col-lg-6 col-md-6">

@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from django.shortcuts import render
-from datetime import date
 from django.core.exceptions import ObjectDoesNotExist
 
 from theCode.core.searcher import search_filter
@@ -16,8 +15,9 @@ def page(request):
     match = ()
     if ('q' in request.GET) and request.GET['q'].strip():
         search_string = request.GET['q']
-        products_filter = search_filter(search_string, ['name', 'information',
-                                                       'type_info'])
+        products_filter = search_filter(search_string, [
+            'name', 'information',
+            'type_info'])
         event_filter = search_filter(search_string, ['name', 'description'])
         try:
             match_products = Product.objects.filter(products_filter)
@@ -27,12 +27,11 @@ def page(request):
             match_event = Event.objects.filter(event_filter)
         except Event.DoesNotExist:
             match_event = ()
-        # filtro = 
         # match = Product.objects.filter()
     else:
         match_products = ()
         match_event = ()
-    return render(request,
-                  'results.html', {'search_string': search_string,
-                  'match_products': match_products,
-                  'match_event': match_event})
+    return render(request, 'results.html', {
+        'search_string': search_string,
+        'match_products': match_products,
+        'match_event': match_event})

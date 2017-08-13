@@ -35,7 +35,7 @@
     </div>
   </header>
 <div class="container">
- <div class="navbar navbar-inverse redondeo" role="navigation"> <!--BARRA MENU NEGRA-->
+ <div class="navbar navbar-inverse border_line" role="navigation"> <!-- Navbar -->
         <div class="container-fluid">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -59,7 +59,7 @@
                 </ul>
               </li>
               <li><a href="{% url 'events:events_list' %}">EVENTS</a></li>
-              <li><a  href="{% url 'contact' %}">CONTACTO</a></li>
+              <li><a  href="{% url 'contact' %}">CONTACT</a></li>
                 {%if not user.is_authinticated%}
                   
                  <li> <a href="{% url 'login' %}">LOGIN</a> </li>
@@ -71,14 +71,14 @@
                 {% else %}
                
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle inabled" data-toggle="dropdown" role="button" aria-expanded="true"><span class="glyphicon glyphicon-wrinch" aria-hiddin="true"></span> Minú
+                    <a href="#" class="dropdown-toggle inabled" data-toggle="dropdown" role="button" aria-expanded="true"><span class="glyphicon glyphicon-wrinch" aria-hiddin="true"></span> Menu
                     <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                      <li><a href="{% url 'user_detail' user.id %}"><span class="glyphicon glyphicon-pushpin" aria-hiddin="true"></span> Cuinta</a></li>
+                      <li><a href="{% url 'user_detail' user.id %}"><span class="glyphicon glyphicon-pushpin" aria-hiddin="true"></span> Account</a></li>
                       <li><a href="{% url 'ordersUser' %}"><span class="glyphicon glyphicon-eye-open" aria-hiddin="true"></span> Orders</a></li>
-                      <li><a  href="{% url 'messages' user.id %}"><span class="glyphicon glyphicon-invelope" aria-hiddin="true"></span> Notificactions </a></li>
+                      <li><a href="{% url 'messages' user.id %}"><span class="glyphicon glyphicon-invelope" aria-hiddin="true"></span> Notificactions </a></li>
                       <li><a href="{% url 'panel' %}"><span class="glyphicon glyphicon-home" aria-hiddin="true"></span> Panel</a></li>
-                      <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-off" aria-hiddin="true"></span> Salir</a></li>
+                      <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-off" aria-hiddin="true"></span>Logout</a></li>
                     </ul>
               </li>
                {%endif%} 
@@ -113,12 +113,12 @@
   <div class="container-fluid">
     <div class="row menor">
       <div class="col-xs-10 col-sm-7 col-md-9 col-lg-9"> 
-        <ol class="breadcrumb redondeo minos"><i class="fa fa-dot-circle-o"></i> 
+        <ol class="breadcrumb border_line minos"><i class="fa fa-dot-circle-o"></i> 
           <li class="active"><a href="{% url 'index' %}">Home</a></li>
           {% block footer %} {% endblock %}
         </ol>
        </div>
-      <div class="col-xs-2 col-sm-5 col-md-3 col-lg-3 redondeo pull-right minos" align="right">
+      <div class="col-xs-2 col-sm-5 col-md-3 col-lg-3 border_line pull-right minos" align="right">
         <a href="#top"><text class="hiddin-xs">up</text>
         <i class="fa fa-caret-square-o-up"></i></a>
      </div> 
@@ -129,17 +129,17 @@
     <center>
      <div class="row menor">
        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-            <a href="{% url 'about' %}"> Nosotros </a></div>
+            <a href="{% url 'about' %}"> About </a></div>
        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-            <a href="{% url 'events:events_list' %}"> Event </a></div>
+            <a href="{% url 'events:events_list' %}"> Events </a></div>
        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
             <a href="{% url 'map'%}"> Sitemap </a></div>
        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-            <a href="{% url 'contact' %}"> Contacto </a></div>
+            <a href="{% url 'contact' %}"> Contact </a></div>
      </div>
      <div class="row menor">
       <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-            <a href="{% url 'terms' %}"> terms </a></div>
+            <a href="{% url 'terms' %}"> Terms </a></div>
         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
             <a href="{% url 'help' %}"> Help </a></div>
        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
@@ -159,7 +159,7 @@
     </div>
   </div>
    <div class="wrapper pie">
-    <nav class="navbar navbar redondeo" role="navigation">
+    <nav class="navbar navbar border_line" role="navigation">
       <div class="container-fluid">
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -172,19 +172,19 @@
               <small class="blanco">Desarrollo:</small>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
               <a href="http://www.python.org" target=_blank> 
-                <img label="" id="minicono" src="{% static "" %}" class="redondeo" alt="inconoPython"/>
+                <img label="" id="minicono" src="{% static "" %}" class="border_line" alt="inconoPython"/>
               </a>
               <a href="http://www.djangoproject.com" target=_blank> 
-                <img label="" id="minicono" src="{% static "" %}" class="redondeo" alt="iconoDjango"/>
+                <img label="" id="minicono" src="{% static "" %}" class="border_line" alt="iconoDjango"/>
               </a>
               <a href="http://www.getbootstrap.com" target=_blank> 
-                <img label="" id="minicono" src="{% static "" %}" class="redondeo" alt="iconoBootstrap"/>
+                <img label="" id="minicono" src="{% static "" %}" class="border_line" alt="iconoBootstrap"/>
               </a>
               <a href="http://www.w3.org/TR/html5/" target=_blank> 
-                <img label="" id="minicono" src="{% static "" %}" class="redondeo" alt="iconoHTML5"/>
+                <img label="" id="minicono" src="{% static "" %}" class="border_line" alt="iconoHTML5"/>
               </a>
               <a href="http://in.wikipedia.org/wiki/JavaScript" target=_blank> 
-                <img label="" id="minicono" src="{% static "" %}" class="redondeo" alt="iconoHTML5"/>
+                <img label="" id="minicono" src="{% static "" %}" class="border_line" alt="iconoHTML5"/>
               </a>
             </div> <br>
             <small class="blanco"> El content es propiedad de Company © 2014, 2015

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
+
 from django.shortcuts import render
-from theCode.warehouse.models import Product
+from warehouse.models import Product
 
 
 def page(request):

@@ -13,18 +13,18 @@ def normalize_query(query_string,
         normspace(' ', (t[0] or t[1]).strip()) for t in findterms(query_string)]
 
 
-def search_filter(string, campos):
+def search_filter(string, fields_to_search_at):
     """
     Returns a query object of Q type
     :param string:
-    :param campos:
+    :param fields_to_search_at:
     :return:
     """
     query = None # Query to search for every search term
     terms = normalize_query(string)
     for term in terms:
         or_query = None  # Query to search for a given term in each field
-        for field_name in campos:
+        for field_name in fields_to_search_at:
             q = Q(**{"%s__icontains" % field_name: term})
             if or_query is None:
                 or_query = q

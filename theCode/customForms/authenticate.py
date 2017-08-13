@@ -3,13 +3,14 @@
 from django import forms
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from django.http import HttpResponse,HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse_lazy
 from django.contrib import messages
-from django.contrib.auth import login as django_login, authenticate, logout as django_logout
+from django.contrib.auth import login as django_login,\
+    authenticate, logout as django_logout
 
 
-class FormAutenticathe(forms.Form):
+class FormAuthenticate(forms.Form):
     """
     Main login form
     """
@@ -33,7 +34,7 @@ def login(request):
     Login view
     """
     if request.method == 'POST':
-        form = FormAutenticathe(data=request.POST)
+        form = FormAuthenticate(data=request.POST)
         if form.is_valid():
             user = authenticate(
                 email=request.POST['email'].
@@ -47,7 +48,7 @@ def login(request):
                                           context_instance=
                                           RequestContext(request))
     else:
-        form = FormAutenticathe()
+        form = FormAuthenticate()
     return render_to_response(
         'login.html', {'form': form, },
         context_instance=RequestContext(request))

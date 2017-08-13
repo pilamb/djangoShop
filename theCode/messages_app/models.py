@@ -13,13 +13,13 @@ class MessageModel(models.Model):
     with attended to False and alerts are sent to admins
     """
     CATEGORY = (
-        ('Orders','Orders'),
-        ('Account','Account'),
-        ('Products','Products'),
-        ('Warranty' ,'Warranty'),
-        ('Events','Events'),
-        ('Shippings','Shippings'),
-        ('Others','Others'),
+        ('Orders', 'Orders'),
+        ('Account', 'Account'),
+        ('Products', 'Products'),
+        ('Warranty', 'Warranty'),
+        ('Events', 'Events'),
+        ('Shipping', 'Shipping'),
+        ('Others', 'Others'),
     )
     name = models.CharField(max_length=20,validators=[only_letters])
     date = models.DateField(auto_now_add=True)
@@ -29,7 +29,8 @@ class MessageModel(models.Model):
                                 choices=CATEGORY,
                                 default='Others',
                                 blank=False)
-    attended = models.BooleanField(default=False)
+    attended = models.BooleanField(default=False,
+                                   verbose_name="An admins has seen it.")
 
     def is_member(self):
         return UserModel.objects.filter(email=self.mail).exists()
@@ -38,7 +39,7 @@ class MessageModel(models.Model):
         return u'%s%s%s' % (self.name, str(self.date), self.mail)
 
     def get_absolute_url(self):
-        return reverse('user_detail',kwargs={'email': self.date})
+        return reverse('user_detail', kwargs={'email': self.date})
 
     class Meta:
         app_label = "messages_app"
@@ -49,8 +50,8 @@ class Alert(models.Model):
     """
     Admins emails to alert abount new events related to the website
     """
-    mail = models.EmailField(unique=True, help_text='Add email addresses to'
-                                                    'send alerts.')
+    mail = models.EmailField(unique=True,
+                             help_text='Add email addresses to send alerts.')
 
     def __unicode__(self):
         return self.mail

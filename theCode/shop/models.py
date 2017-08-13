@@ -2,15 +2,14 @@
 
 from random import randint
 from datetime import date, timedelta
+
 from django.db import models
-from django.contrib import admin
-from django.core.urlresolvers import reverse
-from django.core.exceptions import ValidationError, ObjectDoesNotExist
 from django_fsm import FSMField, transition
+
 from clients.models import UserModel
 from warehouse.models import Product
 from messages_app.models import MessageModel
-from theCode.core.validators import only_letters, alfan, nums, positive_price
+from theCode.core.validators import positive_price
 
 
 class Sale(models.Model):

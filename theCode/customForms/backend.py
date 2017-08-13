@@ -7,7 +7,7 @@ from clients.models import UserModel
 
 class EmailAuthBackend(object):
     """
-    Authenthicate backend based on email.
+    Authenticate backend based on email.
     """
     
     def authenticate(self, email=None, password=None):
@@ -18,8 +18,6 @@ class EmailAuthBackend(object):
             user = UserModel.objects.get(email=email)
             if user.check_password(password):
                 return user
-            else:
-                return None
         except UserModel.DoesNotExist:
             return None
 
@@ -29,5 +27,6 @@ class EmailAuthBackend(object):
             if user.is_active:
                 return user
             return None
+            # TODO:  this is needs work
         except UserModel.DoesNotExist:
             return None

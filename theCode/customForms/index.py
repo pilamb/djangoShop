@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from captcha.fields import CaptchaField
+
 from django.contrib import messages
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
