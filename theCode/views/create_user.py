@@ -131,7 +131,7 @@ def page(request):
             if form.is_valid():
                 name = form.cleaned_data['name']
                 surname = form.cleaned_data['surname']
-                email = form.cleaned_data['email']
+                email = form.cleaned_data['email']  # TODO: all email on upper
                 pas2 = form.cleaned_data['password2']
                 tel = form.cleaned_data['phone']
                 new_user = UserModel(

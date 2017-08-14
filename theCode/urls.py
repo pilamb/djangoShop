@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import admin
 
 from warehouse.views import ProductsListView, ProductDetailView
-from .views import create_order, create_user2, create_concrete_order
+from .views import create_order, create_user, create_concrete_order
 from customForms import index, contact, about, authenticate, panel,\
     sitemap, cookies, sitemap, help, terms, info, shipments, \
     passwordChange, search, salesGraphics, productsGraphics
@@ -23,7 +23,7 @@ urlpatterns += [
             name='logout'),
         url(r'account/', include('clients.urls', namespace='account')),
         url(r'^panelUser/', login_required(panel.page), name='panel'),
-        url(r'^createUser$', 'theCode.views.create_user2.page',
+        url(r'^createUser$', 'theCode.views.create_user.page',
             name='create_user'),
         url(r'^changeCredentials/$', login_required(passwordChange.page),
             name='change_password'),
