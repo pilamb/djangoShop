@@ -85,18 +85,19 @@ def page(request, pk):
                     if mod.on_sale:
                         mod.on_sale = False
                         mod.save()
-                    if request.POST['color']!="Sin":
+                    if request.POST['color'] != "Sin":
                         p.painting = True
                     else:
                         p.painting = False
                     p.save()
-                    new_message = MessageModel(user=user,
-                                               notified=False,
-                                               message=
-                     u"""Congratulations, the order has been created
-                     correctly and it is in the state %s.
-                     Soon you will receive confirmation of the states changes.
-                     Thanks""" % p.state)
+                    new_message = MessageModel(
+                        user=user,
+                        notified=False,
+                        message=
+                        u"""Congratulations, the order has been created
+                        correctly and it is in the state %s.
+                        Soon you will receive confirmation of the states changes
+                        . Thanks""" % p.state)
                     new_message.save()
                     mod.quitar_of_sale()
                     mod.save()

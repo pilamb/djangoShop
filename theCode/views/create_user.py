@@ -2,7 +2,7 @@
 
 from django import forms
 from django.shortcuts import render
-from django.http import HttpResponse,HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse_lazy
 from captcha.fields import CaptchaField
 from django.forms import RadioSelect

@@ -28,7 +28,7 @@ class NewProductOrderForm(forms.Form):
             queryset=Product.objects.filter(on_sale=True),
             initial=1,
             )
-    notified = forms.CharField (
+    notified = forms.CharField(
         max_length=1000,
         required=False,
         label="Notification",
@@ -62,7 +62,7 @@ class NewProductOrderForm(forms.Form):
 
 def page(request):
     user = request.user
-    if request.POST: #si el form ha sido enviado, tratar los datos
+    if request.POST:  # si el form ha sido enviado, tratar los datos
         if "cancel" in request.POST:
             return HttpResponseRedirect(reverse_lazy('index'))
         else:
@@ -70,7 +70,7 @@ def page(request):
             if request.user.is_authenticated():
                 if form.is_valid():
                     product = request.POST['product']
-                    mod = Product.objects.get(id = product)
+                    mod = Product.objects.get(id=product)
                     notified = request.POST['notified']
                     painting = request.POST['color']
                     print "You has choosen %s" % str(painting)
@@ -93,7 +93,7 @@ def page(request):
                                      '¡Order created <b>correctly</b>, thanks!')
                     return HttpResponseRedirect(reverse_lazy('panel'))
                 else:
-                    return render(request, 'create_order.html',{'form':form})
+                    return render(request, 'create_order.html', {'form': form})
     else:
         form = NewProductOrderForm()
         return render(request, 'create_order.html', {'form': form})
