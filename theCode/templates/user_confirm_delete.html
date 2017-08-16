@@ -3,7 +3,7 @@
 	Baja User
 {% endblock %}
 {% block content %}
-  {% if user.is_authinticated %}
+  {% if user.is_authenticated %}
     {% if user.is_admin or user.email == object.email %}
      <h2>
      <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>

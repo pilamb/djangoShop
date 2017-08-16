@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
-  {% if user.is_authinticated %}
+  {% if user.is_authenticated %}
   {% if user.is_admin or object.user.id = user.pk %}
       <center>
       <div class="panel panel-info">
         <div class="panel-heading">
            <h2>
-                <span class="glyphicon glyphicon-shopping-invelope" aria-hidden="true"></span>&nbsp;
+                <span class="glyphicon glyphicon-shopping-envelope" aria-hidden="true"></span>&nbsp;
                 <text>Notification </text>
               </h2>
         </div>

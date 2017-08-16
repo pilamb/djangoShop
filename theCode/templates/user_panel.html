@@ -1,7 +1,7 @@
   {% extends "base.html" %}
 {% load staticfiles %}
 {% block content %}
-    {% if user.is_authinticated %}
+    {% if user.is_authenticated %}
         {% if user.is_superuser %} 
           <h2>
             <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
@@ -13,7 +13,7 @@
       <ul class="nav nav-tabs" role="tablist">
         <li role="presintation" class="active"><a href="#users" aria-controls="users" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Users</a></li>
         <li role="presintation"><a href="#orders" aria-controls="orders" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Orders</a></li>
-        <li role="presintation"><a href="#events" aria-controls="events" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-cd"  aria-hidden="true"></span> Events</a></li>
+        <li role="presintation"><a href="#events:events_list" aria-controls="events:events_list" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-cd"  aria-hidden="true"></span> Events</a></li>
         <li role="presintation"><a href="#shipments" aria-controls="shipments" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-plane"  aria-hidden="true"></span> Shipments</a></li>
         <li role="presintation"><a href="#sales" aria-controls="sales" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-shopping-cart"  aria-hidden="true"></span> Sales</a></li>
       </ul>
@@ -27,22 +27,25 @@
            {% include "orders_list.html" %}
            
         </div>
-        <div role="tabpanel" class="tab-pane fade" id="events">
-          <a href="{% url 'events' %}">See lista</a>
+        <div role="tabpanel" class="tab-pane fade" id="events_list">
+          <a href="{% url 'events:events_list' %}">See lista</a>
         </div>
         <div role="tabpanel" class="tab-pane fade" id="shipments">
           {% include "shipments_list.html" %}
         </div>
         <div role="tabpanel" class="tab-pane fade" id="sales">
-          {% include "sales_list.html" %}
-          <a href="{% url 'sales_charts' %}">Sales charts</a>
+          {% include "orders_list.html" %}
+          <a href="{% url 'chart_sales' %}">Sales charts</a>
         </div>
       </div>
       <hr>
-      <p>Hay {% if nuevos = 0 %}<code>0</code> {%else%} {{nuevos}} {%endif%} <b>messages</b> nuevos.</p>
-      <p>Hay {% if n_admins = 0  %}<code>0</code> {%else%} {{n_admins}} {%endif%} <b>emails</b> of administrators not read.</p>
-      <p>The system has {% if prods = 0  %}<code>0</code> {%else%} {{prods}}{%endif%} products. 
-         <a href="{% url 'products_charts' %}">See products popularity.</a>  </p>
+      <p>There are {% if nuevos = 0 %}<code>0</code> {%else%} {{nuevos}}
+      {%endif%}
+	      <b>messages</b> news.</p>
+      <p>There are {% if n_admins = 0  %}<code>0</code> {%else%} {{n_admins}}
+      {%endif%} <b>emails</b> of administrators not read.</p>
+      <p>The system has {% if prods = 0  %}<code>0</code> {%else%} {{prods}}{%endif%} products.
+         <a href="{% url 'chart_products' %}">See products popularity.</a>  </p>
     </div>
        {% else %}<!--User no admin-->
           <h2>
@@ -55,7 +58,7 @@
             <div class="row">
             <div class="col-md-4">
              <p><center>
-              <a class="btn btn-default btn-lg" href="{% url 'user_detail' user.id %}" role="button">
+              <a class="btn btn-default btn-lg" href="{% url 'account:user_detail' user.id %}" role="button">
                 <span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span>
               Account
               </a>
@@ -75,10 +78,11 @@
             <div class="col-md-4">
                 <p><center>
                 <a class="btn btn-default btn-lg" href="{% url 'messages' user.id %}" role="button">
-                  <span class="glyphicon glyphicon-invelope" aria-hidden="true"></span>
+                  <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
                  Notifications
                 {% if user.messages > 0 %}<span class="badge">{{user.messages}}{%endif%}</span></a>
-                 <p class="help-block"><small>Messages of the account, shipments, events...</small></p>
+                 <p class="help-block"><small>Messages of the account,
+	                 shipments, events...</small></p>
               </center></p>
             </div>
           </div>

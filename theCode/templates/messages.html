@@ -3,11 +3,11 @@
 {% block content %}
   {%block header1%}
   <h2>
-      <span class="glyphicon glyphicon-invelope" aria-hidden="true"></span>&nbsp;
+      <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>&nbsp;
       <text>Notifications of <a href="{{ user.getabsoluteurl }}">{{user.email}}</a></text>
     </h2><hr> 
     {% endblock %}
-    {%if user.is_authinticated or user.is_admin %}
+    {%if user.is_authenticated or user.is_admin %}
       {% if object_list|length > 0 %} Total: {{ object_list.count }} {% endif %}
       <div class="table-responsive">
       <table class="table table-striped">

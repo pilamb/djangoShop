@@ -12,7 +12,7 @@
       <b><p><code> <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>Data is wrong, please correct.</b></code><br>
       Try again, please.</p><br>
     {% endif %}
-{% if user.is_authinticated %}
+{% if user.is_authenticated %}
   <p>You are already authenticated./<p>
   <a href="{% url 'logout' %}"> <span class="glyphicon glyphicon-export" aria-hidden="true"></span> Close session.</a>
 {%else%}

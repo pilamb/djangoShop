@@ -60,12 +60,12 @@
               </li>
               <li><a href="{% url 'events:events_list' %}">EVENTS</a></li>
               <li><a  href="{% url 'contact' %}">CONTACT</a></li>
-                {%if not user.is_authinticated%}
+                {%if not user.is_authenticated%}
                   
                  <li> <a href="{% url 'login' %}">LOGIN</a> </li>
                {%endif%}
-               {%if user.is_authinticated%}
-                <li><a class="inabled"> <font color="white"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Biinvinido, {{user}}.</font></a>
+               {%if user.is_authenticated%}
+                <li><a class="inabled"> <font color="white"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Welcome, {{user}}.</font></a>
                 {% if user.is_super %}
                   <li><a href="{% url 'panel' %}"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Panel</a></li>
                 {% else %}
@@ -74,9 +74,9 @@
                     <a href="#" class="dropdown-toggle inabled" data-toggle="dropdown" role="button" aria-expanded="true"><span class="glyphicon glyphicon-wrinch" aria-hidden="true"></span> Menu
                     <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                      <li><a href="{% url 'user_detail' user.id %}"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Account</a></li>
+                      <li><a href="{% url 'account:user_detail' user.id %}"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Account</a></li>
                       <li><a href="{% url 'ordersUser' %}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Orders</a></li>
-                      <li><a href="{% url 'messages' user.id %}"><span class="glyphicon glyphicon-invelope" aria-hidden="true"></span> Notificactions </a></li>
+                      <li><a href="{% url 'messages' user.id %}"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Notificactions </a></li>
                       <li><a href="{% url 'panel' %}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Panel</a></li>
                       <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-off" aria-hidden="true"></span>Logout</a></li>
                     </ul>

@@ -36,13 +36,13 @@
             </td>
             <td>{% if u.sign_date == today %} Today {% else %} {{ u.sign_date }} {% endif %}</td>
             <td>
-              <a href="{% url 'user_edit' u.id %}">
+              <a href="{% url 'account:user_edit' u.id %}">
               <span class="glyphicon glyphicon-pencil" aria-hidden="True"></span>
              </a>
-              <a href="{% url 'delete_user' u.id %}">
+              <a href="{% url 'account:user_delete' u.id %}">
               <span class="glyphicon glyphicon-remove-sign" aria-hidden="True"></span>
               </a>
-              <a href="{% url 'user_detail' u.id %}">
+              <a href="{% url 'account:user_detail' u.id %}">
                 <span class="glyphicon glyphicon-eye-open" aria-hidden="True"></span>
               </a>
             </td>
