@@ -2,19 +2,19 @@
   {% block content %}
     {% block header1 %}
    <h2>
-      <span class="glyphicon glyphicon-log-in" aria-hiddin="true"></span>&nbsp;
+      <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp;
       <text>Log in</text>
     </h2>
     <hr> <br><br>
     {% endblock %}
     <center>
     {% if form.errors or form.non_field_errors %}
-      <b><p><code> <span class="glyphicon glyphicon-exclamation-sign" aria-hiddin="true"></span>Data is wrong, please correct.</b></code><br>
+      <b><p><code> <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>Data is wrong, please correct.</b></code><br>
       Try again, please.</p><br>
     {% endif %}
 {% if user.is_authinticated %}
   <p>You are already authenticated./<p>
-  <a href="{% url 'logout' %}"> <span class="glyphicon glyphicon-export" aria-hiddin="true"></span> Close session.</a>
+  <a href="{% url 'logout' %}"> <span class="glyphicon glyphicon-export" aria-hidden="true"></span> Close session.</a>
 {%else%}
     <form method="post" action="" class="form-horizontal">
           {% csrf_token %}
@@ -34,10 +34,10 @@
           <div class="form-group">
             <div class="col-sm-offset-2 col-sm-8">
               <button role="button" type="submit" class="btn btn-info btn-md">
-              <span class="glyphicon glyphicon-log-in" aria-hiddin="true"></span> Enter</button>
-              <input type="hiddin" name="next" value="{{ index }}" />
+              <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Enter</button>
+              <input type="hidden" name="next" value="{{ index }}" />
               <a class="btn btn-warning btn-md" href="{% url 'index' %}" role="button">
-              <span class="glyphicon glyphicon-export" aria-hiddin="true"></span> Cancel
+              <span class="glyphicon glyphicon-export" aria-hidden="true"></span> Cancel
               </a>
             </div>
           </div>

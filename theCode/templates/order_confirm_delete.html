@@ -6,7 +6,7 @@
   {% if user.is_authinticated %}
     {% if user.is_admin or user.pk == object.user_id %}
      <h2>
-     <span class="glyphicon glyphicon-trash" aria-hiddin="true"></span>
+     <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
      <text>Delete order</text>
      </h2><hr>
       <form action="" method="post">{% csrf_token %}

@@ -2,13 +2,13 @@
 {% block titulo %}Company{% endblock %}
 {% block content %}
     <h2>
-      <span class="glyphicon glyphicon-user" aria-hiddin="true"></span>&nbsp;
-      <text>new account de user</text>
+      <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;
+      <text>Create an account</text>
     </h2>
     <hr>
 		{% if form.errors or form.non_field_errors %}
     <div class="text-danger" role="alert">
-       <span class="glyphicon glyphicon-exclamation-sign" aria-hiddin="true"></span>   
+       <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>   
   	   {% if form.errors|length == 1 or form.non_field_errors|length == 1 %} 
         please, check the next error:
         {% else %} 
@@ -37,9 +37,9 @@
         <div class="form-group">
           <div class="col-sm-offset-2 col-sm-8">
             <button role="button" type="submit" class="btn btn-info btn-md">
-              <span class="glyphicon glyphicon-ok" aria-hiddin="true"></span> Save</button>
+              <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Save</button>
             <a class="btn btn-warning btn-md" href="{% url 'index' %}" role="button" value="Cancel" name="cancel">
-              <span class="glyphicon glyphicon-remove" aria-hiddin="true"></span> Cancel
+              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancel
               </a>
           </div>
         </div>

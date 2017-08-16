@@ -3,23 +3,23 @@
       <center>
         <div class="panel panel-info">
         <div class="panel-heading">
-          <h3><span class="glyphicon glyphicon-pushpin" aria-hiddin="true"></span> Details of <a href="{{ object.getabsoluteurl }}">{{object.name}}</a></h3>
+          <h3><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Details of <a href="{{ object.getabsoluteurl }}">{{object.name}}</a></h3>
         </div>
         <ul class="list-group">
                 <li class="list-group-item"><b>Name:</b> {{object.name|capfirst }}</li>
                 <li class="list-group-item"><b>Available since:</b> {{ object.sign_date|date }}</li>
                 <li class="list-group-item"><b>Category:</b> {{ object.tipo }}</a></li>
                 <li class="list-group-item"><b>Available:</b> {% if u.in_sale %} 
-                      <span class="glyphicon glyphicon-ok" aria-hiddin="True"></span>
+                      <span class="glyphicon glyphicon-ok" aria-hidden="True"></span>
                     {% else %}
-                      <span class="glyphicon glyphicon-remove" aria-hiddin="True"></span>
+                      <span class="glyphicon glyphicon-remove" aria-hidden="True"></span>
                     {% endif %}</li>
                 <li class="list-group-item"><b>Information:</b>{% if object.informacion %} {{object.informacion|linebreaks}} {%else%} not provided. {%endif%}</li>
                 {% if object.url_sample %}
                   <li class="list-group-item">
                   <b>Sample of sound:</b>
                   <a href="{{object.url_sample}}" target=_blank>Audio
-                    <span class="glyphicon glyphicon-headphones" aria-hiddin="True"></span></a>
+                    <span class="glyphicon glyphicon-headphones" aria-hidden="True"></span></a>
                   </li>
                 {%endif%}
                 <li class="list-group-item"><b>Price:</b>{{object.price}} € </li>

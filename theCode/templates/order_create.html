@@ -3,7 +3,7 @@ function cambiaPrice(seleccionado) {
   if (seleccionado.value=="Sin") {
       document.getElementById('paintingPrice').innerHTML="0";
       document.getElementById('extra').innerHTML="Aluminio sin pintar.";
-      document.getElementById('square').style.visibility="hiddin";
+      document.getElementById('square').style.visibility="hidden";
   } else if (seleccionado.value=="Blanco") {
       document.getElementById('paintingPrice').innerHTML="15";
       document.getElementById('extra').innerHTML="Blanco, referincia: #ffffff";
@@ -36,12 +36,12 @@ function cambiaPrice(seleccionado) {
 {% block titulo %}Company{% endblock %}
 {% block content %}
         <h2>
-          <span class="glyphicon glyphicon-credit-card" aria-hiddin="true"></span>&nbsp;
+          <span class="glyphicon glyphicon-credit-card" aria-hidden="true"></span>&nbsp;
           <text>New order</text>
         </h2><hr>
       {% if form.errors or form.non_field_errors %}
         <div class="text-danger" role="alert">
-        <span class="glyphicon glyphicon-exclamation-sign" aria-hiddin="true"></span>  
+        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>  
         {% if form.errors|length == 1 or form.non_field_errors|length == 1 %} 
             please, check the next error:
             {% else %} 

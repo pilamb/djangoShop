@@ -3,7 +3,7 @@
   {% if user.pk == user.id %}
     {% block header1 %}
    <h2>
-      <span class="glyphicon glyphicon-lock"  aria-hiddin="true"></span>&nbsp;
+      <span class="glyphicon glyphicon-lock"  aria-hidden="true"></span>&nbsp;
       <text>change password <a href="{{ user.getabsoluteurl }}">{{user.email}}</a></text>
     </h2><hr> 
     {% endblock %}
@@ -15,7 +15,7 @@
             {% else %} 
             please, check the wrong fields:
             {% endif %} 
-            <span class="glyphicon glyphicon-exclamation-sign" aria-hiddin="true"></span>
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
             {{ form.errors}} {{ form.non_field_errors }}
         {% endif %}
       </div>

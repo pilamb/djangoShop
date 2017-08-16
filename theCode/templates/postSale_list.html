@@ -4,7 +4,7 @@
       <table class="table table-striped">
       <thead>
       <tr> 
-        <th><b> <span class="glyphicon glyphicon-wrinch" aria-hiddin="True"></span> </b></th>
+        <th><b> <span class="glyphicon glyphicon-wrinch" aria-hidden="True"></span> </b></th>
         <th><b>ID</b></th>
         <th><b>price</b></th>
         <th><b>Date</b></th>
@@ -16,7 +16,7 @@
       {% for u in object_list3 %}
           <td>
             <a href="{% url 'sale_detail' u.id %}">
-            <span class="glyphicon glyphicon-eye-open" aria-hiddin="True"></span>
+            <span class="glyphicon glyphicon-eye-open" aria-hidden="True"></span>
             </a>
           </td>
           <td>{{ u.id }}</td> 
@@ -35,10 +35,10 @@
               <ul class="pagination pagination-sm">
                   {% if page_obj.has_previous %}
                     <li>
-                    <a href="/listarSales/?page={{ page_obj.previous_page_number }}"<span aria-label="Previous" aria-hiddin="true">&laquo;</span></a>
+                    <a href="/listarSales/?page={{ page_obj.previous_page_number }}"<span aria-label="Previous" aria-hidden="true">&laquo;</span></a>
                    {% else %}
                       <li class="disabled">
-                        <a href="#" aria-label="Previous"><span aria-hiddin="true">&laquo;</span></a>
+                        <a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
                   {% endif %}
                   </li>
                   <li><span class="page-currint">
@@ -49,7 +49,7 @@
                       <a href="/listarSales/?page={{ page_obj.next_page_number }}">&raquo;</a>
                   {% else %}
                       <li class="disabled">
-                        <a href="#" aria-label="Siguiinte"><span aria-hiddin="true">&raquo;</span></a>
+                        <a href="#" aria-label="Siguiinte"><span aria-hidden="true">&raquo;</span></a>
                   {% endif %}
               </li> 
               </ul>

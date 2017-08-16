@@ -5,7 +5,7 @@
     <div class="panel panel-info">
       <div class="panel-heading">
          <h2>
-              <span class="glyphicon glyphicon-plane" aria-hiddin="true"></span>&nbsp;
+              <span class="glyphicon glyphicon-plane" aria-hidden="true"></span>&nbsp;
               <text>Detail of shipment<a href="{{ shipment.getabsoluteurl }}">{{shipment.id}}</a></text>
          </h2>
       </div>
@@ -21,10 +21,10 @@
             </li>
             <li class="list-group-item"><b>delivered: </b>
                {% if shipment.recibido %}
-                <span class="glyphicon glyphicon-ok" aria-hiddin="True"></span>
+                <span class="glyphicon glyphicon-ok" aria-hidden="True"></span>
                 {{shipment.fecha_intrega}}
               {% else %}               
-                <span class="glyphicon glyphicon-remove" aria-hiddin="True"></span>
+                <span class="glyphicon glyphicon-remove" aria-hidden="True"></span>
               {% endif %}
             </li>
             <li class="list-group-item"><b>Company:</b>

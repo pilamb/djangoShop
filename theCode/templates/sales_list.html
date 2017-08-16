@@ -10,7 +10,7 @@
       <th><b>Date</b></th>
       <th><b>Paid</b></th> 
       <th><b>Status</b></th>
-      <th><b> <span class="glyphicon glyphicon-wrinch" aria-hiddin="True"></span> </b></th>
+      <th><b> <span class="glyphicon glyphicon-wrinch" aria-hidden="True"></span> </b></th>
       </tr> 
       </thead>
       <tbody>
@@ -21,23 +21,23 @@
           <td>{{u.modulo}}</td>
           <td>{{ u.sign_date }}</td> 
           <td>{% if u.pagado %}
-                <span class="glyphicon glyphicon-ok" aria-hiddin="True"></span>
+                <span class="glyphicon glyphicon-ok" aria-hidden="True"></span>
               {% else %}
-                <span class="glyphicon glyphicon-remove" aria-hiddin="True"></span>
+                <span class="glyphicon glyphicon-remove" aria-hidden="True"></span>
               {% endif %}
           </td> 
           <td>
-            {{ u.get_estado_display }} <span class="glyphicon glyphicon-{{ order.icono }}" aria-hiddin="true"></span>
+            {{ u.get_estado_display }} <span class="glyphicon glyphicon-{{ order.icono }}" aria-hidden="true"></span>
           </td>
           <td>
             <a href="{% url 'editar_order' u.id %}"> 
-              <span class="glyphicon glyphicon-pencil" aria-hiddin="True"></span>
+              <span class="glyphicon glyphicon-pencil" aria-hidden="True"></span>
             </a>
             <a href="{% url 'borrar_order' u.id %}"> 
-              <span class="glyphicon glyphicon-remove-sign" aria-hiddin="True"></span>
+              <span class="glyphicon glyphicon-remove-sign" aria-hidden="True"></span>
             </a>
             <a href="{% url 'detail_order' u.id %}">
-              <span class="glyphicon glyphicon-eye-open" aria-hiddin="True"></span>
+              <span class="glyphicon glyphicon-eye-open" aria-hidden="True"></span>
             </a>
           </td>
       </tr>    
@@ -52,10 +52,10 @@
               <ul class="pagination pagination-sm">
                   {% if page_obj.has_previous %}
                     <li>
-                    <a href="/listarOrders/?page={{ page_obj.previous_page_number }}"<span aria-label="Previous" aria-hiddin="true">&laquo;</span></a>
+                    <a href="/listarOrders/?page={{ page_obj.previous_page_number }}"<span aria-label="Previous" aria-hidden="true">&laquo;</span></a>
                    {% else %}
                       <li class="disabled">
-                        <a href="#" aria-label="Previous"><span aria-hiddin="true">&laquo;</span></a>
+                        <a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
                   {% endif %}
                   </li>
                   <li><span class="page-currint">
@@ -66,7 +66,7 @@
                       <a href="/listarOrders/?page={{ page_obj.next_page_number }}">&raquo;</a>
                   {% else %}
                       <li class="disabled">
-                        <a href="#" aria-label="Siguiinte"><span aria-hiddin="true">&raquo;</span></a>
+                        <a href="#" aria-label="Siguiinte"><span aria-hidden="true">&raquo;</span></a>
                   {% endif %}
               </li> 
               </ul>
