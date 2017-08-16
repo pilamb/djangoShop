@@ -33,6 +33,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 INSTALLED_APPS = (
+    'djangocms_admin_style',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -86,7 +87,7 @@ AUTHENTICATION_BACKENDS ={
 LOGIN_REDIRECT_URL = 'index'
 LOGIN_URL = '/login/'
 LOGOUT_URL = '/logout/'
-LANGUAGE_CODE = 'es-spa'
+LANGUAGE_CODE = 'en-US'  # 'es-spa'
 TIME_ZONE = 'Europe/Madrid'
 USE_I18N = True
 USE_L10N = True
