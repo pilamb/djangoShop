@@ -14,5 +14,5 @@ Third party:
 
 - Django-simple-captcha
 - Twitter bootstrap
-- Django-fsm
-- Django-graphs: <a href="https://github.com/agiliq/django-graphos">Django-graphos</a>
+- Djangocsm-admin-style <a href="https://github.com/divio/djangocms-admin-style/blob/master/README.rst">Djangocms-admin-style</a>
+- Django-graphos: <a href="https://github.com/agiliq/django-graphos">Django-graphos</a>
