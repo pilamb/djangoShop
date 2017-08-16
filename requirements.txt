@@ -5,6 +5,7 @@ backports.functools-lru-cache==1.3
 backports.shutil-get-terminal-size==1.0.0
 configparser==3.5.0
 decorator==4.1.2
+dj-database-url==0.4.2
 Django==1.8
 django-appconf==1.0.2
 django-bootstrap3==8.1.0
@@ -15,6 +16,7 @@ django-fsm-admin==1.2.4
 django-fsm-log==1.3.0
 django-graphos==0.3.23
 django-simple-captcha==0.5.3
+djangocms-admin-style==1.2.7
 enum34==1.1.6
 factory-boy==2.9.2
 Faker==0.7.18
@@ -41,11 +43,13 @@ pylint-plugin-utils==0.2.4
 pyparsing==2.2.0
 PyPDF2==1.26.0
 python-dateutil==2.6.1
+pytz==2017.2
 reportlab==3.4.0
 scandir==1.5
 simplegeneric==0.8.1
 six==1.10.0
 traitlets==4.3.2
+tzlocal==1.4
 wcwidth==0.1.7
 webencodings==0.5.1
 wrapt==1.10.8
