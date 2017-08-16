@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from django.shortcuts import render
-from django.core.exceptions import ObjectDoesNotExist
 
 from theCode.core.searcher import search_filter
 from warehouse.models import Product
@@ -12,7 +11,7 @@ def page(request):
     """Search for string on Products y Events
     """
     search_string = ''
-    match = ()
+    # match = ()
     if ('q' in request.GET) and request.GET['q'].strip():
         search_string = request.GET['q']
         products_filter = search_filter(search_string, [

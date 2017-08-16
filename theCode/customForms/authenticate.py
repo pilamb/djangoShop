@@ -37,8 +37,10 @@ def login(request):
         form = FormAuthenticate(data=request.POST)
         if form.is_valid():
             user = authenticate(
-                email=request.POST['email'].
-                    replace(" ", ""), password=request.POST['password'])
+                email=request.POST['email'].replace(" ", ""),
+                password=request.POST['password']
+            )
+            print user
             if user is not None:
                 if user.is_active:
                     django_login(request, user)

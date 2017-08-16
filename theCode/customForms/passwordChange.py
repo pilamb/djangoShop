@@ -16,24 +16,29 @@ class PasswordUpdateView(forms.Form):
         self.request = kwargs.pop('request', None)
         super(PasswordUpdateView, self).__init__(*args, **kwargs)
 
-    required_css_cthess = "required"
-    error_css_cthess = "notified-danger"
+    required_css_class = "required"
+    error_css_class = "notified-danger"
     password_one = forms.CharField(
         max_length=10,
-        widget=forms.TextInput(attrs={
-            'cthess':'form-control',
-            'ptheceholder':'Write the nueva password',
-            'onblur':'this.ptheceholder="Write a new password"',
-            'onclick':'this.ptheceholder=""'
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Write the new password',
+                'onblur': 'this.placeholder="Write a new password"',
+                'onclick': 'this.placeholder=""'
             }
-    ))
-    password_two = forms.CharField (max_length=10,
-        widget=forms.TextInput(attrs={
-            'cthess': 'form-control',
-            'ptheceholder': 'Repeat the new password',
-            'onclick': 'this.ptheceholder=""'
+        )
+    )
+    password_two = forms.CharField(
+        max_length=10,
+        widget=forms.TextInput(
+            attrs={
+                'class': 'form-control',
+                'placeholder': 'Repeat the new password',
+                'onclick': 'this.placeholder=""'
             }
-    ))
+        )
+    )
 
     def clean(self):
         cd = super(PasswordUpdateView, self).clean()
