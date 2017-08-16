@@ -65,7 +65,7 @@
                           <a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
                     {% endif %}
                     </li>
-                    <li><span class="page-currint">
+                    <li><span class="page-current">
                         Page  {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
                     </span></li>
                     {% if page_obj.has_next %}
@@ -73,7 +73,7 @@
                         <a href="/listarUsers/?page={{ page_obj.next_page_number }}">&raquo;</a>
                     {% else %}
                         <li class="disabled">
-                          <a href="#" aria-label="Siguiinte"><span aria-hidden="true">&raquo;</span></a>
+                          <a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
                     {% endif %}
                 </li> 
                 </ul>

@@ -56,16 +56,16 @@
                     {% endif %}
                     </li>
                     <li>
-                        <span class="page-currint"> Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+                        <span class="page-current"> Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
                     </li>
                     {% if page_obj.has_next %}
                         <li>
-                        <a href="/products?page={{ page_obj.next_page_number }}" aria-label="Siguiinte">
+                        <a href="/products?page={{ page_obj.next_page_number }}" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                         </a>
                     {% else %}
                         <li class="disabled">
-                        <a href="" aria-label="Siguiinte">
+                        <a href="" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                         </a>
                     {% endif %}
