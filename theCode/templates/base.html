@@ -50,12 +50,13 @@
           </div>
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav" id="mymenu">
-              <li><a  href="{% url 'index' %}">INICIO</a></li>
+              <li><a  href="{% url 'index' %}">HOME</a></li>
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">MODULOS 
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+                   role="button" aria-expanded="true">LIST
                 <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                  <li><a href="{% url 'products' %}">CATÁLOGO</a></li>
+                  <li><a href="{% url 'products' %}">PRODUCTS</a></li>
                 </ul>
               </li>
               <li><a href="{% url 'events:events_list' %}">EVENTS</a></li>
@@ -65,13 +66,13 @@
                  <li> <a href="{% url 'login' %}">LOGIN</a> </li>
                {%endif%}
                {%if user.is_authenticated%}
-                <li><a class="inabled"> <font color="white"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Welcome, {{user}}.</font></a>
+                <li><a class="enabled"> <font color="white"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Welcome, {{user}}.</font></a>
                 {% if user.is_super %}
                   <li><a href="{% url 'panel' %}"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Panel</a></li>
                 {% else %}
                
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle inabled" data-toggle="dropdown" role="button" aria-expanded="true"><span class="glyphicon glyphicon-wrinch" aria-hidden="true"></span> Menu
+                    <a href="#" class="dropdown-toggle enabled" data-toggle="dropdown" role="button" aria-expanded="true"><span class="glyphicon glyphicon-wrinch" aria-hidden="true"></span> Menu
                     <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                       <li><a href="{% url 'account:user_detail' user.id %}"><span class="glyphicon glyphicon-pushpin" aria-hidden="true"></span> Account</a></li>
@@ -164,12 +165,12 @@
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
               <div class="text-center center-block">
-                <small class="blanco" align="right"> Autor: PCF.</small>              
+                <small class="white_class" align="right"> Autor: PCF.</small>              
               </div>
             </div>
             <br>
             <center>
-              <small class="blanco">Desarrollo:</small>
+              <small class="white_class">Desarrollo:</small>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
               <a href="http://www.python.org" target=_blank> 
                 <img label="" id="minicono" src="{% static "" %}" class="border_line" alt="inconoPython"/>
@@ -187,7 +188,8 @@
                 <img label="" id="minicono" src="{% static "" %}" class="border_line" alt="iconoHTML5"/>
               </a>
             </div> <br>
-            <small class="blanco"> El content es propiedad de Company © 2014, 2015
+            <small class="white_class"> Content is propery of Company ©
+	            2014, 2015
             </small>
             </center>
         </div>
