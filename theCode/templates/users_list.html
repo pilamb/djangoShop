@@ -46,11 +46,11 @@
             </td>
             <td>{% if u.sign_date == today %} Hoy {% else %} {{ u.sign_date }} {% endif %}</td>
             <td>
-              <a href="{% url 'editar_user' u.id %}">
+              <a href="{% url 'account:user_edit' u.id %}">
               <span class="glyphicon glyphicon-pencil" aria-hidden="True">
               </a>
               </span>
-              <a href="{% url 'borrar_user' u.id %}">
+              <a href="{% url 'account:user_delete' u.id %}">
               <span class="glyphicon glyphicon-remove-sign" aria-hidden="True"></span>
               </a>
               <a href="{% url 'account:user_detail' u.id %}">
@@ -72,7 +72,9 @@
 
                     {% if page_obj.has_previous %}
                       <li>
-                      <a href="/listarUsers/?page={{ page_obj.previous_page_number }}"<span aria-label="Previous" aria-hidden="true">&laquo;</span></a>
+                      <a href="/listarUsers/?page={{ page_obj
+                      .previous_page_number }}">
+	                      <span aria-label="Previous" aria-hidden="true">&laquo;</span></a>
                      {% else %}
                         <li class="disabled">
                           <a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>

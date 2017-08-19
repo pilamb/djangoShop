@@ -36,7 +36,7 @@ class UserModelListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         """
-        Return users ordered by recent sign date  and only the latter 6 ones
+        Return users ordered by recent sign date  and only the latter 5 ones
         """
         return UserModel.objects.exclude(
             is_admin=True).filter(
@@ -45,37 +45,35 @@ class UserModelListView(LoginRequiredMixin, ListView):
 
 class UserModelDetailView(LoginRequiredMixin, DetailView):
     template_name = "user_detail.html"
-    order = UserModel
+    model = UserModel
 
     def get_context_data(self, **kwargs):
         context = super(UserModelDetailView, self).get_context_data(**kwargs)
         orders = Order.objects.filter(user=self.request.user)
         context['orders'] = orders
         return context
-        # def get_queryset(self):
-        #    return UserModel.objects.filter(email=self.request.user)
 
 
 class UserModelUpdateView(LoginRequiredMixin, UpdateView):
-
-    def clean(self):
-        super(UserModel, self).clean()
-    order = UserModel
+    # order = UserModel
     fields = ['name', 'surname', 'subscribed', 'address', 'phone']
     # exclude       = ['password','email','messages']
     template_name = "user_edit.html"
     # form_class = Form_Alta_UserModel
     success_url = reverse_lazy('panel')
+    model = UserModel
 
     def post(self, request, *args, **kwargs):
         if "cancel" in request.POST:
-            self.object = self.get_object()
             url = self.get_success_url()
             return HttpResponseRedirect(url)
         else:
             messages.success(request, 'Changes <b>correctly </b> saved.')
             return super(UserModelUpdateView, self).\
                 post(request, *args, **kwargs)
+
+    def clean(self):
+        super(UserModelUpdateView, self).clean()
 
 
 class UserModelDeleteView(LoginRequiredMixin, DeleteView):
@@ -101,6 +99,7 @@ class UserModelDeleteView(LoginRequiredMixin, DeleteView):
                 logout(request)
                 messages.success(request, 'Account deleted <b>correctly</b>.')
             return HttpResponseRedirect(reverse_lazy('index'))
-    #def get_queryset(self):
-        #qs = super(UserModelDeleteView, self).get_queryset()
-        #return UserModel.objects.filter(email = self.request.user.email)
+
+    def get_queryset(self):
+        super(UserModelDeleteView, self).get_queryset()
+        return UserModel.objects.filter(email=self.request.user.email)

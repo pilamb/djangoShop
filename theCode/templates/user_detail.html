@@ -45,10 +45,10 @@
                 </li>
           </ul>
           <div class="panel-footer">
-            <a class="btn btn-info btn-md" href="{% url 'editar_user' user.id %}"><span class="glyphicon glyphicon-pencil" aria-hidden="True"></span> Edit 
+            <a class="btn btn-info btn-md" href="{% url 'account:user_edit' user.id %}"><span class="glyphicon glyphicon-pencil" aria-hidden="True"></span> Edit 
             
             </a> 
-            <a class="btn btn-danger btn-md" href="{% url 'borrar_user' user.id %}" role="button"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete 
+            <a class="btn btn-danger btn-md" href="{% url 'account:user_delete' user.id %}" role="button"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span> Delete 
             </a>
           </div>
           <div class="panel-footer">
