@@ -11,7 +11,7 @@ from django.http import HttpResponse,HttpResponseRedirect
 
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from theCode.views.create_user2 import NewUserModel
+from theCode.views.create_user import NewUserModel
 from theCode.customForms.authenticate import logout
 from shop.models import Order
 from models import UserModel

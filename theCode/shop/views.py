@@ -130,7 +130,7 @@ class SaleListView(LoginRequiredMixin, ListView):
     View for ADMIN for all sales
     """
     order = Sale
-    template_name = "sales_list.html"
+    template_name = "orders_list.html"
     paginate_by = 5
     # def get_queryset(self):
     #     return Sale.objects.all()
@@ -144,7 +144,7 @@ class SalesUserModelListView(LoginRequiredMixin, ListView):
     """
     Sales list for users
     """
-    template_name = "sales_list2.html"
+    template_name = "orders_list.html"
 
     def get_queryset(self):
         return Sale.objects.filter(user=self.request.user)
