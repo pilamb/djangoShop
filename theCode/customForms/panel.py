@@ -6,7 +6,7 @@ from clients.models import UserModel
 
 from shop.models import Order, Sale, Shipment
 from warehouse.models import Product
-from messages_app.models import MessageModel, Alert
+from notifications.models import Notification
 
 
 def page(request):
@@ -31,12 +31,8 @@ def page(request):
         except Shipment.DoesNotExist:
             object_list4 = ()
         try:
-            n_admins = Alert.objects.all().count()
-        except Alert.DoesNotExist:
-            n_admins = 0
-        try:
-            news = MessageModel.objects.filter(date=date.today()).count()
-        except MessageModel.DoesNotExist:
+            news = Notification.objects.filter(date=date.today()).count()
+        except Notification.DoesNotExist:
             news = 0
         try:
             prods = Product.objects.all().count()
@@ -48,10 +44,10 @@ def page(request):
         object_list3 = ()
         object_list4 = ()
         prods = ()
-        n_admins = 0
+        n_admins = 0  # TODO: this
         news = 0
         u = request.user
-        n = MessageModel.objects.filter(user=u, notified=False).count()
+        n = Notification.objects.filter(user=u, notified=False).count()
         u.messages = n
         u.save()
     return render(request, 'user_panel.html', {

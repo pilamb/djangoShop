@@ -23,10 +23,13 @@ urlpatterns += [
             name='logout'),
         url(r'account/', include('clients.urls', namespace='account')),
         url(r'^panelUser/', login_required(panel.page), name='panel'),
-        url(r'^createUser$', 'theCode.views.create_user.page',
+        url(r'^f', 'theCode.views.create_user.page',
             name='create_user'),
         url(r'^changeCredentials/$', login_required(passwordChange.page),
             name='change_password'),
+        # user notifications
+        url(r'^notifications', include('notifications.urls',
+            namespace='notifications')),
         # Products/Shop
         url(r'shop/', include('shop.urls', namespace='shop')),
         url(r'^products/$', ProductsListView.as_view(), name='products'),

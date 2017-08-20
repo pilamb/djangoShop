@@ -161,7 +161,7 @@ def page(request):
                     else:
                         return HttpResponseRedirect(reverse_lazy('panel'))
             else:
-                return render(request, 'user_create.html', {'form': form})
+                return render(request, 'clients/user_create.html', {'form': form})
     else:
         form = NewUserModel()
-        return render(request, 'user_create.html', {'form': form})
+        return render(request, 'clients/user_create.html', {'form': form})

@@ -1,4 +1,13 @@
-{% if user.is_admin %}
+{% extends "base.html" %}
+{% block content %}
+  {% if user.is_admin %}
+    {% block header1 %}
+      <h2>
+              <span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;
+              <text>Administration -  List of users</text>
+      </h2>
+      <hr>
+    {% endblock %}
         {% if object_list|length > 0 %} Total: {{ object_list.count }} 
         {% endif %}
           <div class="table-responsive">
@@ -9,20 +18,21 @@
             <th><b>Name</b></th>
             <th><b>Surname</b></th>
             <th><b>Email</b></th>
-            <th><b>Subscribed</b></th>
+            <th><b>Subscrito</b></th>
             <th><b>Actived</b></th>
-            <th><b>Alta</b></th>
+            <th><b>Joined</b></th>
             <th><b><span class="glyphicon glyphicon-wrinch" aria-hidden="true"></span></b></th>
             </tr> 
           </thead>
           <tbody>
+
           <tr>
         {% for u in object_list %}
             <td>{{u.id }}</td> 
             <td>{{ u.name }}</td> 
             <td>{{ u.surname }}</td> 
             <td>{{ u.email }}</td> 
-            <td>{% if u.suscrito %} 
+            <td>{% if u.subscrito %} 
                   <span class="glyphicon glyphicon-ok" aria-hidden="True"></span>
                 {% else %}
                   <span class="glyphicon glyphicon-remove" aria-hidden="True"></span>
@@ -34,11 +44,12 @@
                   <span class="glyphicon glyphicon-remove" aria-hidden="True"></span> 
                 {% endif %}
             </td>
-            <td>{% if u.sign_date == today %} Today {% else %} {{ u.sign_date }} {% endif %}</td>
+            <td>{% if u.sign_date == today %} Hoy {% else %} {{ u.sign_date }} {% endif %}</td>
             <td>
               <a href="{% url 'account:user_edit' u.id %}">
-              <span class="glyphicon glyphicon-pencil" aria-hidden="True"></span>
-             </a>
+              <span class="glyphicon glyphicon-pencil" aria-hidden="True">
+              </a>
+              </span>
               <a href="{% url 'account:user_delete' u.id %}">
               <span class="glyphicon glyphicon-remove-sign" aria-hidden="True"></span>
               </a>
@@ -48,18 +59,22 @@
             </td>
           </tr>    
           </tbody>
+
         {% empty %}
-            <b><mark>Actually no users.</mark></b> <a href="{% url 'user_create' %}">Create one.</a> <br>
+            <b><mark>Actually no users.</mark></b> <a href="{% url 'user_create' %}">Cree uno.</a> <br>
         {% endfor %}
         </table> 
         {% if is_paginated %}
+       
               <center>
                 <nav>
                 <ul class="pagination pagination-sm">
 
                     {% if page_obj.has_previous %}
                       <li>
-                      <a href="/listarUsers/?page={{ page_obj.previous_page_number }}"<span aria-label="Previous" aria-hidden="true">&laquo;</span></a>
+                      <a href="/listarUsers/?page={{ page_obj
+                      .previous_page_number }}">
+	                      <span aria-label="Previous" aria-hidden="true">&laquo;</span></a>
                      {% else %}
                         <li class="disabled">
                           <a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
@@ -84,4 +99,8 @@
         <br>
   {% else %}
       <center> <code>Space forbidden for your user.</code> </center>
-{% endif %}
+  {% endif %}
+{% endblock %}
+{% block footer %} 
+  <li class="active">Listado de users</li>
+{% endblock %}
