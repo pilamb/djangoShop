@@ -21,7 +21,7 @@ class LoginRequiredMixin(object):
 
 class NotificationDetailView(LoginRequiredMixin, DetailView):
     order = Notification
-    template_name = "message_detail.html"
+    template_name = "notifications/notification_detail.html"
 
     def get_object(self):
         object = super(NotificationDetailView, self).get_object()
@@ -32,7 +32,7 @@ class NotificationDetailView(LoginRequiredMixin, DetailView):
 
 class NotificationListView(LoginRequiredMixin, ListView):
     order = Notification
-    template_name = "messages.html"
+    template_name = "notifications/notifications.html"
 
     def get_context_data(self, **kwargs):
         notified = super(NotificationListView, self).get_context_data(**kwargs)
