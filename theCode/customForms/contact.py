@@ -10,7 +10,7 @@ from django.conf import settings
 from django.contrib import messages
 from captcha.fields import CaptchaField
 
-from messages_app.models import Alert, MessageModel
+from messages_app.models import Alert, ContactMessageModel
 
 
 class MailerForm(forms.Form):
@@ -59,7 +59,7 @@ class MailerForm(forms.Form):
     
     category = forms.ChoiceField(
         label="Category",
-        choices=MessageModel.CATEGORY,
+        choices=ContactMessageModel.CATEGORY,
         initial='6',
         widget=forms.Select(attrs={
             'class': 'form_control'
@@ -127,7 +127,7 @@ def new_message(request):
     email = request.get('Sender', '')
     message = request.get(u'Message', '')
     print message
-    record_message = MessageModel(
+    record_message = ContactMessageModel(
         message=message,
         name=name,
         category=category,

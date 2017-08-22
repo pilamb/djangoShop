@@ -8,21 +8,23 @@ from django_fsm import FSMField, transition
 
 from clients.models import UserModel
 from warehouse.models import Product
-from messages_app.models import MessageModel
+from messages_app.models import ContactMessageModel
 from theCode.core.validators import positive_price
 
 
 class Sale(models.Model):
     """
-    An instance of Sale is creted when the order goes from 'waiting' to 'accepted'
-    , waiting to be paid. A unique generated key is needed for the client to be able
-    to make the payment with the subject-concept as the key.
+    An instance of Sale is created when the order goes from 'waiting' to
+    'accepted', waiting to be paid. A unique generated key is needed for
+    the client to be able to make the payment with subject-concept as the key.
     (payment_code 1-1 code)
     """
-    price = models.DecimalField(max_digits=5, decimal_places=2,
+    price = models.DecimalField(max_digits=5,
+                                decimal_places=2,
                                 validators=[positive_price])
     sign_date = models.DateTimeField(auto_now_add=True)
-    code = models.CharField(blank=True, max_length=6)
+    code = models.CharField(blank=True,
+                            max_length=6)
     #  must be the same as the code generated at the Order class
 
     def __unicode__(self):
@@ -91,7 +93,7 @@ class Order(models.Model):
     paid = models.BooleanField(default=False)
     payment_code = models.CharField(blank=True, max_length=6)
     module = models.OneToOneField(Product)
-    painting= models.BooleanField(default=False)
+    painting = models.BooleanField(default=False)
     information = models.CharField(blank=True, max_length=1000)
     color = models.CharField(max_length=10,
                              choices=COLORS_CHOICES,
@@ -114,11 +116,11 @@ class Order(models.Model):
     class Meta:
         ordering = "-sign_date",
 
-    def notify_user(self,notified):
+    def notify_user(self):
         """
         Creates a message to tell the user a new event
         """
-        new_notification = MessageModel(user=self.user, notified=False)
+        new_notification = ContactMessageModel(user=self.user, notified=False)
         new_notification.save()
 
     def generate_payment_code(self):
@@ -312,13 +314,19 @@ class Order(models.Model):
 
 
 class Shipment(models.Model):
-    tracking_number = models.CharField(max_length=15, blank=False, null=False)
+    tracking_number = models.CharField(max_length=15,
+                                       blank=False,
+                                       null=False)
     sign_date = models.DateField(auto_now=True)
     date_reception = models.DateField(auto_now=False,
-                                      auto_now_add=False, null=True)
-    shipment_price = models.DecimalField(max_digits=5, decimal_places=2,
+                                      auto_now_add=False,
+                                      null=True)
+    shipment_price = models.DecimalField(max_digits=5,
+                                         decimal_places=2,
                                          validators=[positive_price])
-    additional_info = models.CharField(max_length=1000, blank=True, null=True)
+    additional_info = models.CharField(max_length=1000,
+                                       blank=True,
+                                       null=True)
     comp = models.CharField(max_length=20,
                             blank=True,
                             null=True,

@@ -7,7 +7,7 @@ from theCode.core.validators import *
 from clients. models import UserModel
 
 
-class MessageModel(models.Model):
+class ContactMessageModel(models.Model):
     """
     When somebody writes at contact.py creates an instance of this type
     with attended to False and alerts are sent to admins

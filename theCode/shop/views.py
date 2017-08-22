@@ -16,7 +16,7 @@ from datetime import date
 
 from theCode.views.create_order import NewProductOrderForm
 from warehouse.models import Product
-from messages_app.models import MessageModel
+from messages_app.models import ContactMessageModel
 from clients.models import UserModel
 from models import Order, Sale, Shipment
 
@@ -58,8 +58,8 @@ class OrderDetailView(LoginRequiredMixin, DetailView):
             context = super(OrderDetailView, self).get_context_data(**kwargs)
             if not self.request.user.is_super:
                 try:
-                    N = MessageModel.objects.filter(user=self.request.user)
-                except MessageModel.DoesNotExist:
+                    N = ContactMessageModel.objects.filter(user=self.request.user)
+                except ContactMessageModel.DoesNotExist:
                     N = ()
                 try:
                     H = StateLog.objects.filter(object_id=self.object.id)
@@ -84,7 +84,7 @@ class OrderDetailView(LoginRequiredMixin, DetailView):
 class OrderUpdateView(LoginRequiredMixin, UpdateView):
     order = Order
     fields = ['paid', 'module', ]
-    template_name = "order_edit.html"
+    template_name = "shop/order_edit.html"
     success_url = reverse_lazy('panel')
 
     def clean(self):
@@ -104,7 +104,7 @@ class OrderDeleteView(LoginRequiredMixin, DeleteView):
     State to cancel and get on sale available again
     """
     order = Order
-    template_name = "order_confirm_delete.html"
+    template_name = "shop/order_confirm_delete.html"
     success_url = reverse_lazy('panel')
 
     def post(self, request, *args, **kwargs):
@@ -130,7 +130,7 @@ class SaleListView(LoginRequiredMixin, ListView):
     View for ADMIN for all sales
     """
     order = Sale
-    template_name = "orders_list.html"
+    template_name = "shop/orders_list.html"
     paginate_by = 5
     # def get_queryset(self):
     #     return Sale.objects.all()
@@ -144,7 +144,7 @@ class SalesUserModelListView(LoginRequiredMixin, ListView):
     """
     Sales list for users
     """
-    template_name = "orders_list.html"
+    template_name = "shop/orders_list.html"
 
     def get_queryset(self):
         return Sale.objects.filter(user=self.request.user)
@@ -179,7 +179,7 @@ class SaleDetailView(LoginRequiredMixin, DetailView):
 
 class ShipmentDetailView(LoginRequiredMixin, DetailView):
     order = Shipment
-    template_name = "shipment_detail.html"
+    template_name = "shop/shipment_detail.html"
 
     def get_context_data(self, **kwargs):
             context = super(ShipmentDetailView, self).\
@@ -198,7 +198,7 @@ class InvoicePDFModel(LoginRequiredMixin, PDFTemplateView):
     """
     Generator of invoices to PDF format
     """
-    template_name = "PDFinvoice.html"
+    template_name = "shop/PDFinvoice.html"
 
     def get_context_data(self, **kwargs):
         context = super(InvoicePDFModel, self).get_context_data(**kwargs)
