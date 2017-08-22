@@ -24,7 +24,7 @@
          
         </div>
         <div role="tabpanel" class="tab-pane fade" id="orders">
-           {% include "orders_list.html" %}
+           {% include "shop/orders_list.html" %}
            
         </div>
         <div role="tabpanel" class="tab-pane fade" id="events_list">
@@ -34,7 +34,7 @@
           {% include "shipments_list.html" %}
         </div>
         <div role="tabpanel" class="tab-pane fade" id="sales">
-          {% include "orders_list.html" %}
+          {% include "shop/orders_list.html" %}
           <a href="{% url 'chart_sales' %}">Sales charts</a>
         </div>
       </div>
