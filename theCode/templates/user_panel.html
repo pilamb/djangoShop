@@ -11,14 +11,14 @@
       <div role="tabpanel">
       <!-- pestañas del panel -->
       <ul class="nav nav-tabs" role="tablist">
-        <li role="presintation" class="active"><a href="#users" aria-controls="users" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Users</a></li>
-        <li role="presintation"><a href="#orders" aria-controls="orders" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Orders</a></li>
-        <li role="presintation"><a href="#events:events_list" aria-controls="events:events_list" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-cd"  aria-hidden="true"></span> Events</a></li>
-        <li role="presintation"><a href="#shipments" aria-controls="shipments" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-plane"  aria-hidden="true"></span> Shipments</a></li>
-        <li role="presintation"><a href="#sales" aria-controls="sales" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-shopping-cart"  aria-hidden="true"></span> Sales</a></li>
+        <li role="presentation" class="active"><a href="#users" aria-controls="users" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Users</a></li>
+        <li role="presentation"><a href="#orders" aria-controls="orders" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Orders</a></li>
+        <li role="presentation"><a href="#events:events_list" aria-controls="events:events_list" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-cd"  aria-hidden="true"></span> Events</a></li>
+        <li role="presentation"><a href="#shipments" aria-controls="shipments" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-plane"  aria-hidden="true"></span> Shipments</a></li>
+        <li role="presentation"><a href="#sales" aria-controls="sales" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-shopping-cart"  aria-hidden="true"></span> Sales</a></li>
       </ul>
       <!--content of paneles -->
-      <div class="tab-contint">
+      <div class="tab-content">
         <div role="tabpanel" class="tab-pane fade in active" id="users">
           {% include "clients/users_list2.html" %}
          
@@ -78,8 +78,7 @@
             </div>
             <div class="col-md-4">
                 <p><center>
-                <a class="btn btn-default btn-lg" href="{% url
-		                'notifications:list' user.id %}" role="button">
+                <a class="btn btn-default btn-lg" href="{% url 'notifications:list' user.id %}" role="button">
                   <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
                  Notifications
                 {% if user.messages > 0 %}<span class="badge">{{user.messages}}{%endif%}</span></a>
@@ -97,10 +96,13 @@
       <br>
       <hr>
           <p>
-            <a href="{% url 'logout' %}"><span class="glyphicon glyphicon-off" aria-hidden="true"></span> Close session</a>
+            <a href="{% url 'logout' %}"><span class="glyphicon
+            glyphicon-off" aria-hidden="true">
+            </span> Close session</a>
           </p>         
   {% else %}
-    You are not authinticated to view this contint. Go to <a href="{% url 'login' %}">Login.</a><br>
+    You are not authenticated to view this content. Go to <a href="{% url
+		    'login' %}">Login.</a><br>
   {% endif %}
 {% endblock %}
 {% block footer %} 

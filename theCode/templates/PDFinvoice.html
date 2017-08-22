@@ -6,14 +6,14 @@
     @page {
         size: a4 portrait;
         @frame header_frame {           /*cabecera*/
-            -pdf-frame-contint: header_contint;
+            -pdf-frame-content: header_content;
             left: 50pt; width: 512pt; top: 20pt; height: 90pt;
         }
-        @frame contint_frame {          /* content */
+        @frame content_frame {          /* content */
             left: 50pt; width: 512pt; top: 90pt; height: 632pt;
         }
         @frame footer_frame {           /*pie*/
-            -pdf-frame-contint: footer_contint;
+            -pdf-frame-content: footer_content;
             left: 50pt; width: 512pt; top: 772pt; height: 20pt;
         }
     }
@@ -30,16 +30,16 @@
 {% endblock %}
 <body>
     <!-- Contint for Static Frame 'header_frame' -->
-    <div id="header_contint">
+    <div id="header_content">
     	<img src="{% static "avatar_pic.jpg" %}"/> {{today}} 
     </div>
     <!-- Contint for Static Frame 'footer_frame' -->
-    <div id="footer_contint">
+    <div id="footer_content">
     	Company(c) - {{today}} - page:  <pdf:paginumber>
      / <pdf:pagecount>
     </div>
     <!-- content -->
-   <div id="contint">
+   <div id="content">
         <div class="main">
             <br><br><br>
             <center><h1>Invoice</h1> </center>
