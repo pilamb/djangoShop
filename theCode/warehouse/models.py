@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
+from django.core.urlresolvers import reverse
 from django.db import models
+
 from theCode.core.validators import positive_price
 
 """
@@ -85,10 +87,10 @@ class Piece(models.Model):
         notifies if units are low.
         """
         if self.quantity <= 2:
-            self.alarm =True
+            self.alarm = True
 
     def __unicode__(self):
-        return u'%s%s%s%s' % (self.name,self.type, str(self.value),self.units)
+        return u'%s%s%s%s' % (self.name,self.type, str(self.value), self.units)
 
     class Meta:
         verbose_name_plural = 'Pieces'
@@ -131,7 +133,11 @@ class Product(models.Model):
         verbose_name_plural = "Products"
 
     def __unicode__(self):
-        return u'%s, of %s - %s €' % (self.name,self.type,str(self.price))
+        return u'%s, of %s - %s €' % (
+            self.name,
+            self.type,
+            str(self.price)
+        )
 
     def get_absolute_url(self):
         return reverse('detail_product', args=[str(self.id)])

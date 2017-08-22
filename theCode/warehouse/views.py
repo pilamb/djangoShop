@@ -20,30 +20,6 @@ class ProductsListView(ListView):
         return Product.objects.all()
 
 
-class GuitarListView(ListView):
-    order = Product
-    template_name = "product2.html"
-    
-    def get_context_data(self, **kwargs):
-            context = super(GuitarListView, self).get_context_data(**kwargs)
-            return context
-            
-    def get_queryset(self):
-        return Product.objects.filter(type='Guitar')
-
-
-class DelayListView(ListView):
-    order = Product
-    template_name = "product3.html"
-    
-    def get_context_data(self, **kwargs):
-            context = super(DelayListView, self).get_context_data(**kwargs)
-            return context
-            
-    def get_queryset(self):
-        return Product.objects.filter(type='Delay')
-
-
 class ProductDetailView(DetailView):
     order = Product
     template_name = "detail_product.html"
@@ -54,7 +30,7 @@ class ProductDetailView(DetailView):
 
     def get_object(self):
             object = super(ProductDetailView, self).get_object()
-            #sumar visita
+            # add visit + 1
             object.number_of_visitis += 1
             object.save()
             return object
