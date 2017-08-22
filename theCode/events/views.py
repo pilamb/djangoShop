@@ -16,7 +16,7 @@ class EventListView(ListView):
     This view is enough since only admins can post events.
     """
     order = Event
-    template_name = "events_list.html"
+    template_name = "events/events_list.html"
     paginate_by = 4
 
     def get_notified_data(self, **kwargs):
