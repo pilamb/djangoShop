@@ -26,7 +26,7 @@ class LoginRequiredMixin(object):
 
 class UserModelListView(LoginRequiredMixin, ListView):
     order = UserModel
-    template_name = "users_list.html"
+    template_name = "clients/users_list.html"
     paginate_by = 4
 
     def get_context_data(self, **kwargs):
@@ -44,7 +44,7 @@ class UserModelListView(LoginRequiredMixin, ListView):
 
 
 class UserModelDetailView(LoginRequiredMixin, DetailView):
-    template_name = "user_detail.html"
+    template_name = "clients/user_detail.html"
     model = UserModel
 
     def get_context_data(self, **kwargs):
@@ -58,7 +58,7 @@ class UserModelUpdateView(LoginRequiredMixin, UpdateView):
     # order = UserModel
     fields = ['name', 'surname', 'subscribed', 'address', 'phone']
     # exclude       = ['password','email','messages']
-    template_name = "user_edit.html"
+    template_name = "clients/user_edit.html"
     # form_class = Form_Alta_UserModel
     success_url = reverse_lazy('panel')
     model = UserModel
@@ -81,7 +81,7 @@ class UserModelDeleteView(LoginRequiredMixin, DeleteView):
     Users cant be deleted just marked as inactive
     """
     order = UserModel
-    template_name = "user_confirm_delete.html"
+    template_name = "clients/user_confirm_delete.html"
     success_url = reverse_lazy('panel')
 
     def post(self, request, *args, **kwargs):

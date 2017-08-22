@@ -7,6 +7,7 @@ from clients.models import UserModel
 from shop.models import Order, Sale, Shipment
 from warehouse.models import Product
 from notifications.models import Notification
+from messages_app.models import  MessageModel
 
 
 def page(request):
@@ -31,7 +32,7 @@ def page(request):
         except Shipment.DoesNotExist:
             object_list4 = ()
         try:
-            news = Notification.objects.filter(date=date.today()).count()
+            news = MessageModel.objects.filter(date=date.today()).count()
         except Notification.DoesNotExist:
             news = 0
         try:
@@ -55,7 +56,7 @@ def page(request):
         'object_list2': object_list2,
         'object_list3': object_list3,
         'object_list4': object_list4,
-        'n_admins': n_admins,
+        'n_admins': 0,
         'news': news,
         'prods': prods
         }
