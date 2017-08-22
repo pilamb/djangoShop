@@ -9,7 +9,7 @@
           </h2>
           <hr>
       <div role="tabpanel">
-      <!-- pestañas del panel -->
+      <!-- tabs of panel -->
       <ul class="nav nav-tabs" role="tablist">
         <li role="presentation" class="active"><a href="#users" aria-controls="users" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Users</a></li>
         <li role="presentation"><a href="#orders" aria-controls="orders" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Orders</a></li>
@@ -106,6 +106,10 @@
   {% endif %}
 {% endblock %}
 {% block footer %} 
-<li class="active">Panel of {% if user.is_superuser %} administración {% else %} {{user}} {% endif %}</li>
+	<li class="active">Panel of
+		{% if user.is_superuser %} administration
+		{% else %} {{user}}
+		{% endif %}
+	</li>
 {% endblock %}
 <script type="text/javascript" src="{%  static 'panel.js' %}"></script>
