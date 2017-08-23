@@ -8,7 +8,7 @@ from django_fsm import FSMField, transition
 
 from clients.models import UserModel
 from warehouse.models import Product
-from messages_app.models import ContactMessageModel
+from contact_messages.models import ContactMessage
 from theCode.core.validators import positive_price
 
 
@@ -120,7 +120,7 @@ class Order(models.Model):
         """
         Creates a message to tell the user a new event
         """
-        new_notification = ContactMessageModel(user=self.user, notified=False)
+        new_notification = ContactMessage(user=self.user, notified=False)
         new_notification.save()
 
     def generate_payment_code(self):
