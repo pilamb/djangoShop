@@ -29,7 +29,7 @@ urlpatterns += [
         url(r'^changeCredentials/$', login_required(passwordChange.page),
             name='change_password'),
         # user notifications
-        url(r'^notifications', include('notifications.urls',
+        url(r'^notifications/', include('notifications.urls',
             namespace='notifications')),
         # Products/Shop
         url(r'shop/', include('shop.urls', namespace='shop')),

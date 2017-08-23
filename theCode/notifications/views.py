@@ -1,20 +1,14 @@
 # -*- coding: utf-8 -*-
 
-from django.shortcuts import render
-from django.views.generic.list import ListView
-from django.views.generic import DetailView
-from django.core.urlresolvers import reverse_lazy
-from django.http import HttpResponse,HttpResponseRedirect
+from django.views.generic import DetailView, ListView
 from django.contrib.auth.decorators import login_required
-from django.contrib import messages
 
 from .models import Notification
 
 
 class LoginRequiredMixin(object):
-
     @classmethod
-    def as_view(cls,**initkwargs):
+    def as_view(cls, **initkwargs):
         view = super(LoginRequiredMixin, cls).as_view(**initkwargs)
         return login_required(view)
 
@@ -23,9 +17,14 @@ class NotificationDetailView(LoginRequiredMixin, DetailView):
     model = Notification
     template_name = "notifications/notification_detail.html"
 
+    def get_object(self):
+        user_reads_it = super(NotificationDetailView, self).get_object()
+        user_reads_it.seen()
+        user_reads_it.save()
+        return user_reads_it
+
 
 class NotificationListView(LoginRequiredMixin, ListView):
-    order = Notification
     template_name = "notifications/notifications.html"
 
     def get_context_data(self, **kwargs):

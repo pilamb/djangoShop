@@ -7,7 +7,7 @@ from clients.models import UserModel
 class Notification(models.Model):
     """
     Messages sent to an user. Can be read at the user panel.
-    Message_classs about change of state of an order, or about user account.
+    Message_class about change of state of an order, or about user account.
     Readable from user panel.
     """
 
@@ -23,7 +23,7 @@ class Notification(models.Model):
         verbose_name_plural = "Notifications to users"
 
     def __unicode__(self):
-        return u'%s' % str(self.id)
+        return u'%s %s' % str(self.user, self.notified)
 
     def notify(self):  # a new message or event to say to user
         self.notified = False

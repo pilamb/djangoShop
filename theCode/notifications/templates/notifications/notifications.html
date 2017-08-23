@@ -5,7 +5,7 @@
   <h2>
       <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>&nbsp;
       <text>Notifications of <a href="{{ user.getabsoluteurl }}">{{user.email}}</a></text>
-    </h2><hr> 
+  </h2><hr>
     {% endblock %}
     {%if user.is_authenticated or user.is_admin %}
       {% if object_list|length > 0 %} Total: {{ object_list.count }} {% endif %}
@@ -47,16 +47,17 @@
       
       </table> 
       {% if is_paginated %}
-      <center>
             <nav>
               <ul class="pagination pagination-sm">
                   {% if page_obj.has_previous %}
                     <li>
                     <a href="/ordersList/?page={{ page_obj.previous_page_number
-		                    }}"<span aria-label="Previous" aria-hidden="true">&laquo;</span></a>
+		                    }}" <span aria-label="Previous"
+                                      aria-hidden="true">&laquo;</span></a>
                    {% else %}
                       <li class="disabled">
-                        <a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+                        <a href="#" aria-label="Previous">
+	                        <span aria-hidden="true">&laquo;</span></a>
                   {% endif %}
                   </li>
                   <li><span class="page-current">
@@ -67,12 +68,12 @@
                       <a href="/ordersList/?page={{ page_obj.next_page_number }}">&raquo;</a>
                   {% else %}
                       <li class="disabled">
-                        <a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+                        <a href="#" aria-label="Next">
+	                        <span aria-hidden="true">&raquo;</span></a>
                   {% endif %}
               </li> 
               </ul>
             </nav>
-        </center>  
       {% endif %}
       {% else %}
       <code> Space forbidden for your user.</code>

@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
   {% if user.is_authenticated %}
-  {% if user.is_admin or object.user.id = user.pk %}
+  {% if user.is_admin or object.user.id == user.pk %}
       <center>
       <div class="panel panel-info">
         <div class="panel-heading">
