@@ -17,7 +17,7 @@ class Manager(BaseUserManager):
         if not email:
             raise ValueError('The email is mandatory.')
         email = self.normalize_email(email)
-        user = UserModel(email=email.upper(),
+        user = UserModel(email=email.lower(),
                          is_admin=is_admin,
                          is_active=True,
                          is_superuser=is_superuser,
