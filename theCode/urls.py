@@ -15,6 +15,7 @@ urlpatterns = []
 urlpatterns += [
         url(r'^$', index.page, name='index'),
         url(r'^admin/', include(admin.site.urls)),
+        # events
         url(r'^events/', include('events.urls', namespace='events')),
         # User related
         url(r'^login/$', 'theCode.customForms.authenticate.login',

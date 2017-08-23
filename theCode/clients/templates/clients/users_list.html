@@ -61,7 +61,8 @@
           </tbody>
 
         {% empty %}
-            <b><mark>Actually no users.</mark></b> <a href="{% url 'user_create' %}">Cree uno.</a> <br>
+            <b><mark>Actually no users.</mark></b> <a href="{% url
+		        'account:user_create' %}">Cree uno.</a> <br>
         {% endfor %}
         </table> 
         {% if is_paginated %}

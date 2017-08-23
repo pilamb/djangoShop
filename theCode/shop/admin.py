@@ -5,7 +5,7 @@ from models import Order,Shipment
 from fsm_admin.mixins import FSMTransitionMixin # very cool FSM!!
 
 
-class OrderAdmin(FSMTransitionMixin,admin.ModelAdmin):
+class OrderAdmin(FSMTransitionMixin, admin.ModelAdmin):
     fields = ('user', 'paid', 'module', 'information', 'special_code', ' \
               ''painting',
               'sale', 'color')
