@@ -7,7 +7,7 @@ from theCode.core.validators import *
 from clients. models import UserModel
 
 
-class ContactMessageModel(models.Model):
+class ContactMessage(models.Model):
     """
     When somebody writes at contact.py creates an instance of this type
     with attended to False and alerts are sent to admins
@@ -36,19 +36,19 @@ class ContactMessageModel(models.Model):
         return UserModel.objects.filter(email=self.mail).exists()
 
     def __unicode__(self):
-        return u'%s%s%s' % (self.name, str(self.date), self.mail)
+        return u'%s %s %s' % (self.name, str(self.date), self.mail)
 
     def get_absolute_url(self):
         return reverse('user_detail', kwargs={'email': self.date})
 
     class Meta:
-        app_label = "messages_app"
+        app_label = "contact_messages"
         get_latest_by = "date"
 
 
 class Alert(models.Model):
     """
-    Admins emails to alert abount new events related to the website
+    Admins emails to alert about new events related to the website
     """
     mail = models.EmailField(unique=True,
                              help_text='Add email addresses to send alerts.')
