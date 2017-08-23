@@ -10,7 +10,7 @@ from django.contrib import messages
 
 from shop.models import Order
 from warehouse.models import Product
-from messages_app.models import MessageModel
+from contact_messages.models import ContactMessage
 
 
 class NewConcreteOrderForm(forms.Form):
@@ -90,7 +90,7 @@ def page(request, pk):
                     else:
                         p.painting = False
                     p.save()
-                    new_message = MessageModel(
+                    new_message = ContactMessage(
                         user=user,
                         notified=False,
                         message=
