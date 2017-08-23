@@ -23,14 +23,14 @@
       <tr>
       {% for u in object_list %}          
           <td>
-              <a href="{% url 'detail_message' u.id %}">
+              <a href="{% url 'notifications:notification_detail' u.id %}">
               <span class="glyphicon glyphicon-eye-open" aria-hidden="True"></span>
             </a>
           </td> 
           <td>{{ u.sign_date }}</td> 
           <!--td u.get_estado_display /td-->
           <td>
-            {{u.texto|truncatewords:15}}
+            {{u.text|truncatewords:15}}
           </td>
           <td>
             {%if u.notificado%}

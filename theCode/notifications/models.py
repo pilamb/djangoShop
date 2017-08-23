@@ -20,7 +20,7 @@ class Notification(models.Model):
         app_label = "notifications"
         ordering = "sign_date",
         verbose_name = "Notification"
-        verbose_name_plural = "Message_classs"
+        verbose_name_plural = "Notifications to users"
 
     def __unicode__(self):
         return u'%s' % str(self.id)

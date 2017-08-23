@@ -20,14 +20,8 @@ class LoginRequiredMixin(object):
 
 
 class NotificationDetailView(LoginRequiredMixin, DetailView):
-    order = Notification
+    model = Notification
     template_name = "notifications/notification_detail.html"
-
-    def get_object(self):
-        object = super(NotificationDetailView, self).get_object()
-        object.notified()
-        object.save()
-        return object
 
 
 class NotificationListView(LoginRequiredMixin, ListView):
