@@ -47,7 +47,7 @@ INSTALLED_APPS = (
     'clients',
     'shop',
     'events',
-    'messages_app',
+    'contact_messages',
     'warehouse',
     'notifications',
     'graphos',
