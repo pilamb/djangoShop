@@ -1,12 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from django.shortcuts import render
 from django.views.generic.list import ListView
 from django.views.generic import DetailView
-from django.core.urlresolvers import reverse_lazy
-from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-from django.contrib import messages
+from django.contrib import messages # TODO: this
 
 from .models import Notification
 
@@ -14,7 +11,7 @@ from .models import Notification
 class LoginRequiredMixin(object):
 
     @classmethod
-    def as_view(cls,**initkwargs):
+    def as_view(cls, **initkwargs):
         view = super(LoginRequiredMixin, cls).as_view(**initkwargs)
         return login_required(view)
 

@@ -48,7 +48,7 @@ class ContactMessageModel(models.Model):
 
 class Alert(models.Model):
     """
-    Admins emails to alert abount new events related to the website
+    Admins emails to alert about new events related to the website
     """
     mail = models.EmailField(unique=True,
                              help_text='Add email addresses to send alerts.')
