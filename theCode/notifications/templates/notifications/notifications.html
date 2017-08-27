@@ -33,7 +33,7 @@
             {{u.text|truncatewords:15}}
           </td>
           <td>
-            {%if u.notificado%}
+            {%if u.notified%}
               <span class="glyphicon glyphicon-ok" aria-hidden="True"></span>
             {% else %}
                   <span class="glyphicon glyphicon-remove" aria-hidden="True"></span>
@@ -47,17 +47,16 @@
       
       </table> 
       {% if is_paginated %}
+      <center>
             <nav>
               <ul class="pagination pagination-sm">
                   {% if page_obj.has_previous %}
                     <li>
-                    <a href="/ordersList/?page={{ page_obj.previous_page_number
-		                    }}" <span aria-label="Previous"
-                                      aria-hidden="true">&laquo;</span></a>
+                    <a href="/notifications/?page={{ page_obj
+                    .previous_page_number }}"<span aria-label="Previous" aria-hidden="true">&laquo;</span></a>
                    {% else %}
                       <li class="disabled">
-                        <a href="#" aria-label="Previous">
-	                        <span aria-hidden="true">&laquo;</span></a>
+                        <a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
                   {% endif %}
                   </li>
                   <li><span class="page-current">
@@ -65,16 +64,19 @@
                   </span></li>
                   {% if page_obj.has_next %}
                      <li>
-                      <a href="/ordersList/?page={{ page_obj.next_page_number }}">&raquo;</a>
+                      <a href="/notifications/?page={{ page_obj
+                      .next_page_number
+		                      }}">&raquo;</a>
                   {% else %}
                       <li class="disabled">
-                        <a href="#" aria-label="Next">
-	                        <span aria-hidden="true">&raquo;</span></a>
+                        <a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
                   {% endif %}
-              </li> 
+              </li>
               </ul>
             </nav>
+        </center>
       {% endif %}
+      </div>
       {% else %}
       <code> Space forbidden for your user.</code>
     {% endif %}

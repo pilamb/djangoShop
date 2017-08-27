@@ -2,6 +2,7 @@
 
 from django.views.generic import DetailView, ListView
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages # TODO: this
 
 from .models import Notification
 

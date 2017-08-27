@@ -18,9 +18,9 @@
     <ul class="list-group" id="eve">
     {% for u in object_list %}
       {% if forloop.counter|divisibleby:2 %}
-        <li class="list-group-item"  onMouseOver="show('{{forloop.counter}}')" onMouseOut="hide('{{forloop.counter}}')">
+        <li class="list-group-item" onMouseOver="show('{{forloop.counter}}')" onMouseOut="hide('{{forloop.counter}}')">
       {%else%}
-        <li class="list-group-item active"  onMouseOver="show('descr{{forloop.counter}}')" onMouseOut="hide('descr{{forloop.counter}}')">
+        <li class="list-group-item active" onMouseOver="show('descr{{forloop.counter}}')" onMouseOut="hide('descr{{forloop.counter}}')">
       {%endif%}
         <span class="badge">Created:
           {% if today == u.fecha %}

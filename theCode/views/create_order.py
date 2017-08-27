@@ -11,7 +11,7 @@ from django.contrib import messages
 
 from shop.models import Order
 from warehouse.models import Product
-from messages_app.models import MessageModel
+from contact_messages.models import ContactMessage
 
 
 class NewProductOrderForm(forms.Form):
@@ -83,9 +83,9 @@ def page(request):
                         )
                     mod.quitar_of_sale()
                     mod.save()
-                    new_message = MessageModel(user=user,
-                                               notified=False,
-                                               message=
+                    new_message = ContactMessage(user=user,
+                                                 notified=False,
+                                                 message=
                                                u"""Congratulations, the order has been created correctly and it is in the state %s.
                      Soon you will receive confirmation of the states changes. Thanks""" % p.state)
                     new_message.save()
