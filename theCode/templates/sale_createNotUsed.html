@@ -18,7 +18,7 @@
         	{% endif %}
         	<form method="post" action="{% url "order_create" pk %}" class="form-group">{% csrf_token %}
               <div class="form-group">
-                {{form.texto}}
+                {{form.text}}
               </div>
                 {{form.captcha}}<br>
               <div class="form-group">
