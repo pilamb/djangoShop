@@ -45,15 +45,19 @@
               <ul class="pagination pagination-sm">
                   {% if page_obj.has_previous %}
                     <li>
-                    <a href="/listarShipments/?page={{ page_obj.previous_page_number }}"<span aria-label="Previous" aria-hidden="true">&laquo;</span></a>
-                   {% else %}
+                    <a href="/listarShipments/?page={{ page_obj
+                    .previous_page_number }}">
+	                    <span aria-label="Previous" aria-hidden="true">&laquo;</span>
+                    </a>
+	              {% else %}
                       <li class="disabled">
                         <a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
                   {% endif %}
                   </li>
-                  <li><span class="page-current">
-                      Page  {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
-                  </span></li>
+                  <li>
+	                  <span class="page-current">
+                      Page  {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+                  </li>
                   {% if page_obj.has_next %}
                      <li>
                       <a href="/listarShipments/?page={{ page_obj.next_page_number }}">&raquo;</a>

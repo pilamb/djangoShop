@@ -5,14 +5,15 @@ from models import ContactMessage, Alert
 
 
 class ContactMessageModelAdmin(admin.ModelAdmin):
-    def message_part(obj, length=10, suffix='...'):
-        if len(unicode(obj.message)) <= length:
-            return obj.message
+    def message_part(self, length=10, suffix='...'):
+        if len(unicode(self.message)) <= length:
+            return self.message
         else:
-            return ' '.join(obj.message[:length + 1].split(' ')[0:-1]) + suffix
+            return ' '.join(self.message[:length + 1].split(' ')[0:-1]) + suffix
 
-    fields = ('attended', 'message')
-    list_display = ('attended', 'name', 'mail', 'date', message_part,
+    # message_part.short_description = 'Notification'
+    fields = ('attended',  'mail', 'message', 'category',)
+    list_display = ('id', 'attended', 'mail', 'date', message_part,
                     'is_member', 'category')
     search_fields = ('mail', 'date', 'category')
     

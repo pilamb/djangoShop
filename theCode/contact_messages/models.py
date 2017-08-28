@@ -21,7 +21,7 @@ class ContactMessage(models.Model):
         ('Shipping', 'Shipping'),
         ('Others', 'Others'),
     )
-    name = models.CharField(max_length=20,validators=[only_letters])
+    name = models.CharField(max_length=20, validators=[only_letters])
     date = models.DateField(auto_now_add=True)
     mail = models.EmailField()
     message = models.CharField(blank=True, max_length=1000)
