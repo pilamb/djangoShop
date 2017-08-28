@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from django.utils import timezone as tz
 from django import forms
 from django.shortcuts import render
 from django.core.mail import send_mail, BadHeaderError
@@ -51,7 +52,7 @@ class MailerForm(forms.Form):
             'onblur': 'this.placeholder="Write here your message"',
             'onclick': 'this.placeholder=""',
             'rows': '10',
-            'overflow-y': 'hidofn',
+            'overflow-y': 'hidden',
             'resize': 'none'
             } 
         )
@@ -104,34 +105,36 @@ def notify_admins():
     """
 
     mails = Alert.objects.all()
-    for i in mails:
-        try:
-            send_mail(
-                subject="Admin: New message",
-                message=u"""Hello,
-                    A new message has been received.""",
-                from_email=settings.EMAIL_HOST_USER,
-                recipient_list=[i.email],
-                fail_silently=False
-                )
-        except BadHeaderError:
-            return HttpResponse('Wrong header, please try again later.')
+    if len(mails) > 0:
+        for i in mails:
+            try:
+                send_mail(
+                    subject="Admin: New message",
+                    message=u"""Hello,
+                        A new message has been received.""",
+                    from_email=settings.EMAIL_HOST_USER,
+                    recipient_list=[i.email],
+                    fail_silently=False
+                    )
+            except BadHeaderError:
+                return HttpResponse('Wrong header, please try again later.')
 
 
 def new_message(request):
     """
     new message gets saved at DDBB
     """
-    category = request.get(u'Category', '')
-    name = request.get(u'Name', '')
-    email = request.get('Sender', '')
-    message = request.get(u'Message', '')
+    category = request.get(u'category', '')
+    name = request.get(u'name', '')
+    email = request.get(u'sender', '')
+    message = request.get(u'message_text', '')
     print message
     record_message = ContactMessageModel(
         message=message,
         name=name,
         category=category,
         mail=email,
+        date=tz.now(),
         attended=False)
     record_message.save()
 
