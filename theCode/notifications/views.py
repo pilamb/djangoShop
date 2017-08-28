@@ -3,7 +3,6 @@
 from django.views.generic.list import ListView
 from django.views.generic import DetailView
 from django.contrib.auth.decorators import login_required
-from django.contrib import messages # TODO: this
 
 from .models import Notification
 
@@ -24,10 +23,6 @@ class NotificationDetailView(LoginRequiredMixin, DetailView):
 class NotificationListView(LoginRequiredMixin, ListView):
     order = Notification
     template_name = "notifications/notifications.html"
-
-    def get_context_data(self, **kwargs):
-        notified = super(NotificationListView, self).get_context_data(**kwargs)
-        return notified
 
     def get_queryset(self):
         if not self.request.user.is_admin:
