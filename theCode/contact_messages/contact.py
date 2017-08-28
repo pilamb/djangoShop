@@ -146,9 +146,10 @@ def page(request):
         else:
             form = MailerForm(request.POST)
             if form.is_valid():
-                # confirm(request.POST)
+                # confirm(request.POST) This send email to user confirming
+                # contact form has been wrote
                 new_message(request.POST)
-                notify_admins()  # Admins gets a message
+                # notify_admins()  # Admins gets a message
                 messages.success(request,
                                  'Your message has been sent with '
                                  '<b>success</b>. '

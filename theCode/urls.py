@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
 
 from django.conf.urls import url, include
-from django.contrib.auth.decorators import login_required
 from django.contrib import admin
+from django.contrib.auth.decorators import login_required
 
-from warehouse.views import ProductsListView, ProductDetailView
-from .views import create_order, create_user, create_concrete_order
-from customForms import index, contact, about, authenticate, panel,\
-    sitemap, cookies, sitemap, help, terms, info, shipments, \
+from contact_messages import contact
+from customForms import index, about, authenticate, panel, \
+    cookies, sitemap, help, terms, info, shipments, \
     passwordChange, search, salesGraphics, productsGraphics
+from warehouse.views import ProductsListView, ProductDetailView
+from .views import create_concrete_order
 
 admin.autodiscover()
 urlpatterns = []
