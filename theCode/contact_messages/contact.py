@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
 
-from django.utils import timezone as tz
 from django import forms
+from django.utils import timezone as tz
 from django.shortcuts import render
 from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse_lazy
-from django.core.exceptions import ValidationError
 from django.conf import settings
 from django.contrib import messages
 from captcha.fields import CaptchaField
 
 from contact_messages.models import Alert, ContactMessage
+# TODO: refactor this class as a whole OO style
 
 
 class MailerForm(forms.Form):
@@ -133,7 +133,7 @@ def new_message(request):
         message=message,
         name=name,
         category=category,
-        mail=email,
+        mail=email.lower(),
         date=tz.now(),
         attended=False)
     record_message.save()

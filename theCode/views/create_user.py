@@ -105,21 +105,27 @@ class NewUserModel(forms.Form):
     )
     i_accept = forms.BooleanField(label="Accept")
 
+    def clean_email(self):
+        import ipdb
+        email = self.cleaned_data.get('email').lower()
+        ipdb.set_trace()
+        return email
+
     def clean_password2(self):
-            pas = self.cleaned_data.get('password', '')
-            pas2 = self.cleaned_data.get('password2', '')
-            if not pas2 or not pas:
-                raise forms.ValidationError("You must enter a password.")
-            elif pas != pas2:
-                raise forms.ValidationError("Passwords must match.")
-            return pas
+        pas = self.cleaned_data.get('password', '')
+        pas2 = self.cleaned_data.get('password2', '')
+        if not pas2 or not pas:
+            raise forms.ValidationError("You must enter a password.")
+        elif pas != pas2:
+            raise forms.ValidationError("Passwords must match.")
+        return pas
 
     def clean_i_accept(self):
-            terms_check = self.cleaned_data.get('i_accept')
-            if not terms_check:
-                raise forms.ValidationError(
-                    "It is mandatory to accept the conditions.")
-            return terms_check
+        terms_check = self.cleaned_data.get('i_accept')
+        if not terms_check:
+            raise forms.ValidationError(
+                "It is mandatory to accept the conditions.")
+        return terms_check
 
 
 def page(request):
@@ -135,7 +141,7 @@ def page(request):
                 pas2 = form.cleaned_data['password2']
                 tel = form.cleaned_data['phone']
                 new_user = UserModel(
-                    email=email,
+                    email=email.lower(),
                     is_active=True,
                     name=name,
                     surname=surname,

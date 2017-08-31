@@ -37,7 +37,7 @@ def login(request):
         form = FormAuthenticate(data=request.POST)
         if form.is_valid():
             user = authenticate(
-                email=request.POST['email'].replace(" ", ""),
+                email=request.POST['email'].lower().replace(" ", ""),
                 password=request.POST['password']
             )
             if user is not None:
