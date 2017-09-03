@@ -1,17 +1,13 @@
 # -*- coding: utf-8 -*-
 
-import datetime
 from datetime import date
-from django.shortcuts import render
 from django.views.generic.list import ListView
 from django.views.generic import DetailView,  UpdateView, DeleteView
-from django.core.urlresolvers import reverse
 from django.core.urlresolvers import reverse_lazy
-from django.http import HttpResponse,HttpResponseRedirect
-
+from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from theCode.views.create_user import NewUserModel
+
 from theCode.customForms.authenticate import logout
 from shop.models import Order
 from models import UserModel
@@ -86,7 +82,7 @@ class UserModelDeleteView(LoginRequiredMixin, DeleteView):
 
     def post(self, request, *args, **kwargs):
         if "cancel" in request.POST:
-            self.object = self.get_object()
+            #  self.object = self.get_object()
             url = self.get_success_url()
             return HttpResponseRedirect(url)
         else:
