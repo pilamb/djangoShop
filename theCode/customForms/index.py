@@ -20,3 +20,5 @@ def page(request):
                       'Its mandatory communicate that this site uses '
                       '<b>cookies</b>.')
         return render(request, 'index.html')
+
+#  TODO: see this code. Some black magic is fucking around

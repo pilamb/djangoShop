@@ -4,8 +4,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.contrib.auth.decorators import login_required
 
-from customForms import index, about, authenticate, panel, \
-     info, shipments, \
+from customForms import index, authenticate, panel, shipments, \
     passwordChange, search, salesGraphics, productsGraphics
 from warehouse.views import ProductsListView, ProductDetailView
 from .views import create_concrete_order
@@ -45,13 +44,10 @@ urlpatterns += [
             login_required(salesGraphics.page), name='chart_sales'),
         url(r'^chart_products/',
             login_required(productsGraphics.page), name='chart_products'),
-        # miscellaneous/information
-        url(r'^info/', info.page, name='info'),
-        # url(r'^about/', about.page, name='about'),
+
         url(r'^shipments/', shipments.page, name='shipments'),
-        # LANDING static pages
+        # LANDING static pages - miscellaneous/information
         url(r'^landing/', include('landing.urls', namespace='landing')),
-        #url(r'^terms/', terms.page, name='terms'),
         # Contact Form
         url(r'^contact/',
             include('contact_messages.urls', namespace='contact')),
