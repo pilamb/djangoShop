@@ -18,7 +18,8 @@
               {{ form.non_field_errors }}
               </div>
             {% endif %}
-            <form  method="post" action="{% url "contact" %}" class="form-group"> {% csrf_token %}
+            <form  method="post" action="{% url "contact_messages:contact"
+		            %}" class="form-group"> {% csrf_token %}
               {% for i in form %}
               <div class="form-group">
                 <label for="{{i.label}}" class="control-label">{{i.label}}</label>
