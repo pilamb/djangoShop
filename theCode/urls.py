@@ -5,7 +5,7 @@ from django.contrib import admin
 from django.contrib.auth.decorators import login_required
 
 from customForms import index, about, authenticate, panel, \
-     terms, info, shipments, \
+     info, shipments, \
     passwordChange, search, salesGraphics, productsGraphics
 from warehouse.views import ProductsListView, ProductDetailView
 from .views import create_concrete_order
@@ -51,7 +51,7 @@ urlpatterns += [
         url(r'^shipments/', shipments.page, name='shipments'),
         # LANDING static pages
         url(r'^landing/', include('landing.urls', namespace='landing')),
-        url(r'^terms/', terms.page, name='terms'),
+        #url(r'^terms/', terms.page, name='terms'),
         # Contact Form
         url(r'^contact/',
             include('contact_messages.urls', namespace='contact')),

@@ -30,7 +30,9 @@
         We send parcels anywhere as long as package is tracked. Small package is about 14€ and large one is about 20€.
       </div>
     </div>
-    <p>more información in <a href="{% url 'terms' %}">condiciones</a>, o in <a href="{% url 'landing:help' %}">landing:help</a>. Sino incuintras lo que buscas, siempre puedes <a href="{% url 'contact:contact_form' %}">contact:contact_formarnos</a>.</p>
+    <p>more info in <a href="{% url 'landing:terms' %}">Terms</a>, o
+	    in <a href="{% url 'landing:help' %}">Help</a>. Contact su <a href="{%
+			    url 'contact:contact_form' %}">contact</a>.</p>
 </div>
 {% endblock %}
 {% block footer %} 

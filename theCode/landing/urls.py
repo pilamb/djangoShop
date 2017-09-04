@@ -1,6 +1,6 @@
 from django.conf.urls import url
 
-from .views import help_view, cookies_view, about_view, map_view
+from .views import help_view, cookies_view, about_view, map_view, terms_view
 
 
 urlpatterns = [
@@ -23,6 +23,11 @@ urlpatterns = [
         regex=r'^sitemap/$',
         view=map_view,
         name='map',
+    ),
+    url(
+        regex=r'^terms/',
+        view=terms_view,
+        name='terms'
     ),
 ]
 

@@ -3,7 +3,7 @@
 {% block content %}
     <h2>
       <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>&nbsp;
-      <text>terms</text>
+      <text>Terms</text>
     </h2><hr>
     <div class="row">
       <h4> <span class="glyphicon glyphicon-user"></span>&nbsp; Cuintas user</h4>
@@ -11,7 +11,8 @@
           By creating an account your data will be saved in our system. As administrator we dont 
           have access to your data but the relative to your orders.
       </p>
-      <ul>You can create an account <a href="{% url 'user_create' %}">aquí</a>.</ul> 
+      <ul>You can create an account <a href="{% url 'account:user_create'
+		      %}">Here</a>.</ul>
     </div><!--row-->
 
     <div class="row">
@@ -75,5 +76,5 @@
 {% endblock %}
 {% block footer %} 
   <li><a href="{% url 'info' %}">Info</a></li>
-  <li class="active">terms</li>
+  <li class="active">landing:terms</li>
 {% endblock %}

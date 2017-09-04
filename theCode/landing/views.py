@@ -16,3 +16,7 @@ def about_view(request):
 
 def map_view(request):
     return render(request, 'landing/map.html')
+
+
+def terms_view(request):
+    return render(request, 'landing/terms.html')
