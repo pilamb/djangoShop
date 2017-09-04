@@ -29,8 +29,8 @@
                   </div>
 
               {% endif %}
-             {% if i.help_text %} <div class="helptext">{{i.help_text}}</div>{%endif%}
-             {% if i.name == "acepto" %}  <small><p>Its mandatory to accept the terms <a href="{% url 'terms' %}" target=_blank>terms</a></p>.</small>{%endif%}
+             {% if help %} <div class="helptext">{{i.help_text}}</div>{%endif%}
+             {% if i.name == "acepto" %}  <small><p>Its mandatory to accept the landing:terms <a href="{% url 'landing:terms' %}" target=_blank>landing:terms</a></p>.</small>{%endif%}
           </div>
         </div>  
         {% endfor%}
