@@ -44,6 +44,7 @@ INSTALLED_APPS = (
     'django_fsm', # Finite State Machine to manage orders
     'django_fsm_log',  # historical of orders
     'django_extensions',  # Tools to print graphics from the models, and the FSM
+    'landing',
     'clients',
     'shop',
     'events',

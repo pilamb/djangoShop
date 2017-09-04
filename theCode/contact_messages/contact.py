@@ -156,7 +156,8 @@ def page(request):
                                  'Soon you will receive an answer. Thanks.')
                 return HttpResponseRedirect(reverse_lazy('index'))
             else:
-                return render(request, 'contact_messages/contact.html', {'form': form})
+                return render(request, 'contact_messages/contact.html',
+                              {'form': form})
     else:
         form = MailerForm()
         return render(request, 'contact_messages/contact.html', {'form': form})
