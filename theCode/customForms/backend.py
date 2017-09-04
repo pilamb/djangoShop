@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-from django.conf import settings
-from django.contrib.auth.models import check_password
 from clients.models import UserModel
 
 
@@ -19,7 +17,7 @@ class EmailAuthBackend(object):
             if user.check_password(password):
                 return user
         except UserModel.DoesNotExist:
-            return None
+            raise UserModel.DoesNotExist
 
     def get_user(self, user_id):
         try:
