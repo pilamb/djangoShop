@@ -8,7 +8,7 @@
         </div>
         {% if not object.is_active %} <h1>Account deleted</h1> {% endif %}
             <ul class="list-group">
-                <li class="list-group-item"><b>Name:</b> {{object.name|capfirst }}</li>
+                <li class="list-group-item"><b>Name:</b> {{ user.name|capfirst }}</li>
                 <li class="list-group-item"><b>Surname:</b> {{ user.surname|capfirst }}</li>
                 
                 <li class="list-group-item"><b>E-mail:</b> {{ user.email }}</li>

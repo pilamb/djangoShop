@@ -1,8 +1,8 @@
 from django.conf.urls import url
 
-
 from .views import UserModelListView, UserModelUpdateView, \
     UserModelDeleteView, UserModelDetailView
+
 
 urlpatterns = [
     url(
@@ -26,4 +26,3 @@ urlpatterns = [
         name='users_list',
     ),
 ]
-
