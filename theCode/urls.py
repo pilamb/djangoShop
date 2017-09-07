@@ -34,7 +34,7 @@ urlpatterns += [
         url(r'^shop/', include('shop.urls', namespace='shop')),
         url(r'^products/', ProductsListView.as_view(), name='products'),
         url(r'^detailProduct/(?P<pk>\d+)/$', ProductDetailView.as_view(),
-            name='detail_product'),
+            name='product_detail'),
         url(r'^createOrder2/(?P<pk>\d+)/$',
             login_required(create_concrete_order.page),
             name='create_order2'),

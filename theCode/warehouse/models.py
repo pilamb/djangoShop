@@ -90,7 +90,7 @@ class Piece(models.Model):
             self.alarm = True
 
     def __unicode__(self):
-        return u'%s%s%s%s' % (self.name,self.type, str(self.value), self.units)
+        return u'%s%s%s' % (self.name, str(self.value), self.unit)
 
     class Meta:
         verbose_name_plural = 'Pieces'
@@ -135,7 +135,7 @@ class Product(models.Model):
     def __unicode__(self):
         return u'%s, of %s - %s €' % (
             self.name,
-            self.type,
+            self.type_info,
             str(self.price)
         )
 
