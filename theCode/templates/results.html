@@ -20,13 +20,13 @@
         {% else %}
             <small>No products by that search</small>
         {% endif %}
-        <h2>Results in events:events_list</h2>
-        {% if events:events_list_match %}
+        <h2>Results in events:</h2>
+        {% if events_list_match %}
             <ul>
             {% for i in match_products %}
               <li> {{i}} in <a href="{% url 'events:events_list' %}">Events</a> </li>
             {% empty %}
-              <code>No results.</code>
+              <code>No events by that search.</code>
             {% endfor %}
             </ul>
         {% else %}
