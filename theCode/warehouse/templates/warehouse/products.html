@@ -8,9 +8,9 @@
       {% for i in object_list %}
         <div class="col-sm-6 col-md-4">
           <div class="thumbnail">
-         {% if i.foto %}
-              <a href="{{i.foto.url}}" target=_blank>
-              <img class="media-object escala img-responsive" src="{{ i.foto.url}}"> 
+         {% if i.picture %}
+              <a href="{{i.picture.url}}" target=_blank>
+              <img class="media-object escala img-responsive" src="{{ i.picture.url}}"> 
               </a>
             {% endif %}
           <center>
