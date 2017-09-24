@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-from django.shortcuts import render
-from django.http import HttpResponse,HttpResponseRedirect
+
 from django import forms
-from django.core.exceptions import ValidationError
-from captcha.fields import CaptchaField
+from django.shortcuts import render
+from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse_lazy
-from django.forms import Textarea, TextInput, PasswordInput, EmailInput
 from django.contrib import messages
+
+from captcha.fields import CaptchaField
 
 from shop.models import Order
 from warehouse.models import Product
@@ -62,7 +62,7 @@ def page(request, pk):
     try:
         mod = Product.objects.get(id=pk)
     except Product.DoesNotExist:
-        mod = None
+        raise Product.DoesNotExist
     print mod
     user = request.user
     if request.POST:
@@ -101,12 +101,15 @@ def page(request, pk):
                     new_message.save()
                     mod.quitar_of_sale()
                     mod.save()
-                    messages.success(request,
-                                     '¡Order created <b>correctly</b>, thanks!')
+                    messages.success(
+                        request,
+                        '¡Order created <b>correctly</b>, thanks!')
                     return HttpResponseRedirect(reverse_lazy('panel'))
                 else:
-                    return render(request, 'create_order.html', {'form': form,
-                                                                 'pk': pk})
+                    return render(request,
+                                  'shop/create_order.html',
+                                  {'form': form, 'pk': pk})
     else:
         form = NewConcreteOrderForm()
-        return render(request, 'create_order.html', {'form': form, 'pk': pk})
+        return render(request, 'shop/create_order.html',
+                      {'form': form, 'pk': pk})

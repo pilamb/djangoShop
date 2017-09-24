@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
   {% if user.is_authenticated %}
-    <center>
     <div class="panel panel-info">
       <div class="panel-heading">
          <h2>
@@ -13,11 +12,11 @@
             <li class="list-group-item"><b>Special code:</b> {{object.code }}</li>
             <li class="list-group-item"><b>Date: </b>{{ object.sign_date }}</li>
             <li class="list-group-item"><b>Sale price:</b> {{object.price}} €</li>
-      		<li class="list-group-item"><b>Order reference:</b></li>Order : {{order}}</li>
+      		<li class="list-group-item"><b>Order reference:</b>Order : {{order}}</li>
+	      </ul>
     </div>
-    </center>
-  <br>
-  <br>
+    <br>
+    <br>
   {% endif %}
 {% endblock %}
 {% block footer %} 

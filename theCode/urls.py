@@ -7,12 +7,13 @@ from django.contrib.auth.decorators import login_required
 from customForms import index, authenticate, panel, shipments, \
     passwordChange, search, salesGraphics, productsGraphics
 from warehouse.views import ProductsListView, ProductDetailView
-from .views import create_concrete_order
+from shop.forms import page
 
 admin.autodiscover()
 urlpatterns = []
 urlpatterns += [
         url(r'^$', index.page, name='index'),
+        # url(r'^404/', name="notFound"),
         url(r'^admin/', include(admin.site.urls)),
         # events
         url(r'^events/', include('events.urls', namespace='events')),
@@ -35,8 +36,8 @@ urlpatterns += [
         url(r'^products/', ProductsListView.as_view(), name='products'),
         url(r'^detailProduct/(?P<pk>\d+)/$', ProductDetailView.as_view(),
             name='product_detail'),
-        url(r'^createOrder2/(?P<pk>\d+)/$',
-            login_required(create_concrete_order.page),
+            url(r'^createOrder2/(?P<pk>\d+)/$',
+            login_required(page),
             name='create_order2'),
         # this creates an order when a product has already been chosen
         # Charts about sales/expenses and products/visits. 4 Admins

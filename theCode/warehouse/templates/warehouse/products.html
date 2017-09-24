@@ -24,9 +24,10 @@
                 Details
               </a>
             </p>
-            {% if i.in_sale %}
+            {% if i.on_sale %}
                 Price : {{i.price}} €<br>
-                <a href="{% url 'order_create2' i.id %}" class="btn btn-md btn-success" role="button">
+                <a href="{% url 'create_order2' i.id %}" class="btn btn-md
+                btn-success" role="button">
                   <span class="glyphicon glyphicon-copy"></span> Order</a>
             {% else %}
                 <a href="#" class="btn btn-sm btn-default disabled" role="button">Sorry we are run out of stock</a>

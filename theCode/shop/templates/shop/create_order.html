@@ -1,25 +1,25 @@
 <script>
-function cambiaPrice(seleccionado) {
-  if (seleccionado.value=="Sin") {
+function PriceChange(selectedItem) {
+  if (selectedItem.value=="Sin") {
       document.getElementById('paintingPrice').innerHTML="0";
       document.getElementById('extra').innerHTML="Aluminio sin pintar.";
       document.getElementById('square').style.visibility="hidden";
-  } else if (seleccionado.value=="Blanco") {
+  } else if (selectedItem.value=="Blanco") {
       document.getElementById('paintingPrice').innerHTML="15";
       document.getElementById('extra').innerHTML="Blanco, referincia: #ffffff";
       document.getElementById('square').style.visibility="visible";
       document.getElementById('square').style.backgroundColor="#ffffff";
-  } else if (seleccionado.value=="Negro") {
+  } else if (selectedItem.value=="Negro") {
       document.getElementById('paintingPrice').innerHTML="10";
       document.getElementById('extra').innerHTML="Negro, referincia: #000000";
       document.getElementById('square').style.visibility="visible";
       document.getElementById('square').style.backgroundColor="#000000";
-  } else if (seleccionado.value=="Rojo") {
+  } else if (selectedItem.value=="Rojo") {
       document.getElementById('paintingPrice').innerHTML="10";
       document.getElementById('extra').innerHTML="Rojo, referincia: #c8393b";
       document.getElementById('square').style.visibility="visible";
       document.getElementById('square').style.backgroundColor="#c8393b";
-  } else if (seleccionado.value=="Rosa") {
+  } else if (selectedItem.value=="Rosa") {
       document.getElementById('paintingPrice').innerHTML="10";
       document.getElementById('extra').innerHTML="Rosa, referincia: #e85b99";
       document.getElementById('square').style.visibility="visible";
@@ -51,7 +51,8 @@ function cambiaPrice(seleccionado) {
         </div>
           {% endif %}
             {% if not form.modulo.in_sale %}
-          <form method="post" action="{% url "createOrder2" pk %}" class="form-group">{% csrf_token %}
+          <form method="post" action="{% url "create_order_2" pk
+	          %}" class="form-group">{% csrf_token %}
             <div class="row">
               <div class="col-lg-6 col-md-6">
                 {% if form.modulo %}
