@@ -2,7 +2,7 @@ from django.conf.urls import url
 
 from .views import UserModelListView, UserModelUpdateView, \
     UserModelDeleteView, UserModelDetailView
-
+from .forms import page
 
 urlpatterns = [
     url(
@@ -24,5 +24,10 @@ urlpatterns = [
         regex=r'^listUsers/',
         view=UserModelListView.as_view(),
         name='users_list',
+    ),
+    url(
+        regex=r'^create_account/',
+        view=page,
+        name='create_user'
     ),
 ]

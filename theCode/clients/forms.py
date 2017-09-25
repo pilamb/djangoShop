@@ -2,12 +2,10 @@
 
 from django import forms
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse_lazy
 from captcha.fields import CaptchaField
-from django.forms import RadioSelect
 from django.contrib import messages
-from django.contrib.auth.models import User
 
 from notifications.models import Notification
 from theCode.core.validators import only_letters, nums

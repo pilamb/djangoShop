@@ -17,7 +17,8 @@
        {{ form.non_field_errors }}
   	</div>
 		{% endif %}
-    <form class="form-horizontal" method="post" action="{% url "create_user" %}">{% csrf_token %}
+    <form class="form-horizontal" method="post" action="{% url
+	    "clients:create_user" %}">{% csrf_token %}
       {% for i in form %}
         <div class="form-group">
           <label for="{{i.label}}" class="col-sm-2 control-label">{{i.label}}</label>
@@ -30,7 +31,7 @@
 
               {% endif %}
              {% if help %} <div class="helptext">{{i.help_text}}</div>{%endif%}
-             {% if i.name == "acepto" %}  <small><p>Its mandatory to accept the landing:terms <a href="{% url 'landing:terms' %}" target=_blank>landing:terms</a></p>.</small>{%endif%}
+             {% if i.name == "acepto" %}  <small><p>Its mandatory to accept the terms <a href="{% url 'landing:terms' %}" target=_blank>landing:terms</a></p>.</small>{%endif%}
           </div>
         </div>  
         {% endfor%}
