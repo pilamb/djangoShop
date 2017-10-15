@@ -43,6 +43,6 @@
         </center>
 {% endblock %}
 {% block footer %} 
-       <li><a href="{% url 'products' %}">Products</a></li>
+       <li><a href="{% url 'products:list' %}">Products</a></li>
         <li class="active">{{object.name}}</li>
 {% endblock %}     

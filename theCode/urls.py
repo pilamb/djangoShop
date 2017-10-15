@@ -31,10 +31,8 @@ urlpatterns += [
             namespace='notifications')),
         # Products/Shop
         url(r'^shop/', include('shop.urls', namespace='shop')),
-        # ? warehouse: url(r'^products/', ProductsListView.as_view(),
-    # name='products'),
-        url(r'^detailProduct/(?P<pk>\d+)/$', ProductDetailView.as_view(),
-            name='product_detail'),
+        # warehouse urls
+        url(r'^products/', include('warehouse.urls', namespace='products')),
         url(r'^createOrder2/(?P<pk>\d+)/$',
             login_required(page),
             name='create_order2'),
