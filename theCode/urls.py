@@ -31,10 +31,11 @@ urlpatterns += [
             namespace='notifications')),
         # Products/Shop
         url(r'^shop/', include('shop.urls', namespace='shop')),
-        url(r'^products/', ProductsListView.as_view(), name='products'),
+        # ? warehouse: url(r'^products/', ProductsListView.as_view(),
+    # name='products'),
         url(r'^detailProduct/(?P<pk>\d+)/$', ProductDetailView.as_view(),
             name='product_detail'),
-            url(r'^createOrder2/(?P<pk>\d+)/$',
+        url(r'^createOrder2/(?P<pk>\d+)/$',
             login_required(page),
             name='create_order2'),
         # this creates an order when a product has already been chosen
@@ -43,7 +44,6 @@ urlpatterns += [
             login_required(salesGraphics.page), name='chart_sales'),
         url(r'^chart_products/',
             login_required(productsGraphics.page), name='chart_products'),
-
         url(r'^shipments/', shipments.page, name='shipments'),
         # LANDING static pages - miscellaneous/information
         url(r'^landing/', include('landing.urls', namespace='landing')),

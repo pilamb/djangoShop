@@ -5,16 +5,6 @@ from django.db import models
 
 from theCode.core.validators import positive_price
 
-"""
-First tuple element is the name to apply to the group.
-Second element is an iterable consisting on 2 tuples, one for the value,
-the other for the humnan-readable. The options of the group can be combined
-without group`to a small lits.
-For every order that has choices, Django will add a method to recover
-the human-readable, for the value of the field,
-through get_FOO_display (look at the API).
-"""
-
 
 class Piece(models.Model):
     """
@@ -102,10 +92,10 @@ class Product(models.Model):
     """
 
     types = (
-        ('Custom made circuitry 1','Custom made circuitry 1'),
-        ('Delay','Delay'),
-        ('DrumSynth8','SrumSynth8'),
-        ('Guitar','Guitar'),
+        ('Custom made circuitry 1', 'Custom made circuitry 1'),
+        ('Delay', 'Delay'),
+        ('DrumSynth8', 'SrumSynth8'),
+        ('Guitar', 'Guitar'),
     )
     name = models.CharField(max_length=50,
                             unique=True, blank=False,

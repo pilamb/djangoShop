@@ -29,9 +29,9 @@ class ProductDetailView(DetailView):
         return context
 
     def get_object(self):
-        object = super(ProductDetailView, self).get_object()
+        objct = super(ProductDetailView, self).get_object()
         # add visit + 1
-        object.visits_number += 1
-        object.save()
-        return object
+        objct.visits_number += 1
+        objct.save()
+        return objct
 
