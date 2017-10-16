@@ -16,7 +16,6 @@ def page(request):
             object_list = UserModel.objects.exclude(
                 is_admin=True).filter(is_superuser=False).\
                 order_by('-sign_date')  # [:5]
-            print object_list
         except UserModel.DoesNotExist:
             object_list = ()
         try:

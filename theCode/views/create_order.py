@@ -73,8 +73,6 @@ def page(request):
                     mod = Product.objects.get(id=product)
                     notified = request.POST['notified']
                     painting = request.POST['color']
-                    print "You has choosen %s" % str(painting)
-                    print painting
                     p = Order(
                         user=user,
                         product=mod,

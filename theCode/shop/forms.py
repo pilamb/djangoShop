@@ -63,7 +63,6 @@ def page(request, pk):
         mod = Product.objects.get(id=pk)
     except Product.DoesNotExist:
         raise Product.DoesNotExist
-    print mod
     user = request.user
     if request.POST:
         if "cancel" in request.POST:
@@ -74,7 +73,7 @@ def page(request, pk):
 
                 if form.is_valid():
                     notified = request.POST['notified']
-                    print request.POST['color']
+                    # print request.POST['color']
                     p = Order(
                         user=user,
                         product=mod,

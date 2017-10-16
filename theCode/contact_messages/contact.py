@@ -128,7 +128,6 @@ def new_message(request):
     name = request.get(u'name', '')
     email = request.get(u'sender', '')
     message = request.get(u'message_text', '')
-    print message
     record_message = ContactMessage(
         message=message,
         name=name,
