@@ -10,8 +10,8 @@ from models import UserModel
 
 
 class CustomUserCreationForm(UserCreationForm):
-    def __init__(self, *args, **kargs):
-        super(CustomUserCreationForm, self).__init__(*args, **kargs)
+    def __init__(self, *args, **kwargs):
+        super(CustomUserCreationForm, self).__init__(*args, **kwargs)
         del self.fields['username']
 
     class Meta:
@@ -23,8 +23,8 @@ class CustomUserChangeForm(UserChangeForm):
 
     password = ReadOnlyPasswordHashField()
 
-    def __init__(self, *args, **kargs):
-        super(CustomUserChangeForm, self).__init__(*args, **kargs)
+    def __init__(self, *args, **kwargs):
+        super(CustomUserChangeForm, self).__init__(*args, **kwargs)
         del self.fields['username']
 
     class Meta:
