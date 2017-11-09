@@ -88,17 +88,17 @@ class Order(models.Model):
         ('Blue', u'Blue (+10€)'),
     )
 
-    user = models.ForeignKey(UserModel)
+    user = models.ForeignKey(UserModel, null=True)
     sign_date = models.DateField(auto_now_add=True)
     paid = models.BooleanField(default=False)
     payment_code = models.CharField(blank=True, max_length=6)
     module = models.OneToOneField(Product)
-    painting = models.BooleanField(default=False)
+    # painting = models.BooleanField(default=False)
     information = models.CharField(blank=True, max_length=1000)
-    color = models.CharField(max_length=10,
-                             choices=COLORS_CHOICES,
-                             blank=False,
-                             default=u'No color')
+    # color = models.CharField(max_length=10,
+    #                         choices=COLORS_CHOICES,
+    #                         blank=False,
+    #                         default=u'No color')
     invoice_available = models.BooleanField(default=False)
     sale = models.ForeignKey(Sale, blank=True, null=True)
     icon = models.CharField(max_length=50, default="inbox")

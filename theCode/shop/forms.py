@@ -20,7 +20,8 @@ class NewConcreteOrderForm(forms.Form):
 
     required_css_class = "required"
     error_css_class = "notified-danger"
-    captcha = CaptchaField()
+    # TODO: captcha removed for testing
+    # captcha = CaptchaField()
     notified = forms.CharField(
         max_length=1000,
         required=False,
@@ -70,13 +71,13 @@ def page(request, pk):
         else:
             form = NewConcreteOrderForm(request.POST)
             if request.user.is_authenticated():
-
                 if form.is_valid():
-                    notified = request.POST['notified']
+                    print request.POST
+                    notified = False
                     # print request.POST['color']
                     p = Order(
                         user=user,
-                        product=mod,
+                        module=mod,
                         information=notified,
                         paid=False,
                         color=request.POST['color']
@@ -84,10 +85,8 @@ def page(request, pk):
                     if mod.on_sale:
                         mod.on_sale = False
                         mod.save()
-                    if request.POST['color'] != "Sin":
-                        p.painting = True
-                    else:
-                        p.painting = False
+                    p.painting = False
+                    # TODO: remove all paint color logic from template view etc
                     p.save()
                     new_message = ContactMessage(
                         user=user,

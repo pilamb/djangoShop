@@ -6,9 +6,7 @@ from fsm_admin.mixins import FSMTransitionMixin # very cool FSM!!
 
 
 class OrderAdmin(FSMTransitionMixin, admin.ModelAdmin):
-    fields = ('user', 'paid', 'module', 'information', 'special_code', ' \
-              ''painting',
-              'sale', 'color')
+    fields = ('user', 'paid', 'module', 'information', 'payment_code', 'sale')
     exclude = ('sign_date',)
     list_display = ('user', 'state', 'paid', 'module', 'sign_date', 'sale')
     search_fields = ('name', 'sign_date')
