@@ -72,11 +72,14 @@ def page(request):
                     # notify user?
                 return HttpResponseRedirect(reverse_lazy('panel'))
             else:
-                return render(request, 'change_pass.html', {'form': form,
-                                                            'user': u})
+                return render(
+                    request,
+                    'clients/change_pass.html',
+                    {'form': form, 'user': u}
+                )
 
     else:
         form = PasswordUpdateView()
-        return render(request, 'change_pass.html',
+        return render(request, 'clients/change_pass.html',
                       {'form': form, 'user': u})
 
