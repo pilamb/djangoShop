@@ -1,5 +1,5 @@
-  {% if user.is_admin  %}
-      {% if object_list2|length > 0 %} Total: {{ object_list2.count }} {% endif %}
+{% extends "base.html" %}
+	{% block content %}
       <div class="table-responsive">
       <table class="table table-striped">
       <thead>
@@ -30,13 +30,13 @@
             {{ u.get_estado_display }} <span class="glyphicon glyphicon-{{ order.icono }}" aria-hidden="true"></span>
           </td>
           <td>
-            <a href="{% url 'editar_order' u.id %}"> 
+            <a href="{% url 'shop:edit_order' u.id %}">
               <span class="glyphicon glyphicon-pencil" aria-hidden="True"></span>
             </a>
-            <a href="{% url 'borrar_order' u.id %}"> 
+            <a href="{% url 'shop:order_delete' u.id %}">
               <span class="glyphicon glyphicon-remove-sign" aria-hidden="True"></span>
             </a>
-            <a href="{% url 'detail_order' u.id %}">
+            <a href="{% url 'shop:order_detail' u.id %}">
               <span class="glyphicon glyphicon-eye-open" aria-hidden="True"></span>
             </a>
           </td>
@@ -75,10 +75,4 @@
       {% endif %}
       </div>
       <br>
-    {% else %}
-       <h3> 
-        <code>Space forbidden for your user</code>
-        <a href="{% url 'index' %}">Return</a>.
-       </h3>
-       <br><br>
-    {% endif %}
+{% endblock %}

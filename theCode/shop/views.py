@@ -29,17 +29,18 @@ class LoginRequiredMixin(object):
 
 
 class OrderListView(LoginRequiredMixin, ListView):
+    """This view is only for admins?"""
     model = Order
-    template_name = "orders_list.html"
+    template_name = "shop/orders_list.html"
     paginate_by = 3
 
-    def get_context_data(self, **kwargs):
-            context = super(OrderListView, self).get_context_data(**kwargs)
+    def get_context_data(self, *args):
+            context = super(OrderListView, self).get_context_data(*args)
             return context
 
 
 class OrdersUserModelListView(LoginRequiredMixin, ListView):
-    template_name = "list_orders2.html"
+    template_name = "shop/order_list_for_user.html"
 
     def get_queryset(self):
         return Order.objects.filter(user=self.request.user)
@@ -51,8 +52,8 @@ class OrdersUserModelListView(LoginRequiredMixin, ListView):
 
 
 class OrderDetailView(LoginRequiredMixin, DetailView):
-    order = Order
-    template_name = "order_detail.html"
+    model = Order
+    template_name = "shop/order_detail.html"
 
     def get_context_data(self, **kwargs):
             context = super(OrderDetailView, self).get_context_data(**kwargs)
@@ -64,7 +65,7 @@ class OrderDetailView(LoginRequiredMixin, DetailView):
                 try:
                     H = StateLog.objects.filter(object_id=self.object.id)
                 except StateLog.DoesNotExist:
-                      H = ""
+                    H = ""
                 try:
                     E = Shipment.objects.get(order= self.object.id)
                 except Shipment.DoesNotExist:
@@ -82,7 +83,7 @@ class OrderDetailView(LoginRequiredMixin, DetailView):
 
 
 class OrderUpdateView(LoginRequiredMixin, UpdateView):
-    order = Order
+    model = Order
     fields = ['paid', 'module', ]
     template_name = "shop/order_edit.html"
     success_url = reverse_lazy('panel')
@@ -92,7 +93,6 @@ class OrderUpdateView(LoginRequiredMixin, UpdateView):
 
     def post(self, request, *args, **kwargs):
         if "cancel" in request.POST:
-            self.object = self.get_object()
             url = self.get_success_url()
             return HttpResponseRedirect(url)
         else:
@@ -103,7 +103,7 @@ class OrderDeleteView(LoginRequiredMixin, DeleteView):
     """
     State to cancel and get on sale available again
     """
-    order = Order
+    model = Order
     template_name = "shop/order_confirm_delete.html"
     success_url = reverse_lazy('panel')
 
@@ -129,7 +129,7 @@ class SaleListView(LoginRequiredMixin, ListView):
     """
     View for ADMIN for all sales
     """
-    order = Sale
+    model = Sale
     template_name = "shop/orders_list.html"
     paginate_by = 5
     # def get_queryset(self):
@@ -159,7 +159,7 @@ class SaleDetailView(LoginRequiredMixin, DetailView):
     """
     Detail of each Sale
     """
-    order = Sale
+    model = Sale
     template_name = "sale_detail.html"
 
     def get_context_data(self, **kwargs):
