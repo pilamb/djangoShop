@@ -23,8 +23,8 @@ from models import Order, Sale, Shipment
 
 class LoginRequiredMixin(object):
     @classmethod
-    def as_view(cls, **initkwargs):
-        view = super(LoginRequiredMixin, cls).as_view(**initkwargs)
+    def as_view(cls, *args):
+        view = super(LoginRequiredMixin, cls).as_view(*args)
         return login_required(view)
 
 
@@ -44,9 +44,9 @@ class OrdersUserModelListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         return Order.objects.filter(user=self.request.user)
 
-    def get_context_data(self, **kwargs):
+    def get_context_data(self, *args):
             context = super(OrdersUserModelListView, self).get_context_data(
-                **kwargs)
+                *args)
             return context
 
 
@@ -76,7 +76,7 @@ class OrderDetailView(LoginRequiredMixin, DetailView):
 
     def get_queryset(self):
         if not self.request.user.is_super:
-            return Order.objects.filter(user = self.request.user)
+            return Order.objects.filter(user=self.request.user)
         else:
             return Order.objects.all()
 
@@ -114,10 +114,10 @@ class OrderDeleteView(LoginRequiredMixin, DeleteView):
             return HttpResponseRedirect(url)
         else:
             self.object = self.get_object()
-            self.object.estado='ca'
+            self.object.state = 'ca'
             self.object.save()
             m = Product.objects.get(pk=self.object.module.id)
-            m.on_sale=True
+            m.on_sale = True
             m.save()
             messages.warning(request,
                              'Order marked as cancelled <b>correctly</b>.')
@@ -164,15 +164,15 @@ class SaleDetailView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
             context = super(SaleDetailView, self).get_context_data(**kwargs)
-            order = Order.objects.get(sale= self.object)
-            context['order']=order
+            order = Order.objects.get(sale=self.object)
+            context['order'] = order
             return context
 
     def get_queryset(self):
         if not self.request.user.is_super:
             return Sale.objects.filter(pk=
                                        Order.objects.filter(
-                                           user= self.request.user))
+                                           user=self.request.user))
         else:
             return Sale.objects.all()
 
@@ -198,7 +198,7 @@ class InvoicePDFModel(LoginRequiredMixin, PDFTemplateView):
     """
     Generator of invoices to PDF format
     """
-    template_name = "shop/PDFinvoice.html"
+    template_name = "shop/pdf_invoice.html"
 
     def get_context_data(self, **kwargs):
         context = super(InvoicePDFModel, self).get_context_data(**kwargs)
@@ -220,4 +220,4 @@ class InvoicePDFModel(LoginRequiredMixin, PDFTemplateView):
             return context
         except ObjectDoesNotExist:
             #  TODO: logger.error("Error on shipment {0}")
-            return context
+            raise Exception
