@@ -87,7 +87,7 @@ class NewUserModel(forms.Form):
         required=False,
         label="Phone",
         validators=[nums],
-        widget= forms.TextInput(
+        widget=forms.TextInput(
             attrs={
                 'class': 'form-control',
                 'placeholder': 'Phone',
