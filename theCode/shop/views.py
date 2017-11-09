@@ -29,8 +29,8 @@ class LoginRequiredMixin(object):
 
 
 class OrderListView(LoginRequiredMixin, ListView):
-    order = Order
-    template_name = "list_orders.html"
+    model = Order
+    template_name = "orders_list.html"
     paginate_by = 3
 
     def get_context_data(self, **kwargs):

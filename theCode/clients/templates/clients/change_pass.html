@@ -8,15 +8,14 @@
     </h2><hr> 
     {% endblock %}
     <div class="text-danger" role="alert">
-   
         {% if form.errors or form.non_field_errors %}
+	        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
             {% if form.errors|length == 1 or form.non_field_errors|length == 1 %} 
             please, check the next error:
             {% else %} 
             please, check the wrong fields:
-            {% endif %} 
-            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-            {{ form.errors}} {{ form.non_field_errors }}
+            {% endif %}
+            {{ form.errors}}
         {% endif %}
       </div>
       <form method="post" action="">{%csrf_token%}
@@ -39,9 +38,8 @@
 	          <i class="glyphicon glyphicon-ban-circle"></i> Cancel</button>
         </p>
       </form>
-     
    {% else %}
-      <center> <code>Space forbidden for your user.</code> </center> <br>
+    <code>Space forbidden for your user.</code><br>
   {% endif %}
 {% endblock %}
 {% block footer %} 
