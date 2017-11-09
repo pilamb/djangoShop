@@ -8,8 +8,8 @@ from .models import Notification
 
 class LoginRequiredMixin(object):
     @classmethod
-    def as_view(cls, **initkwargs):
-        view = super(LoginRequiredMixin, cls).as_view(**initkwargs)
+    def as_view(cls, *args):
+        view = super(LoginRequiredMixin, cls).as_view(*args)
         return login_required(view)
 
 
