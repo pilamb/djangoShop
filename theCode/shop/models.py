@@ -131,8 +131,8 @@ class Order(models.Model):
         """
         low_range = int(date.today().day)*1000
         high_range = low_range + 1000
-        secret = randint(low_range,high_range)
-        return str(secret)
+        secret = str(randint(low_range, high_range))
+        return unicode(secret)
 
     #
     # States of transition 
@@ -230,7 +230,7 @@ class Order(models.Model):
                         Status.REPAIRING],
                 target=Status.SHIPPED,
                 conditions=[shipment_created])
-    def enviar(self):
+    def send(self):
         """
         Generate tracking number, date of shipment, price of shipment,
         and notify the user.
@@ -243,7 +243,7 @@ class Order(models.Model):
 
     @transition(field=state, source=Status.SHIPPED, target=Status.RECEIVED,
                 conditions=[shipment_delivered])
-    def recibir(self):
+    def received(self):
         """
         User received the parcel. Marck shipment as received.
         Generates the pdf invoice
