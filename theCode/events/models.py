@@ -11,12 +11,11 @@ class Event(models.Model):
     Represents a simple event,
     something that the website wants to advert to users.
     """
-    name = models.CharField(max_length=20,
-                            verbose_name="Name:",
-                            validators=[only_letters])
-    date = models.DateField(null=True,
-                            blank=True)
-    description = models.CharField(blank=True,
+    name = models.CharField(max_length=100,
+                            verbose_name="Name:")
+    begin_date = models.DateTimeField(null=True, blank=True)
+    end_date = models.DateTimeField(null=True, blank=True)
+    description = models.TextField(blank=True,
                                    verbose_name="Description:",
                                    max_length=1000)
 
