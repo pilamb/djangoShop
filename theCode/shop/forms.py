@@ -61,8 +61,6 @@ def page(request, pk):
             form = NewConcreteOrderForm(request.POST)
             if request.user.is_authenticated():
                 if form.is_valid():
-                    print request.POST
-                    notified = False
                     p = Order(
                         user=user,
                         module=mod,

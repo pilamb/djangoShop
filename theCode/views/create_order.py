@@ -15,7 +15,7 @@ from contact_messages.models import ContactMessage
 
 
 class NewProductOrderForm(forms.Form):
-    def __init__(self,*args,**kwargs):
+    def __init__(self, *args, **kwargs):
             self.request = kwargs.pop('request', None)
             super(NewProductOrderForm, self).__init__(*args, **kwargs)
     required_css_class = "required"
@@ -51,9 +51,10 @@ class NewProductOrderForm(forms.Form):
             }),
         choices=Order.COLORS_CHOICES
         )
+
     class Meta:
         order = Order
-        fields = ('user','product','information','colour')
+        fields = ('user', 'product', 'information', 'colour')
 
     def clean(self):
         cleaned_data = super(NewProductOrderForm,self).clean()
@@ -72,7 +73,8 @@ def page(request):
                     product = request.POST['product']
                     mod = Product.objects.get(id=product)
                     notified = request.POST['notified']
-                    painting = request.POST['color']
+                    # TODO: remove painting logic
+                    # painting = request.POST['color']
                     p = Order(
                         user=user,
                         product=mod,
@@ -81,11 +83,14 @@ def page(request):
                         )
                     mod.quitar_of_sale()
                     mod.save()
-                    new_message = ContactMessage(user=user,
-                                                 notified=False,
-                                                 message=
-                                               u"""Congratulations, the order has been created correctly and it is in the state %s.
-                     Soon you will receive confirmation of the states changes. Thanks""" % p.state)
+                    new_message = ContactMessage(
+                        user=user,
+                        notified=False,
+                        message=u"""Congratulations, the order has been created
+                        correctly and it is in the state %s. Soon you will
+                        receive confirmation of the states changes. Thanks"""
+                                % p.state
+                    )
                     new_message.save()
                     messages.success(request,
                                      '¡Order created <b>correctly</b>, thanks!')

@@ -14,12 +14,15 @@
             <li class="list-group-item"><b>Order:</b><a href="{% url
 	            'detail_order' order.id %}"> {{order.id }}</a></li>
             <li class="list-group-item"><b>Date departure: </b>{{ order.sign_date }}</li>
-            <li class="list-group-item"><b>Tracking number:</b>{{shipment.number}}</li>
+            <li class="list-group-item"><b>Tracking number:</b>
+	            {{ shipment.number }}
+            </li>
             {% if order.informacion_adicional %}
-            <li class="list-group-item"><b>Information extra: </b> {{order.informacion_adicional}}</li>
+              <li class="list-group-item"><b>Information extra: </b>
+	            {{order.informacion_adicional}}</li>
             {% endif %}
             <li class="list-group-item"><b>Shipment price: €</b>
-            {{order.shipment_price}}
+              {{order.shipment_price}}
             </li>
             <li class="list-group-item"><b>delivered: </b>
                {% if order %}

@@ -13,7 +13,7 @@ from clients.models import UserModel
 
 
 class NewUserModel(forms.Form):
-
+    """Form to create user"""
     required_css_class = "required"
     error_css_class = "notified-danger"
     email = forms.EmailField(

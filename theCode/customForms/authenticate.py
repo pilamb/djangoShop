@@ -45,9 +45,11 @@ def login(request):
                     django_login(request, user)
                     return HttpResponseRedirect(reverse_lazy('index'))
             else:
-                return render_to_response('login.html', {'form': form, },
+                return render_to_response('login.html',
+                                          {'form': form, },
                                           context_instance=
-                                          RequestContext(request))
+                                          RequestContext(request)
+                                          )
     else:
         form = FormAuthenticate()
     return render_to_response(
@@ -57,5 +59,5 @@ def login(request):
 
 def logout(request):
     django_logout(request)
-    messages.info(request, 'Your session has been successfully closed, bye!')
+    messages.info(request, u'Your session has been successfully closed, bye!')
     return HttpResponseRedirect(reverse_lazy('login'))

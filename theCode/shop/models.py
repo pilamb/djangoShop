@@ -102,7 +102,6 @@ class Order(models.Model):
     invoice_available = models.BooleanField(default=False)
     sale = models.ForeignKey(Sale, blank=True, null=True)
     icon = models.CharField(max_length=50, default="inbox")
-    #  of Bootstrap class
     state = FSMField(
          choices=Status.state_choices,
          blank=False,
