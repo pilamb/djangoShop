@@ -14,48 +14,47 @@
       </tr> 
       </thead>
       <tbody>
-      <tr>
-      {% for u in object_list2 %}
-          <td>{{ u.id }}</td> 
-          <td> <a href="{% url 'account:user_detail' u.user.id %}">{{ u.user }}</a>  </td> 
-          <td>{{u.modulo}}</td>
-          <td>{{ u.sign_date }}</td> 
-          <td>{% if u.pagado %}
-                <span class="glyphicon glyphicon-ok" aria-hidden="True"></span>
-              {% else %}
-                <span class="glyphicon glyphicon-remove" aria-hidden="True"></span>
-              {% endif %}
-          </td> 
-          <td>
-            {{ u.get_estado_display }} <span class="glyphicon glyphicon-{{ order.icono }}" aria-hidden="true"></span>
-          </td>
-          <td>
-            <a href="{% url 'shop:edit_order' u.id %}">
-              <span class="glyphicon glyphicon-pencil" aria-hidden="True"></span>
-            </a>
-            <a href="{% url 'shop:order_delete' u.id %}">
-              <span class="glyphicon glyphicon-remove-sign" aria-hidden="True"></span>
-            </a>
-            <a href="{% url 'shop:order_detail' u.id %}">
-              <span class="glyphicon glyphicon-eye-open" aria-hidden="True"></span>
-            </a>
-          </td>
-      </tr>    
+	      <tr>
+	      {% for u in object_list %}
+	          <td>{{ u.id }}</td>
+	          <td> <a href="{% url 'account:user_detail' u.user.id %}">{{ u.user }}</a>  </td>
+	          <td>{{u.module}}</td>
+	          <td>{{ u.sign_date }}</td>
+	          <td>{% if u.pagado %}
+	                <span class="glyphicon glyphicon-ok" aria-hidden="True"></span>
+	              {% else %}
+	                <span class="glyphicon glyphicon-remove" aria-hidden="True"></span>
+	              {% endif %}
+	          </td>
+	          <td>
+	            {{ u.get_estado_display }} <span class="glyphicon glyphicon-{{ order.icono }}" aria-hidden="true"></span>
+	          </td>
+	          <td>
+	            <a href="{% url 'shop:order_edit' u.id %}">
+	              <span class="glyphicon glyphicon-pencil" aria-hidden="True"></span>
+	            </a>
+	            <a href="{% url 'shop:order_delete' u.id %}">
+	              <span class="glyphicon glyphicon-remove-sign" aria-hidden="True"></span>
+	            </a>
+	            <a href="{% url 'shop:order_detail' u.id %}">
+	              <span class="glyphicon glyphicon-eye-open" aria-hidden="True"></span>
+	            </a>
+	          </td>
+	      </tr>
       </tbody>
       {% empty %}
-          <b><mark>Actually no orders.</mark></b> 
+          <b><mark>No orders.</mark></b>
       {% endfor %}
       </table> 
       {% if is_paginated %}
-      <center>
-            <nav>
+         <nav>
               <ul class="pagination pagination-sm">
                   {% if page_obj.has_previous %}
-                    <li>
+	                  <li>
                     <a href="/listarOrders/?page={{ page_obj.previous_page_number }}"<span aria-label="Previous" aria-hidden="true">&laquo;</span></a>
-                   {% else %}
-                      <li class="disabled">
-                        <a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+	                {% else %}
+                     <li class="disabled">
+                     <a href="#" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
                   {% endif %}
                   </li>
                   <li><span class="page-current">
@@ -68,10 +67,9 @@
                       <li class="disabled">
                         <a href="#" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
                   {% endif %}
-              </li> 
+                      </li>
               </ul>
-            </nav>
-        </center>       
+         </nav>
       {% endif %}
       </div>
       <br>

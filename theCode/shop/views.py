@@ -16,7 +16,7 @@ from datetime import date
 
 from theCode.views.create_order import NewProductOrderForm
 from warehouse.models import Product
-from contact_messages.models import ContactMessage
+from notifications.models import Notification
 from clients.models import UserModel
 from models import Order, Sale, Shipment
 
@@ -40,15 +40,18 @@ class OrderListView(LoginRequiredMixin, ListView):
 
 
 class OrdersUserModelListView(LoginRequiredMixin, ListView):
+    """
+    List of orders for just one user
+    """
     template_name = "shop/order_list_for_user.html"
+    model = Order
 
     def get_queryset(self):
         return Order.objects.filter(user=self.request.user)
 
     def get_context_data(self, *args):
-            context = super(OrdersUserModelListView, self).get_context_data(
-                *args)
-            return context
+        context = super(OrdersUserModelListView, self).get_context_data(*args)
+        return context
 
 
 class OrderDetailView(LoginRequiredMixin, DetailView):
@@ -59,20 +62,20 @@ class OrderDetailView(LoginRequiredMixin, DetailView):
             context = super(OrderDetailView, self).get_context_data(**kwargs)
             if not self.request.user.is_super:
                 try:
-                    N = ContactMessage.objects.filter(user=self.request.user)
-                except ContactMessage.DoesNotExist:
-                    N = ()
+                    nots = Notification.objects.filter(user=self.request.user)
+                except Notification.DoesNotExist:
+                    nots = ()
                 try:
-                    H = StateLog.objects.filter(object_id=self.object.id)
+                    states = StateLog.objects.filter(object_id=self.object.id)
                 except StateLog.DoesNotExist:
-                    H = ""
+                    states = ""
                 try:
-                    E = Shipment.objects.get(order= self.object.id)
+                    shipments = Shipment.objects.get(order= self.object.id)
                 except Shipment.DoesNotExist:
-                    E = ""
-                context['Notification'] = N
-                context['H'] = H
-                context['shipment'] = E
+                    shipments = ""
+                context['Notification'] = nots
+                context['H'] = states
+                context['shipment'] = shipments
             return context
 
     def get_queryset(self):
@@ -179,7 +182,7 @@ class SaleDetailView(LoginRequiredMixin, DetailView):
 
 class ShipmentDetailView(LoginRequiredMixin, DetailView):
     order = Shipment
-    template_name = "shop/shipment_detail.html"
+    template_name = "shop/order_detail.html"
 
     def get_context_data(self, **kwargs):
             context = super(ShipmentDetailView, self).\

@@ -6,32 +6,34 @@
       <div class="panel-heading">
          <h2>
               <span class="glyphicon glyphicon-plane" aria-hidden="true"></span>&nbsp;
-              <text>Detail of shipment<a href="{{ shipment.getabsoluteurl }}">{{shipment.id}}</a></text>
+              <text>Detail of order <a href="{{ shipment.getabsoluteurl }}">
+	              {{order.id}}</a></text>
          </h2>
       </div>
        <ul class="list-group">
-            <li class="list-group-item"><b>Order:</b><a href="{% url 'detail_order' shipment.order.id %}"> {{shipment.order }}</a></li>
-            <li class="list-group-item"><b>Date departure: </b>{{ shipment.sign_date }}</li>
-            <li class="list-group-item"><b>Tracking number<:</b>{{shipment.number}}</li>
-            {% if shipment.informacion_adicional %}
-            <li class="list-group-item"><b>Information extra: </b> {{shipment.informacion_adicional}}</li>
+            <li class="list-group-item"><b>Order:</b><a href="{% url
+	            'detail_order' order.id %}"> {{order.id }}</a></li>
+            <li class="list-group-item"><b>Date departure: </b>{{ order.sign_date }}</li>
+            <li class="list-group-item"><b>Tracking number:</b>{{shipment.number}}</li>
+            {% if order.informacion_adicional %}
+            <li class="list-group-item"><b>Information extra: </b> {{order.informacion_adicional}}</li>
             {% endif %}
             <li class="list-group-item"><b>Shipment price: €</b>
-            {{shipment.shipment_price}}
+            {{order.shipment_price}}
             </li>
             <li class="list-group-item"><b>delivered: </b>
-               {% if shipment.recibido %}
+               {% if order %}
                 <span class="glyphicon glyphicon-ok" aria-hidden="True"></span>
-                {{shipment.fecha_intrega}}
+                {{order.fecha_intrega}}
               {% else %}               
                 <span class="glyphicon glyphicon-remove" aria-hidden="True"></span>
               {% endif %}
             </li>
             <li class="list-group-item"><b>Company:</b>
-              {{shipment.comp}}
+              {{order.comp}}
             </li>
             <li class="list-group-item"><b>Link for tracking:</b>
-              {{shipment.url_comp}}
+              {{order.url_comp}}
             </li>
         </ul>
   </div>

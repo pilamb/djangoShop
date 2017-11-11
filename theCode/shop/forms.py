@@ -66,7 +66,7 @@ def page(request, pk):
                     p = Order(
                         user=user,
                         module=mod,
-                        information=notified,
+                        information=mod.information,
                         paid=False,
                         )
                     if mod.on_sale:
