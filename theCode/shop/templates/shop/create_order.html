@@ -8,47 +8,37 @@
         <div class="text-danger" role="alert">
         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>  
         {% if form.errors|length == 1 or form.non_field_errors|length == 1 %} 
-            please, check the next error:
+              please, check the next error:
             {% else %} 
-            please, check the wrong fields:
+              please, check the wrong fields:
             {% endif %}
-            {{ form.errors}} {{ form.non_field_errors }}
+              {{ form.errors}} {{ form.non_field_errors }}
         </div>
-          {% endif %}
-            {% if not form.modulo.in_sale %}
+      {% endif %}
+      {% if not form.module.in_sale %}
           <form method="post" action="{% url "create_order2" pk %}" class="form-group">{% csrf_token %}
             <div class="row">
               <div class="col-lg-6 col-md-6">
-                {% if form.modulo %}
+                {% if form.module %}
                   <label for="modulo"><b>Modules</b></label>
                   <div class="radio">
-                  {{form.modulo}}
+                  {{form.module}}
                   </div>
                 {% endif %}
-                 {% if form.color %}
-                  <div class="form-group">
-                  <label for="color"><b>Hand painting</b></label> <br>
-                  {{form.color}}
-                  <div class="helptext"><p>This takes some days longer.</p>
-                  </div>
-                  </div>
-                {% endif %}
-                  <div class="form-group">
-              <h5>Extra:
-                <span id="paintingPrice">0</span>€  
-              </h5> <span id="extra"></span>
+
+              <div class="form-group">
+              <h5>Price</h5> <span id="extra"></span>
               <div id="square" class="border_line"></div>
             </div> 
               </div>
               <div class="col-lg-6 col-md-6">
                 <div class="form-group">
                 {{form.text}}
+                </div>
               </div>
-              </div>
-            </div>
             <div class="form-group">
-                    {{form.captcha}}
-                  </div>
+                {{form.captcha}}
+            </div>
               <br>
               <div class="helptext">
                 <ul>
@@ -63,16 +53,16 @@
               <hr>
               <div class="form-group"><!--buttons-->
                 <button type="submit" value="Save" class="btn btn-info btn-md" id="idBotonSend">
-                  <i class="glyphicon glyphicon-saved"></i> Send
+                  <i class="glyphicon glyphicon-saved"></i> Order
                 </button>
                 <button type="submit" value="Cancel" class="btn btn-warning btn-md" id="BotonCancel" name="cancel">
 	                <i class="glyphicon glyphicon-ban-circle"></i> Cancel
                 </button>
               </div>
           </form>
-        {%else%}
+      {%else%}
         <code>Actually there are no products for sale</code>
-        {% endif %}
+      {% endif %}
 {% endblock %}
 {% block footer %} 
    <li class="active">Create order</li>

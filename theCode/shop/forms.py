@@ -22,7 +22,7 @@ class NewConcreteOrderForm(forms.Form):
     error_css_class = "notified-danger"
     # TODO: captcha removed for testing
     # captcha = CaptchaField()
-    notified = forms.CharField(
+    text = forms.CharField(
         max_length=1000,
         required=False,
         label="Notification",
@@ -38,21 +38,10 @@ class NewConcreteOrderForm(forms.Form):
             }
         )
     )
-    color = forms.ChoiceField(
-        widget=forms.Select(
-            attrs={
-                'class': 'form-control',
-                'id': 'selectorcolor',
-                'onchange': 'changePrice(this)',
-            }
-        ),
-        choices=Order.COLORS_CHOICES
-    )
 
     class Meta:
         order = Order
-        fields = ('user', 'information', 'paid', 'color')
-        exclude = 'module'
+        fields = ('user', 'information', 'paid',)
 
     def clean(self):
         cleaned_data = super(NewConcreteOrderForm, self).clean()
@@ -74,13 +63,11 @@ def page(request, pk):
                 if form.is_valid():
                     print request.POST
                     notified = False
-                    # print request.POST['color']
                     p = Order(
                         user=user,
                         module=mod,
                         information=notified,
                         paid=False,
-                        color=request.POST['color']
                         )
                     if mod.on_sale:
                         mod.on_sale = False
@@ -91,7 +78,7 @@ def page(request, pk):
                     new_message = ContactMessage(
                         user=user,
                         notified=False,
-                        message=
+                        text=
                         u"""Congratulations, the order has been created
                         correctly and it is in the state %s.
                         Soon you will receive confirmation of the states changes

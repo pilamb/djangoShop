@@ -89,7 +89,7 @@ class OrderUpdateView(LoginRequiredMixin, UpdateView):
     success_url = reverse_lazy('panel')
 
     def clean(self):
-        super(Order, self).clean()
+        super(OrderUpdateView, self).clean()
 
     def post(self, request, *args, **kwargs):
         if "cancel" in request.POST:
