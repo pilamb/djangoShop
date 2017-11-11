@@ -11,7 +11,7 @@ class Notification(models.Model):
     Readable from user panel.
     """
 
-    user = models.ForeignKey(UserModel,blank=False)
+    user = models.ForeignKey(UserModel, blank=False)
     sign_date = models.DateField(auto_now_add=True)
     notified = models.BooleanField(default=False)  # Changes when clicks on it
     text = models.CharField(blank=True, max_length=1500)

@@ -116,11 +116,14 @@ class Order(models.Model):
     class Meta:
         ordering = "-sign_date",
 
-    def notify_user(self):
+    def notify_user(self, text):
         """
         Creates a message to tell the user a new event
         """
-        new_notification = ContactMessage(user=self.user, notified=False)
+        new_notification = ContactMessage(user=self.user,
+                                          message=text,
+                                          notified=False
+                                          )
         new_notification.save()
 
     def generate_payment_code(self):
@@ -177,12 +180,12 @@ class Order(models.Model):
         Notifies the user.
         """
         self.payment_code = self.generate_payment_code()
-        self.icon  ="ok"
+        self.icon = "ok"
         self.save()
-        notified = u"Payment code is available: %s. " \
-                   u"Its mandatory point that code as " \
-                   u"concept in your payment facilities" % self.payment_code
-        self.notify_user(notified)
+        text = u"Payment code is available: %s. " \
+               u"Its mandatory point that code as " \
+               u"concept in your payment facilities" % self.payment_code
+        self.notify_user(text)
 
     @transition(field=state, source=Status.ACCEPTED, target=Status.PAID)
     def pay(self):
@@ -192,12 +195,12 @@ class Order(models.Model):
         """
         v = Sale(price=self.modulo.price,code=self.payment_code)
         v.save()
-        self.icon  ="credit-card"
+        self.icon = "credit-card"
         self.paid = True
         self.save()
-        notified = u"We have received your payment. " \
-                   u"Order goes to state PAID and after will go to MANUFACTURE."
-        self.notify_user(notified)
+        text = u"We have received your payment. " \
+               u"Order goes to state PAID and after will go to MANUFACTURE."
+        self.notify_user(text)
 
     @transition(field=state, source=Status.PAID, target=Status.MANUFACTURE,
                 conditions=[paid_checked])
@@ -206,10 +209,10 @@ class Order(models.Model):
         The item passes to manufacture time.
         """
         self.icon = "wrench"
-        notified = "Your order has changed to manufacturing. " \
-                   "Soon you will receive new updates. " \
-                   "Your inbox will receive a message."
-        self.notify_user(notified)
+        text = u"""Your order has changed to manufacturing.
+                  Soon you will receive new updates.
+                  Your inbox will receive a message."""
+        self.notify_user(text)
         self.save()
 
     @transition(field=state, source=Status.MANUFACTURE,
@@ -219,8 +222,8 @@ class Order(models.Model):
         This step is optional, the user may select colour or not
         """
         self.icon = "tint"
-        notified = u"Your order is now under paintings."
-        self.notify_user(notified)
+        text = u"Your order is now under paintings."
+        self.notify_user(text)
         self.save()
 
     @transition(field=state,
@@ -237,8 +240,8 @@ class Order(models.Model):
         """
         self.icon = "plane"
         seg = Shipment.objects.filter(order=self)
-        notified = u"Your order has been shipped. Trackin number is %s" % str(seg)
-        self.notify_user(notified)
+        text = u"Your order has been shipped. Tracking number is %s" % str(seg)
+        self.notify_user(text)
         self.save()
 
     @transition(field=state, source=Status.SHIPPED, target=Status.RECEIVED,
@@ -249,10 +252,10 @@ class Order(models.Model):
         Generates the pdf invoice
         """
         self.icon = "circle-arrow-down"
-        notified = u"Your order shipment has been marked as received.."
-        self.notify_user(notified)
+        text = u"Your order shipment has been marked as received.."
+        self.notify_user(text)
+        self.invoice_available = True
         self.save()
-        invoice_available = True
 
     @transition(field=state, source=Status.RECEIVED, target=Status.WARRANTY,
                 conditions=[shipment_delivered])
@@ -261,10 +264,10 @@ class Order(models.Model):
         User has received the order and it has been returned.
         """
         self.icon = "sunglasses"
-        notified = u""" Thanks for trusting on us, hope you like it.
+        text = u""" Thanks for trusting on us, hope you like it.
                     Your 1 year warranty starts now,
                     The application will notify when a year passes"""
-        self.notify_user(notified)
+        self.notify_user(text)
         self.save()
 
     @transition(field=state, source='*', target=Status.CANCEL, conditions=[])
@@ -272,10 +275,10 @@ class Order(models.Model):
         """
         At any step the order gets cancel.
         """
-        notified = u"Your order has been cancel." \
-                   u" Please contact for further info."
+        text = u"""Your order has been cancel.
+                Please contact for further info."""
         self.icon = "trash"
-        self.notify_user(notified)
+        self.notify_user(text)
         self.save()
 
     @transition(field=state, source=Status.SHIPPED,
@@ -284,10 +287,10 @@ class Order(models.Model):
         """
         Some problem with shipment company, and it needs resending.
         """
-        notified = u"Your order is on returned state. " \
-                   u"We expect deliver it soon. Thanks."
+        text = u"""Your order is on returned state.
+                   We expect deliver it soon. Thanks."""
         self.icon = "plane"
-        self.notify_user(notified)
+        self.notify_user(text)
         self.save()
 
     @transition(field=state, source=Status.WARRANTY, target=Status.REPAIRING,
@@ -297,8 +300,8 @@ class Order(models.Model):
         Been under warranty, it enters on repair.
         """
         self.icon = "wrench"
-        notified = u"Your order has arrived to repairing. New updates soon."
-        self.notify_user(notified)
+        text = u"Your order has arrived to repairing. New updates soon."
+        self.notify_user(text)
         self.save()
 
     @transition(field=state, source=Status.WARRANTY,
@@ -308,8 +311,8 @@ class Order(models.Model):
         The warranty period has finished, notify the user.
         """
         self.icon = "hourglass"
-        notified = u"The warranty period has finished."
-        self.notify_user(notified)
+        text = u"The warranty period has finished."
+        self.notify_user(text)
         self.save()
 
 
