@@ -23,7 +23,7 @@ class Notification(models.Model):
         verbose_name_plural = "Notifications to users"
 
     def __unicode__(self):
-        return u'%s %s' % str(self.user, self.notified)
+        return u'%s %s' % str(self.user, self.text)
 
     def notify(self):  # a new message or event to say to user
         self.notified = False

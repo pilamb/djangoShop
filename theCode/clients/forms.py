@@ -4,8 +4,9 @@ from django import forms
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse_lazy
-from captcha.fields import CaptchaField
 from django.contrib import messages
+
+from captcha.fields import CaptchaField
 
 from notifications.models import Notification
 from theCode.core.validators import only_letters, nums
@@ -106,14 +107,6 @@ class NewUserModel(forms.Form):
         label="You must be an adult to create an account."
     )
 
-    def clean_email(self):
-        email = self.cleaned_data.get('email').lower()
-        try:
-           user = UserModel.objects.get(email=email)
-        except KeyError:
-            raise KeyError
-        return email
-
     def clean_password2(self):
         pas = self.cleaned_data.get('password', '')
         pas2 = self.cleaned_data.get('password2', '')
@@ -137,6 +130,17 @@ class NewUserModel(forms.Form):
                 "It is mandatory to accept the conditions.")
         return terms_check
 
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        try:
+            taken = UserModel.objects.get(email=email.lower())
+        except UserModel.DoesNotExist:
+            return email
+        if taken is not None:
+            raise forms.ValidationError(
+                u"Email already taken. Choose another one please"
+            )
+
 
 def page(request):
     if request.POST:
@@ -147,7 +151,7 @@ def page(request):
             if form.is_valid():
                 name = form.cleaned_data['name']
                 surname = form.cleaned_data['surname']
-                email = form.clean_email()  # TODO: all email on lower
+                email = form.cleaned_email()  # TODO: all email on lower
                 pas2 = form.cleaned_data['password2']
                 tel = form.cleaned_data['phone']
 
@@ -161,7 +165,10 @@ def page(request):
                 new_user.set_password(pas2)
                 # TODO: play with commit False.
                 #  If captcha fails creates user anyways.
-                new_user.save()
+                try:
+                   taken = UserModel.objects.get(email=email.lower())
+                except UserModel.DoesNotExist:
+                    new_user.save()
                 new_notification = Notification(
                     user=new_user,
                     notified=False,
