@@ -30,15 +30,20 @@ class Manager(BaseUserManager):
         return user
 
     def create_user(self, email, password=None, **extra_fields):
-        return self._create_user(email, password,
+        return self._create_user(email,
+                                 password,
                                  is_admin=False,
-                                 is_superuser=False, **extra_fields)
+                                 is_superuser=False,
+                                 **extra_fields
+                                 )
 
     def create_superuser(self, email, password, **extra_fields):
-        return self._create_user(email, password,
+        return self._create_user(email,
+                                 password,
                                  is_admin=True,
                                  is_superuser=True,
-                                 **extra_fields)
+                                 **extra_fields
+                                 )
 
     def delete_user(self):
         self.set_active(False)
@@ -49,7 +54,6 @@ class UserModel(AbstractBaseUser):
     """
     Django User abstract heritage
     """
-
     objects = Manager()
     name = models.CharField(
         max_length=20,
@@ -87,7 +91,7 @@ class UserModel(AbstractBaseUser):
         max_length=100,
         blank=True,
         null=True,
-        verbose_name="Second address ",
+        verbose_name="Second address",
         # help_notified="Only if you order, for delivery."
         )
     phone = models.CharField(
@@ -105,7 +109,7 @@ class UserModel(AbstractBaseUser):
         verbose_name="Message_class"
         )
     active = models.BooleanField(
-        default=False
+        default=True
         )
     is_active = models.BooleanField(_('Active'), default=True)
     is_superuser = models.BooleanField(_('Superuser'), default=False)

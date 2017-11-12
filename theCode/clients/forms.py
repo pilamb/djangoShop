@@ -101,12 +101,17 @@ class NewUserModel(forms.Form):
         label="subscribed",
         required=False
     )
-    i_accept = forms.BooleanField(label="Accept")
+    accept_tac = forms.BooleanField(label="Accept")
+    adult_tac = forms.BooleanField(
+        label="You must be an adult to create an account."
+    )
 
     def clean_email(self):
-        import ipdb
         email = self.cleaned_data.get('email').lower()
-        ipdb.set_trace()
+        try:
+           user = UserModel.objects.get(email=email)
+        except KeyError:
+            raise KeyError
         return email
 
     def clean_password2(self):
@@ -118,8 +123,15 @@ class NewUserModel(forms.Form):
             raise forms.ValidationError("Passwords must match.")
         return pas
 
-    def clean_i_accept(self):
-        terms_check = self.cleaned_data.get('i_accept')
+    def clean_accept_tac(self):
+        terms_check = self.cleaned_data.get('accept_tac')
+        if not terms_check:
+            raise forms.ValidationError(
+                "It is mandatory to accept the conditions.")
+        return terms_check
+
+    def clean_adult_tac(self):
+        terms_check = self.cleaned_data.get('adult_tac')
         if not terms_check:
             raise forms.ValidationError(
                 "It is mandatory to accept the conditions.")
@@ -135,9 +147,10 @@ def page(request):
             if form.is_valid():
                 name = form.cleaned_data['name']
                 surname = form.cleaned_data['surname']
-                email = form.cleaned_data['email']  # TODO: all email on upper
+                email = form.clean_email()  # TODO: all email on lower
                 pas2 = form.cleaned_data['password2']
                 tel = form.cleaned_data['phone']
+
                 new_user = UserModel(
                     email=email.lower(),
                     is_active=True,
@@ -146,8 +159,8 @@ def page(request):
                     phone=tel,
                     messages=1)
                 new_user.set_password(pas2)
-                # TODO: play with commit False. If captcha fails creates user
-                # anyways.
+                # TODO: play with commit False.
+                #  If captcha fails creates user anyways.
                 new_user.save()
                 new_notification = Notification(
                     user=new_user,
@@ -165,7 +178,11 @@ def page(request):
                     else:
                         return HttpResponseRedirect(reverse_lazy('panel'))
             else:
-                return render(request, 'clients/user_create.html', {'form': form})
+                return render(
+                    request,
+                    'clients/user_create.html',
+                    {'form': form}
+                )
     else:
         form = NewUserModel()
         return render(request, 'clients/user_create.html', {'form': form})

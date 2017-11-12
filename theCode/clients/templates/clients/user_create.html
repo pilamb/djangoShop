@@ -11,27 +11,30 @@
        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>   
   	   {% if form.errors|length == 1 or form.non_field_errors|length == 1 %} 
         please, check the next error:
-        {% else %} 
+       {% else %}
         please, check the wrong fields:
        {% endif %}
        {{ form.non_field_errors }}
   	</div>
 		{% endif %}
-    <form class="form-horizontal" method="post" action="{% url
-	    "clients:create_user" %}">{% csrf_token %}
+    <form class="form-horizontal" method="post" action="{% url "account:create" %}">{% csrf_token %}
       {% for i in form %}
         <div class="form-group">
           <label for="{{i.label}}" class="col-sm-2 control-label">{{i.label}}</label>
           <div class="col-sm-7">
-             {{i}}
+             {{ i }}
               {% if form.errors %}
                   <div id="{{ i.auto_id }}_error" class="text-danger">
                  {{ i.errors }}
                   </div>
-
               {% endif %}
-             {% if help %} <div class="helptext">{{i.help_text}}</div>{%endif%}
-             {% if i.name == "acepto" %}  <small><p>Its mandatory to accept the terms <a href="{% url 'landing:terms' %}" target=_blank>landing:terms</a></p>.</small>{%endif%}
+             {% if help %}
+	             <div class="helptext">{{i.help_text}}</div>
+             {%endif%}
+             {% if i.name == "accept_tac" %}
+	             <small><p>Its mandatory to accept the terms <a href="{% url 'landing:terms' %}"  >
+		             See terms.</a></p></small>
+             {%endif%}
           </div>
         </div>  
         {% endfor%}
@@ -44,7 +47,7 @@
               </a>
           </div>
         </div>
-      </form>
+    </form>
 {% endblock %}
 {% block footer %} 
   <li class="active">Create account</li>

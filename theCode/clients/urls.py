@@ -26,8 +26,8 @@ urlpatterns = [
         name='users_list',
     ),
     url(
-        regex=r'^create_account/',
+        regex=r'^create/',
         view=page,
-        name='create_user'
+        name='create'
     ),
 ]
