@@ -71,6 +71,13 @@ class UserModelUpdateView(LoginRequiredMixin, UpdateView):
     def clean(self):
         super(UserModelUpdateView, self).clean()
 
+    def get_queryset(self):
+        super(UserModelUpdateView, self).get_queryset()
+        try:
+            return UserModel.objects.filter(email=self.request.user.email)
+        except Exception as er:
+            raise Exception(er) # TODO: improve this
+
 
 class UserModelDeleteView(LoginRequiredMixin, DeleteView):
     """

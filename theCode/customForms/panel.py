@@ -32,7 +32,7 @@ def page(request):
             object_list4 = ()
         try:
             news = ContactMessage.objects.filter(date=date.today()).count()
-        except Notification.DoesNotExist:
+        except ContactMessage.DoesNotExist:
             news = 0
         try:
             prods = Product.objects.all().count()
@@ -46,10 +46,11 @@ def page(request):
         prods = ()
         n_admins = 0  # TODO: this
         news = 0
-        u = request.user
-        n = Notification.objects.filter(user=u, notified=False).count()
-        u.messages = n
-        u.save()
+        user = request.user
+        nots = Notification.objects.filter(user=user, notified=False).count()
+        # TODO: refactor this using related or some shit
+        user.messages = nots
+        user.save()
     return render(request, 'user_panel.html', {
         'object_list': object_list,
         'object_list2': object_list2,

@@ -6,7 +6,6 @@ from django.contrib.auth.decorators import login_required
 
 from customForms import index, authenticate, panel, shipments, \
     passwordChange, search, salesGraphics, productsGraphics
-from warehouse.views import ProductsListView, ProductDetailView
 from shop.forms import page
 
 admin.autodiscover()
