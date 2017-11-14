@@ -12,7 +12,7 @@
                 <li class="list-group-item"><b>Surname:</b> {{ user.surname|capfirst }}</li>
                 
                 <li class="list-group-item"><b>E-mail:</b> {{ user.email }}</li>
-                <li class="list-group-item"><b>Subscribed:</b> {% if u.suscrito %} 
+                <li class="list-group-item"><b>Subscribed:</b> {% if user.subscribed %}
                       <span class="glyphicon glyphicon-ok" aria-hidden="True"></span>
                     {% else %}
                       <span class="glyphicon glyphicon-remove" aria-hidden="True"></span>
