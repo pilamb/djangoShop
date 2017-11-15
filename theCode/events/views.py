@@ -15,14 +15,16 @@ class EventListView(ListView):
     """
     This view is enough since only admins can post events.
     """
-    order = Event
+    model = Event
     template_name = "events/events_list.html"
     paginate_by = 4
 
-    def get_notified_data(self, **kwargs):
-        notified = super(EventListView, self).get_context_data(**kwargs)
+    def get_notified_data(self, *args):
+        notified = super(EventListView, self).get_context_data(*args)
         notified['today'] = date.today()
         return notified
 
     def get_queryset(self):
-        return Event.objects.order_by('-date')
+        return Event.objects.all().order_by('-begin_date')
+
+# TODO: detailView

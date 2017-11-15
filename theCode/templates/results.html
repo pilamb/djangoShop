@@ -24,7 +24,7 @@
         {% if events_list_match %}
             <ul>
             {% for i in match_products %}
-              <li> {{i}} in <a href="{% url 'events:events_list' %}">Events</a> </li>
+              <li> {{i}} in <a href="{% url 'events:list' %}">Events</a> </li>
             {% empty %}
               <code>No events by that search.</code>
             {% endfor %}

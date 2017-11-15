@@ -20,7 +20,7 @@ class Event(models.Model):
                                    max_length=1000)
 
     def __unicode__(self):
-        return u'%s%s' % (self.name, self.date)
+        return u'%s %s' % (self.name, self.begin_date)
 
     def get_absolute_url(self):
         return reverse('event_list', kwargs={'pk': self.pk})

@@ -23,10 +23,10 @@
         <li class="list-group-item active" onMouseOver="show('descr{{forloop.counter}}')" onMouseOut="hide('descr{{forloop.counter}}')">
       {%endif%}
         <span class="badge">Created:
-          {% if today == u.fecha %}
+          {% if today == u.begin_date %}
             <h6><b>¡Hoy!</h6></b> 
           {%else%}
-            {{ u.fecha }}
+            {{ u.begin_date }}
           {%endif%}
         </span>
         <h3><b>{{forloop.counter}}</b></h3>
