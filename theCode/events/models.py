@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-
+from django.core.exceptions import ValidationError
+from datetime import datetime
 from django.db import models
 from django.contrib import admin
 from django.core.urlresolvers import reverse
@@ -24,7 +25,6 @@ class Event(models.Model):
 
     def get_absolute_url(self):
         return reverse('event_list', kwargs={'pk': self.pk})
-        # ? return reverse('user_detail', kwargs={'email': self.date})
 
     class Meta:
         app_label = "events"
