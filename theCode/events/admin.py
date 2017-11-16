@@ -13,11 +13,8 @@ class EventForm(forms.ModelForm):
     def clean(self):
         start_date = self.cleaned_data.get('begin_date')
         end_date = self.cleaned_data.get('end_date')
-        print type(start_date)
-        import ipdb; ipdb.set_trace()
         if start_date > end_date:
             raise forms.ValidationError("The end date can't be before begin date.")
-        print "caca2"
         return self.cleaned_data
 
 
@@ -26,5 +23,5 @@ class EventAdmin(admin.ModelAdmin):
     form = EventForm
     list_display = ('name', 'begin_date', 'description')
     search_fields = ('name', 'description')
-    
+
 admin.site.register(Event, EventAdmin)
