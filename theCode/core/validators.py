@@ -13,7 +13,7 @@ alfan = RegexValidator(r'^[A-ZÁÉÍÓÚÑÇÄËÏÖÜa-zñáéíóúäëïöü�
 
 
 def positive_price(value):
-    """ 
+    """
     0 is allowed for possibles offers in future
     """
     if value < 0:

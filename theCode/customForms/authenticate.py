@@ -45,11 +45,11 @@ def login(request):
                     django_login(request, user)
                     return HttpResponseRedirect(reverse_lazy('index'))
             else:
-                return render_to_response('login.html',
-                                          {'form': form, },
-                                          context_instance=
-                                          RequestContext(request)
-                                          )
+                return render_to_response(
+                    'login.html',
+                    {'form': form, },
+                    context_instance=RequestContext(request)
+                    )
     else:
         form = FormAuthenticate()
     return render_to_response(

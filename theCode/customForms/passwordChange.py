@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from django import forms
-from django.shortcuts import render, render_to_response
-from django.template import RequestContext
-from django.http import HttpResponse,HttpResponseRedirect
+from django.shortcuts import render
+from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse_lazy
-from django.core.exceptions import ValidationError
 from django.contrib import messages
 
 from clients.models import UserModel
@@ -67,8 +65,8 @@ def page(request):
                     u.set_password(raw_password=request.POST['password_one'])
                     u.save()
                     messages.success(request,
-                                     'Your password has been changed '
-                                     '<b>correctly</b>.')
+                                     """Your password has been changed  \
+                                     '<b>correctly</b>.""")
                     # notify user?
                 return HttpResponseRedirect(reverse_lazy('panel'))
             else:
@@ -82,4 +80,3 @@ def page(request):
         form = PasswordUpdateView()
         return render(request, 'clients/change_pass.html',
                       {'form': form, 'user': u})
-
