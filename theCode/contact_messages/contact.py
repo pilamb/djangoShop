@@ -26,7 +26,7 @@ class MailerForm(forms.Form):
                 'placeholder': 'Write a name of contact',
                 'onblur': 'this.placeholder="Write a name of contact"',
                 'onclick': 'this.placeholder=""'
-            } 
+            }
         )
     )
 
@@ -54,10 +54,10 @@ class MailerForm(forms.Form):
             'rows': '10',
             'overflow-y': 'hidden',
             'resize': 'none'
-            } 
+            }
         )
     )
-    
+
     category = forms.ChoiceField(
         label="Category",
         choices=ContactMessage.CATEGORY,
@@ -85,7 +85,7 @@ def confirm(request):
                 subject=settings.EMAIL_SUBJECT_PREFIX,
                 message=u"""Hello, {0}
                  You have sent a question regarding {1}.
-                 we will answer the fastest we can, thanks. 
+                 we will answer the fastest we can, thanks. \
                  Please do not answer to this automatic email.""" %
                         name % category,
                 from_email=settings.EMAIL_HOST_USER,

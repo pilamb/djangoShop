@@ -1,12 +1,12 @@
 import factory
 from factory import LazyAttribute, DjangoModelFactory
 
-from models import UserModel
+from clients.models import UserModel
 
 
 class UserModelFactory(DjangoModelFactory):
     class Meta:
-        model = 'clients.UserModel'
+        model = 'UserModel'
     #    django_get_or_create = ('name', )
 
     name = factory.Sequence(lambda n: 'name{0}' .format(n))

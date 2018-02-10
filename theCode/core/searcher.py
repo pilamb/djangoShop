@@ -10,7 +10,8 @@ def normalize_query(query_string,
     Chops of string in sole words, deleting spaces and grouping words
     """
     return [
-        normspace(' ', (t[0] or t[1]).strip()) for t in findterms(query_string)]
+        normspace(' ', (t[0] or t[1]).strip()) for t in findterms(query_string)
+    ]
 
 
 def search_filter(string, fields_to_search_at):
@@ -20,7 +21,7 @@ def search_filter(string, fields_to_search_at):
     :param fields_to_search_at:
     :return:
     """
-    query = None # Query to search for every search term
+    query = None  # Query to search for every search term
     terms = normalize_query(string)
     for term in terms:
         or_query = None  # Query to search for a given term in each field

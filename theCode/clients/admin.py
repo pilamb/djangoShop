@@ -20,7 +20,6 @@ class CustomUserCreationForm(UserCreationForm):
 
 
 class CustomUserChangeForm(UserChangeForm):
-
     password = ReadOnlyPasswordHashField()
 
     def __init__(self, *args, **kwargs):
@@ -36,25 +35,26 @@ class CustomUserChangeForm(UserChangeForm):
 
 
 class CustomUserAdmin(UserAdmin):
-
     form = CustomUserChangeForm
     add_form = CustomUserCreationForm
     list_display = ('email', 'surname', 'name', 'is_admin', 'subscribed',
                     'is_active', 'sign_date',)
     list_filter = ('is_admin', 'is_active',)
-    fieldsets = ( 
-        (None, {'fields': ('email', 'password')}),
-        ('personal information', {'fields': ('name', 'surname',
-                                             'address_second')}),
-        ('Permissions', {'fields': ('is_admin',)}),
-    )
+    fieldsets = (
+            (None, {'fields': ('email', 'password')}),
+            ('personal information', {
+                'fields': ('name', 'surname', 'address_second')
+            }),
+            ('Permissions', {'fields': ('is_admin',)}),
+            )
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'password1', 'password2', 'name', 'surname',
-                       'subscribed')}
-        ),
-    )
+            'fields': (
+                'email', 'password1', 'password2',
+                'name', 'surname', 'subscribed')
+            }),
+        )
     search_fields = ('email',)
     ordering = ('sign_date',)
     filter_horizontal = ()
