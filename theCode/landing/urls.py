@@ -1,7 +1,7 @@
 from django.conf.urls import url
 
 from .views import help_view, cookies_view, about_view, map_view, terms_view,\
-    info_view
+    info_view, shipments_info
 
 
 urlpatterns = [
@@ -26,14 +26,19 @@ urlpatterns = [
         name='map',
     ),
     url(
-        regex=r'^terms/',
+        regex=r'^terms/$',
         view=terms_view,
         name='terms'
     ),
     url(
-        regex=r'^info/',
+        regex=r'^info/$',
         view=info_view,
         name='info'
     ),
-]
+    url(
+        regex=r'^shipments/$',
+        view=shipments_info,
+        name='shipments'
+    )
 
+]

@@ -41,7 +41,6 @@ urlpatterns += [
             login_required(salesGraphics.page), name='chart_sales'),
         url(r'^chart_products/',
             login_required(productsGraphics.page), name='chart_products'),
-        url(r'^shipments/', shipments.page, name='shipments'),
         # LANDING static pages - miscellaneous/information
         url(r'^landing/', include('landing.urls', namespace='landing')),
         # Contact Form

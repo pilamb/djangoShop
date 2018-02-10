@@ -1,9 +1,8 @@
 from django.conf.urls import url
 
 
-from .views import SaleListView, SaleDetailView, OrderDeleteView, \
+from .views import SaleDetailView, OrderDeleteView, \
     OrderListView, OrdersUserModelListView, OrderDetailView, OrderUpdateView,\
-    OrderDeleteView, SalesUserModelListView, \
     ShipmentDetailView, InvoicePDFModel
 
 
@@ -50,4 +49,3 @@ urlpatterns = [
         name='print_invoice',
     ),
 ]
-

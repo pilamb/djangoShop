@@ -24,3 +24,7 @@ def terms_view(request):
 
 def info_view(request):
     return render(request, 'landing/info.html')
+
+
+def shipments_info(request):
+    return render(request, 'landing/shipments.html')
