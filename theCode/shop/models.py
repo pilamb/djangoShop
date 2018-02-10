@@ -127,8 +127,9 @@ class Order(models.Model):
 
     def generate_payment_code(self):
         """
-        Generates a random number between the current generation day and thousand the times
-        , in a range of 1000 more. That number MUST be pointed by the client when the
+        Generates a random number between the current generation
+        day and thousand the times, in a range of 1000 more.
+        That number MUST be pointed by the client when the
         money withadrawal is done. Product payment reference.
         """
         low_range = int(date.today().day)*1000
@@ -137,7 +138,7 @@ class Order(models.Model):
         return unicode(secret)
 
     #
-    # States of transition 
+    #  States of transition
     #
 
     def still_guaranteed(self):
@@ -168,13 +169,14 @@ class Order(models.Model):
                             u"Or if it is a reship, change the created one."
 
     #
-    #  Transition from states 
+    #  Transition from states
     #
 
     @transition(field=state, source=Status.ON_HOLD, target=Status.ACCEPTED)
     def accept(self):
         """
-        Some Admin user must accept the order. Generate data fot the payment. A unique key code is provided.
+        Some Admin user must accept the order. Generate data for
+        the payment. A unique key code is provided.
         With that the user can use it as concept fot Paypal or so.
         Notifies the user.
         """
@@ -192,7 +194,7 @@ class Order(models.Model):
         Admin confirms receiving the payment.
         Notifies the user and creates a instance of sale.
         """
-        v = Sale(price=self.modulo.price,code=self.payment_code)
+        v = Sale(price=self.modulo.price, code=self.payment_code)
         v.save()
         self.icon = "credit-card"
         self.paid = True

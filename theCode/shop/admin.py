@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from django.contrib import admin
-from models import Order,Shipment
-from fsm_admin.mixins import FSMTransitionMixin # very cool FSM!!
+from models import Order, Shipment
+from fsm_admin.mixins import FSMTransitionMixin  # very cool FSM!!
 
 
 class OrderAdmin(FSMTransitionMixin, admin.ModelAdmin):
@@ -20,7 +20,8 @@ class ShipmentAdmin(admin.ModelAdmin):
               'shipment_price',
               'order', 'date_received', 'additional_info', 'received', 'comp')
     exclude = ('sign_date',)
-    list_display = ('tracking_number', 'sign_date', 'received', 'order', 'comp')
+    list_display = ('tracking_number', 'sign_date',
+                    'received', 'order', 'comp')
     search_fields = ('tracking_number', 'sign_date')
 
 

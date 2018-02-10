@@ -20,8 +20,8 @@ class NewConcreteOrderForm(forms.Form):
 
     required_css_class = "required"
     error_css_class = "notified-danger"
-    # TODO: captcha removed for testing
-    # captcha = CaptchaField()
+    #  TODO: captcha removed for testing
+    #  captcha = CaptchaField()
     text = forms.CharField(
         max_length=1000,
         required=False,
@@ -76,11 +76,10 @@ def page(request, pk):
                     new_message = ContactMessage(
                         user=user,
                         notified=False,
-                        text=
-                        u"""Congratulations, the order has been created
-                        correctly and it is in the state %s.
-                        Soon you will receive confirmation of the states changes
-                        . Thanks""" % p.state)
+                        text=u"""Congratulations, the order has been created \
+                        correctly and it is in the state %s. \
+                        Soon you will receive confirmation \
+                        of the states changes. Thanks""" % p.state)
                     new_message.save()
                     mod.quitar_of_sale()
                     mod.save()
